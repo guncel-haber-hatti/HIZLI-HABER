@@ -1,94 +1,118 @@
-// mega-news-full.js
-// Çalıştır: node mega-news-full.js
-const express=require('express');
-const mongoose=require('mongoose');
-const cors=require('cors');
-const Parser=require('rss-parser');
-const http=require('http');
-const {Server}=require('socket.io');
-const app=express();
+// mega-news-single.js
+// Çalıştır: node mega-news-single.js
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const Parser = require('rss-parser');
+const http = require('http');
+const { Server } = require('socket.io');
+
+const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/megaNews',{useNewUrlParser:true,useUnifiedTopology:true})
-.then(()=>console.log('MongoDB bağlı')).catch(err=>console.log(err));
+// MongoDB bağlantısı
+mongoose.connect('mongodb://localhost:27017/megaNews', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB bağlı'))
+  .catch(err => console.log(err));
 
-const server=http.createServer(app);
-const io=new Server(server,{cors:{origin:"*"}});
+const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: "*" } });
 
-const newsSchema=new mongoose.Schema({
- title:String,summary:String,content:String,image:String,
- language:{type:String,default:'tr'},
- views:{type:Number,default:0},
- createdAt:{type:Date,default:Date.now}
+// Haber şeması
+const newsSchema = new mongoose.Schema({
+  title: String,
+  summary: String,
+  content: String,
+  image: String,
+  language: { type: String, default: 'tr' },
+  views: { type: Number, default: 0 },
+  createdAt: { type: Date, default: Date.now }
 });
-const News=mongoose.model('News',newsSchema);
+const News = mongoose.model('News', newsSchema);
 
-async function fetchNews(){
- const parser=new Parser();
- const feeds=['https://www.hurriyet.com.tr/rss/gundem','http://feeds.bbci.co.uk/news/world/rss.xml'];
- for(let url of feeds){
-  const feed=await parser.parseURL(url);
-  for(let item of feed.items){
-   const exists=await News.findOne({title:item.title});
-   if(!exists){
-    const news=new News({
-     title:item.title,
-     summary:item.contentSnippet,
-     content:item.content,
-     image:item.enclosure?.url||'',
-     language:url.includes('bbc')?'en':'tr'
-    });
-    await news.save();
-    io.emit("new-news",news);
-   }
+// RSS haber çekme
+async function fetchNews() {
+  const parser = new Parser();
+  const feeds = [
+    'https://www.hurriyet.com.tr/rss/gundem',
+    'http://feeds.bbci.co.uk/news/world/rss.xml'
+  ];
+  for (let url of feeds) {
+    const feed = await parser.parseURL(url);
+    for (let item of feed.items) {
+      const exists = await News.findOne({ title: item.title });
+      if (!exists) {
+        const news = new News({
+          title: item.title,
+          summary: item.contentSnippet,
+          content: item.content,
+          image: item.enclosure?.url || '',
+          language: url.includes('bbc') ? 'en' : 'tr'
+        });
+        await news.save();
+        io.emit("new-news", news);
+      }
+    }
   }
- }
 }
-setInterval(fetchNews,1000*60*60);
+setInterval(fetchNews, 1000*60*60); // Her saat başı çek
 fetchNews();
 
-app.get('/news',async(req,res)=>{res.json(await News.find().sort({createdAt:-1}).limit(50));});
-app.post('/news/:id/view',async(req,res)=>{const n=await News.findById(req.params.id);if(n){n.views=(n.views||0)+1;await n.save();}res.sendStatus(200);});
+// API
+app.get('/news', async (req, res) => {
+  const news = await News.find().sort({ createdAt: -1 }).limit(50);
+  res.json(news);
+});
+app.post('/news/:id/view', async (req, res) => {
+  const news = await News.findById(req.params.id);
+  if(news){ news.views = (news.views||0)+1; await news.save(); }
+  res.sendStatus(200);
+});
 
-app.get('/',(req,res)=>{res.send(`
-<html>
-<head>
-<title>Mega Haber</title>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<style>
-body{font-family:sans-serif;background:#f0f0f0;margin:0;padding:10px;}
-.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
-.card{background:white;border-radius:8px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1);cursor:pointer;transition:0.2s;}
-.card:hover{box-shadow:0 5px 15px rgba(0,0,0,0.2);}
-img{width:100%;height:200px;object-fit:cover;}
-h2{margin:10px;font-size:1.2rem;}
-p{margin:10px;font-size:0.9rem;color:#555;}
-.views{margin:10px;font-size:0.8rem;color:#888;}
-</style>
-</head>
-<body>
-<h1 style="text-align:center;">Mega Haberler</h1>
-<div class="grid" id="news"></div>
-<script src="/socket.io/socket.io.js"></script>
-<script>
-const socket=io();
-const newsDiv=document.getElementById('news');
-function addNews(n){
- const div=document.createElement('div');
- div.className='card';
- div.innerHTML='<h2>'+n.title+'</h2>'+
-               (n.image?'<img src="'+n.image+'"/>':'')+
-               '<p>'+n.summary+'</p>'+
-               '<div class="views">Okunma: '+(n.views||0)+'</div>';
- div.onclick=()=>fetch('/news/'+n._id+'/view',{method:'POST'});
- newsDiv.prepend(div);
-}
-fetch('/news').then(r=>r.json()).then(arr=>arr.forEach(addNews));
-socket.on('new-news',addNews);
-</script>
-</body>
-</html>
-`);});
+// Frontend tek dosya HTML
+app.get('/', (req,res)=>{
+  res.send(`
+  <html>
+    <head>
+      <title>Mega Haber</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <style>
+        body{font-family:sans-serif;background:#f0f0f0;margin:0;padding:10px;}
+        .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+        .card{background:white;border-radius:8px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1);cursor:pointer;transition:0.2s;}
+        .card:hover{box-shadow:0 5px 15px rgba(0,0,0,0.2);}
+        img{width:100%;height:200px;object-fit:cover;}
+        h2{margin:10px;font-size:1.2rem;}
+        p{margin:10px;font-size:0.9rem;color:#555;}
+        .views{margin:10px;font-size:0.8rem;color:#888;}
+      </style>
+    </head>
+    <body>
+      <h1 style="text-align:center;">Mega Haberler</h1>
+      <div class="grid" id="news"></div>
+      <script src="/socket.io/socket.io.js"></script>
+      <script>
+        const socket = io();
+        const newsDiv = document.getElementById('news');
+
+        function addNews(n){
+          const div = document.createElement('div');
+          div.className='card';
+          div.innerHTML='<h2>'+n.title+'</h2>'+
+                        (n.image?'<img src="'+n.image+'"/>':'')+
+                        '<p>'+n.summary+'</p>'+
+                        '<div class="views">Okunma: '+(n.views||0)+'</div>';
+          div.onclick=()=>fetch('/news/'+n._id+'/view',{method:'POST'});
+          newsDiv.prepend(div);
+        }
+
+        fetch('/news').then(r=>r.json()).then(arr=>arr.forEach(addNews));
+        socket.on('new-news',addNews);
+      </script>
+    </body>
+  </html>
+  `);
+});
 
 server.listen(5000,()=>console.log('Mega Haber Sitesi 5000 portunda çalışıyor'));
