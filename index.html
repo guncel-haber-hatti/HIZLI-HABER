@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Türkiye Haber</title>
+<title>Türkiye Haber Portalı</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
-background:#f2f2f2;
+font-family:Arial,Helvetica,sans-serif;
+background:#f3f3f3;
 }
 
 header{
@@ -34,13 +34,67 @@ text-decoration:none;
 font-weight:bold;
 }
 
+.breaking{
+background:red;
+color:white;
+padding:8px;
+overflow:hidden;
+}
+
+.breaking span{
+display:inline-block;
+animation:scroll 18s linear infinite;
+}
+
+@keyframes scroll{
+0%{transform:translateX(100%)}
+100%{transform:translateX(-100%)}
+}
+
 .container{
 max-width:1200px;
 margin:auto;
 padding:20px;
 }
 
+.slider{
+position:relative;
+height:420px;
+overflow:hidden;
+border-radius:10px;
+}
+
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+opacity:0;
+transition:opacity 1s;
+}
+
+.slide.active{
+opacity:1;
+}
+
+.slide img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.slideText{
+position:absolute;
+bottom:30px;
+left:30px;
+background:rgba(0,0,0,.6);
+color:white;
+padding:15px;
+font-size:24px;
+border-radius:6px;
+}
+
 .grid{
+margin-top:25px;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:20px;
@@ -51,43 +105,59 @@ background:white;
 border-radius:10px;
 overflow:hidden;
 cursor:pointer;
-box-shadow:0 5px 15px rgba(0,0,0,.2);
+box-shadow:0 5px 20px rgba(0,0,0,.15);
 transition:.3s;
 }
 
 .card:hover{
-transform:translateY(-5px);
+transform:translateY(-8px) scale(1.02);
+box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
 
 .card img{
 width:100%;
-height:160px;
+height:170px;
 object-fit:cover;
 }
 
 .card h3{
-padding:10px;
+padding:12px;
+font-size:18px;
 }
 
 .article{
 background:white;
-padding:20px;
+padding:25px;
 border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,.2);
+box-shadow:0 5px 25px rgba(0,0,0,.2);
+animation:fade .5s;
 }
 
 .article img{
 width:100%;
 border-radius:10px;
-margin-bottom:15px;
+margin-bottom:20px;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(15px)}
+to{opacity:1}
 }
 
 .back{
-margin-bottom:20px;
+margin-bottom:15px;
 display:inline-block;
-cursor:pointer;
 color:#c40000;
 font-weight:bold;
+cursor:pointer;
+}
+
+footer{
+margin-top:40px;
+background:#111;
+color:white;
+padding:20px;
+text-align:center;
 }
 
 </style>
@@ -95,17 +165,21 @@ font-weight:bold;
 
 <body>
 
-<header>
-TÜRKİYE HABER
-</header>
+<header>TÜRKİYE HABER PORTALI</header>
 
 <nav>
-<a href="#" onclick="home()">Ana Sayfa</a>
+<a onclick="home()">Ana Sayfa</a>
 </nav>
+
+<div class="breaking">
+<span>SON DAKİKA • Türkiye gündeminde önemli gelişmeler • Ekonomi piyasaları hareketli • Spor dünyasında transfer iddiaları</span>
+</div>
 
 <div class="container">
 
 <div id="home">
+
+<div class="slider" id="slider"></div>
 
 <div class="grid" id="news"></div>
 
@@ -115,60 +189,47 @@ TÜRKİYE HABER
 
 </div>
 
+<footer>
+© 2026 Türkiye Haber Portalı
+</footer>
+
 <script>
 
 let news=[
 
 {
-title:"Türkiye 2026 Dünya Kupası'na katılma hedefiyle hazırlıklarını sürdürüyor",
-img:"https://picsum.photos/600/400?1",
-content:`Türkiye milli futbol takımı uzun yıllar sonra Dünya Kupası hedefiyle hazırlıklarını sürdürüyor. 
-Takımda genç oyuncuların performansı dikkat çekerken teknik ekip turnuvada grup aşamasını geçmeyi hedefliyor. 
-Futbol kamuoyunda ise yeni jenerasyonun Türkiye için büyük başarı getirebileceği konuşuluyor.`
+title:"Türkiye ekonomisinde yeni reform paketi açıklandı",
+img:"https://picsum.photos/800/500?1",
+content:`Ekonomi yönetimi yeni reform paketini açıkladı. Paket kapsamında yatırım ortamının iyileştirilmesi ve üretimin artırılması hedefleniyor. Uzmanlar reformların ekonomiye olumlu katkı sağlayabileceğini belirtiyor.`
 },
 
 {
-title:"İstanbul için dev demiryolu projesine milyarlarca dolarlık finansman",
-img:"https://picsum.photos/600/400?2",
-content:`İstanbul'da planlanan yeni demiryolu hattı için uluslararası finans kuruluşlarından milyarlarca dolarlık destek sağlandı. 
-Projenin tamamlanmasıyla hem yolcu taşımacılığı hem de yük taşımacılığı kapasitesinin ciddi şekilde artması bekleniyor. 
-Uzmanlara göre proje İstanbul ulaşımında önemli bir dönüşüm yaratabilir.`
-
+title:"İstanbul'da dev ulaşım projesi başlıyor",
+img:"https://picsum.photos/800/500?2",
+content:`İstanbul ulaşımını rahatlatacak yeni metro ve demiryolu projeleri için çalışmalar hızlandı. Projenin tamamlanmasıyla milyonlarca yolcunun daha hızlı ulaşım sağlaması bekleniyor.`
 },
 
 {
-title:"Türkiye'de 5G dönemi başlıyor",
-img:"https://picsum.photos/600/400?3",
-content:`Türkiye'de yeni nesil mobil teknoloji olan 5G için çalışmalar hız kazandı. 
-Yetkililer 5G teknolojisinin özellikle internet hızında büyük artış sağlayacağını ve sanayi, sağlık ve ulaşım alanlarında yeni imkanlar yaratacağını belirtiyor.`
-
+title:"Milli takım yeni turnuva için hazırlanıyor",
+img:"https://picsum.photos/800/500?3",
+content:`Türkiye milli futbol takımı yeni turnuva öncesi hazırlık kampına başladı. Teknik ekip genç oyunculara şans vermeyi planlıyor.`
 },
 
 {
-title:"Ekonomi yönetimi reform yılı mesajı verdi",
-img:"https://picsum.photos/600/400?4",
-content:`Ekonomi yönetimi 2026 yılı için reform odaklı bir program hazırlanacağını açıkladı. 
-Yeni düzenlemelerin yatırım ortamını güçlendirmesi ve ekonomik istikrarı artırması hedefleniyor.`
-
-},
-
-{
-title:"Ankara'da siyasi temaslar hız kazandı",
-img:"https://picsum.photos/600/400?5",
-content:`Başkent Ankara'da siyasi partiler arasında yoğun bir diplomasi trafiği yaşanıyor. 
-Farklı partilerin gerçekleştirdiği ziyaretler ve toplantılar gündemin önemli başlıkları arasında yer alıyor.`
-
+title:"Teknoloji şirketlerinden yeni yapay zeka yatırımı",
+img:"https://picsum.photos/800/500?4",
+content:`Dünya genelinde teknoloji şirketleri yapay zeka yatırımlarını artırıyor. Türkiye'deki teknoloji ekosisteminin de bu alanda büyümesi bekleniyor.`
 }
 
 ]
 
 function render(){
 
-let html=""
+let grid=""
 
 news.forEach((n,i)=>{
 
-html+=`
+grid+=`
 <div class="card" onclick="openNews(${i})">
 <img src="${n.img}">
 <h3>${n.title}</h3>
@@ -177,9 +238,42 @@ html+=`
 
 })
 
-document.getElementById("news").innerHTML=html
+document.getElementById("news").innerHTML=grid
+
+let slider=""
+
+news.slice(0,3).forEach((n,i)=>{
+
+slider+=`
+<div class="slide ${i==0?"active":""}">
+<img src="${n.img}">
+<div class="slideText">${n.title}</div>
+</div>
+`
+
+})
+
+document.getElementById("slider").innerHTML=slider
 
 }
+
+let slideIndex=0
+
+function autoSlide(){
+
+let slides=document.querySelectorAll(".slide")
+
+slides.forEach(s=>s.classList.remove("active"))
+
+slideIndex++
+
+if(slideIndex>=slides.length)slideIndex=0
+
+slides[slideIndex].classList.add("active")
+
+}
+
+setInterval(autoSlide,4000)
 
 function openNews(i){
 
