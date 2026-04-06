@@ -2,175 +2,221 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Türkiye Haber Ultra</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Türkiye Haber</title>
+
 <style>
-body{margin:0;font-family:Arial;background:#f2f2f2;transition:.3s}
-.dark{background:#111;color:white}
-header{background:#c40000;color:white;padding:14px;font-size:28px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000}
-nav{background:#111;padding:10px;overflow-x:auto;white-space:nowrap}
-nav a{color:white;margin-right:14px;text-decoration:none;font-weight:bold;display:inline-block;padding:6px 12px;border-radius:4px;transition:.2s}
-nav a:hover{background:#c40000}
-.container{width:95%;max-width:1300px;margin:auto}
-.breaking{background:red;color:white;padding:8px;overflow:hidden;font-weight:bold}
-.breaking span{display:inline-block;animation:flow 22s linear infinite}
-@keyframes flow{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
-.slider{position:relative;margin-top:15px;overflow:hidden;border-radius:10px}
-.slide{display:none;transition:.5s}
-.slide img{width:100%;height:420px;object-fit:cover;transition: transform .5s}
-.slide:hover img{transform:scale(1.05)}
-.slideText{position:absolute;bottom:30px;left:30px;background:rgba(0,0,0,.6);color:white;padding:15px;font-size:24px;border-radius:5px}
-.section{font-size:22px;font-weight:bold;margin-top:30px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin-top:15px}
-.card{background:white;border-radius:8px;overflow:hidden;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.2);transition:.3s}
-.dark .card{background:#222}
-.card:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,.3)}
-.card img{width:100%;height:150px;object-fit:cover;transition:.3s}
-.card h3{padding:10px;font-size:16px}
-.tags{padding:0 10px 10px 10px;font-size:12px;color:#888}
-.trend{background:white;padding:15px;margin-top:20px;border-radius:8px;box-shadow:0 5px 15px rgba(0,0,0,.1)}
-.dark .trend{background:#222}
-.trend li{margin:8px 0;transition:.2s}
-.trend li:hover{color:#c40000;cursor:pointer}
-.video{background:black;color:white;padding:20px;margin-top:20px;border-radius:10px}
-footer{background:#111;color:white;padding:30px;text-align:center;margin-top:40px}
-.search{padding:6px;border:none;border-radius:4px;width:180px}
-.admin{position:fixed;right:15px;bottom:15px;background:#111;color:white;padding:20px;border-radius:12px;width:240px;box-shadow:0 10px 20px rgba(0,0,0,.5);z-index:1000}
-.admin input,.admin select,.admin textarea{width:100%;margin-bottom:8px;padding:8px;border-radius:4px;border:none}
-button{background:#c40000;border:none;color:white;padding:10px;width:100%;border-radius:5px;cursor:pointer;transition:.2s}
-button:hover{background:#a30000}
-.pagination{margin-top:20px;text-align:center}
-.pagination button{margin:3px;padding:6px 10px;border-radius:4px;cursor:pointer;transition:.2s}
-.pagination button:hover{background:#c40000;color:white}
-.ad{background:#ddd;padding:20px;text-align:center;margin-top:20px;border-radius:8px;box-shadow:0 5px 15px rgba(0,0,0,.1)}
-.dark .ad{background:#333}
-@media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+body{
+margin:0;
+font-family:Arial;
+background:#f2f2f2;
+}
+
+header{
+background:#c40000;
+color:white;
+padding:15px;
+font-size:28px;
+font-weight:bold;
+text-align:center;
+}
+
+nav{
+background:#111;
+padding:10px;
+}
+
+nav a{
+color:white;
+margin-right:15px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+border-radius:10px;
+overflow:hidden;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card img{
+width:100%;
+height:160px;
+object-fit:cover;
+}
+
+.card h3{
+padding:10px;
+}
+
+.article{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.article img{
+width:100%;
+border-radius:10px;
+margin-bottom:15px;
+}
+
+.back{
+margin-bottom:20px;
+display:inline-block;
+cursor:pointer;
+color:#c40000;
+font-weight:bold;
+}
+
 </style>
 </head>
+
 <body>
 
-<header class="container">
-<span>TÜRKİYE HABER ULTRA</span>
-<div>
-<input id="search" class="search" placeholder="Haber ara">
-<button onclick="mode()">🌙</button>
-</div>
+<header>
+TÜRKİYE HABER
 </header>
 
 <nav>
-<a onclick="filterCat('all')">Tümü</a>
-<a onclick="filterCat('gundem')">Gündem</a>
-<a onclick="filterCat('spor')">Spor</a>
-<a onclick="filterCat('teknoloji')">Teknoloji</a>
-<a onclick="filterCat('ekonomi')">Ekonomi</a>
+<a href="#" onclick="home()">Ana Sayfa</a>
 </nav>
-
-<div class="breaking">
-<span>SON DAKİKA • Türkiye gündeminde flaş gelişme • Ekonomi piyasaları hareketlendi • Spor dünyasında sürpriz transfer • Teknoloji devinden yeni ürün</span>
-</div>
 
 <div class="container">
 
-<div class="slider">
-<div class="slide"><img src="https://picsum.photos/1200/420?1"><div class="slideText">Türkiye gündemini değiştiren olay</div></div>
-<div class="slide"><img src="https://picsum.photos/1200/420?2"><div class="slideText">Ekonomide yeni karar açıklandı</div></div>
-<div class="slide"><img src="https://picsum.photos/1200/420?3"><div class="slideText">Dünya basını Türkiye'yi konuşuyor</div></div>
-</div>
+<div id="home">
 
-<div class="ad">REKLAM ALANI</div>
-
-<div class="section">HABERLER</div>
 <div class="grid" id="news"></div>
-<div class="pagination" id="pages"></div>
-
-<div class="section">TREND HABERLER</div>
-<div class="trend">
-<ul>
-<li>Türkiye gündeminde sıcak gelişme</li>
-<li>Ekonomide yeni karar</li>
-<li>Dünya basını Türkiye'yi konuşuyor</li>
-<li>Spor dünyasında sürpriz transfer</li>
-<li>Teknoloji devinden yeni ürün</li>
-</ul>
-</div>
-
-<div class="section">VİDEO</div>
-<div class="video">
-<iframe width="100%" height="400" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-</div>
-
-<div class="admin">
-<b>Haber Ekle / Düzenle</b>
-<input id="title" placeholder="Başlık">
-<input id="img" placeholder="Resim URL">
-<textarea id="text" placeholder="Haber metni"></textarea>
-<select id="cat">
-<option value="gundem">Gündem</option>
-<option value="spor">Spor</option>
-<option value="teknoloji">Teknoloji</option>
-<option value="ekonomi">Ekonomi</option>
-</select>
-<button onclick="add()">Ekle</button>
-</div>
 
 </div>
 
-<footer>
-<p>© 2026 Türkiye Haber Ultra</p>
-<p>Gündem • Dünya • Ekonomi • Spor • Teknoloji</p>
-</footer>
+<div id="articlePage" style="display:none"></div>
+
+</div>
 
 <script>
-let newsData=JSON.parse(localStorage.getItem("news")||"[]")
-if(newsData.length==0){
-newsData=[
-{title:"Türkiye siyasetinde kritik açıklama",img:"https://picsum.photos/300/200?1",cat:"gundem",text:"Türkiye genelinde önemli gelişmeler yaşanıyor."},
-{title:"Derbi heyecanı başladı",img:"https://picsum.photos/300/200?2",cat:"spor",text:"Futbol dünyasında heyecan dorukta."},
-{title:"Yeni telefon tanıtıldı",img:"https://picsum.photos/300/200?3",cat:"teknoloji",text:"Teknoloji dünyası yeni cihazı konuşuyor."},
-{title:"Ekonomide yeni karar",img:"https://picsum.photos/300/200?4",cat:"ekonomi",text:"Ekonomi piyasalarında hareketlilik başladı."}
+
+let news=[
+
+{
+title:"Türkiye 2026 Dünya Kupası'na katılma hedefiyle hazırlıklarını sürdürüyor",
+img:"https://picsum.photos/600/400?1",
+content:`Türkiye milli futbol takımı uzun yıllar sonra Dünya Kupası hedefiyle hazırlıklarını sürdürüyor. 
+Takımda genç oyuncuların performansı dikkat çekerken teknik ekip turnuvada grup aşamasını geçmeyi hedefliyor. 
+Futbol kamuoyunda ise yeni jenerasyonun Türkiye için büyük başarı getirebileceği konuşuluyor.`
+},
+
+{
+title:"İstanbul için dev demiryolu projesine milyarlarca dolarlık finansman",
+img:"https://picsum.photos/600/400?2",
+content:`İstanbul'da planlanan yeni demiryolu hattı için uluslararası finans kuruluşlarından milyarlarca dolarlık destek sağlandı. 
+Projenin tamamlanmasıyla hem yolcu taşımacılığı hem de yük taşımacılığı kapasitesinin ciddi şekilde artması bekleniyor. 
+Uzmanlara göre proje İstanbul ulaşımında önemli bir dönüşüm yaratabilir.`
+
+},
+
+{
+title:"Türkiye'de 5G dönemi başlıyor",
+img:"https://picsum.photos/600/400?3",
+content:`Türkiye'de yeni nesil mobil teknoloji olan 5G için çalışmalar hız kazandı. 
+Yetkililer 5G teknolojisinin özellikle internet hızında büyük artış sağlayacağını ve sanayi, sağlık ve ulaşım alanlarında yeni imkanlar yaratacağını belirtiyor.`
+
+},
+
+{
+title:"Ekonomi yönetimi reform yılı mesajı verdi",
+img:"https://picsum.photos/600/400?4",
+content:`Ekonomi yönetimi 2026 yılı için reform odaklı bir program hazırlanacağını açıkladı. 
+Yeni düzenlemelerin yatırım ortamını güçlendirmesi ve ekonomik istikrarı artırması hedefleniyor.`
+
+},
+
+{
+title:"Ankara'da siyasi temaslar hız kazandı",
+img:"https://picsum.photos/600/400?5",
+content:`Başkent Ankara'da siyasi partiler arasında yoğun bir diplomasi trafiği yaşanıyor. 
+Farklı partilerin gerçekleştirdiği ziyaretler ve toplantılar gündemin önemli başlıkları arasında yer alıyor.`
+
+}
+
 ]
-}
-let page=1, per=8, currentCat="all"
+
 function render(){
-let list=newsData.filter(n=>currentCat=="all"||n.cat==currentCat)
-let start=(page-1)*per
-let items=list.slice(start,start+per)
+
 let html=""
-items.forEach(n=>{
-html+=`<div class="card"><img src="${n.img}"><h3>${n.title}</h3><div class="tags">${n.cat}</div><p>${n.text}</p></div>`
+
+news.forEach((n,i)=>{
+
+html+=`
+<div class="card" onclick="openNews(${i})">
+<img src="${n.img}">
+<h3>${n.title}</h3>
+</div>
+`
+
 })
+
 document.getElementById("news").innerHTML=html
-let pages=Math.ceil(list.length/per)
-let phtml=""
-for(let i=1;i<=pages;i++){phtml+=`<button onclick="go(${i})">${i}</button>`}
-document.getElementById("pages").innerHTML=phtml
-localStorage.setItem("news",JSON.stringify(newsData))
+
 }
-function go(p){page=p;render()}
-function add(){
-let t=document.getElementById("title").value
-let i=document.getElementById("img").value
-let c=document.getElementById("cat").value
-let txt=document.getElementById("text").value
-newsData.unshift({title:t,img:i,cat:c,text:txt})
-render()
-document.getElementById("title").value=""
-document.getElementById("img").value=""
-document.getElementById("text").value=""
+
+function openNews(i){
+
+let n=news[i]
+
+document.getElementById("home").style.display="none"
+
+document.getElementById("articlePage").style.display="block"
+
+document.getElementById("articlePage").innerHTML=`
+
+<div class="article">
+
+<div class="back" onclick="home()">← Ana sayfa</div>
+
+<h1>${n.title}</h1>
+
+<img src="${n.img}">
+
+<p>${n.content}</p>
+
+</div>
+
+`
+
 }
-function filterCat(c){currentCat=c;page=1;render()}
-document.getElementById("search").addEventListener("keyup",e=>{
-let v=e.target.value.toLowerCase()
-document.querySelectorAll(".card").forEach(c=>{
-c.style.display=c.innerText.toLowerCase().includes(v)?"block":"none"
-})
-})
-function mode(){document.body.classList.toggle("dark")}
+
+function home(){
+
+document.getElementById("articlePage").style.display="none"
+
+document.getElementById("home").style.display="block"
+
+}
+
 render()
-let i=0
-let slides=document.querySelectorAll(".slide")
-function slider(){slides.forEach(s=>s.style.display="none");i++;if(i>slides.length)i=1;slides[i-1].style.display="block";setTimeout(slider,3500)}
-slider()
+
 </script>
 
 </body>
