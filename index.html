@@ -3,64 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>GÜNCEL HABER | Haber Portalı</title>
+    <title>GÜNCEL HABER | Türkiye'nin Haber Merkezi</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --main-red: #cc0000; --dark: #1a1a1a; --text: #333; --border: #ececec; }
+        :root { --main-red: #cc0000; --dark: #1a1a1a; --text: #333; --border: #ececec; --bg: #fdfdfd; }
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Roboto', sans-serif; background: #f8f9fa; color: var(--text); line-height: 1.5; }
+        body { margin: 0; font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; overflow-x: hidden; }
 
-        header { background: #fff; border-bottom: 4px solid var(--main-red); padding: 10px 0; }
-        .logo { text-align: center; font-family: 'Oswald', sans-serif; font-size: 38px; font-weight: 700; text-transform: uppercase; letter-spacing: -1px; cursor: pointer; color: var(--dark); }
+        header { background: #fff; border-bottom: 4px solid var(--main-red); padding: 12px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .logo { text-align: center; font-family: 'Oswald', sans-serif; font-size: 42px; font-weight: 700; text-transform: uppercase; letter-spacing: -1.5px; cursor: pointer; color: var(--dark); }
         .logo span { color: var(--main-red); }
 
-        nav { background: var(--dark); position: sticky; top: 0; z-index: 1000; }
-        .nav-inner { max-width: 1100px; margin: auto; display: flex; justify-content: center; overflow-x: auto; }
-        nav a { color: #fff; text-decoration: none; padding: 12px 15px; font-size: 13px; font-weight: 700; text-transform: uppercase; transition: 0.2s; white-space: nowrap; cursor: pointer; }
-        nav a:hover { color: var(--main-red); }
+        nav { background: var(--dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .nav-inner { max-width: 1200px; margin: auto; display: flex; justify-content: center; overflow-x: auto; scrollbar-width: none; }
+        .nav-inner::-webkit-scrollbar { display: none; }
+        nav a { color: #fff; text-decoration: none; padding: 14px 18px; font-size: 13.5px; font-weight: 700; text-transform: uppercase; transition: 0.2s; white-space: nowrap; cursor: pointer; letter-spacing: 0.5px; }
+        nav a:hover { color: var(--main-red); background: rgba(255,255,255,0.03); }
 
-        .container { max-width: 1100px; margin: 15px auto; padding: 0 15px; }
-        .main-grid { display: grid; grid-template-columns: 1.8fr 1fr; gap: 15px; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
+        .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-bottom: 30px; }
 
         /* Manşet Alanı */
-        .headline { position: relative; height: 450px; background: #000; overflow: hidden; cursor: pointer; border-radius: 4px; }
-        .headline img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; opacity: 0.85; }
+        .headline { position: relative; height: 500px; background: #000; overflow: hidden; cursor: pointer; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .headline img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; opacity: 0.88; }
         .headline:hover img { opacity: 1; transform: scale(1.02); }
-        .headline-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: #fff; }
-        .tag { background: var(--main-red); color: #fff; padding: 3px 8px; font-size: 11px; font-weight: 700; display: inline-block; margin-bottom: 8px; border-radius: 2px; }
-        .headline-info h1 { margin: 0; font-size: 28px; line-height: 1.2; font-weight: 700; letter-spacing: -0.5px; }
+        .headline-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 30px; background: linear-gradient(transparent, rgba(0,0,0,0.95)); color: #fff; }
+        .tag { background: var(--main-red); color: #fff; padding: 4px 10px; font-size: 11px; font-weight: 700; display: inline-block; margin-bottom: 10px; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .headline-info h1 { margin: 0; font-size: 32px; line-height: 1.2; font-weight: 700; letter-spacing: -0.8px; }
 
         /* Yan Haberler */
         .side-news { display: flex; flex-direction: column; gap: 8px; }
-        .side-card { display: flex; background: #fff; height: 90px; border: 1px solid var(--border); cursor: pointer; border-radius: 3px; overflow: hidden; }
-        .side-card img { width: 120px; height: 100%; object-fit: cover; }
-        .side-card-body { padding: 10px; display: flex; align-items: center; }
-        .side-card-body h3 { margin: 0; font-size: 14px; font-weight: 700; line-height: 1.3; color: #222; }
+        .side-card { display: flex; background: #fff; height: 95px; border: 1px solid var(--border); cursor: pointer; border-radius: 3px; overflow: hidden; transition: 0.2s; }
+        .side-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-color: #ddd; }
+        .side-card img { width: 130px; height: 100%; object-fit: cover; }
+        .side-card-body { padding: 12px; display: flex; align-items: center; }
+        .side-card-body h3 { margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.35; color: #222; letter-spacing: -0.2px; }
 
-        /* Alt Haberler */
-        .section-title { border-left: 4px solid var(--main-red); padding-left: 12px; margin: 30px 0 15px; font-size: 18px; font-weight: 700; color: var(--dark); }
-        .news-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
-        .news-item { background: #fff; border: 1px solid var(--border); cursor: pointer; border-radius: 4px; overflow: hidden; transition: 0.2s; }
-        .news-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-        .news-item img { width: 100%; height: 150px; object-fit: cover; }
-        .news-item-content { padding: 12px; }
-        .news-item-content h4 { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.4; color: #333; }
+        /* Alt Haberler Grid */
+        .section-title { border-left: 5px solid var(--main-red); padding-left: 15px; margin: 40px 0 20px; font-size: 20px; font-weight: 700; color: var(--dark); text-transform: uppercase; letter-spacing: 1px; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .news-item { background: #fff; border: 1px solid var(--border); cursor: pointer; border-radius: 4px; overflow: hidden; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        .news-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-3px); }
+        .news-item img { width: 100%; height: 180px; object-fit: cover; }
+        .news-item-content { padding: 15px; }
+        .news-item-content h4 { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; color: #333; letter-spacing: -0.3px; }
 
-        /* Makale Detay */
-        .article-wrap { display: none; max-width: 800px; margin: 20px auto; background: #fff; padding: 35px; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .btn-back { display: inline-block; margin-bottom: 20px; color: var(--main-red); font-size: 13px; font-weight: 700; cursor: pointer; }
-        .article-title { font-size: 34px; font-weight: 700; line-height: 1.2; margin-bottom: 15px; color: #111; }
-        .article-meta { font-size: 12px; color: #888; padding: 10px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-bottom: 20px; }
-        .article-img { width: 100%; border-radius: 3px; margin-bottom: 25px; }
-        .article-content { font-size: 17px; line-height: 1.7; color: #444; letter-spacing: 0.2px; }
-        .article-content h3 { font-size: 22px; color: #000; margin: 30px 0 15px; border-left: 5px solid var(--main-red); padding-left: 15px; }
+        /* Makale Detay Sayfası */
+        .article-wrap { display: none; max-width: 850px; margin: 30px auto; background: #fff; padding: 40px; border-radius: 6px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); animation: fadeIn 0.4s ease; }
+        .btn-back { display: inline-block; margin-bottom: 25px; color: var(--main-red); font-size: 13px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-back:hover { text-decoration: underline; }
+        .article-title { font-size: 38px; font-weight: 700; line-height: 1.15; margin-bottom: 15px; color: #111; letter-spacing: -1px; }
+        .article-meta { font-size: 13px; color: #888; padding: 12px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-bottom: 25px; font-weight: 500; }
+        .article-img { width: 100%; border-radius: 4px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .article-content { font-size: 17.5px; line-height: 1.8; color: #444; letter-spacing: 0.1px; text-align: justify; }
+        .article-content b { color: #000; }
+        .article-content h3 { font-size: 24px; color: #000; margin: 35px 0 15px; border-left: 6px solid var(--main-red); padding-left: 18px; font-weight: 700; }
 
-        footer { background: var(--dark); color: #777; text-align: center; padding: 40px 20px; margin-top: 50px; font-size: 13px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media (max-width: 850px) {
+        footer { background: var(--dark); color: #888; text-align: center; padding: 50px 20px; margin-top: 60px; font-size: 13px; border-top: 6px solid var(--main-red); }
+        footer .footer-logo { font-family: 'Oswald', sans-serif; font-size: 24px; color: #fff; margin-bottom: 10px; text-transform: uppercase; }
+
+        @media (max-width: 900px) {
             .main-grid { grid-template-columns: 1fr; }
-            .headline { height: 320px; }
-            .article-title { font-size: 26px; }
+            .headline { height: 350px; }
+            .headline-info h1 { font-size: 24px; }
+            .article-title { font-size: 28px; }
+            .article-wrap { padding: 25px; }
         }
     </style>
 </head>
@@ -77,6 +86,7 @@
         <a onclick="goHome()">EKONOMİ</a>
         <a onclick="goHome()">SPOR</a>
         <a onclick="goHome()">MAGAZİN</a>
+        <a onclick="goHome()">TEKNOLOJİ</a>
     </div>
 </nav>
 
@@ -86,14 +96,18 @@
             <div class="headline" id="mainSlot" onclick="openNews(0)"></div>
             <div class="side-news" id="sideSlot"></div>
         </div>
-        <div class="section-title">DİĞER HABERLER</div>
-        <div class="news-row" id="rowSlot"></div>
+        
+        <div class="section-title">HABER AKIŞI</div>
+        <div class="news-grid" id="gridSlot"></div>
     </div>
+    
     <div id="articleView" class="article-wrap"></div>
 </div>
 
 <footer>
-    © 2026 GÜNCEL HABER - Türkiye'nin Bağımsız Haber Kaynağı
+    <div class="footer-logo">GÜNCEL HABER</div>
+    © 2026 GÜNCEL HABER - Türkiye'nin Bağımsız Haber Kaynağı<br>
+    Tüm Hakları Saklıdır.
 </footer>
 
 <script>
@@ -110,61 +124,16 @@
                 <h3>ZANLI E.S. HER YERDE ARANIYOR</h3>
                 Emniyet ekipleri, tetiği çeken ismin <b>E.S.</b> olduğunu kesinleştirdi. 25 yaşındaki zanlının suç dosyasında <b>24 ayrı kayıt</b> bulunduğu; daha önce de <b>silahla yaralama</b> ve <b>ruhsatsız silah bulundurma</b> suçlarından işlem gördüğü ortaya çıktı.`
         },
-        {
-            title: "Altın Fiyatlarında Rekor Seviye",
-            img: "https://picsum.photos/600/400?gold",
-            tag: "EKONOMİ",
-            content: "Küresel piyasalardaki belirsizlik altın fiyatlarını zirveye taşıdı. Yatırımcılar güvenli liman arayışını sürdürüyor."
-        },
-        {
-            title: "Yeni Yazılım Güncellemesi Yayınlandı",
-            img: "https://picsum.photos/600/400?code",
-            tag: "TEKNOLOJİ",
-            content: "Dünya genelinde milyonlarca kullanıcısı olan işletim sistemi, güvenlik açıklarını kapatan yeni sürümünü duyurdu."
-        },
-        {
-            title: "Şampiyonlar Ligi'nde Çeyrek Final Heyecanı",
-            img: "https://picsum.photos/600/400?soccer",
-            tag: "SPOR",
-            content: "Avrupa'nın en büyüğü olmak için sahaya çıkan dev kulüplerin mücadelesi nefes kesiyor. İşte eşleşmeler..."
-        }
-    ];
-
-    function render() {
-        const main = newsDB[0];
-        document.getElementById('mainSlot').innerHTML = `
-            <img src="${main.img}">
-            <div class="headline-info"><div class="tag">${main.tag}</div><h1>${main.title}</h1></div>
-        `;
-
-        let sideHtml = "";
-        newsDB.slice(1, 4).forEach((item, index) => {
-            sideHtml += `<div class="side-card" onclick="openNews(${index + 1})"><img src="${item.img}"><div class="side-card-body"><h3>${item.title}</h3></div></div>`;
-        });
-        document.getElementById('sideSlot').innerHTML = sideHtml;
-
-        let rowHtml = "";
-        newsDB.slice(1).forEach((item, index) => {
-            rowHtml += `<div class="news-item" onclick="openNews(${index + 1})"><img src="${item.img}"><div class="news-item-content"><h4>${item.title}</h4></div></div>`;
-        });
-        document.getElementById('rowSlot').innerHTML = rowHtml;
-    }
-
-    function openNews(idx) {
-        const item = newsDB[idx];
-        document.getElementById('homePage').style.display = "none";
-        const view = document.getElementById('articleView');
-        view.style.display = "block";
-        view.innerHTML = `<div class="btn-back" onclick="goHome()">← ANA SAYFA</div><h1 class="article-title">${item.title}</h1><div class="article-meta">06.04.2026 | 13:45</div><img class="article-img" src="${item.img}"><div class="article-content">${item.content}</div>`;
-        window.scrollTo(0,0);
-    }
-
-    function goHome() {
-        document.getElementById('articleView').style.display = "none";
-        document.getElementById('homePage').style.display = "block";
-    }
-
-    render();
-</script>
-</body>
-</html>
+        // Yan Haberler (Picsum ile gerçekçi)
+        { title: "Borsa İstanbul'da Rekor Kapanış!", img: "https://picsum.photos/600/400?business", tag: "EKONOMİ", content: "BIST 100 endeksi günü tarihi zirvede tamamladı. Yatırımcıların ilgisi teknoloji hisselerinde yoğunlaştı." },
+        { title: "Milli Takımda Kadro Revizyonu!", img: "https://picsum.photos/600/400?soccer", tag: "SPOR", content: "Teknik direktör, Euro 2026 elemeleri öncesi kadroda sürpriz değişikliklere gitti. Genç yıldızlar kampa çağrıldı." },
+        { title: "İstanbul'da Ulaşım Zammı Kapıda!", img: "https://picsum.photos/600/400?city", tag: "GÜNDEM", content: "UKOME toplantısından sızan bilgilere göre toplu taşıma ücretlerine yüzde 25 zam yapılması gündemde." },
+        
+        // Grid Haberleri (20-30 tane gerçekçi)
+        { title: "Yeni Katlanabilir Telefon Tanıtıldı!", img: "https://picsum.photos/600/400?phone", tag: "TEKNOLOJİ", content: "Teknoloji devi, merakla beklenen katlanabilir ekranlı yeni modelini görkemli bir lansmanla tanıttı." },
+        { title: "Ünlü Oyuncu Boşandı: 'Anlaşarak Ayrıldık'", img: "https://picsum.photos/600/400?actor", tag: "MAGAZİN", content: "Magazin dünyasının örnek çifti olarak gösterilen ikili, bugün tek celsede boşandı." },
+        { title: "Ege'de Turizm Sezonu Erken Açıldı!", img: "https://picsum.photos/600/400?beach", tag: "YAŞAM", content: "Hava sıcaklıklarının artmasıyla birlikte tatil beldelerinde yoğunluk şimdiden başladı." },
+        { title: "Kripto Para Piyasasında Büyük Çöküş!", img: "https://picsum.photos/600/400?bitcoin", tag: "EKONOMİ", content: "Lider kripto para birimi son 24 saatte yüzde 15 değer kaybetti. Yatırımcılar panikte." },
+        { title: "Şampiyonlar Ligi'nde Dev Eşleşme!", img: "https://picsum.photos/600/400?stadium", tag: "SPOR", content: "Çeyrek final kuraları çekildi. İspanyol devi ile İngiliz ekibi karşı karşıya gelecek." },
+        { title: "Asgari Ücret Tespit Komisyonu Toplanıyor!", img: "https://picsum.photos/600/400?money", tag: "GÜNDEM", content: "Milyonların gözü kulağı Ankara'da. Yeni asgari ücret için pazarlıklar yarın başlıyor." },
+        { title: "Uzaydan İlk Turistik Uçuş Başarıyla Tamamlandı!", img: "https://picsum.photos/600/400?space", tag: "TEKNOLOJİ", content: "Sivil yolcuları
