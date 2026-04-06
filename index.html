@@ -4,52 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GÜNCEL HABER | Son Dakika</title>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=Lora:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        /* GENEL AYARLAR - FERAH VE OKUNAKLI */
-        :root { --red: #c00; --text: #222; --light-text: #555; }
-        * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Source Sans Pro', sans-serif; background: #fff; color: var(--text); -webkit-font-smoothing: antialiased; }
+        :root { --red: #c00; --dark: #111; --text: #333; --border: #eee; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: var(--text); -webkit-font-smoothing: antialiased; line-height: 1.5; }
 
-        /* LOGO VE NAVİGASYON */
-        header { border-bottom: 4px solid var(--red); padding: 25px 0; text-align: center; }
-        .logo { font-family: 'Lora', serif; font-size: 42px; font-weight: 700; text-transform: uppercase; color: #000; text-decoration: none; cursor: pointer; }
+        /* LOGO & NAV - Kompakt Tasarım */
+        header { border-bottom: 3px solid var(--red); padding: 12px 0; text-align: center; background: #fff; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 900; text-decoration: none; color: #000; letter-spacing: -1px; cursor: pointer; }
         .logo span { color: var(--red); }
         
-        nav { background: #111; position: sticky; top: 0; z-index: 1000; }
-        .nav-inner { max-width: 1000px; margin: auto; display: flex; justify-content: center; }
-        nav a { color: #fff; text-decoration: none; padding: 15px 20px; font-size: 14px; font-weight: 700; cursor: pointer; }
+        nav { background: var(--dark); position: sticky; top: 0; z-index: 1000; }
+        .nav-inner { max-width: 900px; margin: auto; display: flex; overflow-x: auto; scrollbar-width: none; }
+        nav a { color: #fff; text-decoration: none; padding: 12px 18px; font-size: 11px; font-weight: 700; text-transform: uppercase; cursor: pointer; }
 
-        /* HABER SAYFASI DÜZENİ */
-        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        /* CONTAINER */
+        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
         
-        /* ANA SAYFA GÖRÜNÜMÜ */
-        .main-card { cursor: pointer; margin-bottom: 60px; }
-        .main-card img { width: 100%; height: auto; border-radius: 4px; }
-        .main-card h1 { font-family: 'Lora', serif; font-size: 36px; margin: 20px 0; line-height: 1.2; }
-        .tag { color: var(--red); font-weight: 700; font-size: 13px; text-transform: uppercase; }
+        /* MANŞET - Ekrana Sığan Boyut */
+        .main-hero { cursor: pointer; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+        .main-hero img { width: 100%; height: 350px; object-fit: cover; border-radius: 4px; }
+        .main-hero h1 { font-family: 'Playfair Display', serif; font-size: 26px; margin: 12px 0 6px; line-height: 1.2; font-weight: 900; }
+        .tag { color: var(--red); font-weight: 700; font-size: 10px; text-transform: uppercase; border: 1px solid var(--red); padding: 1px 5px; border-radius: 2px; }
 
-        /* MAKALE DETAYI - YAZI BOYUTLARI BURADA DÜZELTİLDİ */
-        #articleView { display: none; }
-        .btn-back { display: inline-block; margin-bottom: 20px; color: #888; font-weight: 700; cursor: pointer; font-size: 14px; }
-        
-        .article-title { font-family: 'Lora', serif; font-size: 40px; line-height: 1.1; margin-bottom: 20px; color: #000; }
-        .meta { color: #888; font-size: 13px; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        
-        .main-img { width: 100%; height: auto; margin-bottom: 30px; border-radius: 4px; }
-        
-        /* İNSAN GİBİ OKUNAN YAZI DAĞILIMI */
-        .article-content { font-size: 19px; line-height: 1.8; color: #333; text-align: left; }
-        .article-content p { margin-bottom: 25px; } /* Paragraflar arası boşluk */
+        /* DİĞER HABERLER GRİDİ */
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-top: 20px; }
+        .news-card { cursor: pointer; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        .news-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 3px; margin-bottom: 10px; }
+        .news-card h3 { font-size: 15px; font-weight: 700; line-height: 1.4; color: #222; }
+
+        /* HABER DETAYI - Okunaklı ve Sığan Yazı Boyutu */
+        #articleView { display: none; max-width: 750px; margin: auto; animation: fadeIn 0.3s; }
+        .btn-back { display: inline-block; margin-bottom: 15px; color: #888; font-weight: 700; cursor: pointer; font-size: 11px; text-transform: uppercase; }
+        .article-title { font-family: 'Playfair Display', serif; font-size: 32px; line-height: 1.1; margin-bottom: 15px; color: #000; font-weight: 900; }
+        .meta { color: #999; font-size: 11px; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+        .article-img { width: 100%; height: auto; margin-bottom: 20px; border-radius: 4px; }
+        .article-content { font-size: 15px; line-height: 1.7; color: #333; text-align: justify; }
+        .article-content p { margin-bottom: 12px; }
         .article-content b { color: #000; }
-        
-        .sub-header { font-family: 'Lora', serif; font-size: 26px; margin: 45px 0 15px; color: #000; border-left: 5px solid var(--red); padding-left: 15px; }
+        .sub-header { font-family: 'Playfair Display', serif; font-size: 20px; margin: 25px 0 10px; color: #000; border-left: 4px solid var(--red); padding-left: 10px; }
 
-        footer { text-align: center; padding: 50px; color: #aaa; font-size: 13px; border-top: 1px solid #eee; margin-top: 50px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        footer { text-align: center; padding: 40px; color: #ccc; font-size: 11px; border-top: 1px solid var(--border); margin-top: 40px; }
 
         @media (max-width: 600px) {
-            .article-title { font-size: 28px; }
-            .article-content { font-size: 18px; }
+            .main-hero img { height: 220px; }
+            .article-title { font-size: 24px; }
         }
     </style>
 </head>
@@ -63,58 +64,88 @@
     <div class="nav-inner">
         <a onclick="goHome()">ASAYİŞ</a>
         <a onclick="goHome()">GÜNDEM</a>
+        <a onclick="goHome()">EKONOMİ</a>
         <a onclick="goHome()">DÜNYA</a>
         <a onclick="goHome()">SPOR</a>
+        <a onclick="goHome()">MAGAZİN</a>
     </div>
 </nav>
 
 <div class="container">
     <div id="homePage">
-        <div class="main-card" onclick="openNews()">
-            <img src="https://raw.githubusercontent.com/guncel-haber-hatti/HIZLI-HABER/main/71DA2E6F-5915-420E-B581-9A12F1940F1C.jpeg" alt="Haber">
-            <div style="padding-top:15px;">
+        <div class="main-hero" onclick="openNews(0)">
+            <img src="https://raw.githubusercontent.com/guncel-haber-hatti/HIZLI-HABER/main/71DA2E6F-5915-420E-B581-9A12F1940F1C.jpeg">
+            <div style="margin-top:10px;">
                 <span class="tag">SON DAKİKA</span>
                 <h1>Kapaklı’da Dehşet Gecesi: Sokak Ortası Savaş Alanına Döndü!</h1>
             </div>
         </div>
+
+        <div style="font-weight: 900; border-bottom: 2px solid #000; padding-bottom: 5px; margin: 30px 0 15px; font-size: 14px;">GÜNCEL HABER AKIŞI</div>
+        <div class="news-grid" id="newsGrid"></div>
     </div>
 
-    <div id="articleView">
-        <span class="btn-back" onclick="goHome()">← ANA SAYFAYA DÖN</span>
-        <h1 class="article-title">Kapaklı’da Dehşet Gecesi: Sokak Ortası Savaş Alanına Döndü!</h1>
-        <div class="meta">06 NİSAN 2026 | 14:12 - TEKİRDAĞ/KAPAKLI</div>
-        <img class="main-img" src="https://raw.githubusercontent.com/guncel-haber-hatti/HIZLI-HABER/main/71DA2E6F-5915-420E-B581-9A12F1940F1C.jpeg">
-        
-        <div class="article-content">
-            <p><b>TEKİRDAĞ / KAPAKLI</b> – Kapaklı ilçesinde dün gece saatlerinde meydana gelen silahlı çatışma, mahalle sakinlerine korku dolu anlar yaşattı. Edinilen bilgilere göre, aralarında geçmişe dayalı bir husumet bulunan iki grup, cadde üzerinde karşı karşıya geldi. Sözlü tartışmanın bir anda alevlenmesiyle taraflar arasında arbede çıktı.</p>
-            
-            <p>Silahların çekilmesiyle sokağın adeta savaş alanına döndüğü olayda, kurşunların hedefi olan <b>1 kişi hayatını kaybederken</b>, seken mermilerle yaralanan bir sivil ile birlikte toplam 2 kişi ağır yaralandı.</p>
-
-            <h3 class="sub-header">SİVİLİN YARDIMINA VATANDAŞLAR KOŞTU</h3>
-            <p>Olayın en trajik noktası, husumetli grupların birbirine ateş açtığı sırada bölgeden geçmekte olan masum bir vatandaşın kurşunların hedefi olması oldu. Vücuduna isabet eden mermilerle kanlar içinde yere yığılan talihsiz sivilin yardımına, silah seslerinin kesilmesiyle birlikte çevredeki vatandaşlar koştu.</p>
-            
-            <p>Mahalle sakinlerinin ceketleriyle tampon yaparak hayatta tutmaya çalıştığı yaralı sivil, olay yerine çağrılan ambulansla hastaneye kaldırıldı. Yoğun bakımda tedavi altına alınan sivil vatandaşın hayati tehlikesinin sürdüğü bildirildi.</p>
-
-            <h3 class="sub-header">ZANLININ 24 AYRI SUÇ DOSYASI ORTAYA ÇIKTI</h3>
-            <p>Emniyet güçlerinin yaptığı titiz çalışma sonucunda, tetiği çeken şüpheli şahsın <b>E.S.</b> (25) olduğu tespit edildi. Olay yerinden kaçan zanlı hakkında <b>"Kasten Adam Öldürme"</b> ve <b>"Kasten Adam Öldürmeye Teşebbüs"</b> suçlarından tahkikat başlatıldı.</p>
-            
-            <p>Zanlının geçmişine yönelik araştırmada ise çarpıcı bir tabloyla karşılaşıldı. E.S.'nin; <b>kaçakçılık, yağma, ruhsatsız silah bulundurma</b> ve <b>yaralama</b> gibi suçlar başta olmak üzere toplam <b>24 ayrı suç dosyasının</b> bulunduğu saptandı. Polis ekipleri firari zanlıyı yakalamak için operasyonlarını sürdürüyor.</p>
-        </div>
-    </div>
+    <div id="articleView"></div>
 </div>
 
-<footer>&copy; 2026 GÜNCEL HABER AJANSI</footer>
+<footer>&copy; 2026 GÜNCEL HABER PORTALI | TÜM HAKLARI SAKLIDIR</footer>
 
 <script>
-    function openNews() {
+    const newsDB = [
+        {
+            title: "Kapaklı’da Dehşet Gecesi: Sokak Ortası Savaş Alanına Döndü!",
+            img: "https://raw.githubusercontent.com/guncel-haber-hatti/HIZLI-HABER/main/71DA2E6F-5915-420E-B581-9A12F1940F1C.jpeg",
+            content: `<b>KAPAKLI</b> – Tekirdağ'ın Kapaklı ilçesinde dün gece saatlerinde meydana gelen silahlı çatışma, mahalle sakinlerine korku dolu anlar yaşattı. Edinilen bilgilere göre, aralarında geçmişe dayalı bir husumet bulunan iki grup, cadde üzerinde karşı karşıya geldi. Sözlü tartışmanın bir anda alevlenmesiyle taraflar arasında çıkan arbede, yerini silahlı hesaplaşmaya bıraktı.<br><br>
+                Sokağın adeta savaş alanına döndüğü olayda kurşunların hedefi olan <b>1 kişi hayatını kaybederken</b>, çatışma sırasında seken kör kurşunların isabet ettiği bir sivil ile birlikte toplam 2 kişi ağır yaralandı.<br>
+                
+                <h3 class="sub-header">VATANDAŞLAR YARALI SİVİLİN YARDIMINA KOŞTU</h3>
+                Olayın en trajik noktası, husumetli grupların birbirine rastgele ateş açtığı sırada bölgeden geçmekte olan masum bir vatandaşın kurşunların hedefi olması oldu. Vücuduna isabet eden mermilerle kanlar içinde yere yığılan talihsiz sivilin yardımına, silah seslerinin kesilmesiyle birlikte çevredeki vatandaşlar koştu. Mahalle sakinlerinin ceketleriyle tampon yaparak hayatta tutmaya çalıştığı yaralı sivil, olay yerine sevk edilen sağlık ekiplerince hastaneye kaldırılarak yoğun bakıma alındı.<br>
+
+                <h3 class="sub-header">ZANLININ 24 AYRI SUÇ DOSYASI ORTAYA ÇIKTI</h3>
+                Emniyet güçlerinin yaptığı titiz çalışma ve güvenlik kamerası incelemeleri sonucunda, tetiği çeken şüpheli şahsın <b>E.S.</b> (25) olduğu tespit edildi. Olay yerinden kaçan zanlı hakkında <b>"Kasten Adam Öldürme"</b> ve <b>"Kasten Adam Öldürmeye Teşebbüs"</b> suçlarından geniş çaplı tahkikat başlatıldı.<br><br>
+                Zanlının geçmişine yönelik yapılan araştırmada ise çarpıcı bir suç kaydıyla karşılaşıldı. E.S.'nin; <b>kaçakçılık, yağma, ruhsatsız silah bulundurma</b> ve <b>kasten yaralama</b> gibi suçlar başta olmak üzere toplam <b>24 ayrı suç dosyasının</b> bulunduğu saptandı. Özellikle kaçakçılık dosyalarıyla dikkat çeken zanlının yakalanması için asayiş ekipleri operasyonlarını derinleştirdi.`
+        }
+    ];
+
+    // 30 Tane Dolgu Haber
+    const dummyTitles = ["Altın Fiyatlarında Tarihi Rekor", "İstanbul Havalimanı Yolcu Rekoru Kırdı", "Milli Takım Aday Kadrosu Açıklandı", "Yeni Asgari Ücret Beklentileri", "Meteoroloji'den Fırtına Uyarısı", "Borsada Hareketli Dakikalar", "Teknoloji Devi Yeni Modelini Tanıttı", "Şampiyonlar Ligi'nde Final Heyecanı"];
+    for(let i=1; i<=30; i++) {
+        newsDB.push({
+            title: dummyTitles[i % dummyTitles.length] + " - Son Gelişmeler " + i,
+            img: `https://picsum.photos/800/600?sig=${i}`,
+            content: "Bu haberin detayları editörlerimiz tarafından hazırlanmaktadır. En güncel bilgiler için sayfayı takip etmeye devam edin."
+        });
+    }
+
+    function renderGrid() {
+        let html = "";
+        newsDB.slice(1).forEach((news, idx) => {
+            html += `<div class="news-card" onclick="openNews(${idx + 1})"><img src="${news.img}"><h3>${news.title}</h3></div>`;
+        });
+        document.getElementById('newsGrid').innerHTML = html;
+    }
+
+    function openNews(idx) {
+        const item = newsDB[idx];
         document.getElementById('homePage').style.display = 'none';
-        document.getElementById('articleView').style.display = 'block';
+        const view = document.getElementById('articleView');
+        view.style.display = 'block';
+        view.innerHTML = `
+            <span class="btn-back" onclick="goHome()">← ANA SAYFAYA DÖN</span>
+            <h1 class="article-title">${item.title}</h1>
+            <div class="meta">GÜNCELLENME: 06 NİSAN 2026 | 14:14</div>
+            <img class="article-img" src="${item.img}">
+            <div class="article-content">${item.content}</div>
+        `;
         window.scrollTo(0,0);
     }
+
     function goHome() {
         document.getElementById('articleView').style.display = 'none';
         document.getElementById('homePage').style.display = 'block';
     }
+
+    renderGrid();
 </script>
 </body>
 </html>
