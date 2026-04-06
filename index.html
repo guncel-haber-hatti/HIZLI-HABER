@@ -6,7 +6,6 @@
 <title>Türkiye Haber Portalı</title>
 
 <style>
-
 body{
 margin:0;
 font-family:Arial,Helvetica,sans-serif;
@@ -32,6 +31,7 @@ color:white;
 margin-right:15px;
 text-decoration:none;
 font-weight:bold;
+cursor:pointer;
 }
 
 .breaking{
@@ -39,6 +39,7 @@ background:red;
 color:white;
 padding:8px;
 overflow:hidden;
+white-space: nowrap;
 }
 
 .breaking span{
@@ -62,6 +63,7 @@ position:relative;
 height:420px;
 overflow:hidden;
 border-radius:10px;
+background: #000;
 }
 
 .slide{
@@ -86,11 +88,13 @@ object-fit:cover;
 position:absolute;
 bottom:30px;
 left:30px;
-background:rgba(0,0,0,.6);
+background:rgba(196, 0, 0, 0.85);
 color:white;
 padding:15px;
 font-size:24px;
 border-radius:6px;
+max-width: 80%;
+font-weight: bold;
 }
 
 .grid{
@@ -123,6 +127,7 @@ object-fit:cover;
 .card h3{
 padding:12px;
 font-size:18px;
+color: #333;
 }
 
 .article{
@@ -133,10 +138,28 @@ box-shadow:0 5px 25px rgba(0,0,0,.2);
 animation:fade .5s;
 }
 
+.article h1 {
+color: #c40000;
+margin-top: 0;
+}
+
 .article img{
 width:100%;
 border-radius:10px;
 margin-bottom:20px;
+border-bottom: 5px solid #c40000;
+}
+
+.article p {
+line-height: 1.6;
+font-size: 18px;
+color: #444;
+}
+
+.article h3 {
+background: #f8f8f8;
+padding: 10px;
+border-left: 5px solid #c40000;
 }
 
 @keyframes fade{
@@ -159,7 +182,6 @@ color:white;
 padding:20px;
 text-align:center;
 }
-
 </style>
 </head>
 
@@ -172,21 +194,15 @@ text-align:center;
 </nav>
 
 <div class="breaking">
-<span>SON DAKİKA • Türkiye gündeminde önemli gelişmeler • Ekonomi piyasaları hareketli • Spor dünyasında transfer iddiaları</span>
+<span>SON DAKİKA • Kapaklı'da silahlı hesaplaşma: 3 yaralı! • Emniyet güçleri 3 ilde firari zanlıyı arıyor • Masum sivilin tedavisi yoğun bakımda sürüyor.</span>
 </div>
 
 <div class="container">
-
 <div id="home">
-
 <div class="slider" id="slider"></div>
-
 <div class="grid" id="news"></div>
-
 </div>
-
 <div id="articlePage" style="display:none"></div>
-
 </div>
 
 <footer>
@@ -194,123 +210,94 @@ text-align:center;
 </footer>
 
 <script>
-
 let news=[
+{
+title:"Kapaklı’da Sokak Ortasında Can Pazarı: Kör Kurşun Sivili Vurdu!",
+img:"https://picsum.photos/800/500?5", // Buraya kendi görsel linkini koyabilirsin
+content:`
+<b>TEKİRDAĞ / KAPAKLI</b> – Kapaklı sokakları dün gece yankılanan silah sesleriyle sarsıldı, mahalle sakinleri büyük bir dehşet yaşadı! İki grup arasında sokak ortasında başlayan o karanlık hesaplaşmada silahlar çekildi, namlular susmak bilmedi.<br><br>
 
+Hedef gözetmeksizin ateşlenen silahtan çıkan <b>kör kurşunlardan biri</b>, olayla hiçbir ilgisi olmayan ve o sırada sadece yoldan geçen masum bir sivil vatandaşa isabet etti! Kanlar içinde yere yığılan talihsiz sivil, acil servis ekiplerince hastaneye kaldırıldı.<br><br>
+
+<h3>MASUM SİVİL YAŞAM MÜCADELESİ VERİYOR!</h3>
+Kanlı gecede ağır yaralanan sivil vatandaşın tedavisi hastanede yoğun bakımda sürüyor. Doktorların hayatta tutmak için yoğun çaba sarf ettiği masum kurbanın durumunun ciddiyetini koruduğu öğrenildi. Olayda yaralanan diğer iki isimden birinin durumunun da ağır olduğu ve hastanede gergin bekleyişin sürdüğü gelen bilgiler arasında.<br><br>
+
+<h3>ÇEMBER DARALIYOR: 3 ŞEHİRDE OPERASYON!</h3>
+3 kişinin yaralanmasına neden olan saldırgan, olayın ardından karanlıktan faydalanıp sırra kadem bastı! Emniyet güçleri firari şahsı yakalamak için dev bir operasyon başlattı. Saldırganın kaçmış olabileceği değerlendirilen <b>3 ayrı şehirde</b> aramalar eş zamanlı olarak hızlandırıldı!<br><br>
+
+<h3>VE O FİRARİ İSİM DEŞİFRE OLDU: ENGİN SAVCU!</h3>
+Yapılan incelemeler sonucunda, dehşet saçan saldırganın <b>Engin Savcu</b> olduğu öğrenildi! Henüz 25 yaşında olmasına rağmen tam 24 ayrı suç dosyası bulunan Engin Savcu'nun kabarık sicili dikkat çekti. Suç dünyasına çocuk yaşta adım atan zanlının; liman baskınlarından silahlı yaralamaya kadar pek çok olayda adının geçtiği belirlendi. Polis, Engin Savcu'yu yakalamak için operasyonu sürdürüyor.`
+},
 {
 title:"Türkiye ekonomisinde yeni reform paketi açıklandı",
 img:"https://picsum.photos/800/500?1",
-content:`Ekonomi yönetimi yeni reform paketini açıkladı. Paket kapsamında yatırım ortamının iyileştirilmesi ve üretimin artırılması hedefleniyor. Uzmanlar reformların ekonomiye olumlu katkı sağlayabileceğini belirtiyor.`
+content:`Ekonomi yönetimi yeni reform paketini açıkladı. Paket kapsamında yatırım ortamının iyileştirilmesi ve üretimin artırılması hedefleniyor.`
 },
-
 {
 title:"İstanbul'da dev ulaşım projesi başlıyor",
 img:"https://picsum.photos/800/500?2",
-content:`İstanbul ulaşımını rahatlatacak yeni metro ve demiryolu projeleri için çalışmalar hızlandı. Projenin tamamlanmasıyla milyonlarca yolcunun daha hızlı ulaşım sağlaması bekleniyor.`
-},
-
-{
-title:"Milli takım yeni turnuva için hazırlanıyor",
-img:"https://picsum.photos/800/500?3",
-content:`Türkiye milli futbol takımı yeni turnuva öncesi hazırlık kampına başladı. Teknik ekip genç oyunculara şans vermeyi planlıyor.`
-},
-
-{
-title:"Teknoloji şirketlerinden yeni yapay zeka yatırımı",
-img:"https://picsum.photos/800/500?4",
-content:`Dünya genelinde teknoloji şirketleri yapay zeka yatırımlarını artırıyor. Türkiye'deki teknoloji ekosisteminin de bu alanda büyümesi bekleniyor.`
+content:`İstanbul ulaşımını rahatlatacak yeni metro ve demiryolu projeleri için çalışmalar hızlandı.`
 }
-
 ]
 
 function render(){
-
 let grid=""
-
 news.forEach((n,i)=>{
-
 grid+=`
 <div class="card" onclick="openNews(${i})">
 <img src="${n.img}">
 <h3>${n.title}</h3>
 </div>
 `
-
 })
-
 document.getElementById("news").innerHTML=grid
 
 let slider=""
-
 news.slice(0,3).forEach((n,i)=>{
-
 slider+=`
 <div class="slide ${i==0?"active":""}">
 <img src="${n.img}">
 <div class="slideText">${n.title}</div>
 </div>
 `
-
 })
-
 document.getElementById("slider").innerHTML=slider
-
 }
 
 let slideIndex=0
-
 function autoSlide(){
-
 let slides=document.querySelectorAll(".slide")
-
+if(slides.length>0){
 slides.forEach(s=>s.classList.remove("active"))
-
 slideIndex++
-
 if(slideIndex>=slides.length)slideIndex=0
-
 slides[slideIndex].classList.add("active")
-
+}
 }
 
 setInterval(autoSlide,4000)
 
 function openNews(i){
-
 let n=news[i]
-
 document.getElementById("home").style.display="none"
-
 document.getElementById("articlePage").style.display="block"
-
 document.getElementById("articlePage").innerHTML=`
-
 <div class="article">
-
 <div class="back" onclick="home()">← Ana sayfa</div>
-
 <h1>${n.title}</h1>
-
 <img src="${n.img}">
-
 <p>${n.content}</p>
-
 </div>
-
 `
-
+window.scrollTo(0,0);
 }
 
 function home(){
-
 document.getElementById("articlePage").style.display="none"
-
 document.getElementById("home").style.display="block"
-
 }
 
 render()
-
 </script>
 
 </body>
