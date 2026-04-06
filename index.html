@@ -1,93 +1,60 @@
-const express = require('express');
-const app = express();
-
-// --- GÜNLÜK HABER MERKEZİ ---
-const haber = {
-  baslik: "Engin Savcu'dan Kamuoyuna Samimi Açıklama",
-  ozet: "Yaşanan talihsiz olayla ilgili derin bir üzüntü içerisindeyim.",
-  icerik: `Geçtiğimiz günlerde yaşanan ve maksadını aşan talihsiz olayla ilgili olarak derin bir üzüntü içerisindeyim. 
-
-           İstemeden de olsa kırdığım ve üzdüğüm tüm taraflardan içtenlikle özür dilerim. Bu süreç benim için önemli bir ders oldu; benzer bir durumun tekrarlanmaması adına üzerime düşen tüm sorumluluğu alacağımı ve daha dikkatli olacağımı belirtmek isterim.`,
-  gorsel: "https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=1200",
-  kategori: "ÖZEL HABER",
-  yazar: "Mega Editör",
-  tarih: "06 Nisan 2026"
-};
-
-app.get('/', (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html lang="tr">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-      <meta name="apple-mobile-web-app-capable" content="yes">
-      <title>${haber.baslik}</title>
-      <style>
-        :root { --red: #d32f2f; --dark: #0f0f0f; --card: #1a1a1a; --gray: #888; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--dark); color: white; margin: 0; }
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGA NEWS | Haber Merkezi</title>
+    <style>
+        /* Modern Karanlık Tema Tasarımı */
+        :root { --kirmizi: #d32f2f; --siyah: #0f0f0f; --gri: #1a1a1a; --yazi: #ffffff; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--siyah); color: var(--yazi); margin: 0; padding: 0; }
         
-        /* Okuma Çubuğu */
-        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--red); width: 0%; z-index: 1000; transition: width 0.2s; }
+        /* Üst Başlık */
+        header { background-color: var(--kirmizi); padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 2rem; font-weight: 900; letter-spacing: 2px; }
+
+        /* Haber Konteynırı */
+        .container { max-width: 600px; margin: 20px auto; padding: 15px; }
+
+        /* Haber Kartı */
+        .haber-kart { background-color: var(--gri); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+        .haber-resim { width: 100%; height: 300px; object-fit: cover; border-bottom: 3px solid var(--kirmizi); }
         
-        header { background: var(--dark); border-bottom: 1px solid #333; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; }
-        .logo { font-weight: 900; font-size: 1.5rem; color: var(--red); letter-spacing: -1px; }
+        .icerik-alani { padding: 25px; }
+        .kategori { background: var(--kirmizi); color: white; padding: 5px 12px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        h1 { font-size: 1.8rem; margin: 15px 0; line-height: 1.2; }
+        .tarih { color: #888; font-size: 0.8rem; margin-bottom: 20px; }
+        .haber-metni { font-size: 1.1rem; line-height: 1.7; color: #ddd; border-top: 1px solid #333; padding-top: 15px; }
 
-        .hero { width: 100%; height: 50vh; position: relative; overflow: hidden; }
-        .hero img { width: 100%; height: 100%; object-fit: cover; }
-        .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, var(--dark)); padding: 40px 20px 20px; }
+        /* Alt Kısım */
+        footer { text-align: center; padding: 30px; color: #444; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
 
-        .container { max-width: 650px; margin: auto; padding: 20px; }
-        .badge { background: var(--red); padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; }
-        h1 { font-size: 2.2rem; line-height: 1.1; margin: 15px 0; }
-        .meta { color: var(--gray); font-size: 0.9rem; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+    <header>
+        <div class="logo">MEGA NEWS</div>
+    </header>
 
-        .article-body { font-size: 1.2rem; line-height: 1.7; color: #ddd; }
-        
-        .share-btn { background: #25d366; color: white; text-align: center; padding: 15px; border-radius: 10px; margin-top: 40px; cursor: pointer; font-weight: bold; text-decoration: none; display: block; }
-        footer { text-align: center; padding: 50px; color: #444; font-size: 0.8rem; }
-      </style>
-    </head>
-    <body>
-      <div class="progress-bar" id="myBar"></div>
-      <header><div class="logo">MEGA NEWS</div></header>
-
-      <div class="hero">
-        <img src="${haber.gorsel}">
-        <div class="hero-overlay">
-          <span class="badge">${haber.kategori}</span>
-          <h1>${haber.baslik}</h1>
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="meta">
-          Yazar: <b>${haber.yazar}</b> • ${haber.tarih}
+    <div class="container">
+        <article class="haber-kart">
+            <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=1200" class="haber-resim" alt="Haber Görseli">
+            
+            <div class="icerik-alani">
+                <span class="kategori">Özel Haber</span>
+                <div class="tarih">06 Nisan 2026</div>
+                <h1>Engin Savcu'dan Kamuoyuna Samimi Açıklama</h1>
+                
+                <div class="haber-metni">
+                    Geçtiğimiz günlerde yaşanan ve maksadını aşan talihsiz olayla ilgili olarak derin bir üzüntü içerisindeyim. 
+                    <br><br>
+                    İstemeden de olsa kırdığım ve üzdüğüm tüm taraflardan içtenlikle özür dilerim. Bu süreç benim için önemli bir ders oldu; benzer bir durumun tekrarlanmaması adına üzerime düşen tüm sorumluluğu alacağımı ve bundan sonraki süreçte çok daha dikkatli davranacağımı kamuoyuna saygıyla duyururum.
+                </div>
+            </div>
+        </article>
         </div>
 
-        <div class="article-body">
-          ${haber.icerik.replace(/\n/g, '<br>')}
-        </div>
+    <footer>© 2026 MEGA HABER AJANSI</footer>
 
-        <a href="whatsapp://send?text=${encodeURIComponent(haber.baslik + ' - ')}https://mega-news.onrender.com" class="share-btn">
-          WhatsApp'ta Paylaş
-        </a>
-
-        <footer>© 2026 MEGA DIGITAL MEDIA</footer>
-      </div>
-
-      <script>
-        window.onscroll = function() {
-          var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-          var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          var scrolled = (winScroll / height) * 100;
-          document.getElementById("myBar").style.width = scrolled + "%";
-        };
-      </script>
-    </body>
-    </html>
-  `);
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log('Sistem Aktif!'));
+</body>
+</html>
