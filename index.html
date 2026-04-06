@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>GÜNCEL HABER – Doğru ve Hızlı Haber</title>
+    <title>GÜNCEL HABER – Türkiye'nin En Hızlı Haber Portalı</title>
     <style>
         :root {
             --gh-red: #d32f2f;
@@ -19,7 +19,6 @@
             color: #222;
         }
 
-        /* GÜNCEL HABER Header */
         header {
             background: #fff;
             border-bottom: 5px solid var(--gh-red);
@@ -35,7 +34,6 @@
             text-transform: uppercase;
             letter-spacing: -1.5px;
             cursor: pointer;
-            user-select: none;
         }
 
         .logo span { color: var(--gh-red); }
@@ -57,10 +55,7 @@
             font-weight: 700;
             text-transform: uppercase;
             cursor: pointer;
-            transition: 0.2s;
         }
-
-        nav a:hover { color: var(--gh-red); }
 
         .container {
             max-width: 1140px;
@@ -71,7 +66,6 @@
             padding: 0 15px;
         }
 
-        /* Manşet Tasarımı */
         .main-headline {
             position: relative;
             height: 500px;
@@ -85,17 +79,14 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s;
         }
-
-        .main-headline:hover img { transform: scale(1.03); }
 
         .headline-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 100%);
             padding: 40px 25px;
             color: #fff;
         }
@@ -107,17 +98,14 @@
             font-weight: 800;
             margin-bottom: 12px;
             display: inline-block;
-            border-radius: 2px;
         }
 
         .headline-overlay h1 {
             margin: 0;
             font-size: 36px;
             line-height: 1.2;
-            font-weight: 800;
         }
 
-        /* Yan Haber Listesi */
         .side-news {
             display: flex;
             flex-direction: column;
@@ -127,7 +115,7 @@
         .side-card {
             background: #fff;
             display: flex;
-            height: 105px;
+            height: 100px;
             cursor: pointer;
             border-radius: 4px;
             overflow: hidden;
@@ -135,17 +123,15 @@
             transition: 0.2s;
         }
 
-        .side-card:hover { border-color: var(--gh-red); background: #fafafa; }
-        .side-card img { width: 140px; height: 100%; object-fit: cover; }
-        .side-card-body { padding: 12px; font-size: 15px; font-weight: 700; line-height: 1.3; color: #111; }
+        .side-card:hover { border-color: var(--gh-red); }
+        .side-card img { width: 130px; height: 100%; object-fit: cover; }
+        .side-card-body { padding: 10px; font-size: 14px; font-weight: 700; line-height: 1.3; }
 
-        /* Haber Okuma Sayfası */
         .article-view {
             display: none;
             background: #fff;
             padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             max-width: 850px;
             margin: 0 auto;
         }
@@ -154,30 +140,24 @@
             color: var(--gh-red);
             font-weight: 800;
             cursor: pointer;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            font-size: 16px;
+            margin-bottom: 25px;
         }
 
-        .article-h1 { font-size: 40px; font-weight: 800; line-height: 1.1; margin-bottom: 25px; }
-        .article-main-img { width: 100%; border-radius: 6px; margin-bottom: 30px; }
+        .article-h1 { font-size: 38px; font-weight: 800; margin-bottom: 20px; }
+        .article-main-img { width: 100%; border-radius: 6px; margin-bottom: 25px; }
         .article-text { font-size: 19px; line-height: 1.8; color: #333; }
-        .article-text b { color: #000; }
 
         footer {
             margin-top: 60px;
             background: var(--gh-dark);
             color: #888;
-            text-align: center;
             padding: 40px 0;
-            font-size: 14px;
+            text-align: center;
         }
 
         @media (max-width: 900px) {
             .container { grid-template-columns: 1fr; }
             .main-headline { height: 320px; }
-            .article-h1 { font-size: 28px; }
         }
     </style>
 </head>
@@ -189,9 +169,10 @@
 
 <nav>
     <a onclick="goHome()">GÜNDEM</a>
-    <a onclick="goHome()">DÜNYA</a>
+    <a onclick="goHome()">ASAYİŞ</a>
     <a onclick="goHome()">EKONOMİ</a>
     <a onclick="goHome()">SPOR</a>
+    <a onclick="goHome()">TEKNOLOJİ</a>
 </nav>
 
 <div class="container">
@@ -199,53 +180,78 @@
         <div class="main-headline" id="hero" onclick="openNews(0)"></div>
         <div class="side-news" id="sidebar"></div>
     </div>
-
     <div id="articleDetail" class="article-view"></div>
 </div>
 
 <footer>
-    © 2026 GÜNCEL HABER | Bağımsız ve Tarafsız Haber Portalı
+    © 2026 GÜNCEL HABER | Doğru Bilginin Kaynağı
 </footer>
 
 <script>
-    // HABER VERİLERİ (Buraya yeni haber ekleyebilirsin)
     const newsDB = [
         {
             title: "Kapaklı’da Sokak Ortasında Can Pazarı: Kör Kurşun Sivili Vurdu!",
-            img: "https://picsum.photos/1200/800?crime",
+            img: "https://picsum.photos/1200/800?police",
             tag: "SON DAKİKA",
-            content: `
-                <b>TEKİRDAĞ / KAPAKLI</b> – Kapaklı sokakları dün gece yankılanan silah sesleriyle sarsıldı! İki grup arasında sokak ortasında başlayan o karanlık hesaplaşmada silahlar çekildi, namlular susmak bilmedi.<br><br>
-                Hedef gözetmeksizin ateşlenen silahtan çıkan <b>kör kurşunlardan biri</b>, olayla hiçbir ilgisi olmayan masum bir sivil vatandaşa isabet etti! Kanlar içinde yere yığılan talihsiz sivil, acil servis ekiplerince hastaneye kaldırıldı.<br><br>
-                <h3>DURUMU KRİTİK!</h3>
-                Ağır yaralanan sivil vatandaşın tedavisi yoğun bakımda sürüyor. Doktorların hayatta tutmak için yoğun çaba sarf ettiği masum kurbanın durumunun ciddiyetini koruduğu öğrenildi.<br><br>
-                <h3>ÇEMBER DARALIYOR: 3 ŞEHİRDE OPERASYON!</h3>
-                Saldırgan, olayın ardından karanlıktan faydalanıp sırra kadem bastı! Emniyet güçleri firari şahsı yakalamak için <b>3 ayrı şehirde</b> aramaları eş zamanlı olarak hızlandırdı!<br><br>
-                <h2 style="color:var(--gh-red); font-size:32px;">VE O FİRARİ İSİM DEŞİFRE OLDU: ENGİN SAVCU!</h2>
-                Yapılan incelemeler sonucunda, geceye dehşet salan o saldırganın <b>Engin Savcu</b> olduğu belirlendi! Henüz 25 yaşında olmasına rağmen tam 24 ayrı suç dosyası bulunan Engin Savcu'nun kabarık sicili dikkat çekti. Suç dünyasına çocuk yaşta adım atan zanlının; liman baskınlarından silahlı yaralamaya kadar pek çok olayda adının geçtiği belirlendi. Polis, firari <b>Engin Savcu</b>'yu yakalamak için operasyonlarını sürdürüyor.`
+            content: `<b>TEKİRDAĞ / KAPAKLI</b> – Kapaklı sokakları dün gece yankılanan silah sesleriyle sarsıldı! İki grup arasında sokak ortasında başlayan o karanlık hesaplaşmada silahlar çekildi, namlular susmak bilmedi.<br><br>Hedef gözetmeksizin ateşlenen silahtan çıkan <b>kör kurşunlardan biri</b>, olayla hiçbir ilgisi olmayan masum bir sivil vatandaşa isabet etti! Kanlar içinde yere yığılan talihsiz sivil, acil servis ekiplerince hastaneye kaldırıldı.<br><br><h3>DURUMU KRİTİK!</h3>Ağır yaralanan sivil vatandaşın tedavisi yoğun bakımda sürüyor. Doktorlar hayatta tutmak için seferber olmuş durumda.<br><br><h2 style="color:var(--gh-red);">VE O FİRARİ İSİM DEŞİFRE OLDU: ENGİN SAVCU!</h2>Yapılan incelemeler sonucunda, geceye dehşet salan o saldırganın <b>Engin Savcu</b> olduğu belirlendi! Henüz 25 yaşında olmasına rağmen tam 24 ayrı suç dosyası bulunan Engin Savcu'nun kabarık sicili dikkat çekti. Polis, firari Engin Savcu'yu yakalamak için 3 ilde operasyon başlattı.`
         },
         {
-            title: "Piyasalarda Altın Çağı: Gram Altın Rekor Üstüne Rekor Kırıyor!",
-            img: "https://picsum.photos/400/300?gold",
+            title: "Merkez Bankası'ndan Sürpriz Karar: Faizler Sabit Tutuldu!",
+            img: "https://picsum.photos/400/300?money",
             tag: "EKONOMİ",
-            content: "<b>EKONOMİ SERVİSİ</b> – Küresel piyasalardaki belirsizlikler altına talebi artırdı. Gram altın bugün tüm zamanların en yüksek seviyesini görerek yatırımcısının yüzünü güldürdü. Uzmanlar yükselişin sürebileceğini belirtiyor."
+            content: "Merkez Bankası Para Politikası Kurulu, yılın dördüncü toplantısında faiz kararını açıkladı. Piyasa beklentilerinin aksine faiz oranları sabit tutulurken, kararın ardından dolar/TL paritesinde sakin bir seyir izlendi. Ekonomistler, önümüzdeki aylarda sıkılaşma adımlarının devam edebileceğini öngörüyor."
         },
         {
-            title: "Dev Derbi Öncesi Şok: Golcü Oyuncudan Kötü Haber Geldi!",
-            img: "https://picsum.photos/400/300?stadium",
+            title: "İstanbul'da Dev Metro Hattı Hizmete Giriyor: 15 Dakikaya Düşecek!",
+            img: "https://picsum.photos/400/300?train",
+            tag: "GÜNDEM",
+            content: "İstanbul'un trafik sorununa neşter vuracak yeni metro hattı bugün düzenlenen törenle açılıyor. Hattın devreye girmesiyle birlikte, kentin en yoğun iki noktası arasındaki ulaşım süresi sadece 15 dakikaya inecek. İlk hafta ulaşımın ücretsiz olacağı açıklandı."
+        },
+        {
+            title: "Milli Takımda Kadro Revizyonu: Genç Yıldızlar İlk Kez Davet Edildi!",
+            img: "https://picsum.photos/400/300?soccer",
             tag: "SPOR",
-            content: "<b>SPOR HABER</b> – Hafta sonu oynanacak kritik derbi öncesi yapılan son antrenmanda sakatlanan yıldız golcü, kadrodan çıkarıldı. Taraftarlar sosyal medyada bu sakatlığa büyük tepki gösterdi."
+            content: "A Milli Futbol Takımı'nın yaklaşan Avrupa şampiyonası elemeleri öncesi aday kadrosu belli oldu. Teknik direktör, Avrupa liglerinde fırtına gibi esen üç genç yıldızı ilk kez kampa çağırdı. Taraftarlar sosyal medyada bu kararı büyük bir coşkuyla karşıladı."
         },
         {
-            title: "Teknoloji Devinden Yeni Atılım: İlk Akıllı Robot Görücüye Çıktı!",
-            img: "https://picsum.photos/400/300?robot",
+            title: "Ege'de 5.2 Büyüklüğünde Deprem: Panik Anları Kamerada!",
+            img: "https://picsum.photos/400/300?earthquake",
+            tag: "GÜNDEM",
+            content: "Ege Denizi açıklarında meydana gelen 5.2 büyüklüğündeki sarsıntı, çevre illerde yoğun şekilde hissedildi. Kısa süreli panik yaşayan vatandaşlar sokağa dökülürken, ilk belirlemelere göre herhangi bir can veya mal kaybı yaşanmadığı bildirildi. Uzmanlar artçı sarsıntılara karşı uyardı."
+        },
+        {
+            title: "Yerli Otomobilden Yeni Rekor: Teslimat Sayısı 50 Bini Geçti!",
+            img: "https://picsum.photos/400/300?car",
             tag: "TEKNOLOJİ",
-            content: "<b>TEKNOLOJİ</b> – Dünya devi teknoloji markası, yıllardır üzerinde çalıştığı insansı robotu tanıttı. Günlük ev işlerini yapabilen robotun satış fiyatı dudak uçuklattı."
+            content: "Türkiye'nin yerli ve milli elektrikli otomobilinde üretim bandı hızlandı. Şirketten yapılan açıklamaya göre, yollardaki araç sayısı 50 bin barajını aşarak yeni bir rekora imza attı. Yeni modeller için AR-GE çalışmalarının da tamamlandığı müjdesi verildi."
+        },
+        {
+            title: "Turizmde Rekor Yılı: 60 Milyon Turist Hedefi Aşılıyor!",
+            img: "https://picsum.photos/400/300?beach",
+            tag: "EKONOMİ",
+            content: "Kültür ve Turizm Bakanlığı verilerine göre, Türkiye'ye gelen turist sayısı geçen yılın aynı dönemine göre %15 artış gösterdi. Özellikle Antalya ve Muğla bölgelerindeki doluluk oranları esnafın yüzünü güldürürken, Türkiye'nin dünya turizm sıralamasında yükselişi devam ediyor."
+        },
+        {
+            title: "Eğitimde Yeni Dönem: Tatil Süreleri Değişiyor Mu?",
+            img: "https://picsum.photos/400/300?school",
+            tag: "GÜNDEM",
+            content: "Milli Eğitim Bakanlığı'ndan yapılan açıklamada, ara tatil ve yaz tatili sürelerinin yeniden planlanması için çalıştay başlatıldığı duyuruldu. Öğrencilerin ve öğretmenlerin verimliliğini artırmayı hedefleyen yeni modelin, gelecek eğitim-öğretim yılında pilot bölgelerde uygulanması bekleniyor."
+        },
+        {
+            title: "Akıllı Telefonlarda Yeni Düzenleme: Fiyatlar Düşecek Mi?",
+            img: "https://picsum.photos/400/300?phone",
+            tag: "TEKNOLOJİ",
+            content: "Resmi Gazete'de yayımlanan yeni kararla birlikte, yurt dışından getirilen teknolojik ürünlerdeki vergi dilimleri yeniden düzenlendi. Özellikle giriş seviyesi akıllı telefonlarda maliyetlerin düşmesi beklenirken, yerli üreticilerin bu rekabetten nasıl etkileneceği tartışılıyor."
+        },
+        {
+            title: "Anadolu'da Gizli Kalmış Antik Kent Gün Yüzüne Çıkarıldı!",
+            img: "https://picsum.photos/400/300?history",
+            tag: "GÜNDEM",
+            content: "Arkeologlar, İç Anadolu bölgesinde yaptıkları kazılarda Roma dönemine ait devasa bir antik kenti keşfetti. İçinde tiyatro, hamam ve saray kalıntılarının bulunduğu kent, tarihçiler tarafından 'yüzyılın keşfi' olarak nitelendiriliyor."
         }
     ];
 
     function renderHome() {
-        // Manşet Haberi
         const hero = newsDB[0];
         document.getElementById('hero').innerHTML = `
             <img src="${hero.img}">
@@ -255,7 +261,6 @@
             </div>
         `;
 
-        // Yan Haber Listesi
         let sidebarHtml = "";
         newsDB.slice(1).forEach((item, index) => {
             sidebarHtml += `
