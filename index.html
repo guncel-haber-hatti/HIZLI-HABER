@@ -5,55 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GÜNCEL HABER HATTI | ENGİN SAVCU</title>
     <style>
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #f4f4f4; margin: 0; color: #333; }
-        .red-line { background: #cc0000; height: 5px; width: 100%; position: fixed; top: 0; z-index: 1000; }
-        header { background: #fff; padding: 20px; border-bottom: 2px solid #cc0000; text-align: center; margin-top: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .logo { font-size: 26px; font-weight: 900; color: #000; text-transform: uppercase; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+        .top-red { background: #cc0000; height: 5px; width: 100%; position: fixed; top: 0; }
+        header { background: #fff; padding: 20px; border-bottom: 2px solid #cc0000; text-align: center; margin-top: 5px; }
+        .logo { font-size: 24px; font-weight: bold; text-transform: uppercase; }
         .logo span { color: #cc0000; }
-        .container { max-width: 700px; margin: 20px auto; padding: 15px; }
-        .news-card { background: #fff; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.2); border-left: 5px solid #cc0000; cursor: pointer; }
-        .news-card img { width: 100%; height: auto; display: block; }
-        .news-body { padding: 20px; }
-        .news-body h2 { font-size: 24px; margin: 0 0 10px 0; color: #000; line-height: 1.2; }
-        .news-body p { font-size: 16px; color: #555; line-height: 1.5; }
-        #news-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 2000; overflow-y: auto; }
-        .popup-nav { background: #cc0000; color: #fff; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
-        .close-btn { background: #fff; color: #cc0000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; border-radius: 3px; }
-        .popup-content { max-width: 700px; margin: 30px auto; padding: 0 20px; }
-        .popup-content h1 { font-size: 30px; border-bottom: 2px solid #cc0000; padding-bottom: 15px; }
-        .full-text { font-size: 18px; line-height: 1.7; color: #222; }
-        footer { text-align: center; padding: 30px; color: #999; font-size: 11px; border-top: 1px solid #ddd; margin-top: 40px; }
+        .container { max-width: 600px; margin: 20px auto; padding: 10px; }
+        .card { background: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border-left: 5px solid #cc0000; cursor: pointer; overflow: hidden; }
+        .card img { width: 100%; display: block; }
+        .card-body { padding: 15px; }
+        h2 { font-size: 20px; margin: 0 0 10px 0; }
+        #popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; overflow-y: auto; }
+        .p-nav { background: #cc0000; color: #fff; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .close { background: #fff; color: #cc0000; border: none; padding: 5px 10px; font-weight: bold; cursor: pointer; }
+        .p-content { padding: 20px; max-width: 600px; margin: auto; }
     </style>
 </head>
 <body>
-    <div class="red-line"></div>
+    <div class="top-red"></div>
     <header><div class="logo">ENGİN <span>SAVCU</span> NEWS</div></header>
     <div class="container">
-        <div class="news-card" onclick="openMsg()">
+        <div class="card" onclick="openHaber()">
             <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800">
-            <div class="news-body">
-                <small style="color:#999; font-weight:bold;">06 NİSAN 2026</small>
+            <div class="card-body">
                 <h2>Engin Savcu'dan Kamuoyuna Samimi Açıklama</h2>
-                <p>Geçtiğimiz günlerde yaşanan olayla ilgili derin üzüntü içerisindeyim. İstemeden kırdığım herkesten özür dilerim...</p>
-                <b style="color:#cc0000">Devamını Oku</b>
+                <p>Olaylarla ilgili derin üzüntü içerisindeyim. Herkesten özür dilerim...</p>
+                <strong style="color:#cc0000">TIKLA OKU</strong>
             </div>
         </div>
     </div>
-    <div id="news-popup">
-        <div class="popup-nav"><span>HABER DETAYI</span><button class="close-btn" onclick="closeMsg()">KAPAT X</button></div>
-        <div class="popup-content">
+    <div id="popup">
+        <div class="p-nav"><span>HABER DETAYI</span><button class="close" onclick="closeHaber()">KAPAT X</button></div>
+        <div class="p-content">
             <h1>Engin Savcu'dan Kamuoyuna Samimi Açıklama</h1>
-            <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800" style="width:100%; border-radius:5px; margin-bottom:20px;">
-            <div class="full-text">
-                Geçtiğimiz günlerde yaşanan talihsiz olayla ilgili olarak derin bir üzüntü içerisindeyim. İstemeden kırdığım herkesten özür dilerim. Bu süreç benim için önemli bir ders oldu; üzerime düşen sorumluluğu alacağımı saygıyla duyururum.
-                <br><br>Saygılarımla,<br><b>Engin Savcu</b>
-            </div>
+            <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800" style="width:100%">
+            <p style="font-size:18px; line-height:1.6;">
+                Yaşanan talihsiz olayla ilgili olarak derin bir üzüntü içerisindeyim. İstemeden kırdığım herkesten özür dilerim. Bu süreç benim için önemli bir ders oldu. Saygılarımla. <br><br> <b>Engin Savcu</b>
+            </p>
         </div>
-        <footer>© 2026 GÜNCEL HABER HATTI</footer>
     </div>
     <script>
-        function openMsg(){ document.getElementById('news-popup').style.display='block'; document.body.style.overflow='hidden'; }
-        function closeMsg(){ document.getElementById('news-popup').style.display='none'; document.body.style.overflow='auto'; }
+        function openHaber(){ document.getElementById('popup').style.display='block'; }
+        function closeHaber(){ document.getElementById('popup').style.display='none'; }
     </script>
 </body>
 </html>
