@@ -3,151 +3,314 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Haber Türk - Gerçekler Odak noktamız</title>
+<title>Türkiye Haber Portalı</title>
+
 <style>
-    :root { --ht-kirmizi: #ed1c24; --ht-siyah: #1a1a1a; --ht-gri: #f4f4f4; }
-    body { margin:0; font-family: 'Roboto', sans-serif; background: var(--ht-gri); }
-    
-    /* HaberTürk Header Stili */
-    header { background: white; border-bottom: 4px solid var(--ht-kirmizi); padding: 15px; text-align: center; }
-    .logo { font-size: 35px; font-weight: 900; color: var(--ht-siyah); letter-spacing: -1px; cursor: pointer; }
-    .logo span { color: var(--ht-kirmizi); }
 
-    nav { background: var(--ht-siyah); color: white; padding: 10px; text-align: center; position: sticky; top: 0; z-index: 100; }
-    nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 14px; cursor: pointer; }
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:#f3f3f3;
+}
 
-    .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
+header{
+background:#c40000;
+color:white;
+padding:15px;
+font-size:28px;
+font-weight:bold;
+text-align:center;
+}
 
-    /* Haber Yükleme Paneli */
-    .admin-panel { background: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #ddd; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-    .admin-panel h2 { margin-top: 0; color: var(--ht-siyah); font-size: 18px; border-left: 4px solid var(--ht-kirmizi); padding-left: 10px; }
-    .input-group { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-    input, textarea { padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
-    button { background: var(--ht-kirmizi); color: white; border: none; padding: 12px; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.3s; }
-    button:hover { background: #b3141a; }
+nav{
+background:#111;
+padding:10px;
+}
 
-    /* Ana Ekran Haber Dizilimi */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-    .news-card { background: white; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); cursor: pointer; transition: 0.3s; position: relative; }
-    .news-card:hover { transform: translateY(-5px); }
-    .news-card img { width: 100%; height: 200px; object-fit: cover; }
-    .news-card-body { padding: 15px; }
-    .news-card h3 { margin: 0; font-size: 18px; line-height: 1.3; color: var(--ht-siyah); }
-    .news-tag { position: absolute; top: 10px; left: 10px; background: var(--ht-kirmizi); color: white; padding: 3px 8px; font-size: 11px; font-weight: bold; }
+nav a{
+color:white;
+margin-right:15px;
+text-decoration:none;
+font-weight:bold;
+}
 
-    /* Haber Detay Sayfası */
-    #article-page { display: none; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-    .back-btn { color: var(--ht-kirmizi); font-weight: bold; cursor: pointer; margin-bottom: 20px; display: inline-block; }
-    #article-page h1 { font-size: 32px; color: var(--ht-siyah); margin-bottom: 20px; }
-    #article-page img { width: 100%; border-radius: 5px; margin-bottom: 20px; }
-    #article-page .content { font-size: 18px; line-height: 1.7; color: #333; white-space: pre-wrap; }
+.breaking{
+background:red;
+color:white;
+padding:8px;
+overflow:hidden;
+}
 
-    footer { background: var(--ht-siyah); color: #777; text-align: center; padding: 20px; margin-top: 50px; font-size: 12px; }
+.breaking span{
+display:inline-block;
+animation:scroll 18s linear infinite;
+}
+
+@keyframes scroll{
+0%{transform:translateX(100%)}
+100%{transform:translateX(-100%)}
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:20px;
+}
+
+.slider{
+position:relative;
+height:420px;
+overflow:hidden;
+border-radius:10px;
+}
+
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+opacity:0;
+transition:opacity 1s;
+}
+
+.slide.active{
+opacity:1;
+}
+
+.slide img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.slideText{
+position:absolute;
+bottom:30px;
+left:30px;
+background:rgba(0,0,0,.6);
+color:white;
+padding:15px;
+font-size:24px;
+border-radius:6px;
+}
+
+.grid{
+margin-top:25px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+border-radius:10px;
+overflow:hidden;
+cursor:pointer;
+box-shadow:0 5px 20px rgba(0,0,0,.15);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px) scale(1.02);
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.card img{
+width:100%;
+height:170px;
+object-fit:cover;
+}
+
+.card h3{
+padding:12px;
+font-size:18px;
+}
+
+.article{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 5px 25px rgba(0,0,0,.2);
+animation:fade .5s;
+}
+
+.article img{
+width:100%;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(15px)}
+to{opacity:1}
+}
+
+.back{
+margin-bottom:15px;
+display:inline-block;
+color:#c40000;
+font-weight:bold;
+cursor:pointer;
+}
+
+footer{
+margin-top:40px;
+background:#111;
+color:white;
+padding:20px;
+text-align:center;
+}
+
 </style>
 </head>
+
 <body>
 
-<header>
-    <div class="logo" onclick="location.reload()">HABER<span>TÜRK</span></div>
-</header>
+<header>TÜRKİYE HABER PORTALI</header>
 
 <nav>
-    <a onclick="showHome()">ANA SAYFA</a>
-    <a>EKONOMİ</a>
-    <a>SPOR</a>
-    <a>MAGAZİN</a>
+<a onclick="home()">Ana Sayfa</a>
 </nav>
 
+<div class="breaking">
+<span>SON DAKİKA • Türkiye gündeminde önemli gelişmeler • Ekonomi piyasaları hareketli • Spor dünyasında transfer iddiaları</span>
+</div>
+
 <div class="container">
-    <div id="adminPanel" class="admin-panel">
-        <h2>HABER YÜKLEME SİSTEMİ</h2>
-        <div class="input-group">
-            <input type="text" id="newsTitle" placeholder="Haber Başlığı">
-            <input type="text" id="newsImg" placeholder="Resim URL (https://... veya resim adı)">
-            <textarea id="newsContent" rows="5" placeholder="Haber İçeriği (HTML kullanabilirsin)"></textarea>
-            <button onclick="addNews()">HABERİ YAYINLA</button>
-        </div>
-    </div>
 
-    <div id="homePage">
-        <div class="grid" id="newsGrid">
-            </div>
-    </div>
+<div id="home">
 
-    <div id="article-page">
-        <div id="articleDetail"></div>
-    </div>
+<div class="slider" id="slider"></div>
+
+<div class="grid" id="news"></div>
+
+</div>
+
+<div id="articlePage" style="display:none"></div>
+
 </div>
 
 <footer>
-    © 2026 Haber Türk Portal - Tüm Hakları Saklıdır.
+© 2026 Türkiye Haber Portalı
 </footer>
 
 <script>
-    let newsDB = [];
 
-    // Yeni haber ekleme fonksiyonu
-    function addNews() {
-        const title = document.getElementById('newsTitle').value;
-        const img = document.getElementById('newsImg').value;
-        const content = document.getElementById('newsContent').value;
+let news=[
 
-        if(!title || !img || !content) {
-            alert("Lütfen tüm alanları doldur!");
-            return;
-        }
+{
+title:"Türkiye ekonomisinde yeni reform paketi açıklandı",
+img:"https://picsum.photos/800/500?1",
+content:`Ekonomi yönetimi yeni reform paketini açıkladı. Paket kapsamında yatırım ortamının iyileştirilmesi ve üretimin artırılması hedefleniyor. Uzmanlar reformların ekonomiye olumlu katkı sağlayabileceğini belirtiyor.`
+},
 
-        const newEntry = { title, img, content };
-        newsDB.unshift(newEntry); // En başa ekler (Son dakika etkisi)
-        
-        // Formu temizle
-        document.getElementById('newsTitle').value = "";
-        document.getElementById('newsImg').value = "";
-        document.getElementById('newsContent').value = "";
+{
+title:"İstanbul'da dev ulaşım projesi başlıyor",
+img:"https://picsum.photos/800/500?2",
+content:`İstanbul ulaşımını rahatlatacak yeni metro ve demiryolu projeleri için çalışmalar hızlandı. Projenin tamamlanmasıyla milyonlarca yolcunun daha hızlı ulaşım sağlaması bekleniyor.`
+},
 
-        renderNews();
-    }
+{
+title:"Milli takım yeni turnuva için hazırlanıyor",
+img:"https://picsum.photos/800/500?3",
+content:`Türkiye milli futbol takımı yeni turnuva öncesi hazırlık kampına başladı. Teknik ekip genç oyunculara şans vermeyi planlıyor.`
+},
 
-    // Haberleri ana ekrana basan fonksiyon
-    function renderNews() {
-        const grid = document.getElementById('newsGrid');
-        grid.innerHTML = "";
+{
+title:"Teknoloji şirketlerinden yeni yapay zeka yatırımı",
+img:"https://picsum.photos/800/500?4",
+content:`Dünya genelinde teknoloji şirketleri yapay zeka yatırımlarını artırıyor. Türkiye'deki teknoloji ekosisteminin de bu alanda büyümesi bekleniyor.`
+}
 
-        newsDB.forEach((n, index) => {
-            grid.innerHTML += `
-                <div class="news-card" onclick="openNews(${index})">
-                    <div class="news-tag">GÜNDEM</div>
-                    <img src="${n.img}" onerror="this.src='https://via.placeholder.com/400x200?text=Resim+Bulunamadi'">
-                    <div class="news-card-body">
-                        <h3>${n.title}</h3>
-                    </div>
-                </div>
-            `;
-        });
-    }
+]
 
-    // Haberi açma fonksiyonu
-    function openNews(index) {
-        const n = newsDB[index];
-        document.getElementById('homePage').style.display = "none";
-        document.getElementById('adminPanel').style.display = "none";
-        document.getElementById('article-page').style.display = "block";
+function render(){
 
-        document.getElementById('articleDetail').innerHTML = `
-            <div class="back-btn" onclick="showHome()">← ANA SAYFAYA DÖN</div>
-            <h1>${n.title}</h1>
-            <img src="${n.img}" onerror="this.style.display='none'">
-            <div class="content">${n.content}</div>
-        `;
-        window.scrollTo(0,0);
-    }
+let grid=""
 
-    // Ana sayfaya dönme
-    function showHome() {
-        document.getElementById('article-page').style.display = "none";
-        document.getElementById('homePage').style.display = "block";
-        document.getElementById('adminPanel').style.display = "block";
-    }
+news.forEach((n,i)=>{
+
+grid+=`
+<div class="card" onclick="openNews(${i})">
+<img src="${n.img}">
+<h3>${n.title}</h3>
+</div>
+`
+
+})
+
+document.getElementById("news").innerHTML=grid
+
+let slider=""
+
+news.slice(0,3).forEach((n,i)=>{
+
+slider+=`
+<div class="slide ${i==0?"active":""}">
+<img src="${n.img}">
+<div class="slideText">${n.title}</div>
+</div>
+`
+
+})
+
+document.getElementById("slider").innerHTML=slider
+
+}
+
+let slideIndex=0
+
+function autoSlide(){
+
+let slides=document.querySelectorAll(".slide")
+
+slides.forEach(s=>s.classList.remove("active"))
+
+slideIndex++
+
+if(slideIndex>=slides.length)slideIndex=0
+
+slides[slideIndex].classList.add("active")
+
+}
+
+setInterval(autoSlide,4000)
+
+function openNews(i){
+
+let n=news[i]
+
+document.getElementById("home").style.display="none"
+
+document.getElementById("articlePage").style.display="block"
+
+document.getElementById("articlePage").innerHTML=`
+
+<div class="article">
+
+<div class="back" onclick="home()">← Ana sayfa</div>
+
+<h1>${n.title}</h1>
+
+<img src="${n.img}">
+
+<p>${n.content}</p>
+
+</div>
+
+`
+
+}
+
+function home(){
+
+document.getElementById("articlePage").style.display="none"
+
+document.getElementById("home").style.display="block"
+
+}
+
+render()
+
 </script>
 
 </body>
