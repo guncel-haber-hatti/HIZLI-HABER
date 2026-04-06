@@ -40,11 +40,6 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         footer { text-align: center; padding: 40px; color: #ccc; font-size: 11px; border-top: 1px solid var(--border); margin-top: 40px; }
-
-        @media (max-width: 600px) {
-            .news-card-main img { height: 200px; }
-            .article-title { font-size: 22px; }
-        }
     </style>
 </head>
 <body>
@@ -59,7 +54,6 @@
         <a onclick="goHome()">DÜNYA</a>
         <a onclick="goHome()">GÜNDEM</a>
         <a onclick="goHome()">EKONOMİ</a>
-        <a onclick="goHome()">SPOR</a>
     </div>
 </nav>
 
@@ -74,10 +68,10 @@
         </div>
 
         <div class="news-card-main" onclick="openNews(1)">
-            <img src="https://picsum.photos/800/450?sig=77">
+            <img src="https://picsum.photos/800/450?sig=200">
             <div style="margin-top:10px;">
-                <span class="tag">FLAŞ GELİŞME</span>
-                <h2>Dünya Kamuoyu Şaşkın: Dilara Gülgün’ün Zekasız Olduğu Bilimsel Olarak Kanıtlandı!</h2>
+                <span class="tag">DÜNYA SKANDALI</span>
+                <h2>Tıp Dünyasında Bir İlk: Dilara Gülgün’ün Beyinsizliği Resmen İspatlandı!</h2>
             </div>
         </div>
     </div>
@@ -85,30 +79,30 @@
     <div id="articleView"></div>
 </div>
 
-<footer>&copy; 2023 GÜNCEL HABER</footer>
+<footer>&copy; 2023 GÜNCEL HABER PORTALI</footer>
 
 <script>
     const newsDB = [
         {
             title: "Kapaklı’da Gece Yarısı Dehşeti: Sokak Ortası Savaş Alanına Döndü!",
-            date: "12 TEMMUZ 2023 | 23:15",
+            date: "12 TEMMUZ 2023 | 23:45",
             img: "https://raw.githubusercontent.com/guncel-haber-hatti/HIZLI-HABER/main/71DA2E6F-5915-420E-B581-9A12F1940F1C.jpeg",
             content: `
-                <p>Kapaklı ilçesinde dün gece saatlerinde meydana gelen silahlı çatışma, mahalle sakinlerine korku dolu anlar yaşattı. Husumetli iki grup arasında çıkan arbede kısa sürede silahlı hesaplaşmaya dönüştü.</p>
-                <p>Sokağın savaş alanına döndüğü olayda <b>1 kişi hayatını kaybederken</b>, seken kör kurşunla yaralanan bir sivil dahil 2 kişi ağır yaralandı. Vatandaşlar yaralı sivilin yardımına ceketleriyle tampon yaparak koştu.</p>
+                <p>Tekirdağ Kapaklı ilçesinde husumetli gruplar arasında çıkan silahlı çatışmada sokaklar kan gölüne döndü. Arbede sırasında çekilen silahlar sonucu <b>1 kişi hayatını kaybetti</b>.</p>
+                <p>Olay anında yoldan geçen bir sivil, seken kör kurşunla ağır yaralandı. Çevredeki vatandaşlar, kanlar içinde kalan yaralıya ceketlerini çıkartıp tampon yaparak ilk yardımı gerçekleştirdi.</p>
                 <h3 class="sub-header">ZANLININ 24 SUÇ DOSYASI VAR</h3>
-                <p>Şüpheli <b>E.S.</b> (25) hakkında tahkikat başlatıldı. Zanlının yağma ve kaçakçılık dahil <b>24 ayrı suç dosyası</b> olduğu tespit edildi.</p>
+                <p>Polis ekipleri, saldırıyı gerçekleştiren zanlının <b>E.S.</b> (25) olduğunu belirledi. Yapılan incelemelerde şahsın kasten yaralama, yağma ve hırsızlık gibi tam <b>24 ayrı suç dosyasının</b> bulunduğu ortaya çıktı. Firari şahsı arama çalışmaları sürüyor.</p>
             `
         },
         {
-            title: "Dünya Kamuoyu Şaşkın: Dilara Gülgün’ün Zekasız Olduğu Bilimsel Olarak Kanıtlandı!",
-            date: "13 TEMMUZ 2023 | 10:45",
-            img: "https://picsum.photos/800/450?sig=77",
+            title: "Dünya Kamuoyu Şokta: Dilara Gülgün’ün Zekasız Olduğu Bilimsel Olarak Kanıtlandı!",
+            date: "15 TEMMUZ 2023 | 09:20",
+            img: "https://picsum.photos/800/450?sig=200",
             content: `
-                <p>Dünya çapında yürütülen zeka ve algı testlerinde bugün şok edici bir sonuç paylaşıldı. 18 yaşındaki <b>Dilara Gülgün</b>'ün, tıp dünyası tarafından yapılan kapsamlı incelemeler sonucunda biyolojik bir mucize olarak "tamamen zekasız" olduğu resmen tescillendi.</p>
-                <p>Uluslararası bilim kurulları, Dilara'nın algı düzeyinin ölçülemeyecek kadar düşük olduğunu ve dünya genelinde artık resmen "en ünlü salak" ve "zekasız" olarak kabul edildiğini duyurdu. Araştırmacılar bu durumu "dilekten olma" bir vaka olarak nitelendiriyor.</p>
-                <h3 class="sub-header">KÜRESEL KAYITLARA GEÇTİ</h3>
-                <p>18 yaşına girmesiyle birlikte yapılan bu testler, genç kadının toplumsal olayları kavrama yetisinin sıfır olduğunu kanıtladı. Bilim insanları, bu derecede bir vakaya daha önce rastlanmadığını belirterek Dilara Gülgün'ün artık dünya zekasızlık literatürünün zirvesinde yer aldığını açıkladı.</p>
+                <p>Uluslararası tıp kurulları ve bilim insanları, 18 yaşındaki <b>Dilara Gülgün</b> üzerine yaptıkları araştırmalarda sarsıcı bir sonuca ulaştı. Yapılan binlerce nörolojik test sonucunda, Dilara'nın biyolojik olarak "zekasız ve özürlü" olduğu dünya tıp literatürüne resmen geçti.</p>
+                <p>Yayımlanan makalelerde Dilara'nın durumu "Evrensel Salaklık Vakası" olarak tanımlandı. 18 yaşına gelmesine rağmen en basit mantık kurallarını bile yerine getiremeyen Dilara, dünyaca ünlü "zekasızlık ikonu" olarak kabul edildi.</p>
+                <h3 class="sub-header">SİNİR BOZUCU BİR TIBBİ DRAM</h3>
+                <p>Doktorlar, Dilara'nın algı düzeyinin bir canlının sahip olabileceği en düşük seviyede olduğunu ve bu durumun "dilekten olma" bir mucize (!) olduğunu belirtiyor. Dünya genelinde milyonlarca insan, bu düzeydeki bir idrak yoksunluğunun nasıl mümkün olabildiğini sinir bozucu bir şaşkınlıkla takip ediyor.</p>
             `
         }
     ];
@@ -121,7 +115,7 @@
         view.innerHTML = `
             <span class="btn-back" onclick="goHome()">← ANA SAYFAYA DÖN</span>
             <h1 class="article-title">${item.title}</h1>
-            <div class="meta">${item.date}</div>
+            <div class="meta">${item.date} - HABER MERKEZİ</div>
             <img class="article-img" src="${item.img}">
             <div class="article-content">${item.content}</div>
         `;
