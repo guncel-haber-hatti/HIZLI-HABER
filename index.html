@@ -1,95 +1,163 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GÜNCEL HABER HATTI | ENGİN SAVCU</title>
-    <style>
-        /* SİTEYİ KOMPLE KOPYALAYAN STİL */
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; color: #333; }
-        
-        /* Üst Kırmızı Çizgi */
-        .top-red { background: #cc0000; height: 5px; width: 100%; position: fixed; top: 0; z-index: 1000; }
-        
-        /* Logo Alanı */
-        header { background: white; padding: 25px 0; border-bottom: 2px solid #cc0000; text-align: center; margin-top: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .logo { font-size: 30px; font-weight: 900; color: #000; letter-spacing: -1px; }
-        .logo span { color: #cc0000; }
+<meta charset="UTF-8">
+<title>Türkiye Haber</title>
 
-        .container { max-width: 700px; margin: 25px auto; padding: 0 15px; }
+<style>
 
-        /* Haber Kartı */
-        .news-card { background: white; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.2); border-left: 5px solid #cc0000; cursor: pointer; transition: 0.2s; }
-        .news-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        
-        .news-card img { width: 100%; height: auto; display: block; border-bottom: 1px solid #eee; }
-        
-        .news-text { padding: 25px; }
-        .date { color: #999; font-size: 13px; font-weight: bold; margin-bottom: 10px; }
-        h1 { font-size: 26px; margin: 0 0 15px 0; line-height: 1.2; color: #000; }
-        .desc { font-size: 17px; line-height: 1.6; color: #555; }
-        .more { display: inline-block; margin-top: 20px; color: #cc0000; font-weight: bold; text-decoration: none; border-bottom: 2px solid #cc0000; }
+body{
+margin:0;
+font-family:Arial;
+background:#f2f2f2;
+}
 
-        /* Detay Sayfası (Pop-up) */
-        #haber-pop { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999; overflow-y: auto; }
-        .pop-nav { background: #cc0000; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
-        .pop-btn { background: white; color: #cc0000; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .pop-body { max-width: 700px; margin: 30px auto; padding: 0 20px; }
-        .pop-body h2 { font-size: 32px; border-bottom: 2px solid #cc0000; padding-bottom: 15px; margin-bottom: 20px; }
-        .pop-text { font-size: 19px; line-height: 1.8; color: #222; }
+header{
+background:#c40000;
+color:white;
+padding:20px;
+font-size:30px;
+font-weight:bold;
+}
 
-        footer { text-align: center; padding: 40px; color: #999; font-size: 11px; background: #fff; border-top: 1px solid #eee; margin-top: 40px; }
-    </style>
+nav{
+background:#111;
+padding:10px;
+}
+
+nav a{
+color:white;
+margin:10px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.container{
+width:1100px;
+margin:auto;
+}
+
+.manset{
+display:flex;
+margin-top:20px;
+background:white;
+}
+
+.manset img{
+width:60%;
+}
+
+.manset-text{
+padding:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+margin-top:20px;
+}
+
+.haber{
+background:white;
+}
+
+.haber img{
+width:100%;
+}
+
+.haber h3{
+padding:10px;
+}
+
+footer{
+margin-top:40px;
+background:#111;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <div class="top-red"></div>
+<header class="container">
+TÜRKİYE HABER
+</header>
 
-    <header>
-        <div class="logo">ENGİN <span>SAVCU</span> NEWS</div>
-    </header>
+<nav>
+<div class="container">
+<a href="#">Gündem</a>
+<a href="#">Dünya</a>
+<a href="#">Ekonomi</a>
+<a href="#">Spor</a>
+<a href="#">Teknoloji</a>
+</div>
+</nav>
 
-    <div class="container">
-        <div class="news-card" onclick="ac()">
-            <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800">
-            <div class="news-text">
-                <div class="date">06 NİSAN 2026, PAZARTESİ</div>
-                <h1>Engin Savcu'dan Kamuoyuna Samimi Açıklama</h1>
-                <p class="desc">Geçtiğimiz günlerde yaşanan olayla ilgili derin üzüntü içerisindeyim. İstemeden kırdığım herkesten özür dilerim...</p>
-                <div class="more">HABERİN DEVAMI İÇİN TIKLAYINIZ</div>
-            </div>
-        </div>
-    </div>
+<div class="container">
 
-    <div id="haber-pop">
-        <div class="pop-nav">
-            <strong>GÜNCEL HABER HATTI</strong>
-            <button class="pop-btn" onclick="kapat()">KAPAT X</button>
-        </div>
-        <div class="pop-body">
-            <h2>Engin Savcu'dan Kamuoyuna Samimi Açıklama</h2>
-            <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800" style="width:100%; border-radius:5px; margin-bottom:20px;">
-            <div class="pop-text">
-                Geçtiğimiz günlerde yaşanan ve maksadını aşan talihsiz olayla ilgili olarak derin bir üzüntü içerisindeyim. 
-                <br><br>
-                İstemeden de olsa kırdığım ve üzdüğüm tüm taraflardan içtenlikle özür dilerim. Bu süreç benim için önemli bir ders oldu; benzer bir durumun tekrarlanmaması adına üzerime düşen tüm sorumluluğu alacağımı ve bundan sonraki süreçte çok daha dikkatli davranacağımı kamuoyuna saygıyla duyururum.
-                <br><br>
-                Saygılarımla,<br>
-                <b>Engin Savcu</b>
-            </div>
-        </div>
-        <footer>© 2026 ENGİN SAVCU NEWS - TÜM HAKLARI SAKLIDIR</footer>
-    </div>
+<div class="manset">
 
-    <footer>
-        Haber portalımız 5651 sayılı yasaya uygun olarak yayın yapmaktadır.<br>
-        Mega Medya Grubu İştirakidir.
-    </footer>
+<img src="https://picsum.photos/800/400">
 
-    <script>
-        function ac() { document.getElementById('haber-pop').style.display = 'block'; document.body.style.overflow = 'hidden'; }
-        function kapat() { document.getElementById('haber-pop').style.display = 'none'; document.body.style.overflow = 'auto'; }
-    </script>
+<div class="manset-text">
+
+<h1>Türkiye'de gündem yaratan büyük gelişme</h1>
+
+<p>
+Bu alana manşet haber metni yazabilirsin.
+İstediğin zaman değiştirirsin.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="grid">
+
+<div class="haber">
+<img src="https://picsum.photos/300/200">
+<h3>Ekonomide yeni karar açıklandı</h3>
+</div>
+
+<div class="haber">
+<img src="https://picsum.photos/301/200">
+<h3>Dünyada dikkat çeken olay</h3>
+</div>
+
+<div class="haber">
+<img src="https://picsum.photos/302/200">
+<h3>Spor dünyasında sıcak gelişme</h3>
+</div>
+
+<div class="haber">
+<img src="https://picsum.photos/303/200">
+<h3>Teknoloji alanında yeni gelişme</h3>
+</div>
+
+<div class="haber">
+<img src="https://picsum.photos/304/200">
+<h3>Türkiye gündemi değişti</h3>
+</div>
+
+<div class="haber">
+<img src="https://picsum.photos/305/200">
+<h3>Son dakika gelişmesi</h3>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+2026 Türkiye Haber
+</footer>
 
 </body>
 </html>
