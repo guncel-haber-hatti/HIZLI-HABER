@@ -1,5 +1,5 @@
 // mega-news.js
-// Replit / Railway / Render uyumlu
+// Tek dosya çalıştır: node mega-news.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -11,6 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// MongoDB bağlantısı
 const mongoURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/megaNews';
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(()=>console.log('MongoDB bağlı'))
@@ -19,27 +20,36 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
+// Haber şeması
 const newsSchema = new mongoose.Schema({
-  title:String, summary:String, content:String, image:String,
-  language:{type:String, default:'tr'}, views:{type:Number, default:0},
-  createdAt:{type:Date, default:Date.now}
+  title: String,
+  summary: String,
+  content: String,
+  image: String,
+  language: { type: String, default: 'tr' },
+  views: { type: Number, default: 0 },
+  createdAt: { type: Date, default: Date.now }
 });
 const News = mongoose.model('News', newsSchema);
 
+// RSS haber çekme
 async function fetchNews(){
   const parser = new Parser();
-  const feeds=['https://www.hurriyet.com.tr/rss/gundem','http://feeds.bbci.co.uk/news/world/rss.xml'];
+  const feeds = [
+    'https://www.hurriyet.com.tr/rss/gundem',
+    'http://feeds.bbci.co.uk/news/world/rss.xml'
+  ];
   for(let url of feeds){
     const feed = await parser.parseURL(url);
     for(let item of feed.items){
-      const exists = await News.findOne({title:item.title});
+      const exists = await News.findOne({ title: item.title });
       if(!exists){
         const news = new News({
-          title:item.title,
-          summary:item.contentSnippet,
-          content:item.content,
-          image:item.enclosure?.url||'',
-          language:url.includes('bbc')?'en':'tr'
+          title: item.title,
+          summary: item.contentSnippet,
+          content: item.content,
+          image: item.enclosure?.url || '',
+          language: url.includes('bbc') ? 'en' : 'tr'
         });
         await news.save();
         io.emit('new-news', news);
@@ -50,14 +60,15 @@ async function fetchNews(){
 setInterval(fetchNews,1000*60*60);
 fetchNews();
 
-app.get('/news', async (req,res)=>res.json(await News.find().sort({createdAt:-1}).limit(50)));
-app.post('/news/:id/view', async (req,res)=>{
-  const n=await News.findById(req.params.id);
-  if(n){n.views=(n.views||0)+1; await n.save();}
+// API
+app.get('/news', async(req,res)=>res.json(await News.find().sort({createdAt:-1}).limit(50)));
+app.post('/news/:id/view', async(req,res)=>{
+  const n = await News.findById(req.params.id);
+  if(n){ n.views=(n.views||0)+1; await n.save(); }
   res.sendStatus(200);
 });
 
-// Frontend tek dosya HTML
+// Frontend HTML tek dosya
 app.get('/', (req,res)=>{
   res.send(`
 <html>
@@ -80,10 +91,10 @@ p{margin:10px;font-size:0.9rem;color:#555;}
 <div class="grid" id="news"></div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-const socket=io();
-const newsDiv=document.getElementById('news');
+const socket = io();
+const newsDiv = document.getElementById('news');
 function addNews(n){
-  const div=document.createElement('div');
+  const div = document.createElement('div');
   div.className='card';
   div.innerHTML='<h2>'+n.title+'</h2>'+
                 (n.image?'<img src="'+n.image+'"/>':'')+
@@ -100,6 +111,6 @@ socket.on('new-news', addNews);
   `);
 });
 
-// Replit / Railway otomatik port
+// Replit / Railway / Render uyumlu port
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, ()=>console.log('Mega Haber Sitesi',PORT,'portunda çalışıyor'));
+server.listen(PORT, ()=>console.log('Mega Haber Sitesi', PORT, 'portunda çalışıyor'));
