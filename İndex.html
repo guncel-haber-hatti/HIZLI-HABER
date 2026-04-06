@@ -3,46 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hızlı Haber - Son Dakika</title>
+    <title>Hızlı Haber - Habertürk Stil</title>
     <style>
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; background-color: #f4f4f4; }
-        header { background-color: #e30613; color: white; padding: 15px; text-align: center; font-weight: bold; font-size: 28px; border-bottom: 4px solid #b3050f; }
-        .nav { background: #fff; padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-size: 14px; color: #333; }
-        .manset { background: #fff; margin: 10px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .manset-resim { background: #333; color: white; height: 200px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        .manset-baslik { padding: 15px; font-size: 22px; font-weight: bold; color: #e30613; }
-        .haber-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
-        .kucuk-haber { background: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .kucuk-haber h3 { font-size: 14px; margin: 0; color: #333; }
-        .footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+        body { font-family: 'Arial', sans-serif; margin: 0; background: #f0f2f5; }
+        .top-bar { background: #e30613; color: white; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; text-transform: uppercase; }
+        .container { max-width: 800px; margin: auto; padding: 10px; }
+        .news-card { background: white; margin-bottom: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .news-image { background: #ddd; height: 180px; display: flex; align-items: center; justify-content: center; color: #666; font-weight: bold; }
+        .news-content { padding: 15px; }
+        .news-title { font-size: 20px; font-weight: bold; color: #222; margin-bottom: 8px; }
+        .news-text { font-size: 14px; color: #555; line-height: 1.6; }
+        .badge { background: #e30613; color: white; padding: 3px 8px; font-size: 10px; border-radius: 3px; text-transform: uppercase; margin-bottom: 5px; display: inline-block; }
     </style>
 </head>
 <body>
 
-<header>HABERTÜRK TASARIMI</header>
-<div class="nav">GÜNDEM | EKONOMİ | SPOR | DÜNYA</div>
+<div class="top-bar">HIZLI HABER HATTI</div>
 
-<div class="manset">
-    <div class="manset-resim">ANA MANŞET RESMİ</div>
-    <div class="manset-baslik">Son Dakika: Türkiye Ekonomi Paketini Açıklıyor!</div>
-</div>
+<div class="container">
+    <div class="news-card">
+        <div class="news-image">📸 MANŞET RESMİ</div>
+        <div class="news-content">
+            <span class="badge">Son Dakika</span>
+            <div class="news-title">Teknoloji Dünyasında Devrim: Yeni Çip Tanıtıldı!</div>
+            <div class="news-text">Dünyanın en hızlı işlemcisi bugün düzenlenen lansmanla tanıtıldı. Yapay zeka performansında %300 artış vaat ediliyor.</div>
+        </div>
+    </div>
 
-<div class="haber-grid">
-    <div class="kucuk-haber">
-        <h3>Süper Lig'de Heyecan Dorukta</h3>
-    </div>
-    <div class="kucuk-haber">
-        <h3>Teknoloji Dünyasında Dev Yatırım</h3>
-    </div>
-    <div class="kucuk-haber">
-        <h3>Hava Durumu: Kar Geliyor!</h3>
-    </div>
-    <div class="kucuk-haber">
-        <h3>Dolar Kuru Hareketli</h3>
+    <div class="news-card">
+        <div class="news-content">
+            <span class="badge">Ekonomi</span>
+            <div class="news-title">Piyasalarda Hareketli Dakikalar</div>
+            <div class="news-text">Altın ve döviz kurlarında sabah saatlerinden itibaren yaşanan dalgalanma yatırımcılar tarafından yakından takip ediliyor.</div>
+        </div>
     </div>
 </div>
-
-<div class="footer">© 2026 Hızlı Haber Hattı - Habertürk Stilinde</div>
 
 </body>
 </html>
+ 
