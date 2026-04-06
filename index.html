@@ -3,74 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>GÜNCEL HABER | Türkiye'nin Haber Merkezi</title>
+    <title>GÜNCEL HABER | Son Dakika</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --main-red: #cc0000; --dark: #1a1a1a; --text: #333; --border: #ececec; --bg: #fdfdfd; }
+        :root { --main-red: #cc0000; --dark: #1a1a1a; --text: #333; --border: #ececec; --bg: #f4f4f4; }
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; overflow-x: hidden; }
+        body { margin: 0; font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
-        header { background: #fff; border-bottom: 4px solid var(--main-red); padding: 12px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .logo { text-align: center; font-family: 'Oswald', sans-serif; font-size: 42px; font-weight: 700; text-transform: uppercase; letter-spacing: -1.5px; cursor: pointer; color: var(--dark); }
+        header { background: #fff; border-bottom: 5px solid var(--main-red); padding: 15px 0; }
+        .logo { text-align: center; font-family: 'Oswald', sans-serif; font-size: 45px; font-weight: 700; text-transform: uppercase; letter-spacing: -1.5px; cursor: pointer; color: var(--dark); }
         .logo span { color: var(--main-red); }
 
-        nav { background: var(--dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        nav { background: var(--dark); position: sticky; top: 0; z-index: 1000; }
         .nav-inner { max-width: 1200px; margin: auto; display: flex; justify-content: center; overflow-x: auto; scrollbar-width: none; }
-        .nav-inner::-webkit-scrollbar { display: none; }
-        nav a { color: #fff; text-decoration: none; padding: 14px 18px; font-size: 13.5px; font-weight: 700; text-transform: uppercase; transition: 0.2s; white-space: nowrap; cursor: pointer; letter-spacing: 0.5px; }
-        nav a:hover { color: var(--main-red); background: rgba(255,255,255,0.03); }
+        nav a { color: #fff; text-decoration: none; padding: 15px 20px; font-size: 13px; font-weight: 700; text-transform: uppercase; transition: 0.2s; white-space: nowrap; cursor: pointer; }
+        nav a:hover { background: var(--main-red); }
 
         .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
-        .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
 
-        /* Manşet Alanı */
-        .headline { position: relative; height: 500px; background: #000; overflow: hidden; cursor: pointer; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .headline img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; opacity: 0.88; }
-        .headline:hover img { opacity: 1; transform: scale(1.02); }
-        .headline-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 30px; background: linear-gradient(transparent, rgba(0,0,0,0.95)); color: #fff; }
-        .tag { background: var(--main-red); color: #fff; padding: 4px 10px; font-size: 11px; font-weight: 700; display: inline-block; margin-bottom: 10px; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .headline-info h1 { margin: 0; font-size: 32px; line-height: 1.2; font-weight: 700; letter-spacing: -0.8px; }
+        .headline { position: relative; height: 500px; background: #000; overflow: hidden; cursor: pointer; border-radius: 4px; }
+        .headline img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; opacity: 0.85; }
+        .headline:hover img { transform: scale(1.03); opacity: 1; }
+        .headline-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px; background: linear-gradient(transparent, rgba(0,0,0,0.95)); color: #fff; }
+        .tag { background: var(--main-red); color: #fff; padding: 4px 10px; font-size: 12px; font-weight: 900; display: inline-block; margin-bottom: 12px; border-radius: 2px; }
+        .headline-info h1 { margin: 0; font-size: 36px; line-height: 1.1; font-weight: 700; }
 
-        /* Yan Haberler */
-        .side-news { display: flex; flex-direction: column; gap: 8px; }
-        .side-card { display: flex; background: #fff; height: 95px; border: 1px solid var(--border); cursor: pointer; border-radius: 3px; overflow: hidden; transition: 0.2s; }
-        .side-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-color: #ddd; }
-        .side-card img { width: 130px; height: 100%; object-fit: cover; }
+        .side-news { display: flex; flex-direction: column; gap: 10px; }
+        .side-card { display: flex; background: #fff; height: 100px; border: 1px solid var(--border); cursor: pointer; border-radius: 4px; overflow: hidden; }
+        .side-card img { width: 140px; height: 100%; object-fit: cover; }
         .side-card-body { padding: 12px; display: flex; align-items: center; }
-        .side-card-body h3 { margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.35; color: #222; letter-spacing: -0.2px; }
+        .side-card-body h3 { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.4; color: #222; }
 
-        /* Alt Haberler Grid */
-        .section-title { border-left: 5px solid var(--main-red); padding-left: 15px; margin: 40px 0 20px; font-size: 20px; font-weight: 700; color: var(--dark); text-transform: uppercase; letter-spacing: 1px; }
+        .section-title { border-left: 6px solid var(--main-red); padding-left: 15px; margin: 40px 0 20px; font-size: 24px; font-weight: 900; color: var(--dark); text-transform: uppercase; }
         .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .news-item { background: #fff; border: 1px solid var(--border); cursor: pointer; border-radius: 4px; overflow: hidden; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
-        .news-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-3px); }
+        .news-item { background: #fff; border: 1px solid var(--border); cursor: pointer; border-radius: 4px; overflow: hidden; transition: 0.3s; }
         .news-item img { width: 100%; height: 180px; object-fit: cover; }
         .news-item-content { padding: 15px; }
-        .news-item-content h4 { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; color: #333; letter-spacing: -0.3px; }
+        .news-item-content h4 { margin: 0; font-size: 16px; font-weight: 700; }
 
-        /* Makale Detay Sayfası */
-        .article-wrap { display: none; max-width: 850px; margin: 30px auto; background: #fff; padding: 40px; border-radius: 6px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); animation: fadeIn 0.4s ease; }
-        .btn-back { display: inline-block; margin-bottom: 25px; color: var(--main-red); font-size: 13px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-back:hover { text-decoration: underline; }
-        .article-title { font-size: 38px; font-weight: 700; line-height: 1.15; margin-bottom: 15px; color: #111; letter-spacing: -1px; }
-        .article-meta { font-size: 13px; color: #888; padding: 12px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-bottom: 25px; font-weight: 500; }
-        .article-img { width: 100%; border-radius: 4px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
-        .article-content { font-size: 17.5px; line-height: 1.8; color: #444; letter-spacing: 0.1px; text-align: justify; }
+        .article-wrap { display: none; max-width: 850px; margin: 30px auto; background: #fff; padding: 45px; border-radius: 8px; box-shadow: 0 5px 30px rgba(0,0,0,0.08); animation: slideUp 0.4s ease; }
+        .btn-back { display: inline-block; margin-bottom: 25px; color: var(--main-red); font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 14px; }
+        .article-title { font-size: 40px; font-weight: 700; line-height: 1.1; margin-bottom: 20px; color: #111; }
+        .article-meta { border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 15px 0; margin-bottom: 30px; font-size: 13px; color: #777; }
+        .article-img { width: 100%; border-radius: 4px; margin-bottom: 35px; }
+        .article-content { font-size: 18.5px; line-height: 1.8; color: #444; text-align: justify; }
         .article-content b { color: #000; }
-        .article-content h3 { font-size: 24px; color: #000; margin: 35px 0 15px; border-left: 6px solid var(--main-red); padding-left: 18px; font-weight: 700; }
+        .article-content h3 { font-size: 26px; color: #000; margin: 40px 0 15px; border-left: 6px solid var(--main-red); padding-left: 20px; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        footer { background: var(--dark); color: #888; text-align: center; padding: 50px 20px; margin-top: 60px; font-size: 13px; border-top: 6px solid var(--main-red); }
-        footer .footer-logo { font-family: 'Oswald', sans-serif; font-size: 24px; color: #fff; margin-bottom: 10px; text-transform: uppercase; }
+        footer { background: var(--dark); color: #888; text-align: center; padding: 60px 20px; margin-top: 80px; border-top: 8px solid var(--main-red); }
 
-        @media (max-width: 900px) {
-            .main-grid { grid-template-columns: 1fr; }
-            .headline { height: 350px; }
-            .headline-info h1 { font-size: 24px; }
-            .article-title { font-size: 28px; }
-            .article-wrap { padding: 25px; }
-        }
+        @media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } .headline { height: 350px; } }
     </style>
 </head>
 <body>
@@ -84,6 +69,7 @@
         <a onclick="goHome()">GÜNDEM</a>
         <a onclick="goHome()">ASAYİŞ</a>
         <a onclick="goHome()">EKONOMİ</a>
+        <a onclick="goHome()">DÜNYA</a>
         <a onclick="goHome()">SPOR</a>
         <a onclick="goHome()">MAGAZİN</a>
         <a onclick="goHome()">TEKNOLOJİ</a>
@@ -100,40 +86,68 @@
         <div class="section-title">HABER AKIŞI</div>
         <div class="news-grid" id="gridSlot"></div>
     </div>
-    
     <div id="articleView" class="article-wrap"></div>
 </div>
 
-<footer>
-    <div class="footer-logo">GÜNCEL HABER</div>
-    © 2026 GÜNCEL HABER - Türkiye'nin Bağımsız Haber Kaynağı<br>
-    Tüm Hakları Saklıdır.
-</footer>
+<footer>© 2026 GÜNCEL HABER - Tüm Hakları Saklıdır.</footer>
 
 <script>
     const newsDB = [
         {
-            title: "Kapaklı’da Kanlı Hesaplaşma: 1 Ölü, 2 Ağır Yaralı!",
+            title: "Kapaklı’da Gece Yarısı Dehşeti: Sokak Ortası Savaş Alanına Döndü!",
             img: "https://raw.githubusercontent.com/guncel-haber-hatti/HIZLI-HABER/main/71DA2E6F-5915-420E-B581-9A12F1940F1C.jpeg",
             tag: "SON DAKİKA",
-            content: `<b>TEKİRDAĞ / KAPAKLI</b> – Kapaklı ilçesinde gece saatlerinde meydana gelen silahlı saldırı, bölgede büyük paniğe yol açtı. İki grup arasındaki sözlü tartışmanın kavgaya dönüşmesi üzerine, yanındaki silahı ateşleyen saldırgan dehşet saçtı. Olayda <b>1 kişi hayatını kaybederken</b>, biri yoldan geçen masum bir sivil olmak üzere 2 kişi ağır yaralandı.<br><br>
-                <h3>HESAPLAŞMANIN NEDENİ: BORÇ ANLAŞMAZLIĞI</h3>
-                Emniyet birimlerinden alınan bilgilere göre, kanlı hesaplaşmanın temelinde taraflar arasındaki bir alacak-verecek meselesi yatıyor. Tartışmada gözü dönen saldırganın, hedefindeki şahıslara kurşun yağdırdığı belirlendi.<br><br>
-                <h3>SOSYAL MEDYADAN SİNYAL VERMİŞ</h3>
-                Firari zanlı <b>E.S.</b>'nin, olaydan kısa süre önce sosyal medya hesaplarından <b>silahlı paylaşımlar</b> yaparak tehdit mesajları yayınladığı iddia edildi. Birçok kez silahla görseller paylaşan zanlının "hesap vakti" ifadelerini kullandığı öne sürülüyor.<br><br>
-                <h3>ZANLI E.S. HER YERDE ARANIYOR</h3>
-                Emniyet ekipleri, tetiği çeken ismin <b>E.S.</b> olduğunu kesinleştirdi. 25 yaşındaki zanlının suç dosyasında <b>24 ayrı kayıt</b> bulunduğu; daha önce de <b>silahla yaralama</b> ve <b>ruhsatsız silah bulundurma</b> suçlarından işlem gördüğü ortaya çıktı.`
-        },
-        // Yan Haberler (Picsum ile gerçekçi)
-        { title: "Borsa İstanbul'da Rekor Kapanış!", img: "https://picsum.photos/600/400?business", tag: "EKONOMİ", content: "BIST 100 endeksi günü tarihi zirvede tamamladı. Yatırımcıların ilgisi teknoloji hisselerinde yoğunlaştı." },
-        { title: "Milli Takımda Kadro Revizyonu!", img: "https://picsum.photos/600/400?soccer", tag: "SPOR", content: "Teknik direktör, Euro 2026 elemeleri öncesi kadroda sürpriz değişikliklere gitti. Genç yıldızlar kampa çağrıldı." },
-        { title: "İstanbul'da Ulaşım Zammı Kapıda!", img: "https://picsum.photos/600/400?city", tag: "GÜNDEM", content: "UKOME toplantısından sızan bilgilere göre toplu taşıma ücretlerine yüzde 25 zam yapılması gündemde." },
-        
-        // Grid Haberleri (20-30 tane gerçekçi)
-        { title: "Yeni Katlanabilir Telefon Tanıtıldı!", img: "https://picsum.photos/600/400?phone", tag: "TEKNOLOJİ", content: "Teknoloji devi, merakla beklenen katlanabilir ekranlı yeni modelini görkemli bir lansmanla tanıttı." },
-        { title: "Ünlü Oyuncu Boşandı: 'Anlaşarak Ayrıldık'", img: "https://picsum.photos/600/400?actor", tag: "MAGAZİN", content: "Magazin dünyasının örnek çifti olarak gösterilen ikili, bugün tek celsede boşandı." },
-        { title: "Ege'de Turizm Sezonu Erken Açıldı!", img: "https://picsum.photos/600/400?beach", tag: "YAŞAM", content: "Hava sıcaklıklarının artmasıyla birlikte tatil beldelerinde yoğunluk şimdiden başladı." },
-        { title: "Kripto Para Piyasasında Büyük Çöküş!", img: "https://picsum.photos/600/400?bitcoin", tag: "EKONOMİ", content: "Lider kripto para birimi son 24 saatte yüzde 15 değer kaybetti. Yatırımcılar panikte." },
-        { title: "Şampiyonlar Ligi'nde Dev Eşleşme!", img: "https://picsum.photos/600/400?stadium", tag: "SPOR", content: "Çeyrek final kuraları çekildi. İspanyol devi ile İngiliz ekibi karşı karşıya gelecek." },
-        { title: "Asgari Ücret Tespit Komisyonu Toplanıyor!", img: "https://picsum.photos/600/400?money", tag: "GÜNDEM", content: "Milyonların gözü kulağı Ankara'da. Yeni asgari ücret için pazarlıklar yarın başlıyor." },
-        { title: "Uzaydan İlk Turistik Uçuş Başarıyla Tamamlandı!", img: "https://picsum.photos/600/400?space", tag: "TEKNOLOJİ", content: "Sivil yolcuları
+            content: `<b>TEKİRDAĞ / KAPAKLI</b> – Kapaklı ilçesinde dün gece saatlerinde meydana gelen silahlı çatışma, mahalle sakinlerine korku dolu anlar yaşattı. Edinilen bilgilere göre, aralarında geçmişe dayalı bir husumet bulunan iki grup, cadde üzerinde karşı karşıya geldi. Sözlü tartışmanın bir anda alevlenmesiyle taraflar arasında arbede çıktı. Silahların çekilmesiyle sokağın adeta savaş alanına döndüğü olayda, kurşunların hedefi olan <b>1 kişi hayatını kaybederken</b>, seken kör kurşunla yaralanan bir sivil ile birlikte toplam 2 kişi ağır yaralandı.<br><br>
+                <h3>ÇATIŞMANIN ORTASINDA KALAN SİVİLE İLK YARDIM VATANDAŞTAN GELDİ!</h3>
+                Olayın en trajik noktası, husumetli grupların birbirine ateş açtığı sırada bölgeden geçmekte olan masum bir vatandaşın kurşunların hedefi olması oldu. Vücuduna isabet eden mermilerle kanlar içinde yere yığılan talihsiz sivilin yardımına, silah seslerinin kesilmesiyle birlikte çevredeki vatandaşlar koştu. Mahalle sakinlerinin ceketleriyle tampon yaparak hayatta tutmaya çalıştığı yaralı sivil, olay yerine çağrılan ambulansla hastaneye kaldırıldı. Yoğun bakımda tedavi altına alınan sivil vatandaşın hayati tehlikesinin sürdüğü bildirildi.<br><br>
+                <h3>ZANLININ 24 AYRI SUÇ DOSYASI ORTAYA ÇIKTI!</h3>
+                Emniyet güçlerinin yaptığı titiz saha çalışması ve çevredeki güvenlik kamerası incelemeleri sonucunda, tetiği çeken şüpheli şahsın <b>E.S.</b> (25) olduğu tespit edildi. Olay yerinden karanlıktan faydalanarak kaçan zanlı hakkında <b>"Kasten Adam Öldürme"</b> ve <b>"Kasten Adam Öldürmeye Teşebbüs"</b> suçlarından geniş çaplı tahkikat başlatıldı. <br><br>
+                Zanlının geçmişine yönelik yapılan araştırmada ise çarpıcı bir tabloyla karşılaşıldı. <b>E.S.</b>'nin; <b>kaçakçılık</b>, <b>yağma</b>, <b>ruhsatsız silah bulundurma</b> ve <b>silahla yaralama</b> gibi suçlar başta olmak üzere toplam <b>24 ayrı suç dosyasının</b> bulunduğu saptandı. Özellikle kaçakçılık dosyalarıyla dikkat çeken zanlının, son olayla birlikte emniyetin öncelikli arananlar listesine alındığı öğrenildi.<br><br>
+                <h3>SOSYAL MEDYADAKİ SİLAHLI GÖNDERİLER DİKKAT ÇEKTİ</h3>
+                Asayiş Şube ekipleri, firari zanlı <b>E.S.</b>’nin dijital ayak izlerini de mercek altına aldı. Şüphelinin olaydan kısa bir süre önce sosyal medya hesapları üzerinden <b>ateşli silahlarla</b> çekilmiş fotoğraflar paylaştığı ve hasımlarına yönelik tehdit içerikli mesajlar yayınladığı iddia edildi.`
+        }
+    ];
+
+    const topics = ["GÜNDEM", "EKONOMİ", "SPOR", "MAGAZİN", "DÜNYA", "TEKNOLOJİ"];
+    for(let i=1; i<=30; i++) {
+        newsDB.push({
+            title: "Son Dakika: Gelişmeler Takip Ediliyor - Haber " + i,
+            img: `https://picsum.photos/800/600?sig=${i}`,
+            tag: topics[i % topics.length],
+            content: "Bu haberin detayları editörlerimiz tarafından hazırlanmaktadır. En güncel bilgiler için sayfayı takip etmeye devam edin."
+        });
+    }
+
+    function render() {
+        const main = newsDB[0];
+        document.getElementById('mainSlot').innerHTML = `<img src="${main.img}"><div class="headline-info"><div class="tag">${main.tag}</div><h1>${main.title}</h1></div>`;
+        let sideHtml = "";
+        newsDB.slice(1, 5).forEach((item, index) => {
+            sideHtml += `<div class="side-card" onclick="openNews(${index + 1})"><img src="${item.img}"><div class="side-card-body"><h3>${item.title}</h3></div></div>`;
+        });
+        document.getElementById('sideSlot').innerHTML = sideHtml;
+        let gridHtml = "";
+        newsDB.slice(5).forEach((item, index) => {
+            gridHtml += `<div class="news-item" onclick="openNews(${index + 5})"><img src="${item.img}"><div class="news-item-content"><h4>${item.title}</h4></div></div>`;
+        });
+        document.getElementById('gridSlot').innerHTML = gridHtml;
+    }
+
+    function openNews(idx) {
+        const item = newsDB[idx];
+        document.getElementById('homePage').style.display = "none";
+        const view = document.getElementById('articleView');
+        view.style.display = "block";
+        view.innerHTML = `<div class="btn-back" onclick="goHome()">← ANA SAYFA</div><h1 class="article-title">${item.title}</h1><div class="article-meta">06 NİSAN 2026 | 14:05</div><img class="article-img" src="${item.img}"><div class="article-content">${item.content}</div>`;
+        window.scrollTo(0,0);
+    }
+
+    function goHome() {
+        document.getElementById('articleView').style.display = "none";
+        document.getElementById('homePage').style.display = "block";
+    }
+
+    render();
+</script>
+</body>
+</html>
