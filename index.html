@@ -1,110 +1,103 @@
-<!DOCTYPE html>
+i<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENGİN SAVCU | GÜNCEL HABER HATTI</title>
+    <title>GÜNCEL HABER HATTI | ENGİN SAVCU</title>
     <style>
-        /* GÜNCEL HABER HATTI - BİREBİR TASARIM */
-        body { font-family: Arial, Helvetica, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; color: #333; }
+        /* SİTEYİ KOMPLE KOPYALAYAN STİL */
+        body { font-family: 'Inter', sans-serif; background: #f0f2f5; margin: 0; color: #1c1e21; }
+        .top-red-line { background: #cc0000; height: 6px; width: 100%; position: fixed; top: 0; z-index: 1000; }
         
-        /* En Üst Şerit */
-        .top-line { background: #cc0000; height: 5px; width: 100%; }
-        
-        /* Header Alanı */
-        header { background: white; padding: 20px 0; border-bottom: 1px solid #ddd; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .logo { font-size: 32px; font-weight: bold; color: #000; text-transform: uppercase; letter-spacing: -1px; }
+        header { background: #fff; padding: 25px 0; border-bottom: 1px solid #ddd; text-align: center; margin-top: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+        .logo { font-size: 35px; font-weight: 900; color: #000; letter-spacing: -1.5px; text-transform: uppercase; }
         .logo span { color: #cc0000; }
-        .nav-sub { font-size: 12px; color: #666; margin-top: 5px; font-weight: bold; letter-spacing: 1px; }
+        .sub-header { font-size: 11px; font-weight: bold; color: #777; letter-spacing: 2px; margin-top: 5px; }
 
-        .main-container { max-width: 800px; margin: 20px auto; padding: 0 10px; }
+        .wrapper { max-width: 900px; margin: 25px auto; padding: 0 15px; }
 
-        /* Haber Kartı Tasarımı */
-        .news-box { background: white; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 5px solid #cc0000; cursor: pointer; transition: 0.2s; }
-        .news-box:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        /* MANŞET ALANI */
+        .main-news { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-left: 6px solid #cc0000; cursor: pointer; transition: 0.3s; }
+        .main-news:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
         
-        .image-container { position: relative; width: 100%; height: 400px; overflow: hidden; }
-        .image-container img { width: 100%; height: 100%; object-fit: cover; }
-        .category-tag { position: absolute; top: 15px; left: 15px; background: #cc0000; color: white; padding: 5px 15px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+        .img-box { position: relative; width: 100%; height: 450px; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .badge { position: absolute; top: 20px; left: 20px; background: #cc0000; color: #fff; padding: 6px 15px; font-size: 12px; font-weight: bold; border-radius: 2px; }
 
-        .content-area { padding: 25px; }
-        .date-info { color: #888; font-size: 13px; margin-bottom: 10px; font-weight: bold; }
-        h1 { font-size: 28px; margin: 0 0 15px 0; color: #000; line-height: 1.2; }
-        .description { font-size: 17px; line-height: 1.6; color: #555; }
-        .read-more { display: inline-block; margin-top: 20px; color: #cc0000; font-weight: bold; text-decoration: none; border-bottom: 2px solid #cc0000; padding-bottom: 2px; }
+        .text-box { padding: 30px; }
+        .meta-date { color: #8e8e8e; font-size: 13px; font-weight: 600; margin-bottom: 12px; display: block; }
+        h1 { font-size: 32px; margin: 0 0 15px 0; line-height: 1.1; color: #000; }
+        .excerpt { font-size: 18px; color: #4b4f56; line-height: 1.6; }
 
-        /* Pop-up Haber Detayı */
-        #detail-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10000; overflow-y: auto; }
-        .detail-nav { background: #000; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
-        .close-button { background: #cc0000; border: none; color: white; padding: 8px 20px; font-weight: bold; cursor: pointer; border-radius: 3px; }
-        .detail-body { max-width: 700px; margin: 30px auto; padding: 0 20px; }
-        .detail-body h2 { font-size: 36px; line-height: 1.1; margin-bottom: 20px; }
-        .full-text { font-size: 19px; line-height: 1.8; color: #333; }
+        /* HABER DETAY (POPUP) */
+        #news-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 10000; overflow-y: auto; }
+        .nav-inner { background: #000; color: #fff; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; }
+        .btn-close { background: #cc0000; border: none; color: #fff; padding: 10px 25px; font-weight: bold; cursor: pointer; border-radius: 4px; }
+        
+        .article-content { max-width: 750px; margin: 40px auto; padding: 0 20px; }
+        .article-content h2 { font-size: 40px; margin-bottom: 25px; border-bottom: 3px solid #cc0000; padding-bottom: 15px; }
+        .full-img { width: 100%; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .content-p { font-size: 20px; line-height: 1.9; color: #222; }
 
-        footer { text-align: center; padding: 30px; color: #999; font-size: 11px; margin-top: 50px; border-top: 1px solid #ddd; }
+        footer { text-align: center; padding: 50px 20px; color: #999; font-size: 12px; border-top: 1px solid #ddd; background: #fff; margin-top: 50px; }
     </style>
 </head>
 <body>
 
-    <div class="top-line"></div>
+<div class="top-red-line"></div>
 
-    <header>
-        <div class="logo">ENGİN <span>SAVCU</span></div>
-        <div class="nav-sub">GÜNCEL HABER HATTI • SON DAKİKA HABERLERİ</div>
-    </header>
+<header>
+    <div class="logo">ENGİN <span>SAVCU</span></div>
+    <div class="sub-header">GÜNCEL HABER HATTI • TÜRKİYE'NİN HABER KAYNAĞI</div>
+</header>
 
-    <div class="main-container">
-        <div class="news-box" onclick="showContent()">
-            <div class="image-container">
-                <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1200" alt="Haber Görseli">
-                <div class="category-tag">GÜNDEM ÖZEL</div>
-            </div>
-            <div class="content-area">
-                <div class="date-info">06 NİSAN 2026, PAZARTESİ</div>
-                <h1>Engin Savcu'dan Kamuoyuna Samimi Açıklama</h1>
-                <p class="description">Geçtiğimiz günlerde yaşanan ve maksadını aşan talihsiz olayla ilgili olarak derin bir üzüntü içerisindeyim. İstemeden kırdığım tüm taraflardan özür dilerim...</p>
-                <div class="read-more">HABERİN DEVAMI İÇİN TIKLAYINIZ</div>
-            </div>
+<div class="wrapper">
+    <article class="main-news" onclick="openNews()">
+        <div class="img-box">
+            <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1200">
+            <div class="badge">FLAŞ HABER</div>
+        </div>
+        <div class="text-box">
+            <span class="meta-date">06 NİSAN 2026, PAZARTESİ</span>
+            <h1>Engin Savcu'dan Kamuoyuna Samimi Açıklama</h1>
+            <p class="excerpt">Geçtiğimiz günlerde yaşanan ve maksadını aşan talihsiz olayla ilgili olarak derin bir üzüntü içerisindeyim. Kamuoyuna saygıyla duyurulur...</p>
+            <strong style="color:#cc0000">TIKLA VE OKU →</strong>
+        </div>
+    </article>
+</div>
+
+<div id="news-overlay">
+    <div class="nav-inner">
+        <span>GÜNCEL HABER HATTI</span>
+        <button class="btn-close" onclick="closeNews()">KAPAT X</button>
+    </div>
+    <div class="article-content">
+        <h2>Engin Savcu'dan Kamuoyuna Samimi Açıklama</h2>
+        <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1200" class="full-img">
+        <div class="content-p">
+            Geçtiğimiz günlerde yaşanan ve maksadını aşan talihsiz olayla ilgili olarak derin bir üzüntü içerisindeyim. 
+            <br><br>
+            İstemeden de olsa kırdığım ve üzdüğüm tüm taraflardan içtenlikle özür dilerim. Bu süreç benim için önemli bir ders oldu; benzer bir durumun tekrarlanmaması adına üzerime düşen tüm sorumluluğu alacağımı ve bundan sonraki süreçte çok daha dikkatli davranacağımı kamuoyuna saygıyla duyururum.
+            <br><br>
+            Bu açıklama, yanlış anlaşılmaların önüne geçmek ve şeffaf bir iletişim kurmak adına yapılmıştır. Tüm takipçilerime ve kamuoyuna duyurulur.
+            <br><br>
+            Saygılarımla,<br>
+            <b>Engin Savcu</b>
         </div>
     </div>
+    <footer>© 2026 GÜNCEL HABER HATTI - TÜM HAKLARI SAKLIDIR.</footer>
+</div>
 
-    <div id="detail-view">
-        <div class="detail-nav">
-            <span>HABER AYRINTISI</span>
-            <button class="close-button" onclick="hideContent()">KAPAT X</button>
-        </div>
-        <div class="detail-body">
-            <div class="date-info">YAYINLANMA: 06.04.2026 - 12:45</div>
-            <h2>Engin Savcu'dan Kamuoyuna Samimi Açıklama</h2>
-            <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1200" style="width:100%; border-radius:8px; margin-bottom:25px;">
-            <div class="full-text">
-                Geçtiğimiz günlerde yaşanan ve maksadını aşan talihsiz olayla ilgili olarak derin bir üzüntü içerisindeyim. 
-                <br><br>
-                İstemeden de olsa kırdığım ve üzdüğüm tüm taraflardan içtenlikle özür dilerim. Bu süreç benim için önemli bir ders oldu; benzer bir durumun tekrarlanmaması adına üzerime düşen tüm sorumluluğu alacağımı ve bundan sonraki süreçte çok daha dikkatli davranacağımı kamuoyuna saygıyla duyururum.
-                <br><br>
-                Saygılarımla,
-                <br>
-                <b>Engin Savcu</b>
-            </div>
-        </div>
-        <footer>© 2026 GÜNCEL HABER HATTI - TÜM HAKLARI SAKLIDIR.</footer>
-    </div>
-
-    <footer>
-        Bu sayfa 5651 sayılı yasaya uygun olarak yayınlanmaktadır. <br>
-        Mega Medya Grubu iştirakidir.
-    </footer>
-
-    <script>
-        function showContent() {
-            document.getElementById('detail-view').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-        function hideContent() {
-            document.getElementById('detail-view').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    </script>
+<script>
+    function openNews() {
+        document.getElementById('news-overlay').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeNews() {
+        document.getElementById('news-overlay').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+</script>
 
 </body>
 </html>
