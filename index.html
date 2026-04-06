@@ -1,134 +1,93 @@
-// mega-news.js
 const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const Parser = require('rss-parser');
-const http = require('http');
-const { Server } = require('socket.io');
-
 const app = express();
-app.use(cors());
-app.use(express.json());
 
-const mongoURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/megaNews';
-mongoose.connect(mongoURI).then(()=>console.log('MongoDB bağlı')).catch(err=>console.log(err));
+// --- GÜNLÜK HABER MERKEZİ ---
+const haber = {
+  baslik: "Engin Savcu'dan Kamuoyuna Samimi Açıklama",
+  ozet: "Yaşanan talihsiz olayla ilgili derin bir üzüntü içerisindeyim.",
+  icerik: `Geçtiğimiz günlerde yaşanan ve maksadını aşan talihsiz olayla ilgili olarak derin bir üzüntü içerisindeyim. 
 
-const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: "*" } });
+           İstemeden de olsa kırdığım ve üzdüğüm tüm taraflardan içtenlikle özür dilerim. Bu süreç benim için önemli bir ders oldu; benzer bir durumun tekrarlanmaması adına üzerime düşen tüm sorumluluğu alacağımı ve daha dikkatli olacağımı belirtmek isterim.`,
+  gorsel: "https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=1200",
+  kategori: "ÖZEL HABER",
+  yazar: "Mega Editör",
+  tarih: "06 Nisan 2026"
+};
 
-const newsSchema = new mongoose.Schema({
-  title: String,
-  summary: String,
-  content: String,
-  image: String,
-  language: { type: String, default: 'tr' },
-  views: { type: Number, default: 0 },
-  createdAt: { type: Date, default: Date.now }
-});
-const News = mongoose.model('News', newsSchema);
-
-// Özel Engin Savcu Haberini Sisteme Ekleme Fonksiyonu
-async function checkSpecialNews() {
-  const specialTitle = "Engin Savcu'dan Kamuoyuna Samimi Açıklama";
-  const exists = await News.findOne({ title: specialTitle });
-  
-  if (!exists) {
-    const specialNews = new News({
-      title: specialTitle,
-      summary: "Geçtiğimiz günlerde yaşanan olayla ilgili derin bir üzüntü içerisindeyim.",
-      content: "Geçtiğimiz günlerde yaşanan ve maksadını aşan talihsiz olayla ilgili olarak derin bir üzüntü içerisindeyim. İstemeden de olsa kırdığım ve üzdüğüm tüm taraflardan içtenlikle özür dilerim. Bu süreç benim için önemli bir ders oldu.",
-      image: "https://via.placeholder.com/800x400.png?text=Engin+Savcu+Aciklama", // Buraya gerçek bir görsel URL'si koyabilirsin
-      language: 'tr'
-    });
-    await specialNews.save();
-    console.log("Özel haber veritabanına eklendi.");
-  }
-}
-
-async function fetchNews(){
-  await checkSpecialNews(); // Önce bizim özel haberi kontrol et
-  const parser = new Parser();
-  const feeds = ['https://www.hurriyet.com.tr/rss/gundem', 'http://feeds.bbci.co.uk/news/world/rss.xml'];
-  for(let url of feeds){
-    try {
-      const feed = await parser.parseURL(url);
-      for(let item of feed.items){
-        const exists = await News.findOne({ title: item.title });
-        if(!exists){
-          const news = new News({
-            title: item.title,
-            summary: item.contentSnippet,
-            content: item.content,
-            image: item.enclosure?.url || '',
-            language: url.includes('bbc') ? 'en' : 'tr'
-          });
-          await news.save();
-          io.emit('new-news', news);
-        }
-      }
-    } catch(e) { console.log("Haber çekme hatası:", url); }
-  }
-}
-
-setInterval(fetchNews, 1000*60*60);
-fetchNews();
-
-app.get('/news', async(req,res)=>res.json(await News.find().sort({createdAt:-1}).limit(50)));
-app.post('/news/:id/view', async(req,res)=>{
-  const n = await News.findById(req.params.id);
-  if(n){ n.views=(n.views||0)+1; await n.save(); }
-  res.sendStatus(200);
-});
-
-app.get('/', (req,res)=>{
+app.get('/', (req, res) => {
   res.send(`
-<html>
-<head>
-<title>Mega Haber</title>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<style>
-body{font-family:sans-serif;background:#f8f9fa;margin:0;padding:10px;}
-.grid{display:grid;gap:15px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));max-width:1200px;margin:0 auto;}
-.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.1);cursor:pointer;transition:transform 0.2s;}
-.card:hover{transform:translateY(-5px);}
-img{width:100%;height:180px;object-fit:cover;background:#eee;}
-.content{padding:15px;}
-h2{margin:0 0 10px 0;font-size:1.1rem;color:#222;}
-p{margin:0;font-size:0.9rem;color:#666;line-height:1.4;}
-.footer{margin-top:15px;display:flex;justify-content:space-between;font-size:0.75rem;color:#999;border-top:1px solid #eee;padding-top:10px;}
-</style>
-</head>
-<body>
-<h1 style="text-align:center;color:#d32f2f;">MEGA HABER</h1>
-<div class="grid" id="news"></div>
-<script src="/socket.io/socket.io.js"></script>
-<script>
-const socket = io();
-const newsDiv = document.getElementById('news');
+    <!DOCTYPE html>
+    <html lang="tr">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <title>${haber.baslik}</title>
+      <style>
+        :root { --red: #d32f2f; --dark: #0f0f0f; --card: #1a1a1a; --gray: #888; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--dark); color: white; margin: 0; }
+        
+        /* Okuma Çubuğu */
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--red); width: 0%; z-index: 1000; transition: width 0.2s; }
+        
+        header { background: var(--dark); border-bottom: 1px solid #333; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; }
+        .logo { font-weight: 900; font-size: 1.5rem; color: var(--red); letter-spacing: -1px; }
 
-function addNews(n, prepend=true){
-  if(document.getElementById(n._id)) return;
-  const div = document.createElement('div');
-  div.className='card';
-  div.id = n._id;
-  div.innerHTML='<img src="'+(n.image || 'https://via.placeholder.com/400x200?text=Haber')+'"/>'+
-                '<div class="content"><h2>'+n.title+'</h2>'+
-                '<p>'+(n.summary || '')+'</p>'+
-                '<div class="footer"><span>'+new Date(n.createdAt).toLocaleDateString('tr-TR')+'</span><span>Okunma: '+(n.views||0)+'</span></div></div>';
-  div.onclick=()=>{
-    fetch('/news/'+n._id+'/view',{method:'POST'});
-    alert(n.title + "\\n\\n" + (n.content || n.summary));
-  };
-  if(prepend) newsDiv.prepend(div); else newsDiv.appendChild(div);
-}
+        .hero { width: 100%; height: 50vh; position: relative; overflow: hidden; }
+        .hero img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, var(--dark)); padding: 40px 20px 20px; }
 
-fetch('/news').then(r=>r.json()).then(arr=>arr.forEach(n=>addNews(n, false)));
-socket.on('new-news', addNews);
-</script>
-</body>
-</html>
+        .container { max-width: 650px; margin: auto; padding: 20px; }
+        .badge { background: var(--red); padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; }
+        h1 { font-size: 2.2rem; line-height: 1.1; margin: 15px 0; }
+        .meta { color: var(--gray); font-size: 0.9rem; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+
+        .article-body { font-size: 1.2rem; line-height: 1.7; color: #ddd; }
+        
+        .share-btn { background: #25d366; color: white; text-align: center; padding: 15px; border-radius: 10px; margin-top: 40px; cursor: pointer; font-weight: bold; text-decoration: none; display: block; }
+        footer { text-align: center; padding: 50px; color: #444; font-size: 0.8rem; }
+      </style>
+    </head>
+    <body>
+      <div class="progress-bar" id="myBar"></div>
+      <header><div class="logo">MEGA NEWS</div></header>
+
+      <div class="hero">
+        <img src="${haber.gorsel}">
+        <div class="hero-overlay">
+          <span class="badge">${haber.kategori}</span>
+          <h1>${haber.baslik}</h1>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="meta">
+          Yazar: <b>${haber.yazar}</b> • ${haber.tarih}
+        </div>
+
+        <div class="article-body">
+          ${haber.icerik.replace(/\n/g, '<br>')}
+        </div>
+
+        <a href="whatsapp://send?text=${encodeURIComponent(haber.baslik + ' - ')}https://mega-news.onrender.com" class="share-btn">
+          WhatsApp'ta Paylaş
+        </a>
+
+        <footer>© 2026 MEGA DIGITAL MEDIA</footer>
+      </div>
+
+      <script>
+        window.onscroll = function() {
+          var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          var scrolled = (winScroll / height) * 100;
+          document.getElementById("myBar").style.width = scrolled + "%";
+        };
+      </script>
+    </body>
+    </html>
   `);
 });
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, ()=>console.log('Mega Haber Sistemi aktif:', PORT));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log('Sistem Aktif!'));
