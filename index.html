@@ -1,316 +1,268 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Türkiye Haber Portalı</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HaberTürk – Son Dakika Haberler, Güncel Haberler</title>
+    <style>
+        :root {
+            --ht-red: #e30613;
+            --ht-dark: #1a1a1a;
+            --ht-grey: #f0f0f0;
+        }
 
-<style>
+        body {
+            margin: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--ht-grey);
+            color: #333;
+        }
 
-body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#f3f3f3;
-}
+        /* HaberTürk Header */
+        header {
+            background-color: #fff;
+            border-bottom: 5px solid var(--ht-red);
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
 
-header{
-background:#c40000;
-color:white;
-padding:15px;
-font-size:28px;
-font-weight:bold;
-text-align:center;
-}
+        .logo {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--ht-dark);
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            cursor: pointer;
+        }
 
-nav{
-background:#111;
-padding:10px;
-}
+        .logo span { color: var(--ht-red); }
 
-nav a{
-color:white;
-margin-right:15px;
-text-decoration:none;
-font-weight:bold;
-}
+        nav {
+            background: var(--ht-dark);
+            padding: 12px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-.breaking{
-background:red;
-color:white;
-padding:8px;
-overflow:hidden;
-}
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-.breaking span{
-display:inline-block;
-animation:scroll 18s linear infinite;
-}
+        /* Manşet Alanı */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 800px 1fr;
+            gap: 15px;
+            padding: 0 10px;
+        }
 
-@keyframes scroll{
-0%{transform:translateX(100%)}
-100%{transform:translateX(-100%)}
-}
+        .main-slider {
+            position: relative;
+            height: 450px;
+            background: #000;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+        }
 
-.container{
-max-width:1200px;
-margin:auto;
-padding:20px;
-}
+        .main-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
 
-.slider{
-position:relative;
-height:420px;
-overflow:hidden;
-border-radius:10px;
-}
+        .slider-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 30px;
+            color: #fff;
+        }
 
-.slide{
-position:absolute;
-width:100%;
-height:100%;
-opacity:0;
-transition:opacity 1s;
-}
+        .slider-caption h2 {
+            margin: 0;
+            font-size: 32px;
+            line-height: 1.1;
+        }
 
-.slide.active{
-opacity:1;
-}
+        /* Yan Haber Listesi (HaberTürk Stili) */
+        .side-news {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-.slide img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
+        .side-card {
+            background: #fff;
+            display: flex;
+            height: 105px;
+            cursor: pointer;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
 
-.slideText{
-position:absolute;
-bottom:30px;
-left:30px;
-background:rgba(0,0,0,.6);
-color:white;
-padding:15px;
-font-size:24px;
-border-radius:6px;
-}
+        .side-card img { width: 140px; height: 100%; object-fit: cover; }
+        .side-card-text { padding: 10px; font-size: 14px; font-weight: bold; line-height: 1.3; }
 
-.grid{
-margin-top:25px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
+        /* Haber Detay Sayfası */
+        #news-detail {
+            display: none;
+            background: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-.card{
-background:white;
-border-radius:10px;
-overflow:hidden;
-cursor:pointer;
-box-shadow:0 5px 20px rgba(0,0,0,.15);
-transition:.3s;
-}
+        .back-btn {
+            color: var(--ht-red);
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
 
-.card:hover{
-transform:translateY(-8px) scale(1.02);
-box-shadow:0 10px 30px rgba(0,0,0,.3);
-}
+        .detail-title { font-size: 36px; font-weight: 800; margin-bottom: 20px; color: #000; }
+        .detail-img { width: 100%; border-radius: 4px; margin-bottom: 25px; }
+        .detail-content { font-size: 19px; line-height: 1.8; color: #333; }
 
-.card img{
-width:100%;
-height:170px;
-object-fit:cover;
-}
+        /* Mobil Ayarlar */
+        @media (max-width: 1000px) {
+            .container { grid-template-columns: 1fr; }
+            .main-slider { height: 300px; }
+            .slider-caption h2 { font-size: 22px; }
+        }
 
-.card h3{
-padding:12px;
-font-size:18px;
-}
-
-.article{
-background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 5px 25px rgba(0,0,0,.2);
-animation:fade .5s;
-}
-
-.article img{
-width:100%;
-border-radius:10px;
-margin-bottom:20px;
-}
-
-@keyframes fade{
-from{opacity:0;transform:translateY(15px)}
-to{opacity:1}
-}
-
-.back{
-margin-bottom:15px;
-display:inline-block;
-color:#c40000;
-font-weight:bold;
-cursor:pointer;
-}
-
-footer{
-margin-top:40px;
-background:#111;
-color:white;
-padding:20px;
-text-align:center;
-}
-
-</style>
+        footer {
+            margin-top: 50px;
+            background: var(--ht-dark);
+            color: #999;
+            text-align: center;
+            padding: 30px;
+            font-size: 13px;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>TÜRKİYE HABER PORTALI</header>
+<header>
+    <div class="logo" onclick="showHome()">HABER<span>TÜRK</span></div>
+</header>
 
 <nav>
-<a onclick="home()">Ana Sayfa</a>
+    <a onclick="showHome()">GÜNDEM</a>
+    <a onclick="showHome()">EKONOMİ</a>
+    <a onclick="showHome()">SPOR</a>
+    <a onclick="showHome()">MAGAZİN</a>
 </nav>
 
-<div class="breaking">
-<span>SON DAKİKA • Türkiye gündeminde önemli gelişmeler • Ekonomi piyasaları hareketli • Spor dünyasında transfer iddiaları</span>
-</div>
-
 <div class="container">
+    <div id="home-stream" style="display: contents;">
+        <div class="main-slider" id="main-headline" onclick="openNews(0)">
+            </div>
 
-<div id="home">
+        <div class="side-news" id="side-grid">
+            </div>
+    </div>
 
-<div class="slider" id="slider"></div>
-
-<div class="grid" id="news"></div>
-
-</div>
-
-<div id="articlePage" style="display:none"></div>
-
+    <div id="news-detail">
+        </div>
 </div>
 
 <footer>
-© 2026 Türkiye Haber Portalı
+    Copyright © 2026 - Tüm hakları saklıdır. HaberTürk Gazetecilik A.Ş.
 </footer>
 
 <script>
+    // HABERLERİ BURADAN MANUEL OLARAK DÜZENLEYEBİLİRSİN
+    const newsDB = [
+        {
+            title: "Kapaklı’da Sokak Ortasında Can Pazarı: Kör Kurşun Sivili Vurdu!",
+            thumb: "https://picsum.photos/800/450?crime", // Ana manşet resmi
+            content: `
+                <b>TEKİRDAĞ / KAPAKLI</b> – Kapaklı sokakları dün gece yankılanan silah sesleriyle sarsıldı! İki grup arasında sokak ortasında başlayan o karanlık hesaplaşmada silahlar çekildi, namlular susmak bilmedi.<br><br>
+                Hedef gözetmeksizin ateşlenen silahtan çıkan <b>kör kurşunlardan biri</b>, olayla hiçbir ilgisi olmayan ve o sırada sadece yoldan geçen masum bir sivil vatandaşa isabet etti! Kanlar içinde yere yığılan talihsiz sivil, acil servis ekiplerince hastaneye kaldırıldı.<br><br>
+                <h3>MASUM SİVİL YAŞAM MÜCADELESİ VERİYOR!</h3>
+                Kanlı gecede ağır yaralanan sivil vatandaşın tedavisi hastanede yoğun bakımda sürüyor. Doktorların hayatta tutmak için yoğun çaba sarf ettiği masum kurbanın durumunun ciddiyetini koruduğu öğrenildi. Olayda yaralanan diğer iki isimden birinin durumunun da ağır olduğu ve hastanede gergin bekleyişin sürdüğü gelen bilgiler arasında.<br><br>
+                <h3>ÇEMBER DARALIYOR: 3 ŞEHİRDE OPERASYON!</h3>
+                3 kişinin yaralanmasına neden olan saldırgan, olayın ardından karanlıktan faydalanıp sırra kadem bastı! Emniyet güçleri firari şahsı yakalamak için dev bir operasyon başlattı. Saldırganın kaçmış olabileceği değerlendirilen <b>3 ayrı şehirde</b> aramalar emniyet birimleri tarafından eş zamanlı olarak hızlandırıldı!<br><br>
+                <h2 style="color:#e30613">VE O FİRARİ İSİM DEŞİFRE OLDU: ENGİN SAVCU!</h2>
+                Yapılan titiz incelemeler sonucunda, geceye dehşet salan o saldırganın <b>Engin Savcu</b> olduğu belirlendi! Henüz 25 yaşında olmasına rağmen tam 24 ayrı suç dosyası bulunan Engin Savcu'nun kabarık sicili dikkat çekti. Zanlının geçmişinde; liman baskınlarından silahlı yaralamaya kadar pek çok olayın olduğu belirlendi. Polis, firari Engin Savcu'yu yakalamak için operasyonlarını sürdürüyor.
+            `
+        },
+        {
+            title: "Türkiye Ekonomisinde Yeni Kararlar: Vergi Reformu Yolda!",
+            thumb: "https://picsum.photos/400/250?money",
+            content: "Ekonomi yönetiminden yeni adımlar geliyor..."
+        },
+        {
+            title: "İstanbul'da Ulaşım Düzenlemesi: Yeni Metro Hattı Açıldı",
+            thumb: "https://picsum.photos/400/250?metro",
+            content: "İstanbul'un trafik yükünü azaltacak dev proje tamamlandı."
+        },
+        {
+            title: "Milli Takımda Flaş Gelişme: Yeni Teknik Direktör Kim Olacak?",
+            thumb: "https://picsum.photos/400/250?football",
+            content: "Spor dünyasında heyecanlı bekleyiş sürüyor."
+        }
+    ];
 
-let news=[
+    function renderHome() {
+        // Ana Manşet
+        const main = newsDB[0];
+        document.getElementById('main-headline').innerHTML = `
+            <img src="${main.thumb}">
+            <div class="slider-caption">
+                <h2>${main.title}</h2>
+            </div>
+        `;
 
-{
-title:"Türkiye ekonomisinde yeni reform paketi açıklandı",
-img:"https://picsum.photos/800/500?1",
-content:`Ekonomi yönetimi yeni reform paketini açıkladı. Paket kapsamında yatırım ortamının iyileştirilmesi ve üretimin artırılması hedefleniyor. Uzmanlar reformların ekonomiye olumlu katkı sağlayabileceğini belirtiyor.`
-},
+        // Yan Haberler
+        let sideHtml = "";
+        newsDB.slice(1).forEach((n, i) => {
+            sideHtml += `
+                <div class="side-card" onclick="openNews(${i + 1})">
+                    <img src="${n.thumb}">
+                    <div class="side-card-text">${n.title}</div>
+                </div>
+            `;
+        });
+        document.getElementById('side-grid').innerHTML = sideHtml;
+    }
 
-{
-title:"İstanbul'da dev ulaşım projesi başlıyor",
-img:"https://picsum.photos/800/500?2",
-content:`İstanbul ulaşımını rahatlatacak yeni metro ve demiryolu projeleri için çalışmalar hızlandı. Projenin tamamlanmasıyla milyonlarca yolcunun daha hızlı ulaşım sağlaması bekleniyor.`
-},
+    function openNews(index) {
+        const n = newsDB[index];
+        document.getElementById('home-stream').style.display = "none";
+        const detail = document.getElementById('news-detail');
+        detail.style.display = "block";
+        detail.innerHTML = `
+            <div class="back-btn" onclick="showHome()">← ANA SAYFAYA DÖN</div>
+            <div class="detail-title">${n.title}</div>
+            <img class="detail-img" src="${n.thumb}">
+            <div class="detail-content">${n.content}</div>
+        `;
+        window.scrollTo(0,0);
+    }
 
-{
-title:"Milli takım yeni turnuva için hazırlanıyor",
-img:"https://picsum.photos/800/500?3",
-content:`Türkiye milli futbol takımı yeni turnuva öncesi hazırlık kampına başladı. Teknik ekip genç oyunculara şans vermeyi planlıyor.`
-},
+    function showHome() {
+        document.getElementById('news-detail').style.display = "none";
+        document.getElementById('home-stream').style.display = "contents";
+    }
 
-{
-title:"Teknoloji şirketlerinden yeni yapay zeka yatırımı",
-img:"https://picsum.photos/800/500?4",
-content:`Dünya genelinde teknoloji şirketleri yapay zeka yatırımlarını artırıyor. Türkiye'deki teknoloji ekosisteminin de bu alanda büyümesi bekleniyor.`
-}
-
-]
-
-function render(){
-
-let grid=""
-
-news.forEach((n,i)=>{
-
-grid+=`
-<div class="card" onclick="openNews(${i})">
-<img src="${n.img}">
-<h3>${n.title}</h3>
-</div>
-`
-
-})
-
-document.getElementById("news").innerHTML=grid
-
-let slider=""
-
-news.slice(0,3).forEach((n,i)=>{
-
-slider+=`
-<div class="slide ${i==0?"active":""}">
-<img src="${n.img}">
-<div class="slideText">${n.title}</div>
-</div>
-`
-
-})
-
-document.getElementById("slider").innerHTML=slider
-
-}
-
-let slideIndex=0
-
-function autoSlide(){
-
-let slides=document.querySelectorAll(".slide")
-
-slides.forEach(s=>s.classList.remove("active"))
-
-slideIndex++
-
-if(slideIndex>=slides.length)slideIndex=0
-
-slides[slideIndex].classList.add("active")
-
-}
-
-setInterval(autoSlide,4000)
-
-function openNews(i){
-
-let n=news[i]
-
-document.getElementById("home").style.display="none"
-
-document.getElementById("articlePage").style.display="block"
-
-document.getElementById("articlePage").innerHTML=`
-
-<div class="article">
-
-<div class="back" onclick="home()">← Ana sayfa</div>
-
-<h1>${n.title}</h1>
-
-<img src="${n.img}">
-
-<p>${n.content}</p>
-
-</div>
-
-`
-
-}
-
-function home(){
-
-document.getElementById("articlePage").style.display="none"
-
-document.getElementById("home").style.display="block"
-
-}
-
-render()
-
+    renderHome();
 </script>
 
 </body>
