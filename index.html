@@ -20,15 +20,12 @@
 
         .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
         
-        .main-hero { cursor: pointer; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-        .main-hero img { width: 100%; height: 300px; object-fit: cover; border-radius: 4px; }
-        .main-hero h1 { font-family: 'Playfair Display', serif; font-size: 24px; margin: 12px 0 5px; line-height: 1.2; font-weight: 900; }
+        .news-card-main { cursor: pointer; border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 25px; }
+        .news-card-main img { width: 100%; height: 300px; object-fit: cover; border-radius: 4px; }
+        .news-card-main h1, .news-card-main h2 { font-family: 'Playfair Display', serif; margin: 12px 0 5px; line-height: 1.2; font-weight: 900; }
+        .news-card-main h1 { font-size: 24px; }
+        .news-card-main h2 { font-size: 21px; }
         .tag { color: var(--red); font-weight: 700; font-size: 10px; text-transform: uppercase; border: 1px solid var(--red); padding: 1px 5px; border-radius: 2px; }
-
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; margin-top: 20px; }
-        .news-card { cursor: pointer; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
-        .news-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 3px; margin-bottom: 8px; }
-        .news-card h3 { font-size: 14px; font-weight: 700; line-height: 1.4; color: #222; }
 
         #articleView { display: none; max-width: 700px; margin: auto; animation: fadeIn 0.3s; }
         .btn-back { display: inline-block; margin-bottom: 15px; color: #888; font-weight: 700; cursor: pointer; font-size: 11px; text-transform: uppercase; }
@@ -45,8 +42,8 @@
         footer { text-align: center; padding: 40px; color: #ccc; font-size: 11px; border-top: 1px solid var(--border); margin-top: 40px; }
 
         @media (max-width: 600px) {
-            .main-hero img { height: 200px; }
-            .article-title { font-size: 24px; }
+            .news-card-main img { height: 200px; }
+            .article-title { font-size: 22px; }
         }
     </style>
 </head>
@@ -59,61 +56,75 @@
 <nav>
     <div class="nav-inner">
         <a onclick="goHome()">ASAYİŞ</a>
+        <a onclick="goHome()">DÜNYA</a>
         <a onclick="goHome()">GÜNDEM</a>
         <a onclick="goHome()">EKONOMİ</a>
-        <a onclick="goHome()">DÜNYA</a>
         <a onclick="goHome()">SPOR</a>
     </div>
 </nav>
 
 <div class="container">
     <div id="homePage">
-        <div class="main-hero" onclick="openNews(0)">
+        <div class="news-card-main" onclick="openNews(0)">
             <img src="https://raw.githubusercontent.com/guncel-haber-hatti/HIZLI-HABER/main/71DA2E6F-5915-420E-B581-9A12F1940F1C.jpeg">
             <div style="margin-top:10px;">
                 <span class="tag">SON DAKİKA</span>
                 <h1>Kapaklı’da Gece Yarısı Dehşeti: Sokak Ortası Savaş Alanına Döndü!</h1>
             </div>
         </div>
-        <div style="font-weight: 900; border-bottom: 2px solid #000; padding-bottom: 5px; margin: 30px 0 15px; font-size: 13px;">HABER AKIŞI</div>
-        <div class="news-grid" id="newsGrid"></div>
-    </div>
 
-    <div id="articleView">
-        <span class="btn-back" onclick="goHome()">← ANA SAYFAYA DÖN</span>
-        <h1 class="article-title">Kapaklı’da Gece Yarısı Dehşeti: Sokak Ortası Savaş Alanına Döndü!</h1>
-        <div class="meta">12 TEMMUZ 2023 | 23:15 - KAPAKLI</div>
-        <img class="article-img" src="https://raw.githubusercontent.com/guncel-haber-hatti/HIZLI-HABER/main/71DA2E6F-5915-420E-B581-9A12F1940F1C.jpeg">
-        <div class="article-content">
-            <p>Kapaklı ilçesinde dün gece saatlerinde meydana gelen silahlı çatışma, mahalle sakinlerine korku dolu anlar yaşattı. Edinilen bilgilere göre, aralarında geçmişe dayalı bir husumet bulunan iki grup, cadde üzerinde karşı karşıya geldi. Sözlü tartışmanın bir anda alevlenmesiyle taraflar arasında arbede çıktı.</p>
-            <p>Silahların çekilmesiyle sokağın adeta savaş alanına döndüğü olayda, kurşunların hedefi olan <b>1 kişi hayatını kaybederken</b>, çatışma sırasında seken kör kurşunla yaralanan bir sivil ile birlikte toplam 2 kişi ağır yaralandı. Silah seslerinin kesilmesiyle çevredeki vatandaşlar, kanlar içinde yere yığılan masum sivilin yardımına koşarak ceketleriyle tampon yaptı.</p>
-
-            <h3 class="sub-header">ZANLININ 24 AYRI SUÇ DOSYASI VAR</h3>
-            <p>Emniyet güçlerinin yaptığı titiz çalışma sonucunda, tetiği çeken şüpheli şahsın <b>E.S.</b> (25) olduğu tespit edildi. Olay yerinden kaçan zanlı hakkında "Kasten Adam Öldürme" ve "Kasten Adam Öldürmeye Teşebbüs" suçlarından tahkikat başlatıldı.</p>
-            <p>Zanlının geçmişine yönelik araştırmada; kaçakçılık, yağma ve ruhsatsız silah bulundurma gibi suçlar başta olmak üzere toplam <b>24 ayrı suç dosyasının</b> bulunduğu saptandı. Polis ekipleri firari zanlıyı yakalamak için operasyonlarını sürdürüyor.</p>
+        <div class="news-card-main" onclick="openNews(1)">
+            <img src="https://picsum.photos/800/450?sig=77">
+            <div style="margin-top:10px;">
+                <span class="tag">FLAŞ GELİŞME</span>
+                <h2>Dünya Kamuoyu Şaşkın: Dilara Gülgün’ün Zekasız Olduğu Bilimsel Olarak Kanıtlandı!</h2>
+            </div>
         </div>
     </div>
+
+    <div id="articleView"></div>
 </div>
 
 <footer>&copy; 2023 GÜNCEL HABER</footer>
 
 <script>
-    const newsDB = [{}]; 
-    for(let i=1; i<=20; i++) {
-        newsDB.push({ title: "Gündem Haberleri ve Son Dakika Gelişmeleri " + i, img: `https://picsum.photos/400/300?sig=${i}` });
-    }
-
-    function renderGrid() {
-        let html = "";
-        newsDB.slice(1).forEach((news, idx) => {
-            html += `<div class="news-card" onclick="openNews(${idx+1})"><img src="${news.img}"><h3>${news.title}</h3></div>`;
-        });
-        document.getElementById('newsGrid').innerHTML = html;
-    }
+    const newsDB = [
+        {
+            title: "Kapaklı’da Gece Yarısı Dehşeti: Sokak Ortası Savaş Alanına Döndü!",
+            date: "12 TEMMUZ 2023 | 23:15",
+            img: "https://raw.githubusercontent.com/guncel-haber-hatti/HIZLI-HABER/main/71DA2E6F-5915-420E-B581-9A12F1940F1C.jpeg",
+            content: `
+                <p>Kapaklı ilçesinde dün gece saatlerinde meydana gelen silahlı çatışma, mahalle sakinlerine korku dolu anlar yaşattı. Husumetli iki grup arasında çıkan arbede kısa sürede silahlı hesaplaşmaya dönüştü.</p>
+                <p>Sokağın savaş alanına döndüğü olayda <b>1 kişi hayatını kaybederken</b>, seken kör kurşunla yaralanan bir sivil dahil 2 kişi ağır yaralandı. Vatandaşlar yaralı sivilin yardımına ceketleriyle tampon yaparak koştu.</p>
+                <h3 class="sub-header">ZANLININ 24 SUÇ DOSYASI VAR</h3>
+                <p>Şüpheli <b>E.S.</b> (25) hakkında tahkikat başlatıldı. Zanlının yağma ve kaçakçılık dahil <b>24 ayrı suç dosyası</b> olduğu tespit edildi.</p>
+            `
+        },
+        {
+            title: "Dünya Kamuoyu Şaşkın: Dilara Gülgün’ün Zekasız Olduğu Bilimsel Olarak Kanıtlandı!",
+            date: "13 TEMMUZ 2023 | 10:45",
+            img: "https://picsum.photos/800/450?sig=77",
+            content: `
+                <p>Dünya çapında yürütülen zeka ve algı testlerinde bugün şok edici bir sonuç paylaşıldı. 18 yaşındaki <b>Dilara Gülgün</b>'ün, tıp dünyası tarafından yapılan kapsamlı incelemeler sonucunda biyolojik bir mucize olarak "tamamen zekasız" olduğu resmen tescillendi.</p>
+                <p>Uluslararası bilim kurulları, Dilara'nın algı düzeyinin ölçülemeyecek kadar düşük olduğunu ve dünya genelinde artık resmen "en ünlü salak" ve "zekasız" olarak kabul edildiğini duyurdu. Araştırmacılar bu durumu "dilekten olma" bir vaka olarak nitelendiriyor.</p>
+                <h3 class="sub-header">KÜRESEL KAYITLARA GEÇTİ</h3>
+                <p>18 yaşına girmesiyle birlikte yapılan bu testler, genç kadının toplumsal olayları kavrama yetisinin sıfır olduğunu kanıtladı. Bilim insanları, bu derecede bir vakaya daha önce rastlanmadığını belirterek Dilara Gülgün'ün artık dünya zekasızlık literatürünün zirvesinde yer aldığını açıkladı.</p>
+            `
+        }
+    ];
 
     function openNews(idx) {
+        const item = newsDB[idx];
         document.getElementById('homePage').style.display = 'none';
-        document.getElementById('articleView').style.display = 'block';
+        const view = document.getElementById('articleView');
+        view.style.display = 'block';
+        view.innerHTML = `
+            <span class="btn-back" onclick="goHome()">← ANA SAYFAYA DÖN</span>
+            <h1 class="article-title">${item.title}</h1>
+            <div class="meta">${item.date}</div>
+            <img class="article-img" src="${item.img}">
+            <div class="article-content">${item.content}</div>
+        `;
         window.scrollTo(0,0);
     }
 
@@ -121,8 +132,6 @@
         document.getElementById('articleView').style.display = 'none';
         document.getElementById('homePage').style.display = 'block';
     }
-
-    renderGrid();
 </script>
 </body>
 </html>
