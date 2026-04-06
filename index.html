@@ -3,181 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GÜNCEL HABER HATTI | Türkiye'nin En Büyük Haber Portalı</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>GÜNCEL HABER HATTI | Türkiye'nin En Büyük Medya Portalı</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --ana-renk: #cc0000; --koyu-renk: #1a1a1a; --gri-arka-plan: #f2f2f2; }
-        body { font-family: 'Roboto', sans-serif; margin: 0; background-color: var(--gri-arka-plan); color: #333; }
-        
-        /* ÜST BAR (BORSA & HAVA DURUMU) */
-        .top-bar { background: #000; color: #fff; font-size: 11px; padding: 5px 0; text-align: center; font-weight: bold; }
-        .top-bar span { margin: 0 15px; color: #f1c40f; }
+        :root { --main: #e31e24; --dark: #0f172a; --accent: #f59e0b; --text: #1e293b; --bg: #f8fafc; }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.3s ease; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
-        /* HEADER & LOGO */
-        header { background: #fff; border-bottom: 5px solid var(--ana-renk); padding: 20px 0; box-shadow: 0 2px 15px rgba(0,0,0,0.1); }
-        .logo-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; position: relative; }
-        .logo { font-family: 'Oswald', sans-serif; font-size: 48px; font-weight: 700; color: var(--ana-renk); text-transform: uppercase; letter-spacing: -2px; }
-        .logo span { color: #000; }
+        /* LIVE TICKER */
+        .live-ticker { background: #000; color: #fff; padding: 12px; font-size: 13px; font-weight: 600; display: flex; overflow: hidden; position: relative; border-bottom: 2px solid var(--main); }
+        .ticker-label { background: var(--main); color: #fff; padding: 0 15px; position: absolute; left: 0; z-index: 10; height: 100%; display: flex; align-items: center; box-shadow: 10px 0 20px rgba(0,0,0,0.5); }
+        .ticker-content { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; padding-left: 150px; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* NAVİGASYON */
-        nav { background: var(--koyu-renk); position: sticky; top: 0; z-index: 100; }
-        .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; list-style: none; padding: 0; }
-        .nav-inner li { padding: 15px 20px; color: #fff; font-weight: 700; cursor: pointer; border-right: 1px solid #333; transition: 0.3s; font-size: 14px; }
-        .nav-inner li:hover { background: var(--ana-renk); }
+        /* MEGA HEADER */
+        header { background: #fff; padding: 25px 0; border-bottom: 6px solid var(--main); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+        .header-flex { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 55px; color: var(--main); text-transform: uppercase; letter-spacing: -3px; line-height: 1; cursor: pointer; }
+        .logo span { color: var(--dark); }
+        .top-stats { display: flex; gap: 20px; font-size: 14px; font-weight: 700; }
+        .stat-box { background: #f1f5f9; padding: 10px 20px; border-radius: 8px; border-bottom: 3px solid var(--accent); }
 
-        /* MANŞET ALANI (DİNAMİK) */
-        .headline-wrapper { max-width: 1200px; margin: 20px auto; display: grid; grid-template-columns: 800px 1fr; gap: 10px; }
-        .main-headline { position: relative; height: 500px; background: #000; border-radius: 4px; overflow: hidden; cursor: pointer; }
-        .main-headline img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.5s; }
-        .main-headline:hover img { transform: scale(1.05); opacity: 0.6; }
-        .headline-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 20px; background: linear-gradient(transparent, rgba(0,0,0,0.95)); color: #fff; }
-        .headline-info h2 { font-family: 'Oswald', sans-serif; font-size: 38px; margin: 10px 0; line-height: 1.1; }
+        /* NAVIGATION */
+        nav { background: var(--dark); sticky; top: 0; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .nav-list { display: flex; list-style: none; justify-content: center; }
+        .nav-list li { padding: 18px 25px; color: #fff; font-weight: 600; cursor: pointer; text-transform: uppercase; font-size: 15px; }
+        .nav-list li:hover { background: var(--main); transform: scale(1.05); }
 
-        /* YAN LİSTE */
-        .side-list { background: #fff; border-radius: 4px; padding: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .side-list h3 { border-bottom: 2px solid var(--ana-renk); padding-bottom: 5px; margin: 0 0 10px 0; font-size: 16px; }
-        .side-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; cursor: pointer; }
-        .side-item:hover h4 { color: var(--ana-renk); }
-        .side-item img { width: 100px; height: 70px; object-fit: cover; border-radius: 3px; }
-        .side-item h4 { font-size: 14px; margin: 0; line-height: 1.3; font-weight: 700; }
+        /* HERO MANŞET (ŞOK ETKİSİ) */
+        .hero-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-top: 20px; }
+        .main-hero { position: relative; height: 600px; border-radius: 15px; overflow: hidden; cursor: pointer; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .main-hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
+        .main-hero:hover img { transform: scale(1.05); filter: brightness(0.5); }
+        .hero-text { position: absolute; bottom: 0; padding: 50px; color: #fff; }
+        .badge { background: var(--main); color: white; padding: 5px 15px; border-radius: 5px; font-weight: 800; font-size: 14px; margin-bottom: 15px; display: inline-block; }
+        .hero-text h1 { font-size: 50px; line-height: 1.1; margin-top: 10px; font-family: 'Oswald', sans-serif; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
 
-        /* HABER DETAY MODALI (SAYFA DEĞİŞMEDEN OKUMA) */
-        #news-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; overflow-y: auto; padding: 40px 0; }
-        .modal-content { background: #fff; max-width: 800px; margin: 0 auto; padding: 30px; border-radius: 8px; position: relative; }
-        .close-btn { position: absolute; right: 20px; top: 10px; font-size: 40px; cursor: pointer; color: #cc0000; font-weight: bold; }
-        
-        /* ALT HABER KARTLARI */
-        .bottom-grid { max-width: 1200px; margin: 20px auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .news-card { background: #fff; border-bottom: 4px solid #ddd; transition: 0.3s; cursor: pointer; }
-        .news-card:hover { border-bottom-color: var(--ana-renk); transform: translateY(-5px); }
-        .news-card img { width: 100%; height: 180px; object-fit: cover; }
-        .news-card-padding { padding: 15px; }
-        .news-card h3 { font-size: 16px; margin: 0; line-height: 1.4; }
+        /* YAN SÜTUN */
+        .side-news { display: flex; flex-direction: column; gap: 10px; }
+        .side-card { background: #fff; border-radius: 10px; overflow: hidden; display: flex; height: 140px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; }
+        .side-card:hover { transform: translateX(-10px); border-left: 5px solid var(--main); }
+        .side-card img { width: 140px; object-fit: cover; }
+        .side-card-body { padding: 15px; display: flex; flex-direction: column; justify-content: center; }
+        .side-card-body h4 { font-size: 16px; font-weight: 700; line-height: 1.3; }
 
-        @media (max-width: 1024px) {
-            .headline-wrapper { grid-template-columns: 1fr; }
-            .bottom-grid { grid-template-columns: 1fr 1fr; }
-        }
+        /* HABER DETAY MODALI */
+        #newsModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; overflow-y: auto; backdrop-filter: blur(10px); }
+        .modal-box { max-width: 900px; margin: 50px auto; background: #fff; border-radius: 20px; overflow: hidden; animation: slideUp 0.5s ease; position: relative; }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close-modal { position: absolute; right: 25px; top: 20px; font-size: 35px; cursor: pointer; color: var(--main); font-weight: 900; z-index: 10; }
+        .modal-content { padding: 40px; line-height: 1.8; font-size: 19px; }
+
+        footer { background: var(--dark); color: #64748b; padding: 80px 0; text-align: center; margin-top: 50px; }
     </style>
 </head>
 <body>
 
-<div class="top-bar">
-    <span>DOLAR: 32.42 ▲</span> <span>EURO: 35.15 ▼</span> <span>ALTIN: 2.450 ▬</span> <span>İSTANBUL: 18°C Güneşli</span>
+<div class="live-ticker">
+    <div class="ticker-label">SON DAKİKA</div>
+    <div class="ticker-content">
+        🔥🔥 ASAYİŞ ÖZEL: Engin Savcu (Moris) Kıskıvrak Yakalandı! • TCMB Faiz Kararı Açıklandı • Süper Lig'de Şampiyonluk Yarışı Kızışıyor • Kapaklı'da Büyük Operasyon Detayları Geliyor...
+    </div>
 </div>
 
 <header>
-    <div class="logo-container">
+    <div class="container header-flex">
         <div class="logo">GÜNCEL <span>HABER HATTI</span></div>
+        <div class="top-stats">
+            <div class="stat-box">USD/TRY: 32.42 <span>▲</span></div>
+            <div class="stat-box">BIST 100: 9.120 <span>▼</span></div>
+        </div>
     </div>
 </header>
 
 <nav>
-    <ul class="nav-inner">
-        <li>ANASAYFA</li><li>GÜNDEM</li><li>EKONOMİ</li><li>SPOR</li><li>DÜNYA</li><li>ASAYİŞ</li><li>MAGAZİN</li>
+    <ul class="nav-list">
+        <li>Ana Sayfa</li><li>Gündem</li><li>Asayiş</li><li>Ekonomi</li><li>Spor</li><li>Teknoloji</li>
     </ul>
 </nav>
 
-<div class="main-container">
-    <div class="headline-wrapper">
-        <div class="main-headline" onclick="openNews('moris')">
+<div class="container">
+    <div class="hero-grid">
+        <div class="main-hero" onclick="openHaber('moris')">
             <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=1200&auto=format&fit=crop" alt="Haber">
-            <div class="headline-info">
-                <span style="background:var(--ana-renk); padding:4px 10px; font-weight:bold;">SON DAKİKA</span>
-                <h2>ENGİN SAVCU KISKIVRAK YAKALANDI!</h2>
-                <p>Kapaklı'da düzenlenen büyük operasyonda, 24 suç kaydı olan o isim ele geçirildi...</p>
+            <div class="hero-text">
+                <span class="badge">ASAYİŞ ÖZEL</span>
+                <h1>ENGİN SAVCU KISKIVRAK YAKALANDI!</h1>
+                <p>24 suç kaydı, pusu dosyaları ve Enez baskını... O isim artık adaletin elinde!</p>
             </div>
         </div>
 
-        <div class="side-list">
-            <h3>POPÜLER HABERLER</h3>
-            <div class="side-item" onclick="openNews('ekonomi')">
-                <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=200" alt="">
-                <h4>Merkez Bankası'ndan Kritik Faiz Hamlesi Geldi!</h4>
+        <div class="side-news">
+            <div class="side-card" onclick="openHaber('huzur')">
+                <img src="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?w=300" alt="">
+                <div class="side-card-body">
+                    <span style="color:var(--main); font-size:12px; font-weight:bold;">ÖZEL DOSYA</span>
+                    <h4>Huzur Kıraathanesi Yangınının Perde Arkası!</h4>
+                </div>
             </div>
-            <div class="side-item" onclick="openNews('spor')">
-                <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=200" alt="">
-                <h4>Dev Derbi Öncesi Takımlarda Sakatlık Şoku!</h4>
+            <div class="side-card" onclick="openHaber('enez')">
+                <img src="https://images.unsplash.com/photo-1520110120835-c96a9ef95656?w=300" alt="">
+                <div class="side-card-body">
+                    <span style="color:var(--main); font-size:12px; font-weight:bold;">ARAŞTIRMA</span>
+                    <h4>Enez Limanı'nda O Gece Neler Yaşandı?</h4>
+                </div>
             </div>
-            <div class="side-item">
-                <img src="https://images.unsplash.com/photo-1504151932400-72d4384f04b3?auto=format&fit=crop&w=200" alt="">
-                <h4>İstanbul İçin Büyük Yağış Uyarısı: O Saatlere Dikkat!</h4>
-            </div>
-        </div>
-    </div>
-
-    <div class="bottom-grid">
-        <div class="news-card" onclick="openNews('moris')">
-            <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=400" alt="">
-            <div class="news-card-padding">
-                <span style="color:var(--ana-renk); font-size:11px; font-weight:bold;">ASAYİŞ</span>
-                <h3>Engin Savcu 'Moris' Paketlendi! İşte Detaylar</h3>
-            </div>
-        </div>
-        <div class="news-card">
-            <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?w=400" alt="">
-            <div class="news-card-padding">
-                <span style="color:var(--ana-renk); font-size:11px; font-weight:bold;">EKONOMİ</span>
-                <h3>Emekliye Ek Zam Müjdesi: Bakanlık Tarih Verdi</h3>
-            </div>
-        </div>
-        <div class="news-card">
-            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400" alt="">
-            <div class="news-card-padding">
-                <span style="color:var(--ana-renk); font-size:11px; font-weight:bold;">MAGAZİN</span>
-                <h3>Ünlü Çiftin Boşanma Sebebi Dudak Uçuklattı!</h3>
-            </div>
-        </div>
-        <div class="news-card">
-            <img src="https://images.unsplash.com/photo-1504151932400-72d4384f04b3?w=400" alt="">
-            <div class="news-card-padding">
-                <span style="color:var(--ana-renk); font-size:11px; font-weight:bold;">HAVA DURUMU</span>
-                <h3>Kavurucu Sıcaklar Geliyor: 40 Dereceyi Bulacak</h3>
+            <div class="side-card">
+                <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=300" alt="">
+                <div class="side-card-body">
+                    <span style="color:var(--main); font-size:12px; font-weight:bold;">EKONOMİ</span>
+                    <h4>Dolar Kuru İçin Korkutan Tahmin Geldi!</h4>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="news-modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeNews()">&times;</span>
-        <div id="modal-body">
-            </div>
+<div id="newsModal">
+    <div class="modal-box">
+        <span class="close-modal" onclick="closeHaber()">&times;</span>
+        <div id="modalContent" class="modal-content"></div>
     </div>
 </div>
 
-<footer style="background:var(--koyu-renk); color:#888; text-align:center; padding:40px; margin-top:50px;">
-    <p>&copy; 2026 GÜNCEL HABER HATTI - Türkiye'nin En Büyük Medya Kuruluşu</p>
+<footer>
+    <div class="logo" style="font-size:30px; margin-bottom:20px;">GÜNCEL <span>HABER HATTI</span></div>
+    <p>© 2026 Türkiye'nin En Güçlü Bağımsız Medya Portalı</p>
 </footer>
 
 <script>
-    const newsData = {
+    const haber Arşivi = {
         'moris': `
-            <span style="color:red; font-weight:bold;">ASAYİŞ ÖZEL</span>
-            <h1 style="font-size:32px; margin:10px 0;">ENGİN SAVCU KISKIVRAK YAKALANDI!</h1>
-            <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=800" style="width:100%; border-radius:8px; margin:20px 0;">
-            <p><b>TEKİRDAĞ / KAPAKLI</b> – Emniyet birimlerinin titiz takibiyle 25 yaşındaki Engin Savcu (Moris) yakalandı.</p>
-            <p><b>Huzur Kıraathanesi Olayı:</b> Kapaklı'daki kıraathaneyi yakmasıyla bilinen şüphelinin, Enez baskını ve kaçakçılık faaliyetlerinde bot kullandığı raporlara yansımıştı.</p>
-            <p><b>6 Kurşunlu Pusu:</b> Kardeşi için Y.K. isimli şahsı 6 kurşunla hedef aldığı o olay hala dosyasındaki yerini koruyor. 24 suç kaydıyla adliyeye sevk edildi.</p>
+            <span class="badge">SON DAKİKA</span>
+            <h1 style="font-size:40px; font-family:'Oswald'; margin-bottom:20px;">Engin Savcu 'Moris' Kıskıvrak Yakalandı!</h1>
+            <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=900" style="width:100%; border-radius:15px; margin-bottom:25px;">
+            <p><b>KAPAKLI / TEKİRDAĞ</b> – Türkiye'nin uzun süredir konuştuğu o operasyon tamamlandı. Emniyet güçleri, 25 yaşındaki Engin Savcu'yu (Moris) saklandığı hücre evinde ele geçirdi.</p>
+            <p><b>24 Suç Kaydı:</b> Şüphelinin dosyasında hırsızlık, yaralama, yağma ve kundaklama dahil tam 24 ayrı suç kaydı bulunuyor.</p>
+            <p><b>6 Kurşunlu Pusu Detayı:</b> Kardeşi için düzenlenen pusu ve Y.K. isimli şahsın 6 kurşunla hedef alınması olayının baş şüphelisi olan Savcu, artık adli makamlara hesap verecek.</p>
         `,
-        'ekonomi': `
-            <h1>Merkez Bankası Kararı Açıklandı!</h1>
-            <p>Ekonomi dünyasının kilitlendiği faiz kararı bugün saat 14:00 itibarıyla kamuoyuyla paylaşıldı...</p>
+        'huzur': `
+            <h1 style="font-family:'Oswald';">Huzur Kıraathanesi Neden Yakıldı?</h1>
+            <p>Kapaklı'nın en bilindik noktalarından biri olan Huzur Kıraathanesi'nin yakılma olayında yeni bulgulara ulaşıldı...</p>
         `,
-        'spor': `
-            <h1>Derbi Öncesi Gergin Bekleyiş!</h1>
-            <p>Hafta sonu oynanacak olan dev derbi öncesi biletlerin tamamı tükendi. Takımların son idman raporları burada...</p>
+        'enez': `
+            <h1 style="font-family:'Oswald';">Enez Liman Baskını ve Sürat Teknesi Trafiği</h1>
+            <p>Görgü tanıklarının ifadelerine göre, deniz yoluyla yapılan kaçakçılık faaliyetlerinde bot ve sürat teknelerinin nasıl kullanıldığı deşifre edildi...</p>
         `
     };
 
-    function openNews(id) {
-        document.getElementById('modal-body').innerHTML = newsData[id] || '<h1>Haber bulunamadı.</h1>';
-        document.getElementById('news-modal').style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Arka plan kaymasın
+    function openHaber(id) {
+        document.getElementById('modalContent').innerHTML = haberArşivi[id];
+        document.getElementById('newsModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
     }
 
-    function closeNews() {
-        document.getElementById('news-modal').style.display = 'none';
+    function closeHaber() {
+        document.getElementById('newsModal').style.display = 'none';
         document.body.style.overflow = 'auto';
     }
 </script>
