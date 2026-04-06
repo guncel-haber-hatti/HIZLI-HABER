@@ -2,46 +2,46 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HaberTürk – Gücü Özgürlüğünde</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>GÜNCEL HABER – Doğru ve Hızlı Haber</title>
     <style>
         :root {
-            --ht-red: #e30613;
-            --ht-dark: #111;
-            --ht-bg: #f4f4f4;
-            --ht-border: #ddd;
+            --gh-red: #d32f2f;
+            --gh-dark: #121212;
+            --gh-bg: #f5f5f5;
+            --gh-border: #e0e0e0;
         }
 
         body {
             margin: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-            background-color: var(--ht-bg);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--gh-bg);
             color: #222;
         }
 
-        /* HaberTürk Header Bölümü */
+        /* GÜNCEL HABER Header */
         header {
             background: #fff;
-            border-bottom: 4px solid var(--ht-red);
+            border-bottom: 5px solid var(--gh-red);
             padding: 15px 0;
             text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .logo {
-            font-size: 40px;
+            font-size: 38px;
             font-weight: 900;
-            color: var(--ht-dark);
+            color: var(--gh-dark);
             text-transform: uppercase;
-            letter-spacing: -2px;
+            letter-spacing: -1.5px;
             cursor: pointer;
             user-select: none;
         }
 
-        .logo span { color: var(--ht-red); }
+        .logo span { color: var(--gh-red); }
 
-        /* Navigasyon Çubuğu */
         nav {
-            background: var(--ht-dark);
+            background: var(--gh-dark);
             padding: 12px 0;
             text-align: center;
             position: sticky;
@@ -52,242 +52,240 @@
         nav a {
             color: #fff;
             text-decoration: none;
-            margin: 0 12px;
+            margin: 0 15px;
             font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
+            cursor: pointer;
             transition: 0.2s;
         }
 
-        nav a:hover { color: var(--ht-red); }
+        nav a:hover { color: var(--gh-red); }
 
-        /* Ana Sayfa Yerleşimi (Grid Sistemi) */
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
+            max-width: 1140px;
+            margin: 25px auto;
             display: grid;
-            grid-template-columns: 8fr 4fr; /* 800px ve 400px civarı */
+            grid-template-columns: 8fr 4fr;
             gap: 20px;
             padding: 0 15px;
         }
 
-        /* Manşet Alanı */
-        .headline {
+        /* Manşet Tasarımı */
+        .main-headline {
             position: relative;
-            height: 480px;
+            height: 500px;
             background: #000;
-            border-radius: 4px;
+            border-radius: 6px;
             overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .headline img {
+        .main-headline img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.4s;
         }
 
-        .headline:hover img { transform: scale(1.05); }
+        .main-headline:hover img { transform: scale(1.03); }
 
         .headline-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
             padding: 40px 25px;
             color: #fff;
         }
 
-        .headline-tag {
-            background: var(--ht-red);
-            padding: 4px 10px;
-            font-size: 12px;
-            font-weight: 900;
-            margin-bottom: 10px;
+        .tag {
+            background: var(--gh-red);
+            padding: 5px 12px;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 12px;
             display: inline-block;
+            border-radius: 2px;
         }
 
         .headline-overlay h1 {
             margin: 0;
-            font-size: 34px;
+            font-size: 36px;
             line-height: 1.2;
             font-weight: 800;
         }
 
-        /* Yan Liste (HaberTürk Side-List) */
-        .side-list {
+        /* Yan Haber Listesi */
+        .side-news {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .side-item {
+        .side-card {
             background: #fff;
             display: flex;
-            height: 100px;
+            height: 105px;
             cursor: pointer;
             border-radius: 4px;
             overflow: hidden;
-            border: 1px solid var(--ht-border);
+            border: 1px solid var(--gh-border);
             transition: 0.2s;
         }
 
-        .side-item:hover { border-color: var(--ht-red); background: #fafafa; }
-        .side-item img { width: 140px; height: 100%; object-fit: cover; }
-        .side-item-text { padding: 12px; font-size: 15px; font-weight: 700; line-height: 1.3; }
+        .side-card:hover { border-color: var(--gh-red); background: #fafafa; }
+        .side-card img { width: 140px; height: 100%; object-fit: cover; }
+        .side-card-body { padding: 12px; font-size: 15px; font-weight: 700; line-height: 1.3; color: #111; }
 
-        /* Haber Detay Sayfası Tasarımı */
-        .article-page {
+        /* Haber Okuma Sayfası */
+        .article-view {
             display: none;
             background: #fff;
             padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            max-width: 900px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            max-width: 850px;
             margin: 0 auto;
         }
 
-        .btn-back {
-            color: var(--ht-red);
-            font-weight: 900;
+        .back-link {
+            color: var(--gh-red);
+            font-weight: 800;
             cursor: pointer;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            font-size: 16px;
         }
 
-        .article-title { font-size: 42px; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
-        .article-img { width: 100%; border-radius: 6px; margin-bottom: 30px; }
-        .article-body { font-size: 20px; line-height: 1.8; color: #333; }
-        .article-body b { color: #000; }
+        .article-h1 { font-size: 40px; font-weight: 800; line-height: 1.1; margin-bottom: 25px; }
+        .article-main-img { width: 100%; border-radius: 6px; margin-bottom: 30px; }
+        .article-text { font-size: 19px; line-height: 1.8; color: #333; }
+        .article-text b { color: #000; }
 
-        /* Footer */
         footer {
             margin-top: 60px;
-            background: var(--ht-dark);
-            color: #777;
+            background: var(--gh-dark);
+            color: #888;
             text-align: center;
             padding: 40px 0;
             font-size: 14px;
         }
 
-        /* Mobil Duyarlılık */
-        @media (max-width: 992px) {
+        @media (max-width: 900px) {
             .container { grid-template-columns: 1fr; }
-            .headline { height: 350px; }
-            .article-title { font-size: 28px; }
+            .main-headline { height: 320px; }
+            .article-h1 { font-size: 28px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo" onclick="goHome()">HABER<span>TÜRK</span></div>
+    <div class="logo" onclick="goHome()">GÜNCEL<span>HABER</span></div>
 </header>
 
 <nav>
     <a onclick="goHome()">GÜNDEM</a>
+    <a onclick="goHome()">DÜNYA</a>
     <a onclick="goHome()">EKONOMİ</a>
     <a onclick="goHome()">SPOR</a>
-    <a onclick="goHome()">MAGAZİN</a>
 </nav>
 
 <div class="container">
-    <div id="homeView" style="display: contents;">
-        <div class="headline" id="mainSlot" onclick="openNews(0)">
-            </div>
-
-        <div class="side-list" id="sideSlot">
-            </div>
+    <div id="homePage" style="display: contents;">
+        <div class="main-headline" id="hero" onclick="openNews(0)"></div>
+        <div class="side-news" id="sidebar"></div>
     </div>
 
-    <div id="articleView" class="article-page">
-        </div>
+    <div id="articleDetail" class="article-view"></div>
 </div>
 
 <footer>
-    © 2026 HaberTürk Gazetecilik A.Ş. | Tüm Hakları Saklıdır.
+    © 2026 GÜNCEL HABER | Bağımsız ve Tarafsız Haber Portalı
 </footer>
 
 <script>
-    // MANUEL HABER VERİ TABANI
+    // HABER VERİLERİ (Buraya yeni haber ekleyebilirsin)
     const newsDB = [
         {
             title: "Kapaklı’da Sokak Ortasında Can Pazarı: Kör Kurşun Sivili Vurdu!",
-            image: "https://picsum.photos/1200/800?crime",
+            img: "https://picsum.photos/1200/800?crime",
+            tag: "SON DAKİKA",
             content: `
                 <b>TEKİRDAĞ / KAPAKLI</b> – Kapaklı sokakları dün gece yankılanan silah sesleriyle sarsıldı! İki grup arasında sokak ortasında başlayan o karanlık hesaplaşmada silahlar çekildi, namlular susmak bilmedi.<br><br>
-                Hedef gözetmeksizin ateşlenen silahtan çıkan <b>kör kurşunlardan biri</b>, olayla hiçbir ilgisi olmayan ve o sırada sadece yoldan geçen masum bir sivil vatandaşa isabet etti! Kanlar içinde yere yığılan talihsiz sivil, acil servis ekiplerince hastaneye kaldırıldı.<br><br>
-                <h3>MASUM SİVİL YAŞAM MÜCADELESİ VERİYOR!</h3>
-                Kanlı gecede ağır yaralanan sivil vatandaşın tedavisi hastanede yoğun bakımda sürüyor. Doktorların hayatta tutmak için yoğun çaba sarf ettiği masum kurbanın durumunun ciddiyetini koruduğu öğrenildi. Olayda yaralanan diğer iki isimden birinin durumunun da ağır olduğu ve hastanede gergin bekleyişin sürdüğü gelen bilgiler arasında.<br><br>
+                Hedef gözetmeksizin ateşlenen silahtan çıkan <b>kör kurşunlardan biri</b>, olayla hiçbir ilgisi olmayan masum bir sivil vatandaşa isabet etti! Kanlar içinde yere yığılan talihsiz sivil, acil servis ekiplerince hastaneye kaldırıldı.<br><br>
+                <h3>DURUMU KRİTİK!</h3>
+                Ağır yaralanan sivil vatandaşın tedavisi yoğun bakımda sürüyor. Doktorların hayatta tutmak için yoğun çaba sarf ettiği masum kurbanın durumunun ciddiyetini koruduğu öğrenildi.<br><br>
                 <h3>ÇEMBER DARALIYOR: 3 ŞEHİRDE OPERASYON!</h3>
-                3 kişinin yaralanmasına neden olan saldırgan, olayın ardından karanlıktan faydalanıp sırra kadem bastı! Emniyet güçleri firari şahsı yakalamak için dev bir operasyon başlattı. Saldırganın kaçmış olabileceği değerlendirilen <b>3 ayrı şehirde</b> aramalar emniyet birimleri tarafından eş zamanlı olarak hızlandırıldı!<br><br>
-                <h2 style="color:#e30613; font-size:32px;">VE O FİRARİ İSİM DEŞİFRE OLDU: ENGİN SAVCU!</h2>
-                Yapılan titiz incelemeler sonucunda, geceye dehşet salan o saldırganın <b>Engin Savcu</b> olduğu belirlendi! Henüz 25 yaşında olmasına rağmen tam 24 ayrı suç dosyası bulunan Engin Savcu'nun kabarık sicili dikkat çekti. Zanlının geçmişinde; liman baskınlarından silahlı yaralamaya, kundaklama eylemlerinden kaçakçılığa kadar pek çok olayın olduğu belirlendi. Polis, firari <b>Engin Savcu</b>'yu yakalamak için operasyonlarını sürdürüyor.
-            `
+                Saldırgan, olayın ardından karanlıktan faydalanıp sırra kadem bastı! Emniyet güçleri firari şahsı yakalamak için <b>3 ayrı şehirde</b> aramaları eş zamanlı olarak hızlandırdı!<br><br>
+                <h2 style="color:var(--gh-red); font-size:32px;">VE O FİRARİ İSİM DEŞİFRE OLDU: ENGİN SAVCU!</h2>
+                Yapılan incelemeler sonucunda, geceye dehşet salan o saldırganın <b>Engin Savcu</b> olduğu belirlendi! Henüz 25 yaşında olmasına rağmen tam 24 ayrı suç dosyası bulunan Engin Savcu'nun kabarık sicili dikkat çekti. Suç dünyasına çocuk yaşta adım atan zanlının; liman baskınlarından silahlı yaralamaya kadar pek çok olayda adının geçtiği belirlendi. Polis, firari <b>Engin Savcu</b>'yu yakalamak için operasyonlarını sürdürüyor.`
         },
         {
-            title: "Altın Piyasasında Hareketlilik: Gram Altın Rekor Kırdı!",
-            image: "https://picsum.photos/400/300?gold",
-            content: "Ekonomi dünyasında altın fiyatları yükselmeye devam ediyor..."
+            title: "Piyasalarda Altın Çağı: Gram Altın Rekor Üstüne Rekor Kırıyor!",
+            img: "https://picsum.photos/400/300?gold",
+            tag: "EKONOMİ",
+            content: "<b>EKONOMİ SERVİSİ</b> – Küresel piyasalardaki belirsizlikler altına talebi artırdı. Gram altın bugün tüm zamanların en yüksek seviyesini görerek yatırımcısının yüzünü güldürdü. Uzmanlar yükselişin sürebileceğini belirtiyor."
         },
         {
-            title: "Süper Lig'de Şampiyonluk Yarışı Kızışıyor: Kim Önde?",
-            image: "https://picsum.photos/400/300?soccer",
-            content: "Ligin bitimine az kala takımlar arasındaki puan farkı kapanıyor."
+            title: "Dev Derbi Öncesi Şok: Golcü Oyuncudan Kötü Haber Geldi!",
+            img: "https://picsum.photos/400/300?stadium",
+            tag: "SPOR",
+            content: "<b>SPOR HABER</b> – Hafta sonu oynanacak kritik derbi öncesi yapılan son antrenmanda sakatlanan yıldız golcü, kadrodan çıkarıldı. Taraftarlar sosyal medyada bu sakatlığa büyük tepki gösterdi."
         },
         {
-            title: "İstanbul'da Hafta Sonu Hava Durumu: Yağış Geliyor!",
-            image: "https://picsum.photos/400/300?weather",
-            content: "Meteoroloji'den son dakika uyarısı: Cumartesi günü sağanak bekleniyor."
+            title: "Teknoloji Devinden Yeni Atılım: İlk Akıllı Robot Görücüye Çıktı!",
+            img: "https://picsum.photos/400/300?robot",
+            tag: "TEKNOLOJİ",
+            content: "<b>TEKNOLOJİ</b> – Dünya devi teknoloji markası, yıllardır üzerinde çalıştığı insansı robotu tanıttı. Günlük ev işlerini yapabilen robotun satış fiyatı dudak uçuklattı."
         }
     ];
 
     function renderHome() {
-        // Ana Manşet (Slider Alanı)
-        const main = newsDB[0];
-        document.getElementById('mainSlot').innerHTML = `
-            <img src="${main.image}">
+        // Manşet Haberi
+        const hero = newsDB[0];
+        document.getElementById('hero').innerHTML = `
+            <img src="${hero.img}">
             <div class="headline-overlay">
-                <div class="headline-tag">GÜNDEM</div>
-                <h1>${main.title}</h1>
+                <div class="tag">${hero.tag}</div>
+                <h1>${hero.title}</h1>
             </div>
         `;
 
-        // Yan Liste
-        let sideHtml = "";
+        // Yan Haber Listesi
+        let sidebarHtml = "";
         newsDB.slice(1).forEach((item, index) => {
-            sideHtml += `
-                <div class="side-item" onclick="openNews(${index + 1})">
-                    <img src="${item.image}">
-                    <div class="side-item-text">${item.title}</div>
+            sidebarHtml += `
+                <div class="side-card" onclick="openNews(${index + 1})">
+                    <img src="${item.img}">
+                    <div class="side-card-body">${item.title}</div>
                 </div>
             `;
         });
-        document.getElementById('sideSlot').innerHTML = sideHtml;
+        document.getElementById('sidebar').innerHTML = sidebarHtml;
     }
 
     function openNews(idx) {
         const item = newsDB[idx];
-        document.getElementById('homeView').style.display = "none";
-        const view = document.getElementById('articleView');
-        view.style.display = "block";
-        view.innerHTML = `
-            <div class="btn-back" onclick="goHome()">← ANA SAYFAYA DÖN</div>
-            <div class="article-title">${item.title}</div>
-            <img class="article-img" src="${item.image}">
-            <div class="article-body">${item.content}</div>
+        document.getElementById('homePage').style.display = "none";
+        const detailView = document.getElementById('articleDetail');
+        detailView.style.display = "block";
+        detailView.innerHTML = `
+            <div class="back-link" onclick="goHome()">← ANA SAYFAYA DÖN</div>
+            <div class="tag">${item.tag}</div>
+            <h1 class="article-h1">${item.title}</h1>
+            <img class="article-main-img" src="${item.img}">
+            <div class="article-text">${item.content}</div>
         `;
         window.scrollTo(0,0);
     }
 
     function goHome() {
-        document.getElementById('articleView').style.display = "none";
-        document.getElementById('homeView').style.display = "contents";
+        document.getElementById('articleDetail').style.display = "none";
+        document.getElementById('homePage').style.display = "contents";
     }
 
     renderHome();
