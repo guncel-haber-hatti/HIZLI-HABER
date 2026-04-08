@@ -5,127 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HIZLI-HABER</title>
     <style>
-        /* 1. TELEFON ORANI SABİTLEME: Kartın yanmaması için kilit */
+        /* SİTENİN GÖRÜNMESİNİ SAĞLAYAN TEMEL AYARLAR */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background: #fff; 
-            color: #000; 
+            font-family: Arial, sans-serif; 
+            background: #ffffff; 
+            color: #000000; 
             overflow-x: hidden; 
+            line-height: 1.5;
         }
-        
-        .main-container { 
+
+        /* TELEFON EKRANINA KİLİTLEME */
+        .container { 
             width: 100%; 
             max-width: 480px; 
             margin: 0 auto; 
-            padding: 15px; 
+            padding: 20px; 
         }
 
-        /* 2. LOGO VE ÜST ALAN */
+        /* LOGO ALANI */
         header { 
             text-align: center; 
-            border-bottom: 3px solid #cc0000; 
             padding: 15px 0; 
+            border-bottom: 4px solid #cc0000; 
             margin-bottom: 20px; 
         }
-        .logo { font-size: 32px; font-weight: 900; letter-spacing: -1.5px; }
+        .logo { font-size: 28px; font-weight: 900; text-transform: uppercase; }
 
-        /* 3. MANŞET GÖRSELİ: Bilardo silindi, senin profilin geldi */
-        .manset-alani { 
+        /* MANŞET: BİLARDO SİLİNDİ, SENİN PROFİLİN GELDİ */
+        .manset-box { 
             width: 100%; 
             aspect-ratio: 4/3; 
             background: #000; 
-            border-radius: 4px; 
+            border-radius: 5px; 
             overflow: hidden; 
             margin-bottom: 20px; 
         }
-        .manset-alani img { 
+        .manset-box img { 
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
-            filter: grayscale(100%); /* Siyah-Beyaz Filtre */
+            filter: grayscale(100%); /* SİYAH BEYAZ STİL */
         }
 
-        /* 4. ETKİLEŞİM BUTONLARI */
-        .tools { 
+        /* ETKİLEŞİM BUTONLARI */
+        .buton-grubu { 
             display: flex; 
             justify-content: space-around; 
-            padding: 15px 0; 
             border-bottom: 1px solid #eee; 
-            margin-bottom: 25px; 
+            padding-bottom: 15px; 
+            margin-bottom: 20px; 
         }
-        .tool-btn { text-align: center; font-size: 11px; font-weight: bold; cursor: pointer; }
-        .tool-btn span { display: block; font-size: 22px; margin-bottom: 5px; }
+        .btn-item { text-align: center; font-size: 11px; font-weight: bold; }
+        .btn-item span { display: block; font-size: 20px; margin-bottom: 4px; }
 
-        /* 5. HABER METNİ: Dokunulmadı */
-        .haber-icerik { font-size: 16px; line-height: 1.7; margin-bottom: 20px; color: #222; }
-        .haber-icerik b { font-weight: 800; }
+        /* HABER METNİ: DOKUNULMADI */
+        .metin { font-size: 16px; margin-bottom: 20px; }
+        .metin b { font-weight: 800; }
 
-        /* 6. SANATÇI GRİDİ: Hande hatası giderildi, herkes kendi görseliyle */
+        /* SANATÇI GRİDİ: HANDE ÜNSAL HATASI GİDERİLDİ */
         .sanatci-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
             gap: 10px; 
-            margin: 25px 0; 
+            margin-top: 25px; 
         }
-        .sanatci-kart { text-align: center; font-size: 9px; font-weight: 900; }
+        .sanatci-kart { text-align: center; font-size: 9px; font-weight: bold; }
         .sanatci-kart img { 
             width: 100%; 
             aspect-ratio: 1/1; 
             object-fit: cover; 
-            filter: grayscale(100%); /* Siyah-Beyaz Filtre */
+            filter: grayscale(100%); 
             margin-bottom: 5px; 
             border: 1px solid #eee; 
         }
 
-        footer { text-align: center; padding: 30px 0; font-size: 11px; color: #ccc; }
+        /* SABİT ALT NAVİGASYON */
+        .alt-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+        }
+
+        footer { text-align: center; padding: 40px 0 80px; font-size: 10px; color: #999; }
     </style>
 </head>
 <body>
 
-<div class="main-container">
+<div class="container">
     <header>
         <div class="logo">HIZLI-HABER</div>
     </header>
 
-    <div class="manset-alani">
+    <div class="manset-box">
         <img src="IMG_5262.png" alt="Manşet">
     </div>
 
-    <div class="tools">
-        <div class="tool-btn"><span>➦</span>Paylaş</div>
-        <div class="tool-btn"><span>♥</span>Öne Çıkar</div>
-        <div class="tool-btn"><span>●●●</span>Daha Fazla</div>
+    <div class="buton-grubu">
+        <div class="btn-item"><span>➦</span>PAYLAŞ</div>
+        <div class="btn-item"><span>♥</span>ÖNE ÇIKAR</div>
+        <div class="btn-item"><span>●●●</span>DAHA FAZLA</div>
     </div>
 
-    <div class="haber-icerik">
+    <div class="metin">
         <p>Müzisyenlerin yakından tanıdığı <b>Engin Savcu</b>, bir kararla tüm dijital izlerini sildirdi. 15 yaşında başladığı kariyerini mahkeme kararıyla noktalayan isim, resmî veritabanlarından çekildi.</p>
     </div>
 
     <div class="sanatci-grid">
-        <div class="sanatci-kart">
-            <img src="IMG_7327.jpeg" alt="Zeynep Bastık">
-            ZEYNEP BASTIK
-        </div>
-        <div class="sanatci-kart">
-            <img src="IMG_7328.jpeg" alt="Derya Bedavacı">
-            DERYA BEDAVACI
-        </div>
-        <div class="sanatci-kart">
-            <img src="IMG_7329.jpeg" alt="Hande Ünsal">
-            HANDE ÜNSAL
-        </div>
-        <div class="sanatci-kart">
-            <img src="IMG_7330.jpeg" alt="Tekir">
-            TEKİR
-        </div>
+        <div class="sanatci-kart"><img src="IMG_7327.jpeg">ZEYNEP BASTIK</div>
+        <div class="sanatci-kart"><img src="IMG_7328.jpeg">DERYA BEDAVACI</div>
+        <div class="sanatci-kart"><img src="IMG_7329.jpeg">HANDE ÜNSAL</div>
+        <div class="sanatci-kart"><img src="IMG_7330.jpeg">TEKİR</div>
     </div>
 
-    <div class="haber-icerik">
+    <div class="metin" style="margin-top:20px;">
         <p>Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının kayıt süreçleriyle paralellik gösteriyor.</p>
     </div>
 
     <footer>&copy; 2026 HIZLI-HABER</footer>
+</div>
+
+<div class="alt-nav">
+    <span>🏠</span><span>🔍</span><span>✚</span><span>👤</span>
 </div>
 
 </body>
