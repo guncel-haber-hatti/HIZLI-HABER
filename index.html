@@ -2,144 +2,247 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HIZLI-HABER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HABER TÜRKİYE | Son Dakika Haberler ve Güncel Gündem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@300;400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        /* EKRAN KİLİDİ VE SIFIRLAMA */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background: #ffffff; 
-            color: #000; 
-            overflow-x: hidden; 
-        }
-        .app-container { 
-            width: 100%; 
-            max-width: 480px; 
-            margin: 0 auto; 
-            padding-bottom: 100px; 
-        }
+        :root { --red: #cc0000; --dark: #1a1a1a; --border: #e6e6e6; --bg: #f9f9f9; }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        body { font-family: 'Roboto', sans-serif; background: var(--bg); color: #222; line-height: 1.5; overflow-x: hidden; }
 
-        /* HEADER */
-        header { 
-            text-align: center; 
-            padding: 25px 0; 
-            border-bottom: 4px solid #cc0000; 
-            margin-bottom: 15px; 
-        }
-        header h1 { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+        /* ÜST BİLGİ BANDI */
+        .top-info { background: #fff; border-bottom: 1px solid var(--border); padding: 8px 0; font-size: 11px; font-weight: 700; }
+        .top-inner { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; padding: 0 20px; color: #666; }
+        .markets span { margin-right: 15px; }
+        .markets b { color: #000; }
 
-        /* MANŞET: BİLARDOYU SİLEN VE SENİN RESMİNİ KOYAN ALAN */
-        .main-hero { 
-            width: 100%; 
-            padding: 0 15px; 
-            margin-bottom: 20px; 
-        }
-        .img-wrapper { 
-            width: 100%; 
-            aspect-ratio: 4/3; 
-            background: #000; 
-            border-radius: 8px; 
-            overflow: hidden; 
-        }
-        .img-wrapper img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            filter: grayscale(100%); 
-        }
+        /* LOGO VE REKLAM ALANI */
+        .header-main { background: #fff; padding: 25px 0; border-bottom: 5px solid var(--red); }
+        .header-inner { max-width: 1200px; margin: auto; display: grid; grid-template-columns: 300px 1fr; align-items: center; padding: 0 20px; }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 55px; color: var(--red); text-decoration: none; font-weight: 700; letter-spacing: -3px; }
+        .ad-space { background: #eee; height: 90px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; border: 1px dashed #ccc; }
 
-        /* BUTONLAR (Paylaş, Öne Çıkar vb.) */
-        .action-bar { 
-            display: flex; 
-            justify-content: space-around; 
-            padding: 15px 0; 
-            border-bottom: 1px solid #eee; 
-            margin-bottom: 20px; 
-        }
-        .btn { text-align: center; font-size: 11px; font-weight: 800; cursor: pointer; }
-        .btn i { display: block; font-style: normal; font-size: 22px; margin-bottom: 5px; }
+        /* NAVİGASYON */
+        nav { background: var(--dark); color: #fff; sticky; top: 0; z-index: 1000; }
+        .nav-inner { max-width: 1200px; margin: auto; display: flex; gap: 25px; padding: 15px 20px; font-size: 13px; font-weight: 700; text-transform: uppercase; }
+        .nav-inner span { cursor: pointer; transition: 0.2s; }
+        .nav-inner span:hover { color: var(--red); }
 
-        /* HABER METNİ */
-        .article { padding: 0 20px; font-size: 17px; line-height: 1.6; color: #222; }
-        .article b { font-weight: 800; color: #000; }
+        /* MANŞET VE YAN HABERLER */
+        .hero-section { max-width: 1200px; margin: 25px auto; display: grid; grid-template-columns: 2fr 1fr; gap: 15px; padding: 0 20px; }
+        .main-hero { position: relative; height: 450px; background: #000; overflow: hidden; cursor: pointer; border-radius: 4px; }
+        .main-hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.5s; }
+        .main-hero:hover img { transform: scale(1.05); }
+        .hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: #fff; }
+        .hero-overlay h2 { font-size: 38px; font-weight: 900; line-height: 1.1; }
 
-        /* SANATÇI GRİDİ (EKRAN GÖRÜNTÜSÜNDE EKSİK OLAN KISIM) */
-        .artist-list { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 10px; 
-            padding: 25px 15px; 
-        }
-        .artist-item { text-align: center; font-size: 9px; font-weight: 900; }
-        .artist-item img { 
-            width: 100%; 
-            aspect-ratio: 1/1; 
-            object-fit: cover; 
-            filter: grayscale(100%); 
-            border-radius: 4px; 
-            margin-bottom: 5px; 
-            border: 1px solid #eee;
-        }
+        /* ANA AKIŞ DÜZENİ */
+        .content-wrap { max-width: 1200px; margin: 30px auto; display: grid; grid-template-columns: 1fr 320px; gap: 35px; padding: 0 20px; }
+        
+        /* HABER KARTLARI */
+        .news-grid { display: flex; flex-direction: column; gap: 25px; }
+        .news-card { background: #fff; border: 1px solid var(--border); display: grid; grid-template-columns: 240px 1fr; gap: 20px; padding: 15px; cursor: pointer; transition: 0.2s; position: relative; }
+        .news-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-color: #ccc; }
+        .news-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 2px; }
+        .news-card-info b { color: var(--red); font-size: 11px; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .news-card-info h3 { font-size: 22px; font-weight: 900; line-height: 1.2; margin-bottom: 10px; color: #111; }
+        .news-card-info p { color: #666; font-size: 15px; }
 
-        /* SABİT ALT NAVİGASYON (Ekran görüntündeki gibi) */
-        .bottom-tabs {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
-            background: #fff;
-            border-top: 1px solid #eee;
-            display: flex;
-            justify-content: space-around;
-            padding: 15px 0 30px;
-            z-index: 100;
+        /* SENİN HABERİN (ÖZEL TASARIM - SIKIŞTIRILMIŞ) */
+        .special-strip { grid-column: 1 / -1; background: #111; color: #fff; padding: 30px; border-radius: 4px; display: grid; grid-template-columns: 1fr 2fr; gap: 30px; align-items: center; cursor: pointer; margin: 20px 0; }
+        .special-strip img { width: 100%; height: 200px; object-fit: cover; border: 3px solid #333; }
+        .special-strip h2 { font-family: 'Oswald'; font-size: 32px; line-height: 1.1; }
+
+        /* SAĞ SÜTUN */
+        .sidebar-box { background: #fff; border: 1px solid var(--border); padding: 20px; margin-bottom: 25px; }
+        .sidebar-title { font-family: 'Oswald'; border-bottom: 4px solid var(--red); margin-bottom: 20px; display: inline-block; font-size: 18px; }
+        .mini-news { display: flex; gap: 10px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee; cursor: pointer; }
+        .mini-news img { width: 70px; height: 50px; object-fit: cover; }
+        .mini-news h4 { font-size: 13px; font-weight: 700; line-height: 1.2; }
+
+        /* OKUMA MODU (JİLET GİBİ SIFIR HATA) */
+        #news-reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; overflow-y: auto; }
+        .reader-container { max-width: 750px; margin: 60px auto; padding: 0 25px; }
+        .btn-close { background: #000; color: #fff; border: none; padding: 12px 25px; font-weight: 900; cursor: pointer; margin-bottom: 40px; border-radius: 3px; }
+        .reader-header h1 { font-family: 'Roboto', sans-serif; font-size: 42px; font-weight: 900; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+        .reader-meta { font-size: 13px; color: #999; font-weight: 700; text-transform: uppercase; margin-bottom: 35px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        
+        .article-body { font-family: 'Lora', serif; font-size: 20px; line-height: 1.85; color: #1a1a1a; text-align: justify; }
+        .article-body p { margin-bottom: 30px; }
+        .article-body b { color: #000; font-weight: 700; }
+
+        /* SANATÇI GALERİSİ */
+        .artist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 40px 0; padding: 20px; background: #f4f4f4; border: 1px solid #ddd; }
+        .artist-item { text-align: center; font-size: 11px; font-weight: 900; font-family: 'Roboto'; }
+        .artist-item img { width: 100%; height: 100px; object-fit: cover; margin-bottom: 8px; border: 1px solid #ccc; }
+
+        footer { background: var(--dark); color: #888; padding: 60px 20px; text-align: center; font-size: 13px; margin-top: 50px; }
+
+        @media (max-width: 900px) {
+            .header-inner, .hero-section, .content-wrap, .news-card, .special-strip { grid-template-columns: 1fr; }
+            .logo { font-size: 40px; }
+            .ad-space { display: none; }
+            .reader-header h1 { font-size: 30px; }
+            .artist-grid { grid-template-columns: 1fr 1fr; }
         }
-        .tab-icon { font-size: 24px; cursor: pointer; opacity: 0.8; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <header><h1>HIZLI-HABER</h1></header>
+<div class="top-info">
+    <div class="top-inner">
+        <div class="markets">
+            <span>BIST 100: <b>9.450 (+1.2%)</b></span>
+            <span>USD/TRY: <b>32.44</b></span>
+            <span>EUR/TRY: <b>35.12</b></span>
+            <span>ALTIN: <b>2.450</b></span>
+        </div>
+        <div>8 NİSAN 2026, ÇARŞAMBA | İSTANBUL 18°C</div>
+    </div>
+</div>
 
-    <div class="main-hero">
-        <div class="img-wrapper">
-            <img src="IMG_5262.png" alt="Engin Savcu">
+<header class="header-main">
+    <div class="header-inner">
+        <a href="#" class="logo">HABER TÜRKİYE</a>
+        <div class="ad-space">REKLAM ALANI (728x90)</div>
+    </div>
+</header>
+
+<nav>
+    <div class="nav-inner">
+        <span>Gündem</span><span>Ekonomi</span><span>Siyaset</span><span>Teknoloji</span><span>Magazin</span><span>Spor</span><span>Yaşam</span>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <div class="main-hero" onclick="showNews(101)">
+        <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=1200">
+        <div class="hero-overlay">
+            <h2>Meclis'te Kritik Gece: Yeni Vergi Paketi Onaylandı</h2>
         </div>
     </div>
-
-    <div class="action-bar">
-        <div class="btn"><i>➦</i>PAYLAŞ</div>
-        <div class="btn"><i>♥</i>ÖNE ÇIKAR</div>
-        <div class="btn"><i>●●●</i>DAHA FAZLA</div>
+    <div style="display:grid; gap:15px;">
+        <div class="main-hero" style="height:217px;" onclick="showNews(102)">
+            <img src="https://images.unsplash.com/photo-1611974714024-46324ef2378b?w=600">
+            <div class="hero-overlay" style="padding:20px;"><h3 style="font-size:18px;">Doların Ateşi Düşmüyor: Piyasa Analizi</h3></div>
+        </div>
+        <div class="main-hero" style="height:217px;" onclick="showNews(103)">
+            <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=600">
+            <div class="hero-overlay" style="padding:20px;"><h3 style="font-size:18px;">Şampiyonluk Yolunda Kritik Derbi</h3></div>
+        </div>
     </div>
+</section>
 
-    <div class="article">
-        <p>Müzisyenlerin yakından tanıdığı <b>Engin Savcu</b>, bir kararla tüm dijital izlerini sildirdi. 15 yaşında başladığı kariyerini mahkeme kararıyla noktalayan isim, resmî veritabanlarından çekildi.</p>
-    </div>
+<div class="content-wrap">
+    <main class="news-grid">
+        <div class="news-card" onclick="showNews(104)">
+            <img src="https://images.unsplash.com/photo-1569429593410-b498b3fb3387?w=600">
+            <div class="news-card-info">
+                <b>YAŞAM</b>
+                <h3>İstanbul'un Altında Dev Sarnıç Bulundu</h3>
+                <p>Arkeologlar, Fatih ilçesinde yaptıkları kazı çalışmasında Bizans dönemine ait olduğu tahmin edilen dev bir su sarnıcına rastladı...</p>
+            </div>
+        </div>
 
-    <div class="artist-list">
-        <div class="artist-item"><img src="IMG_7327.jpeg">ZEYNEP BASTIK</div>
-        <div class="artist-item"><img src="IMG_7328.jpeg">DERYA BEDAVACI</div>
-        <div class="artist-item"><img src="IMG_7329.jpeg">HANDE ÜNSAL</div>
-        <div class="artist-item"><img src="IMG_7330.jpeg">TEKİR</div>
-    </div>
+        <div class="special-strip" onclick="showNews(1)">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/11924113058668908799_0">
+            <div>
+                <b style="color:var(--red); letter-spacing:2px; font-size:11px;">ÖZEL ARAŞTIRMA</b>
+                <h2>Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi</h2>
+                <p style="margin-top:10px; font-size:14px; opacity:0.8;">Sektörün tanınan ismi Engin Savcu'nun radikal kararı şaşırttı. 20 yıllık külliyat bir gecede sessizliğe gömüldü.</p>
+            </div>
+        </div>
 
-    <div class="article">
-        <p>Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının kayıt süreçleriyle paralellik gösteriyor.</p>
+        <div class="news-card" onclick="showNews(105)">
+            <img src="https://images.unsplash.com/photo-1491933382434-500287f9b54b?w=600">
+            <div class="news-card-info">
+                <b>TEKNOLOJİ</b>
+                <h3>Yeni Nesil İşlemciler Enerji Tüketimini %50 Azaltıyor</h3>
+                <p>Global teknoloji devleri, çevre dostu ve yüksek performanslı yeni çiplerini tanıttı. Sektörde dengeler değişiyor...</p>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+        <div class="sidebar-box">
+            <div class="sidebar-title">SON DAKİKA</div>
+            <div class="mini-news" onclick="showNews(106)">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=100">
+                <h4>Dubai'de Sel Felaketi: Hayat Felç Oldu</h4>
+            </div>
+            <div class="mini-news" onclick="showNews(107)">
+                <img src="https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?w=100">
+                <h4>Apple, Yeni iPad Modellerini Tanıttı</h4>
+            </div>
+            <div class="mini-news" onclick="showNews(108)">
+                <img src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=100">
+                <h4>Sağlık Bakanlığı'ndan Bahar Alerjisi Uyarısı</h4>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <p><b>HABER TÜRKİYE</b> - Türkiye'nin En Büyük Bağımsız Haber Portalı © 2026</p>
+    <p style="margin-top:10px; font-size:11px;">Haber içerikleri kaynak gösterilmeden kullanılamaz. Tüm hakları saklıdır.</p>
+</footer>
+
+<div id="news-reader">
+    <div class="reader-container">
+        <button class="btn-close" onclick="hideNews()">← ANA SAYFAYA DÖN</button>
+        <div class="reader-header">
+            <h1 id="r-title"></h1>
+            <div class="reader-meta" id="r-meta"></div>
+        </div>
+        <div class="article-body" id="r-body"></div>
     </div>
 </div>
 
-<div class="bottom-tabs">
-    <div class="tab-icon">🏠</div>
-    <div class="tab-icon">🔍</div>
-    <div class="tab-icon">✚</div>
-    <div class="tab-icon">👤</div>
-</div>
+<script>
+    const db = {
+        1: {
+            title: "Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi",
+            meta: "8 NİSAN 2026 | ÖZEL HABER | HABER MERKEZİ",
+            body: `<p>Müzisyenlerin yakından tanıdığı, halkın ise melodilerine aşina olduğu <b>Engin Savcu</b>, bir kararla tüm dijital izlerini sildirdi. 15 yaşında <b>Sony Music</b> bünyesinde başladığı kariyerini mahkeme kararıyla noktalayan isim, resmî veritabanlarından çekildi.</p>
+                   <p>Piyasada her zaman kayıt masasının arkasında kalmayı tercih eden Savcu, bu çekilme kararıyla birlikte isminin geçtiği tüm dijital künyeleri ve resmî verileri sildirdi. Bu durum müzik dünyasında büyük bir şaşkınlıkla karşılandı.</p>
+                   <div class="artist-grid">
+                       <div class="artist-item"><img src="LINK1">ZEYNEP BASTIK</div>
+                       <div class="artist-item"><img src="LINK2">DERYA BEDAVACI</div>
+                       <div class="artist-item"><img src="LINK3">HANDE ÜNSAL</div>
+                       <div class="artist-item"><img src="LINK4">TEKİR</div>
+                   </div>
+                   <p><b>STÜDYO KAYITLARI VE MUTFAK SÜRECİ</b></p>
+                   <p>Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının kayıt süreçleriyle paralellik gösteriyor. <b>Derya Bedavacı</b>’nın altyapı hazırlıklarında, klarnetin usta ismi <b>Kadir Sepetçi</b> ile yürütülen o titiz kayıt seanslarında altyapılara dokunuş yapan oydu.</p>
+                   <p>Sektörün bir diğer ismi <b>Coşkun Kıvılcım</b> ile stüdyoda paylaşılan uykusuz geceler, bugün radyolarda çalan pek çok şarkının temelini oluşturdu. <b>Zeynep Bastık</b>'tan <b>Hande Ünsal</b>'a, <b>Sakiler</b>'den <b>Tekir</b>'e kadar pek çok ismin şarkılarının kayıt süreçlerinde enstrümanı ve besteleriyle yer alan isim; ticari haklarını devrettiği <b>'Sevmeyi Denemedim'</b> parçasının ardından piyasadan tamamen ayrıldı.</p>
+                   <p>Bu sessiz gidiş, müzik otoriteleri tarafından 'mutfaktaki dehanın vedası' olarak nitelendirilirken, Savcu'nun yarattığı teknik boşluğun nasıl dolacağı merak konusu olmaya devam ediyor.</p>`
+        },
+        101: {
+            title: "Meclis'te Kritik Gece: Yeni Vergi Paketi Onaylandı",
+            meta: "8 NİSAN 2026 | SİYASET",
+            body: `<p>Türkiye Büyük Millet Meclisi Genel Kurulu'nda sabah saatlerine kadar süren görüşmelerin ardından, kamuoyunda tartışmalara neden olan yeni vergi düzenleme paketi kabul edildi.</p><p>Yeni düzenlemeyle birlikte özellikle yüksek gelir grupları ve dijital platformlar için yeni vergi basamakları oluşturuldu. Bakanlık, bu paketin bütçe disiplini için kritik olduğunu vurguladı.</p>`
+        },
+        104: {
+            title: "İstanbul'un Altında Dev Sarnıç Bulundu",
+            meta: "8 NİSAN 2026 | YAŞAM",
+            body: `<p>İstanbul Fatih'te restorasyon çalışmaları sırasında yerin 15 metre altında devasa bir su sarnıcı keşfedildi. Uzmanlar sarnıcın Yerebatan Sarnıcı ile benzer mimari özellikler taşıdığını belirtti.</p><p>Kültür ve Turizm Bakanlığı bölgeyi koruma altına alırken, kazı çalışmalarının derinleştirileceği açıklandı.</p>`
+        }
+    };
+
+    function showNews(id) {
+        const item = db[id] || { title: "Haber Detayı", meta: "8 NİSAN 2026", body: "<p>Bu haberin içeriği şu an hazırlanıyor. Lütfen daha sonra tekrar deneyiniz.</p>" };
+        document.getElementById('r-title').innerText = item.title;
+        document.getElementById('r-meta').innerText = item.meta;
+        document.getElementById('r-body').innerHTML = item.body;
+        document.getElementById('news-reader').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        window.scrollTo(0,0);
+    }
+
+    function hideNews() {
+        document.getElementById('news-reader').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+</script>
 
 </body>
 </html>
- 
