@@ -3,62 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HABER MERKEZİ | Gerçek Gündem</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Roboto:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <title>HABER MERKEZİ | Canlı Gündem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;700;900&family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #cc0000; --dark: #111; --border: #e0e0e0; }
+        :root { --red: #cc0000; --dark: #111; --border: #dee2e6; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { font-family: 'Roboto', sans-serif; background: #fff; color: #1a1a1a; }
+        body { font-family: 'Roboto', sans-serif; background: #fff; color: #212529; overflow-x: hidden; }
 
-        /* ÜST LOGO */
+        /* HEADER */
         header { border-bottom: 5px solid var(--red); background: #fff; position: sticky; top: 0; z-index: 1000; }
-        .header-inner { max-width: 1200px; margin: auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Oswald', sans-serif; font-size: 38px; color: var(--red); text-decoration: none; font-weight: 700; cursor: pointer; }
+        .header-inner { max-width: 1300px; margin: auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 35px; color: var(--red); text-decoration: none; font-weight: 700; cursor: pointer; }
         
         nav { background: var(--dark); color: white; }
-        .nav-items { max-width: 1200px; margin: auto; display: flex; gap: 20px; padding: 12px 20px; font-weight: 700; font-size: 14px; text-transform: uppercase; }
+        .nav-items { max-width: 1300px; margin: auto; display: flex; gap: 15px; padding: 10px 20px; font-weight: 700; font-size: 12px; text-transform: uppercase; }
 
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .container { max-width: 1300px; margin: 25px auto; padding: 0 20px; }
 
-        /* ANA SAYFA HABER BLOĞU (YATAY VE FERAH) */
-        .main-stream { display: flex; flex-direction: column; gap: 30px; }
-
-        .news-row { 
+        /* 3 SÜTUNLU HABER DÜZENİ */
+        .news-grid { 
             display: grid; 
-            grid-template-columns: 350px 1fr; 
-            gap: 30px; 
-            padding-bottom: 30px; 
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            transition: 0.2s;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 25px; 
         }
-        .news-row:hover { opacity: 0.8; }
-        .news-row img { width: 100%; height: 220px; object-fit: cover; border-radius: 4px; }
-        
-        .news-info b { color: var(--red); font-size: 14px; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
-        .news-info h3 { font-size: 28px; line-height: 1.2; font-weight: 800; margin-bottom: 15px; color: #000; }
-        .news-info p { font-size: 17px; color: #444; line-height: 1.6; }
 
-        /* ÖZEL HABER VURGUSU */
-        .special-row { background: #fff9f9; padding: 20px; border: 1px solid #ffeded; border-radius: 8px; }
+        .card { 
+            background: #fff; 
+            border: 1px solid var(--border); 
+            transition: 0.2s; 
+            cursor: pointer; 
+            display: flex; 
+            flex-direction: column;
+        }
+        .card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 180px; object-fit: cover; }
+        
+        .card-body { padding: 15px; flex-grow: 1; }
+        .card-body b { color: var(--red); font-size: 11px; text-transform: uppercase; margin-bottom: 8px; display: block; font-weight: 900; }
+        .card-body h3 { font-size: 17px; line-height: 1.2; font-weight: 800; margin-bottom: 10px; color: #000; }
+        .card-body p { font-size: 13px; color: #555; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; }
+
+        /* SENİN HABERİN (2. SIRADA - ÖZEL VURGU) */
+        .special-card { border-top: 4px solid var(--red); }
 
         /* HABER DETAY SAYFASI (OKUMA MODU) */
         #news-detail { display: none; background: #fff; min-height: 100vh; position: fixed; top: 0; left: 0; width: 100%; z-index: 2000; overflow-y: auto; }
-        .detail-container { max-width: 800px; margin: 0 auto; padding: 50px 20px; }
-        .back-link { color: var(--red); font-weight: 800; cursor: pointer; display: inline-block; margin-bottom: 30px; font-size: 14px; }
+        .detail-container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .back-btn { background: var(--red); color: white; border: none; padding: 8px 15px; font-weight: bold; cursor: pointer; margin-bottom: 25px; border-radius: 2px; font-size: 11px; }
         
-        .detail-content h1 { font-family: 'Oswald', sans-serif; font-size: 48px; line-height: 1.1; margin-bottom: 30px; }
-        .detail-img { width: 100%; height: auto; border-radius: 8px; margin-bottom: 40px; }
+        .detail-content h1 { font-family: 'Oswald', sans-serif; font-size: 42px; line-height: 1.1; margin-bottom: 25px; color: #000; }
+        .detail-img { width: 100%; height: auto; margin-bottom: 30px; border-radius: 4px; }
         
-        .full-text { font-family: 'Lora', serif; font-size: 22px; line-height: 1.8; color: #111; }
-        .full-text p { margin-bottom: 25px; }
-        .full-text b { font-weight: 700; border-bottom: 2px solid var(--red); }
+        /* 3 KITA GİBİ SÜTUNLU OKUMA ALANI */
+        .full-text { 
+            font-family: 'Lora', serif; 
+            font-size: 18px; 
+            line-height: 1.7; 
+            color: #222; 
+            column-count: 2; /* İstenirse 3 yapılabilir ama 2 ekran için en ideali */
+            column-gap: 40px;
+            text-align: justify;
+        }
+        .full-text p { margin-bottom: 20px; }
+        .full-text b { font-weight: 700; color: #000; }
 
-        @media (max-width: 800px) {
-            .news-row { grid-template-columns: 1fr; }
-            .news-row img { height: 200px; }
-            .detail-content h1 { font-size: 32px; }
+        @media (max-width: 992px) { 
+            .news-grid { grid-template-columns: repeat(2, 1fr); }
+            .full-text { column-count: 1; }
+        }
+        @media (max-width: 600px) { 
+            .news-grid { grid-template-columns: 1fr; }
+            .detail-content h1 { font-size: 28px; }
         }
     </style>
 </head>
@@ -67,39 +82,49 @@
 <header>
     <div class="header-inner">
         <div class="logo" onclick="goHome()">HABER MERKEZİ</div>
-        <div style="font-weight: 700; font-size: 14px; color: #666;">8 NİSAN 2026</div>
+        <div style="font-weight: 700; font-size: 11px; color: #888;">8 NİSAN 2026, ÇARŞAMBA</div>
     </div>
 </header>
-<nav><div class="nav-items"><span>Gündem</span><span>Siyaset</span><span>Ekonomi</span><span>Spor</span></div></nav>
+<nav><div class="nav-items"><span>Gündem</span><span>Siyaset</span><span>Ekonomi</span><span>Dünya</span><span>Spor</span></div></nav>
 
 <div class="container" id="home-page">
-    <div class="main-stream" id="news-stream">
+    <div class="news-grid" id="grid-container">
         
-        <div class="news-row">
-            <img src="https://images.unsplash.com/photo-1611974714024-46324ef2378b?auto=format&fit=crop&w=800">
-            <div class="news-info">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1611974714024-46324ef2378b?auto=format&fit=crop&w=600">
+            <div class="card-body">
                 <b>EKONOMİ</b>
-                <h3>Piyasalarda Kritik Gün: Faiz Kararı Sonrası İlk Rakamlar Geldi</h3>
-                <p>Merkez Bankası'nın açıklamasının ardından döviz kurlarında ve altın piyasasında hareketli saatler yaşanıyor. Uzmanlar yeni seviyeleri yorumladı.</p>
+                <h3>Dolar ve Altın Fiyatlarında Yeni Rekorlar</h3>
+                <p>Piyasalar haftaya hareketli başladı. Merkez Bankası'nın faiz kararının ardından döviz kurlarında yeni seviyeler test ediliyor.</p>
             </div>
         </div>
 
-        <div class="news-row special-row" onclick="openNews()">
+        <div class="card special-card" onclick="openNews()">
             <img src="http://googleusercontent.com/image_collection/image_retrieval/11924113058668908799_0">
-            <div class="news-info">
-                <b>ÖZEL DOSYA</b>
+            <div class="card-body">
+                <b>ÖZEL HABER</b>
                 <h3>Müzik Mutfağında Bir İsim Kayıtlardan Çekildi: Engin Savcu Dosyası</h3>
-                <p>Türkiye müzik dünyasının en önemli mutfak isimlerinden biri olan Engin Savcu, radikal bir kararla tüm dijital geçmişini sildirdi. Sony Music'ten Zeynep Bastık'a uzanan o dev kariyerin detayları...</p>
+                <p>Türkiye müzik dünyasının en önemli mutfak isimlerinden biri olan Engin Savcu, radikal bir kararla tüm profesyonel geçmişini sildi...</p>
             </div>
         </div>
 
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=600">
+            <div class="card-body">
+                <b>SİYASET</b>
+                <h3>Yeni Yasa Paketi Meclis Komisyonunda</h3>
+                <p>Milyonlarca vatandaşı ilgilendiren yeni düzenleme paketi bugün ilk kez meclis çatısı altında görüşülmeye başlandı.</p>
+            </div>
         </div>
+
+    </div>
 </div>
 
 <div id="news-detail">
     <div class="detail-container">
-        <span class="back-link" onclick="goHome()">← ANA SAYFAYA DÖN</span>
+        <button class="back-btn" onclick="goHome()">← ANA SAYFAYA DÖN</button>
         <div class="detail-content">
+            <b style="color:var(--red); font-size:12px; font-weight:900; letter-spacing:1px; display:block; margin-bottom:10px;">GÜNDEM / ÖZEL ARAŞTIRMA</b>
             <h1>Müzik Mutfağında Bir İsim Kayıtlardan Çekildi: Engin Savcu Dosyası</h1>
             <img src="http://googleusercontent.com/image_collection/image_retrieval/11924113058668908799_0" class="detail-img">
             
@@ -128,22 +153,22 @@
         window.scrollTo(0,0);
     }
 
-    const stream = document.getElementById('news-stream');
+    const grid = document.getElementById('grid-container');
     const konular = [
-        {c:"SİYASET", t:"Yeni Yasa Paketi Mecliste Görüşülüyor", p:"Milyonlarca vatandaşı ilgilendiren yeni düzenlemelerin detayları bugün netleşecek."},
-        {c:"DÜNYA", t:"Küresel İklim Zirvesi Başladı", p:"Dünya liderleri çevre krizine karşı yeni önlemleri tartışmak üzere bir araya geldi."},
-        {c:"SPOR", t:"Derbi Öncesi Kadrolar Şekilleniyor", p:"Hafta sonu oynanacak dev maç öncesi takımların son antrenman raporları sızdı."}
+        {c:"DÜNYA", t:"Avrupa'da Kritik Enerji Zirvesi Başladı"},
+        {c:"TEKNOLOJİ", t:"Yerli Çip Üretiminde Büyük Adım"},
+        {c:"SPOR", t:"Derbi Hazırlıkları Tam Gaz Sürüyor"}
     ];
 
-    for(let i=0; i<38; i++) {
+    for(let i=0; i<37; i++) {
         const h = konular[i % konular.length];
-        stream.innerHTML += `
-            <div class="news-row">
-                <img src="https://picsum.photos/seed/${i+200}/800/500">
-                <div class="news-info">
+        grid.innerHTML += `
+            <div class="card">
+                <img src="https://picsum.photos/seed/${i+300}/600/400">
+                <div class="card-body">
                     <b>${h.c}</b>
                     <h3>${h.t}</h3>
-                    <p>${h.p}</p>
+                    <p>Güncel gelişmeler ve analizlerle en son haberleri anında takip edin.</p>
                 </div>
             </div>
         `;
