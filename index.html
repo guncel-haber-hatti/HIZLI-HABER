@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HABER TÜRKİYE | Son Dakika Gelişmeleri</title>
+    <title>SON DAKİKA | Haber Merkezi Canlı</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #cc0000; --dark: #111; --bg: #f2f2f2; --border: #ddd; }
+        :root { --red: #cc0000; --dark: #111; --bg: #f5f5f5; --border: #e0e0e0; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Roboto', sans-serif; background: var(--bg); color: #222; }
 
-        /* HEADER */
         header { background: #fff; border-bottom: 4px solid var(--red); position: sticky; top: 0; z-index: 1000; }
         .header-inner { max-width: 1300px; margin: auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Oswald', sans-serif; font-size: 38px; color: var(--red); text-decoration: none; font-weight: 700; }
@@ -18,48 +17,46 @@
         nav { background: var(--dark); color: white; }
         .nav-items { max-width: 1300px; margin: auto; display: flex; gap: 20px; padding: 12px 20px; font-weight: 700; font-size: 13px; text-transform: uppercase; }
 
-        /* GRID SİSTEMİ */
         .container { max-width: 1300px; margin: 30px auto; padding: 0 15px; }
         .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
 
-        /* KART TASARIMI */
-        .card { background: #fff; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
-        .card img { width: 100%; height: 220px; object-fit: cover; }
+        .card { background: #fff; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 240px; object-fit: cover; background: #eee; }
         .card-body { padding: 20px; flex-grow: 1; }
         .card-body b { color: var(--red); font-size: 12px; font-weight: 900; text-transform: uppercase; display: block; margin-bottom: 10px; }
         .card-body h3 { font-size: 19px; font-weight: 900; line-height: 1.3; color: #111; margin-bottom: 15px; }
         .card-body p { font-size: 15px; color: #444; line-height: 1.6; text-align: justify; }
 
-        /* SENİN HABERİN İÇİN ÖZEL VURGU (KIRPILMAMIŞ HALİ) */
-        .special-news { border-top: 5px solid var(--red); grid-column: span 1; }
-
-        @media (max-width: 900px) { .news-grid { grid-template-columns: 1fr; } }
+        .special-news { border-top: 5px solid var(--red); }
+        
+        @media (max-width: 600px) { .news-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <header>
     <div class="header-inner">
-        <a href="#" class="logo">HABER TÜRKİYE</a>
+        <a href="#" class="logo">HABER MERKEZİ</a>
         <div style="font-weight: 900; font-size: 12px;">8 NİSAN 2026</div>
     </div>
 </header>
-<nav><div class="nav-items"><span>Gündem</span><span>Ekonomi</span><span>Spor</span><span>Siyaset</span><span>Teknoloji</span></div></nav>
+<nav><div class="nav-items"><span>Gündem</span><span>Ekonomi</span><span>Siyaset</span><span>Dünya</span><span>Teknoloji</span></div></nav>
 
 <div class="container">
     <div class="news-grid">
         
         <div class="card">
-            <img src="https://picsum.photos/seed/economy/800/500">
+            <img src="https://images.unsplash.com/photo-1611974714024-46324ef2378b?auto=format&fit=crop&w=800" alt="Ekonomi">
             <div class="card-body">
                 <b>EKONOMİ</b>
-                <h3>Merkez Bankası Yılın İlk Çeyrek Raporunu Açıkladı</h3>
-                <p>Enflasyon tahminlerinde revizyona gidilirken piyasalarda hareketlilik başladı. Dolar ve altın fiyatları güne yükselişle girdi.</p>
+                <h3>Piyasalarda Kritik Bekleyiş: Kur ve Altın Fiyatlarında Son Durum</h3>
+                <p>Küresel piyasalardaki belirsizlik ve açıklanan son veriler sonrası iç piyasada hareketlilik sürüyor. Yatırımcıların gözü akşam saatlerinde gelecek açıklamalarda.</p>
             </div>
         </div>
 
         <div class="card special-news">
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800">
+            <img src="[attachment_0](attachment)" alt="Engin Savcu Stüdyo">
             <div class="card-body">
                 <b>ÖZEL DOSYA</b>
                 <h3>Müzik Mutfağında Bir İsim Kayıtlardan Çekildi: Engin Savcu Dosyası</h3>
@@ -74,37 +71,36 @@
         </div>
 
         <div class="card">
-            <img src="https://picsum.photos/seed/politics/800/500">
+            <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=800" alt="Siyaset">
             <div class="card-body">
                 <b>SİYASET</b>
-                <h3>Ankara'da Kritik Gece: Yeni Kanun Teklifi Meclis Yolunda</h3>
-                <p>Hükümetin üzerinde çalıştığı yeni sosyal güvenlik reformu için ilk taslak meclis komisyonuna sunuldu. Detaylar bugün açıklanacak.</p>
+                <h3>Ankara'da Hareketli Saatler: Yeni Düzenleme Meclis Gündeminde</h3>
+                <p>Sosyal haklar ve vergi düzenlemelerini içeren yeni kanun teklifi komisyonlarda görüşülmeye başlandı. Muhalefet ve iktidar kanadından peş peşe açıklamalar geliyor.</p>
             </div>
         </div>
 
         <script>
             const grid = document.querySelector('.news-grid');
             const gundem = [
-                { cat: "SPOR", title: "Derbi Öncesi Şok Gelişme: Kaptan Kadro Dışı", desc: "Takımın en önemli gol silahı, son antrenmanda yaşadığı sakatlık sonrası hafta sonu oynanacak dev derbide forma giyemeyecek." },
-                { cat: "DÜNYA", title: "Küresel İklim Krizi: Buzullarda Rekor Erime", desc: "Bilim insanları uyardı: Deniz seviyesindeki yükselme kıyı şehirlerini tehdit ediyor. Acil eylem planı devrede." },
-                { cat: "TEKNOLOJİ", title: "Yeni Yerli Yapay Zeka Modeli Tanıtıldı", desc: "Tamamen yerli kaynaklarla geliştirilen dil modeli, kamu kurumlarında ve eğitimde kullanılmaya başlanacak." }
+                { cat: "DÜNYA", title: "Avrupa Konseyi'nden Enerji Tasarrufu Çağrısı", img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800" },
+                { cat: "TEKNOLOJİ", title: "Yerli İşlemci Projesinde Yeni Aşama: Testler Başladı", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800" },
+                { cat: "SPOR", title: "Derbi Öncesi Taraftar Gruplarından Ortak Açıklama", img: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800" }
             ];
 
             for(let i=0; i<37; i++) {
                 const h = gundem[i % gundem.length];
                 grid.innerHTML += `
                     <div class="card">
-                        <img src="https://picsum.photos/seed/${i+300}/800/500">
+                        <img src="${h.img}" alt="Haber">
                         <div class="card-body">
                             <b>${h.cat}</b>
                             <h3>${h.title}</h3>
-                            <p>${h.desc}</p>
+                            <p>Türkiye ve dünya gündeminden en son gelişmeleri tarafsız bir şekilde aktarmaya devam ediyoruz. Haberin detayları için takipte kalın.</p>
                         </div>
                     </div>
                 `;
             }
         </script>
-
     </div>
 </div>
 </body>
