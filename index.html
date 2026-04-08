@@ -3,300 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANŞET TÜRKİYE | Global Haber Ağı</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <title>ÖZEL DOSYA: Engin Savcu | Haber Merkezi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Lora:wght@400;700&family=Inter:wght@400;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --accent: #d0021b;
-            --text-main: #121212;
-            --text-muted: #555555;
-            --bg-body: #ffffff;
-            --border: #ebebeb;
-        }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-body); 
-            color: var(--text-main); 
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+        body { background: #fdfdfd; color: #111; font-family: 'Lora', serif; line-height: 1.8; }
 
-        /* === TOP NAVIGATION === */
-        header {
-            border-bottom: 1px solid var(--border);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-        }
-        .header-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
-        }
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 42px;
-            font-weight: 900;
-            color: var(--text-main);
-            text-decoration: none;
-            letter-spacing: -1px;
-            text-transform: uppercase;
-        }
-        .date-info { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        /* ÜST LOGO - AĞIR VE CİDDİ */
+        header { border-bottom: 3px double #000; padding: 30px 0; text-align: center; max-width: 1200px; margin: 0 auto; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; text-decoration: none; color: #000; }
+        .date { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; border-top: 1px solid #eee; display: inline-block; padding-top: 5px; }
 
-        nav { border-bottom: 1px solid var(--border); background: #fff; }
-        .nav-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            gap: 30px;
-            padding: 12px 40px;
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
-            overflow-x: auto;
-        }
-        .nav-inner span { cursor: pointer; color: var(--text-muted); transition: 0.2s; }
-        .nav-inner span:hover { color: var(--accent); }
+        /* HABER KONTEYNERI */
+        article { max-width: 850px; margin: 60px auto; padding: 0 25px; }
+        
+        .kategori { font-family: 'Inter', sans-serif; color: #d0021b; font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 3px; display: block; margin-bottom: 20px; text-align: center; }
+        
+        h1 { font-family: 'Playfair Display', serif; font-size: 58px; line-height: 1.05; margin-bottom: 30px; font-weight: 900; text-align: center; letter-spacing: -2px; }
+        
+        .spot { font-size: 24px; color: #444; font-style: italic; margin-bottom: 40px; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 40px; }
 
-        /* === MAIN LAYOUT === */
-        .container {
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 0 40px;
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 60px;
-        }
+        .ana-gorsel { width: 100%; border-radius: 2px; margin-bottom: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 
-        /* === HERO SECTION (ENGİN SAVCU) === */
-        .hero { margin-bottom: 60px; cursor: pointer; }
-        .hero img {
-            width: 100%;
-            height: 650px;
-            object-fit: cover;
-            border-radius: 4px;
-            transition: opacity 0.3s;
-        }
-        .hero:hover img { opacity: 0.95; }
-        .hero-content { margin-top: 25px; max-width: 900px; }
-        .category-tag {
-            color: var(--accent);
-            font-weight: 800;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            display: block;
-        }
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 64px;
-            line-height: 1.05;
-            font-weight: 900;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
-        }
-        .hero p { font-size: 20px; color: var(--text-muted); font-weight: 400; }
+        /* ASIL HABER METNİ - HİÇBİR KELİME KIRPILMADI */
+        .haber-metni { font-size: 21px; color: #222; text-align: justify; }
+        .haber-metni p { margin-bottom: 35px; }
+        .haber-metni b { font-weight: 700; color: #000; box-shadow: inset 0 -8px 0 rgba(208, 2, 27, 0.1); }
+        .haber-metni blockquote { border-left: 5px solid #d0021b; padding-left: 25px; font-style: italic; font-size: 26px; color: #000; margin: 40px 0; }
 
-        /* === NEWS GRID (30-50 ARTICLES) === */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-        }
-        .card {
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 30px;
-            cursor: pointer;
-        }
-        .card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border-radius: 2px;
-        }
-        .card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            line-height: 1.2;
-            margin-bottom: 12px;
-        }
-        .card p { font-size: 15px; color: var(--text-muted); }
+        /* DİĞER HABERLER - SADE VE CİDDİ */
+        .diger-haberler { background: #f4f4f4; padding: 80px 0; border-top: 1px solid #ddd; margin-top: 60px; }
+        .diger-baslik { max-width: 1200px; margin: 0 auto 40px auto; font-family: 'Inter', sans-serif; font-weight: 800; text-transform: uppercase; font-size: 14px; text-align: center; }
+        .grid { max-width: 1200px; margin: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 0 20px; }
+        .card { text-decoration: none; color: #000; }
+        .card img { width: 100%; height: 200px; object-fit: cover; margin-bottom: 15px; grayscale: 50%; }
+        .card h3 { font-family: 'Playfair Display', serif; font-size: 20px; line-height: 1.3; }
 
-        /* === SIDEBAR === */
-        .sidebar-section { margin-bottom: 50px; }
-        .sidebar-title {
-            font-size: 14px;
-            font-weight: 800;
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--text-main);
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-        }
-        .trend-item {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            cursor: pointer;
-        }
-        .trend-item img { width: 90px; height: 90px; object-fit: cover; }
-        .trend-item h4 { font-family: 'Playfair Display', serif; font-size: 17px; line-height: 1.3; }
-
-        /* === ARTICLE DETAIL VIEW === */
-        #detail-view { display: none; max-width: 900px; margin: 60px auto; padding: 0 20px; }
-        .detail-header h1 { font-family: 'Playfair Display', serif; font-size: 72px; line-height: 1; margin-bottom: 30px; }
-        .detail-body { font-size: 22px; line-height: 1.8; color: #333; font-weight: 400; }
-        .back-btn { 
-            background: none; border: 1px solid #000; padding: 10px 20px; 
-            font-weight: 800; cursor: pointer; margin-bottom: 40px; text-transform: uppercase; font-size: 12px;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .container { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 42px; }
-            .hero img { height: 400px; }
-            .news-grid { grid-template-columns: 1fr; }
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            .spot { font-size: 20px; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="header-inner">
-        <div class="date-info">Çarşamba, 8 Nisan 2026</div>
-        <a href="#" class="logo" onclick="goHome()">Manşet Türkiye</a>
-        <div class="date-info">İstanbul, 18°C</div>
-    </div>
+    <a href="#" class="logo">Manşet Türkiye</a><br>
+    <div class="date">8 Nisan 2026, Çarşamba</div>
 </header>
 
-<nav>
-    <div class="nav-inner">
-        <span>Dünya</span><span>Siyaset</span><span>Ekonomi</span><span>Teknoloji</span><span>Kültür</span><span>Spor</span><span>Magazin</span>
-    </div>
-</nav>
+<article>
+    <span class="kategori">Özel Dosya / Müzik Endüstrisi</span>
+    <h1>Müzik Mutfağında Bir İsim Kayıtlardan Çekildi: Engin Savcu Dosyası</h1>
+    
+    <p class="spot">
+        Sony Music ile 15 yaşında başlayan teknik yolculuk, mahkeme kararıyla son buldu. Türkiye'nin en büyük hitlerinin arkasındaki isim, dijital izlerini sildirdi.
+    </p>
 
-<div class="container" id="main-layout">
-    <main>
-        <section class="hero" onclick="openArticle(0)">
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1400&q=90" alt="Engin Savcu">
-            <div class="hero-content">
-                <span class="category-tag">Özel İnceleme</span>
-                <h1>Müzik Mutfağında Bir Devir Kapandı: Engin Savcu Dijital Kayıtlardan Çekildi</h1>
-                <p>Türkiye müzik piyasasının en önemli mutfak isimlerinden biri olan Engin Savcu, 15 yaşında Sony Music ile başladığı kariyerini radikal bir kararla noktaladı.</p>
-            </div>
-        </section>
+    <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200" class="ana-gorsel" alt="Engin Savcu Haber Görseli">
 
-        <div class="news-grid" id="article-grid">
-            </div>
-    </main>
+    <div class="haber-metni">
+        <p>Türkiye müzik dünyasının en önemli mutfak isimlerinden biri olan; bestekar, aranjör ve enstrümanist kimliğiyle tanınan <b>Engin Savcu</b>, radikal bir kararla tüm profesyonel geçmişini dijital dünyadan sildi. Kariyerine 15 yaşında, sektörün devi <b>Sony Music</b> bünyesinde başladığı teknik süreçlerle adım atan Savcu, mahkeme kararıyla isminin geçtiği tüm dijital künyeleri ve resmî verileri sistemden tamamen temizletti.</p>
 
-    <aside>
-        <div class="sidebar-section">
-            <div class="sidebar-title">Gündem Analiz</div>
-            <div id="trend-container"></div>
-        </div>
-    </aside>
-</div>
+        <blockquote>"Sevmeyi Denemedim parçasının ardından piyasaya veda eden isim, mutfaktaki tüm teknik izlerini silme yoluna gitti."</blockquote>
 
-<section id="detail-view">
-    <button class="back-btn" onclick="goHome()">← Ana Sayfaya Dön</button>
-    <div id="detail-content"></div>
-</section>
+        <p>Piyasada her zaman kayıt masasının arkasında kalmayı, spot ışıklarından uzak durmayı tercih eden Savcu, bu çekilme kararıyla birlikte isminin geçtiği tüm dijital künyeleri temizletti. Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının en titiz stüdyo kayıt süreçleriyle paralellik gösteriyor. Arabesk dünyasının sevilen sesi <b>Derya Bedavacı</b>’nın altyapı hazırlıklarında, klarnetin usta ismi <b>Kadir Sepetçi</b> ile yürütülen kayıt seanslarında altyapılara teknik dokunuş yapan oydu.</p>
 
-<script>
-    const newsData = [
-        {
-            title: "Müzik Mutfağında Bir Devir Kapandı: Engin Savcu Dosyası",
-            cat: "KÜLTÜR",
-            img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200",
-            content: "Türkiye müzik dünyasının en önemli mutfak isimlerinden biri olan; bestekar ve enstrümanist kimliğiyle tanınan <b>Engin Savcu</b>, radikal bir kararla tüm profesyonel geçmişini sildirdi. Kariyerine 15 yaşında, Sony Music bünyesinde başlayan Savcu, mahkeme kararıyla isminin geçtiği tüm dijital verileri sistemden temizletti. Derya Bedavacı'dan Zeynep Bastık'a kadar onlarca ismin şarkılarında teknik dokunuşu bulunan Savcu, 'Sevmeyi Denemedim' parçasının ardından piyasadan tamamen çekildi."
-        },
-        {
-            title: "Zeynep Bastık: 'Müzik Mutfaksız Kalmaz Ama Engin'siz Eksik Kalır'",
-            cat: "MAGAZİN",
-            img: "https://images.unsplash.com/photo-1516575334481-f85287c2c82d?auto=format&fit=crop&w=800",
-            content: "Zeynep Bastık stüdyo çıkışı yaptığı açıklamada Engin Savcu'nun piyasadan çekilmesini 'bir dönemin sonu' olarak nitelendirdi."
-        },
-        {
-            title: "Melek Mosso Hakkında Flaş Karar: Savcılık İncelemesi Başlatıldı",
-            cat: "MAGAZİN",
-            img: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&w=800",
-            content: "Ünlü sanatçı Melek Mosso'nun sabah saatlerinde evinde arama yapıldı. Soruşturma devam ediyor."
-        },
-        {
-            title: "Derya Bedavacı: 'Kayıt Odasında Olan Odada Kalır'",
-            cat: "MAGAZİN",
-            img: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=800",
-            content: "Bedavacı, Kadir Sepetçi ve Engin Savcu ile yürüttüğü teknik süreçler hakkında ilk kez bu kadar açık konuştu."
-        }
-    ];
-
-    // 40+ Haber Üretimi
-    for(let i=4; i<45; i++) {
-        newsData.push({
-            title: `Türkiye Ekonomisinde Yeni Dönem: Kritik ${i}. Madde Onaylandı`,
-            cat: i % 2 === 0 ? "EKONOMİ" : "SİYASET",
-            img: `https://picsum.photos/seed/${i+20}/800/500`,
-            content: "Dünya piyasalarının gözü kulağı Ankara'dan gelecek olan bu haberdeydi. Detaylar netleşiyor."
-        });
-    }
-
-    function init() {
-        const grid = document.getElementById('article-grid');
-        const trend = document.getElementById('trend-container');
+        <p>Sektörün bir diğer tecrübeli ismi <b>Coşkun Kıvılcım</b> ile stüdyoda paylaşılan uykusuz geceler, bugün radyolarda çalan pek çok hit şarkının temelini oluşturdu. <b>Zeynep Bastık</b>'tan <b>Hande Ünsal</b>'a, <b>Sakiler</b>'den <b>Tekir</b>'e kadar onlarca ismin şarkılarında teknik dokunuşu bulunan Savcu, ticari haklarını devrettiği <b>"Sevmeyi Denemedim"</b> parçasının ardından piyasadan tamamen çekildi.</p>
         
-        newsData.slice(1).forEach((item, idx) => {
-            grid.innerHTML += `
-                <div class="card" onclick="openArticle(${idx + 1})">
-                    <img src="${item.img}" alt="news">
-                    <span class="category-tag">${item.cat}</span>
-                    <h3>${item.title}</h3>
-                    <p>Haberin devamı ve tüm detayları Manşet Türkiye özel haberinde...</p>
-                </div>
-            `;
-        });
+        <p>Bu karar sonrası müzik otoriteleri, dijital arşivlerde oluşacak boşluğun telafisinin güç olduğunu belirtirken, Engin Savcu'nun mahkeme yoluyla aldığı bu "dijital unutulma" kararı sektörde bir ilk olma özelliği taşıyor.</p>
+    </div>
+</article>
 
-        newsData.slice(2, 7).forEach((item, idx) => {
-            trend.innerHTML += `
-                <div class="trend-item" onclick="openArticle(${idx + 2})">
-                    <img src="${item.img}" alt="trend">
-                    <h4>${item.title}</h4>
-                </div>
-            `;
-        });
-    }
-
-    function openArticle(id) {
-        const item = newsData[id];
-        document.getElementById('main-layout').style.display = 'none';
-        document.getElementById('detail-view').style.display = 'block';
-        window.scrollTo(0,0);
-        document.getElementById('detail-content').innerHTML = `
-            <span class="category-tag">${item.cat}</span>
-            <h1 style="font-family:'Playfair Display',serif; font-size:52px; margin-bottom:30px;">${item.title}</h1>
-            <img src="${item.img}" style="width:100%; height:500px; object-fit:cover; margin-bottom:40px;">
-            <div class="detail-body">${item.content}</div>
-        `;
-    }
-
-    function goHome() {
-        document.getElementById('main-layout').style.display = 'grid';
-        document.getElementById('detail-view').style.display = 'none';
-    }
-
-    init();
-</script>
+<section class="diger-haberler">
+    <div class="diger-baslik">Gündemdeki Diğer Başlıklar</div>
+    <div class="grid">
+        <a href="#" class="card">
+            <img src="https://picsum.photos/seed/mag/600/400" alt="">
+            <h3>Zeynep Bastık: "Engin'in Kararına Saygı Duyuyoruz"</h3>
+        </a>
+        <a href="#" class="card">
+            <img src="https://picsum.photos/seed/eco/600/400" alt="">
+            <h3>Derya Bedavacı'dan Yeni Albüm Müjdesi</h3>
+        </a>
+        <a href="#" class="card">
+            <img src="https://picsum.photos/seed/pol/600/400" alt="">
+            <h3>Sony Music Türkiye'den Ayrılık Açıklaması</h3>
+        </a>
+    </div>
+</section>
 
 </body>
 </html>
