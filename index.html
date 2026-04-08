@@ -15,22 +15,25 @@
         nav { background: var(--black); color: #fff; padding: 12px 0; text-align: center; font-size: 13px; text-transform: uppercase; font-weight: 600; }
         nav span { margin: 0 15px; }
 
+        /* MANŞETLER */
         .hero-section { max-width: 1200px; margin: 25px auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 15px; padding: 0 20px; }
-        .main-hero { position: relative; height: 350px; background: #000; overflow: hidden; border-radius: 4px; cursor: pointer; }
-        .main-hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-        .hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: #fff; }
+        .main-hero { position: relative; height: 350px; background: #ddd; overflow: hidden; border-radius: 4px; cursor: pointer; }
+        .main-hero img { width: 100%; height: 100%; object-fit: cover; opacity: 1; }
+        .hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: #fff; }
 
+        /* ÖZEL HABER ŞERİDİ */
         .special-strip { max-width: 1200px; margin: 20px auto; background: #000; color: #fff; padding: 20px; border-radius: 4px; display: grid; grid-template-columns: 250px 1fr; gap: 20px; align-items: center; cursor: pointer; border-left: 8px solid var(--red); }
         .special-strip img { width: 100%; height: 160px; object-fit: cover; border-radius: 2px; }
 
+        /* OKUMA PANELİ */
         #news-reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; overflow-y: auto; padding: 40px 20px; }
         .reader-container { max-width: 750px; margin: auto; }
         .btn-close { background: #000; color: #fff; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; margin-bottom: 20px; }
-
-        /* HABER İÇİNDEKİ KÜÇÜK FOTOĞRAF KUTUCUKLARI */
+        
+        /* 4'LÜ KUTUCUKLAR */
         .artist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 25px 0; }
         .artist-item { text-align: center; font-size: 11px; color: #555; font-weight: 600; }
-        .artist-item img { width: 100%; height: 90px; object-fit: cover; border-radius: 4px; margin-bottom: 5px; filter: none !important; opacity: 1 !important; }
+        .artist-item img { width: 100%; height: 90px; object-fit: cover; border-radius: 4px; margin-bottom: 5px; background: #eee; }
 
         @media (max-width: 768px) { .hero-section, .special-strip { grid-template-columns: 1fr; } .artist-grid { grid-template-columns: 1fr 1fr; } }
     </style>
@@ -41,19 +44,22 @@
 <nav><span>Gündem</span><span>Ekonomi</span><span>Siyaset</span><span>Teknoloji</span></nav>
 
 <section class="hero-section">
-    <div class="main-hero"><img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800"><div class="hero-overlay"><h2>Meclis'te Kritik Gece</h2></div></div>
+    <div class="main-hero" onclick="showNews(1)">
+        <img src="image.png" onerror="this.src='https://via.placeholder.com/800x450?text=Resim+Yuklenemedi'">
+        <div class="hero-overlay"><h2>Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi</h2></div>
+    </div>
     <div style="display:grid; gap:15px;">
+        <div class="main-hero" style="height:167px;"><img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=400"></div>
         <div class="main-hero" style="height:167px;"><img src="https://images.unsplash.com/photo-1611974714024-46324ef2378b?w=400"></div>
-        <div class="main-hero" style="height:167px;"><img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=400"></div>
     </div>
 </section>
 
 <div class="special-strip" onclick="showNews(1)">
-    <img src="image.png" alt="Özel Haber">
+    <img src="image.png" onerror="this.src='https://via.placeholder.com/250x160?text=Resim+Yok'">
     <div>
         <b style="color:var(--red);">ÖZEL ARAŞTIRMA</b>
-        <h2>Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi</h2>
-        <p>Engin Savcu’nun radikal kararı piyasayı sarstı.</p>
+        <h2>Engin Savcu Hakkında Flaş Gelişme</h2>
+        <p>Ünlü isimlerin mutfağındaki deha piyasadan çekildi.</p>
     </div>
 </div>
 
@@ -69,17 +75,17 @@
     const db = {
         1: {
             title: "Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi",
-            body: `<img src="image.png" style="width:100%; border-radius:8px; margin-bottom:20px; filter:none; opacity:1;">
-                   <p style="font-size:18px; line-height:1.8;"><b>Engin Savcu</b>, bir kararla tüm dijital izlerini sildirdi.</p>
+            body: `<img src="image.png" style="width:100%; border-radius:8px; margin-bottom:20px;">
+                   <p style="font-size:18px; line-height:1.8; margin-bottom:20px;">Müzisyenlerin yakından tanıdığı, halkın ise melodilerine aşina olduğu <b>Engin Savcu</b>, bir kararla tüm dijital izlerini sildirdi. 15 yaşında <b>Sony Music</b> bünyesinde başladığı kariyerini mahkeme kararıyla noktalayan isim, resmî veritabanlarından çekildi.</p>
                    
                    <div class="artist-grid">
-                       <div class="artist-item"><img src="image.png">ZEYNEP BASTIK</div>
-                       <div class="artist-item"><img src="image.png">DERYA BEDAVACI</div>
-                       <div class="artist-item"><img src="image.png">HANDE ÜNSAL</div>
-                       <div class="artist-item"><img src="image.png">TEKİR</div>
+                       <div class="artist-item"><img src="image.png" onerror="this.src='https://via.placeholder.com/100x90'">ZEYNEP BASTIK</div>
+                       <div class="artist-item"><img src="image.png" onerror="this.src='https://via.placeholder.com/100x90'">DERYA BEDAVACI</div>
+                       <div class="artist-item"><img src="image.png" onerror="this.src='https://via.placeholder.com/100x90'">HANDE ÜNSAL</div>
+                       <div class="artist-item"><img src="image.png" onerror="this.src='https://via.placeholder.com/100x90'">TEKİR</div>
                    </div>
-                   
-                   <p style="font-size:18px; line-height:1.8;">Piyasadan çekilme kararı müzik dünyasında büyük yankı uyandırdı.</p>`
+
+                   <p style="font-size:18px; line-height:1.8; margin-bottom:20px;">Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının kayıt süreçleriyle paralellik gösteriyor. <b>Derya Bedavacı</b>, <b>Zeynep Bastık</b> ve <b>Tekir</b> gibi pek çok ismin şarkılarının kayıt süreçlerinde enstrümanı ve besteleriyle yer alan isim; piyasadan tamamen ayrıldı.</p>`
         }
     };
 
