@@ -3,48 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haber Sitesi</title>
+    <title>Güncel Haber Hattı</title>
     <style>
-        /* Sitenin çökmesini engelleyen temel ayarlar */
-        body { font-family: Arial, sans-serif; margin: 0; background-color: #f0f2f5; color: #1c1e21; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f4f4f4; padding: 20px; }
+        .container { display: flex; flex-direction: column; gap: 20px; align-items: center; }
         
-        .haber-kart { 
-            max-width: 700px; 
-            margin: 30px auto; 
-            background: #fff; 
-            border-radius: 8px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-            overflow: hidden;
+        /* Haber Kartı */
+        .haber-box { 
+            background: white; 
+            border: 1px solid #ddd; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            width: 100%; 
+            max-width: 500px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        /* Fotoğraf alanı - Siyahlık tamamen kaldırıldı */
-        .foto-alani { width: 100%; height: auto; line-height: 0; }
-        
+        /* Fotoğraf Alanı - Siyahlık Tamamen Kaldırıldı */
+        .foto-alani { width: 100%; height: 250px; background: #eee; overflow: hidden; }
         .foto-alani img { 
             width: 100%; 
-            height: auto; 
+            height: 100%; 
+            object-fit: cover; 
             display: block;
-            filter: none !important; /* Kararmayı engeller */
-            opacity: 1 !important;    /* Saydamlığı engeller */
+            filter: none !important; 
+            opacity: 1 !important;
         }
 
-        .icerik { padding: 20px; }
-        h1 { font-size: 24px; margin-bottom: 10px; color: #000; }
-        p { font-size: 16px; line-height: 1.5; }
+        .alt-kisim { padding: 15px; text-align: center; background: #fff; border-top: 1px solid #eee; }
+        .alt-kisim h3 { margin: 0; color: #333; font-size: 18px; }
     </style>
 </head>
 <body>
 
-    <div class="haber-kart">
+<div class="container">
+    <div class="haber-box">
         <div class="foto-alani">
-            <img src="haber-fotografi.jpg" alt="Haber Görseli">
+            <img src="image.png" alt="Haber 1">
         </div>
-        
-        <div class="icerik">
-            <h1>Haberin Başlığı Buraya Gelecek</h1>
-            <p>Haber metni burada görünecek. Diğer siteler gibi temiz ve net bir görünüm sağlandı.</p>
+        <div class="alt-kisim">
+            <h3>Görsel 1 Başlığı</h3>
         </div>
     </div>
+
+    <div class="haber-box">
+        <div class="foto-alani">
+            <img src="image.png" alt="Haber 2">
+        </div>
+        <div class="alt-kisim">
+            <h3>Görsel 2 Başlığı</h3>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
