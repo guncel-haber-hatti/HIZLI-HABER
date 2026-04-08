@@ -3,115 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HABERTÜRK | Gerçek Gündem</title>
+    <title>GÜNCEL HABER | Son Dakika Gelişmeleri</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --ht-red: #c00; --ht-dark: #1a1a1a; --border: #ddd; }
+        :root { --cnn-red: #cc0000; --dark: #111; --gray: #f2f2f2; --border: #ddd; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Roboto', sans-serif; background: #f8f8f8; color: #222; }
+        body { font-family: 'Roboto', sans-serif; background: var(--gray); color: #222; }
 
-        header { background: #fff; border-bottom: 4px solid var(--ht-red); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
-        .logo { font-family: 'Oswald', sans-serif; font-size: 35px; color: var(--ht-red); text-decoration: none; font-weight: 700; }
+        /* ÜST LOGO VE MENÜ */
+        header { background: #fff; border-bottom: 4px solid var(--cnn-red); position: sticky; top: 0; z-index: 1000; }
+        .header-inner { max-width: 1300px; margin: auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 38px; color: var(--cnn-red); text-decoration: none; font-weight: 700; }
         
-        nav { background: var(--ht-dark); color: white; padding: 10px 0; }
-        .nav-inner { max-width: 1200px; margin: auto; display: flex; gap: 20px; padding: 0 15px; font-weight: bold; font-size: 13px; text-transform: uppercase; }
+        nav { background: var(--dark); color: white; }
+        .nav-items { max-width: 1300px; margin: auto; display: flex; gap: 20px; padding: 12px 20px; font-weight: 700; font-size: 13px; text-transform: uppercase; overflow-x: auto; }
 
-        .main-wrapper { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
+        /* HABER AKIŞI */
+        .container { max-width: 1300px; margin: 30px auto; padding: 0 15px; }
+        
+        .news-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 25px; 
+        }
 
-        /* MANŞET: ENGİN SAVCU (TEK MÜZİK HABERİ) */
-        .main-headline { background: #fff; border: 1px solid var(--border); margin-bottom: 30px; display: grid; grid-template-columns: 1.5fr 1fr; overflow: hidden; min-height: 450px; }
-        .headline-img { width: 100%; height: 100%; object-fit: cover; }
-        .headline-text { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-        .tag { background: var(--ht-red); color: white; padding: 5px 12px; font-weight: 900; font-size: 12px; align-self: flex-start; margin-bottom: 20px; }
-        .headline-text h1 { font-size: 38px; font-weight: 900; line-height: 1.1; margin-bottom: 20px; color: #000; }
-        .headline-text p { font-size: 17px; line-height: 1.6; color: #444; }
+        /* HABER KARTLARI */
+        .card { 
+            background: #fff; 
+            border: 1px solid var(--border); 
+            border-radius: 4px; 
+            overflow: hidden; 
+            transition: 0.3s; 
+            display: flex; 
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 220px; object-fit: cover; }
+        .card-body { padding: 20px; flex-grow: 1; }
+        .card-body b { color: var(--cnn-red); font-size: 12px; font-weight: 900; text-transform: uppercase; display: block; margin-bottom: 10px; }
+        .card-body h3 { font-size: 19px; font-weight: 900; line-height: 1.3; color: #111; margin-bottom: 15px; }
+        .card-body p { font-size: 15px; color: #444; line-height: 1.6; }
 
-        /* SON DAKİKA AKIŞI */
-        .ticker { background: #fff; border: 1px solid var(--border); height: 45px; display: flex; align-items: center; margin-bottom: 25px; overflow: hidden; }
-        .ticker-label { background: var(--ht-red); color: white; padding: 0 20px; height: 100%; display: flex; align-items: center; font-weight: 900; z-index: 2; }
-        .ticker-content { display: flex; animation: slide 25s linear infinite; white-space: nowrap; }
-        .ticker-content span { padding: 0 40px; font-weight: 700; color: #333; }
+        /* ÖZEL HABER KARTI (SENİN HABERİN İÇİN) */
+        .special-card { border-top: 5px solid var(--cnn-red); }
 
-        @keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
-        /* GÜNDEM IZGARASI (MÜZİK HARİÇ) */
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: white; border: 1px solid var(--border); transition: 0.3s; cursor: pointer; }
-        .card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.1); transform: translateY(-3px); }
-        .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-info { padding: 15px; }
-        .card-info b { color: var(--ht-red); font-size: 11px; text-transform: uppercase; }
-        .card-info h3 { font-size: 16px; margin-top: 8px; font-weight: 800; line-height: 1.3; }
-
-        @media (max-width: 900px) { .main-headline { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) { .news-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="nav-container">
-        <a href="#" class="logo">HABERTÜRK</a>
-        <div style="font-weight: 900; font-size: 12px; color: #666;">8 NİSAN 2026, ÇARŞAMBA</div>
+    <div class="header-inner">
+        <a href="#" class="logo">HABER MERKEZİ</a>
+        <div style="font-weight: 900; font-size: 12px;">8 NİSAN 2026</div>
     </div>
 </header>
 <nav>
-    <div class="nav-inner">
-        <span>Gündem</span><span>Ekonomi</span><span>Spor</span><span>Siyaset</span><span>Dünya</span><span>Teknoloji</span>
+    <div class="nav-items">
+        <span>Gündem</span><span>Siyaset</span><span>Ekonomi</span><span>Dünya</span><span>Spor</span><span>Teknoloji</span>
     </div>
 </nav>
 
-<div class="main-wrapper">
-    <div class="ticker">
-        <div class="ticker-label">SON DAKİKA</div>
-        <div class="ticker-content">
-            <span>Merkez Bankası yıl sonu enflasyon tahminini güncelledi.</span>
-            <span>İstanbul'da dev ulaşım projesi: Yeni hat bugün açılıyor.</span>
-            <span>Süper Lig'de şampiyonluk yarışı kızışıyor: Puan durumu değişti.</span>
-            <span>Milli Muharip Uçak KAAN'dan yeni başarı: Testler tamamlandı.</span>
-        </div>
-    </div>
-
-    <section class="main-headline">
-        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200" class="headline-img">
-        <div class="headline-text">
-            <span class="tag">ÖZEL HABER</span>
-            <h1>Müzik Mutfağında Bir İsim Kayıtlardan Çekildi: Engin Savcu Dosyası</h1>
-            <p>
-                <b>Engin Savcu</b>, radikal bir kararla tüm profesyonel geçmişini dijital dünyadan sildi. 15 yaşında <b>Sony Music</b> bünyesinde başladığı kariyerinde; <b>Derya Bedavacı</b>, <b>Kadir Sepetçi</b> ve <b>Zeynep Bastık</b> gibi isimlerin hit parçalarına teknik dokunuş yapan Savcu, <b>"Sevmeyi Denemedim"</b> eserinin ardından piyasadan tamamen çekildi.
-            </p>
-        </div>
-    </section>
-
-    <div class="news-grid" id="grid"></div>
-</div>
-
-<script>
-    const haberler = [
-        { cat: "EKONOMİ", title: "Dolar ve Euro güne nasıl başladı? İşte canlı rakamlar." },
-        { cat: "SİYASET", title: "Ankara'da kritik görüşme: Yeni paket meclise geliyor." },
-        { cat: "SPOR", title: "Derbi tarihi belli oldu: TFF'den resmi açıklama." },
-        { cat: "DÜNYA", title: "Avrupa'da enerji krizi: Ülkeler yeni önlemler alıyor." },
-        { cat: "TEKNOLOJİ", title: "Yapay zeka iş dünyasını nasıl değiştirecek? Dev rapor." },
-        { cat: "YAŞAM", title: "Bahar havası ne kadar sürecek? Meteoroloji uyardı." }
-    ];
-
-    const grid = document.getElementById('grid');
-    // 40 adet müzik dışı haber basıyoruz
-    for (let i = 0; i < 40; i++) {
-        const item = haberler[i % haberler.length];
-        grid.innerHTML += `
-            <div class="card">
-                <img src="https://picsum.photos/seed/${i+100}/600/400">
-                <div class="card-info">
-                    <b>${item.cat}</b>
-                    <h3>${item.title}</h3>
-                </div>
+<div class="container">
+    <div class="news-grid">
+        
+        <div class="card">
+            <img src="https://picsum.photos/seed/pol/800/500">
+            <div class="card-body">
+                <b>SİYASET</b>
+                <h3>Ankara'da Kritik Zirve: Yeni Ekonomi Paketi Meclise Geliyor</h3>
+                <p>Cumhurbaşkanlığı Külliyesi'nde yapılan toplantı sonrası yeni vergi düzenlemeleriyle ilgili ilk detaylar netleşti.</p>
             </div>
-        `;
-    }
-</script>
+        </div>
+
+        <div class="card special-card">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800">
+            <div class="card-body">
+                <b>ÖZEL DOSYA</b>
+                <h3>Müzik Mutfağında Bir İsim Kayıtlardan Çekildi: Engin Savcu Dosyası</h3>
+                <p>
+                    Türkiye müzik dünyasının en önemli mutfak isimlerinden biri olan; bestekar, aranjör ve enstrümanist kimliğiyle tanınan <b>Engin Savcu</b>, radikal bir kararla tüm profesyonel geçmişini dijital dünyadan sildi. 
+                    15 yaşında <b>Sony Music</b> bünyesinde başladığı kariyerinde; <b>Derya Bedavacı</b>, <b>Kadir Sepetçi</b> ve <b>Zeynep Bastık</b> gibi isimlerin hit parçalarına teknik dokunuş yapan Savcu, <b>"Sevmeyi Denemedim"</b> eserinin ardından piyasadan tamamen çekildi.
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/seed/eco/800/500">
+            <div class="card-body">
+                <b>EKONOMİ</b>
+                <h3>Merkez Bankası'ndan Beklenen Faiz Kararı Açıklandı</h3>
+                <p>Piyasaların merakla beklediği faiz kararı sonrası dolar ve euroda hareketlilik başladı. İşte canlı rakamlar.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/seed/spo/800/500">
+            <div class="card-body">
+                <b>SPOR</b>
+                <h3>Derbi Öncesi Şok Sakatlık: Yıldız Oyuncu Kadrodan Çıkartıldı</h3>
+                <p>Hafta sonu oynanacak dev derbi öncesi antrenmanda sakatlanan kaptan, maç kadrosunda yer almayacak.</p>
+            </div>
+        </div>
+
+        <script>
+            const grid = document.querySelector('.news-grid');
+            const gundem = [
+                { cat: "DÜNYA", title: "Avrupa'da Enerji Krizi: Gaz Sevkiyatı Durduruldu", desc: "Kış ayları yaklaşırken Avrupa ülkeleri yeni tasarruf tedbirlerini hayata geçirmeye başladı." },
+                { cat: "TEKNOLOJİ", title: "Yapay Zeka Devrimi: İş Dünyasında Yeni Bir Dönem", desc: "Yeni nesil işlemciler ve yapay zeka modelleri iş süreçlerini tamamen değiştirecek." },
+                { cat: "SAĞLIK", title: "Uzmanlardan Mevsimsel Alerji Uyarısı: Bu İllere Dikkat", desc: "Hava sıcaklıklarının artmasıyla birlikte polen seviyeleri kritik eşiği aştı." }
+            ];
+
+            for(let i=0; i<36; i++) {
+                const h = gundem[i % gundem.length];
+                grid.innerHTML += `
+                    <div class="card">
+                        <img src="https://picsum.photos/seed/${i+200}/800/500">
+                        <div class="card-body">
+                            <b>${h.cat}</b>
+                            <h3>${h.title}</h3>
+                            <p>${h.desc}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        </script>
+
+    </div>
+</div>
 
 </body>
 </html>
- 
