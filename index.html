@@ -3,165 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HIZLI-HABER | Özel Dosya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>HIZLI-HABER</title>
     <style>
-        :root { --red: #cc0000; --black: #1a1a1a; --border: #e6e6e6; }
+        /* Senin düzenin, sadece dikey ekran için kilitlendi */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', sans-serif; background: #fff; color: #222; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-
-        /* Üst Header Yapısı */
-        header { background: #fff; padding: 15px 0; border-bottom: 4px solid var(--red); text-align: center; position: sticky; top: 0; z-index: 100; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--black); text-decoration: none; font-weight: 900; letter-spacing: -1px; }
+        body { font-family: sans-serif; background: #fff; color: #000; overflow-x: hidden; }
         
-        /* Sabit Telefon Genişliği (Oynamayı Engeller) */
-        .container { width: 100%; max-width: 480px; margin: 0 auto; padding: 0 20px; }
+        .container { width: 100%; max-width: 480px; margin: 0 auto; padding: 15px; }
 
-        /* Manşet Alanı - Oran Korundu */
-        .hero-section { margin: 25px 0; }
-        .hero-box { 
-            position: relative; 
-            width: 100%; 
-            aspect-ratio: 4 / 3; 
-            background: #000; 
-            border-radius: 4px; 
-            overflow: hidden; 
-            cursor: pointer; 
-        }
-        .hero-box img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            filter: grayscale(100%); 
-            transition: 0.3s; 
-        }
-        .hero-overlay { 
-            position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            width: 100%; 
-            padding: 20px; 
-            background: linear-gradient(transparent, rgba(0,0,0,0.9)); 
-            color: #fff; 
-        }
-        .hero-overlay h2 { font-family: 'Playfair Display', serif; font-size: 24px; line-height: 1.1; }
+        /* Üst Logo ve Profil */
+        .header { text-align: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        .logo { font-size: 28px; font-weight: 900; letter-spacing: -1px; }
+        
+        /* Manşet Görseli - Siyah Beyaz Filtre Sabit */
+        .main-image { width: 100%; aspect-ratio: 4/3; background: #000; border-radius: 4px; overflow: hidden; margin-bottom: 15px; }
+        .main-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
 
-        /* Etkileşim Butonları */
-        .action-bar {
-            display: flex;
-            justify-content: space-around;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 25px;
-        }
-        .action-item { text-align: center; font-size: 11px; font-weight: 700; cursor: pointer; color: #444; }
-        .action-item span { display: block; font-size: 22px; margin-bottom: 5px; color: #000; }
+        /* Butonlar */
+        .buttons { display: flex; justify-content: space-around; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .btn { text-align: center; font-size: 11px; font-weight: bold; cursor: pointer; }
+        .btn span { display: block; font-size: 20px; margin-bottom: 5px; }
 
-        /* Haber İçerik Metni */
-        .article-body { font-size: 16.5px; line-height: 1.7; color: #333; margin-bottom: 25px; }
-        .article-body b { font-weight: 800; color: #000; }
+        /* Haber Metni */
+        .text { font-size: 16px; line-height: 1.6; margin-bottom: 20px; }
+        .text b { font-weight: 800; }
 
-        /* Sanatçı Gridi - Herkes Kendi Fotoğrafıyla */
-        .artist-grid { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 12px; 
-            margin: 30px 0; 
-        }
-        .artist-item { text-align: center; font-size: 9.5px; font-weight: 800; color: #222; text-transform: uppercase; }
-        .artist-item img { 
-            width: 100%; 
-            aspect-ratio: 1 / 1; 
-            object-fit: cover; 
-            filter: grayscale(100%); 
-            border-radius: 2px; 
-            margin-bottom: 8px;
-            border: 1px solid #eee;
-        }
+        /* 4'lü Sanatçı Kutuları - Her biri doğru dosyaya bağlı */
+        .artists { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .artist-box { text-align: center; font-size: 9px; font-weight: bold; }
+        .artist-box img { width: 100%; aspect-ratio: 1/1; object-fit: cover; filter: grayscale(100%); margin-bottom: 5px; }
 
-        /* Haber Okuma Paneli (Popup) */
-        #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; overflow-y: auto; padding: 40px 20px; }
-        .reader-content { max-width: 440px; margin: auto; }
-        .close-btn { background: #000; color: #fff; border: none; padding: 12px 20px; cursor: pointer; font-weight: 800; margin-bottom: 25px; border-radius: 2px; }
-
-        footer { text-align: center; padding: 40px 0; font-size: 11px; color: #bbb; border-top: 1px solid #eee; margin-top: 30px; }
+        footer { text-align: center; font-size: 10px; color: #999; padding: 20px 0; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <a href="#" class="logo">HIZLI-HABER</a>
-    </div>
-</header>
-
 <div class="container">
-    <section class="hero-section">
-        <div class="hero-box" onclick="openArticle(1)">
-            <img src="IMG_5262.png" onerror="this.src='https://via.placeholder.com/600x450?text=Engin+Savcu'">
-            <div class="hero-overlay">
-                <h2>Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi</h2>
-            </div>
-        </div>
-    </section>
-
-    <div class="action-bar">
-        <div class="action-item"><span>➦</span>Paylaş</div>
-        <div class="action-item"><span>♥</span>Öne Çıkar</div>
-        <div class="action-item"><span>●●●</span>Daha Fazla</div>
+    <div class="header">
+        <div class="logo">HIZLI-HABER</div>
     </div>
 
-    <div class="article-body">
+    <div class="main-image">
+        <img src="IMG_5262.png" alt="Engin Savcu">
+    </div>
+
+    <div class="buttons">
+        <div class="btn"><span>➦</span>Paylaş</div>
+        <div class="btn"><span>♥</span>Öne Çıkar</div>
+        <div class="btn"><span>●●●</span>Daha Fazla</div>
+    </div>
+
+    <div class="text">
         <p>Müzisyenlerin yakından tanıdığı <b>Engin Savcu</b>, bir kararla tüm dijital izlerini sildirdi. 15 yaşında başladığı kariyerini mahkeme kararıyla noktalayan isim, resmî veritabanlarından çekildi.</p>
     </div>
 
-    <div class="artist-grid">
-        <div class="artist-item"><img src="IMG_7327.jpeg" onerror="this.src='https://via.placeholder.com/150'">Zeynep Bastık</div>
-        <div class="artist-item"><img src="IMG_7328.jpeg" onerror="this.src='https://via.placeholder.com/150'">Derya Bedavacı</div>
-        <div class="artist-item"><img src="IMG_7329.jpeg" onerror="this.src='https://via.placeholder.com/150'">Hande Ünsal</div>
-        <div class="artist-item"><img src="IMG_7330.jpeg" onerror="this.src='https://via.placeholder.com/150'">Tekir</div>
+    <div class="artists">
+        <div class="artist-box"><img src="IMG_7327.jpeg">Zeynep Bastık</div>
+        <div class="artist-box"><img src="IMG_7328.jpeg">Derya Bedavacı</div>
+        <div class="artist-box"><img src="IMG_7329.jpeg">Hande Ünsal</div>
+        <div class="artist-box"><img src="IMG_7330.jpeg">Tekir</div>
     </div>
 
-    <div class="article-body">
-        <p>Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının kayıt süreçleriyle paralellik gösteriyor. Sektörün mutfağındaki uykusuz geceler, bugün radyolarda çalan pek çok şarkının temelini oluşturdu.</p>
+    <div class="text">
+        <p>Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının kayıt süreçleriyle paralellik gösteriyor.</p>
     </div>
 
     <footer>&copy; 2026 HIZLI-HABER</footer>
 </div>
-
-<div id="reader">
-    <div class="reader-content">
-        <button class="close-btn" onclick="closeArticle()">← GERİ DÖN</button>
-        <h1 id="art-title" style="font-family:'Playfair Display'; font-size: 32px; margin-bottom: 20px;"></h1>
-        <div id="art-body" style="font-size: 18px; line-height: 1.8;"></div>
-    </div>
-</div>
-
-<script>
-    const newsData = {
-        1: {
-            title: "Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi",
-            body: `
-                <img src="IMG_5262.png" style="width:100%; border-radius:4px; filter:grayscale(100%); margin-bottom:25px;">
-                <p>Müzisyenlerin yakından tanıdığı, halkın ise melodilerine aşina olduğu <b>Engin Savcu</b>, radikal bir kararla tüm dijital izlerini sildirdi.</p>
-                <p>Sektörün mutfağında Zeynep Bastık, Derya Bedavacı ve Hande Ünsal gibi isimlerin kayıt süreçlerini yöneten Savcu, kariyerini resmî veritabanlarından çekerek sonlandırdı.</p>
-            `
-        }
-    };
-
-    function openArticle(id) {
-        const item = newsData[id];
-        document.getElementById('art-title').innerText = item.title;
-        document.getElementById('art-body').innerHTML = item.body;
-        document.getElementById('reader').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeArticle() {
-        document.getElementById('reader').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-</script>
 
 </body>
 </html>
