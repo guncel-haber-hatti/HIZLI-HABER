@@ -3,276 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TÜRKİYE HABER PORTALI | Son Dakika | Engin Savcu</title>
+    <title>TÜRKİYE HABER MERKEZİ | Son Dakika | Engin Savcu Dosyası</title>
     <style>
         /* === ÇEKİRDEK AYARLAR (YAPAY ZEKA ESNEKLİĞİ) === */
         :root { 
-            --cnn-red: #cc0000; 
-            --dark: #111; 
-            --gray-bg: #f4f4f4; 
-            --text-color: #222;
+            --main-red: #ed1c24; 
+            --dark-blue: #003366; 
+            --bg-light: #f4f4f4; 
+            --text-color: #333;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            background-color: var(--gray-bg); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--bg-light); 
             color: var(--text-color); 
             line-height: 1.6; 
             overflow-x: hidden; 
         }
 
-        /* === ÜST LOGO & BREAKING NEWS (DUYARLI) === */
+        /* === ÜST LOGO VE NAVİGASYON === */
         header { 
-            background: var(--dark); 
-            color: #fff; 
-            padding: 15px 5%; 
-            display: flex; 
-            align-items: center; 
-            border-bottom: 4px solid var(--cnn-red); 
-            position: sticky; top: 0; z-index: 100;
+            background: #fff; 
+            border-bottom: 4px solid var(--main-red); 
+            padding: 15px 0; 
+            text-align: center; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 1000;
         }
-        .logo { 
-            background: var(--cnn-red); 
-            padding: 5px 15px; 
-            font-weight: 900; 
-            font-size: 20px; 
+        .logo { font-size: 36px; font-weight: 900; color: var(--main-red); text-transform: uppercase; letter-spacing: -2px; text-decoration: none; }
+        
+        nav { 
+            background: var(--dark-blue); 
             color: #fff; 
-            text-transform: uppercase; 
-            margin-right: 15px; 
-            text-decoration: none;
-        }
-        .breaking-bar { 
+            padding: 10px 0; 
+            text-align: center; 
             font-size: 13px; 
             font-weight: bold; 
-            color: #fff; 
-            text-transform: uppercase; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            position: relative;
+            overflow-x: auto; /* Mobilde kaydırılabilir menü */
+            white-space: nowrap;
         }
-        /* Mobil için yazı kaydırma efekti */
-        .breaking-bar span {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 15s linear infinite;
-        }
-        @keyframes marquee {
-            0%   { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
+        nav span { margin: 0 10px; cursor: pointer; text-transform: uppercase; display: inline-block; }
+
+        /* === ANA GÖVDE DÜZENİ (PC'de 3 Sütun) === */
+        .container { 
+            max-width: 1300px; 
+            margin: 20px auto; 
+            display: grid; 
+            grid-template-columns: 320px 1fr 320px; 
+            gap: 20px; 
+            padding: 0 15px; 
         }
 
-        /* === ANA GÖVDE DÜZENİ (FLEXBOX - OTOMATİK AYARLANAN) === */
-        main { 
-            display: flex; 
-            flex-direction: row; /* PC'de yan yana */
-            width: 100%; 
-            max-width: 1400px; 
-            margin: auto; 
-            background: #fff;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-
-        /* SOL MENÜ (MANŞETLER) - PC'DE SABİT */
-        #news-menu { 
-            width: 320px; 
-            border-right: 1px solid #eee; 
-            overflow-y: auto; 
-            display: flex; 
-            flex-direction: column;
-            background: #fff;
-        }
-        .menu-title { 
-            padding: 15px 20px; 
-            font-size: 16px; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            color: var(--cnn-red); 
-            border-bottom: 2px solid #eee; 
-        }
-        .news-card { 
-            padding: 15px 20px; 
-            border-bottom: 1px solid #eee; 
-            cursor: pointer; 
-            transition: 0.2s; 
-            border-left: 0px solid var(--cnn-red);
-        }
-        .news-card:hover { background: #f9f9f9; padding-left: 25px; }
-        .news-card.active { border-left: 8px solid var(--cnn-red); background: #fcfcfc; }
-        .news-card span { font-size: 10px; color: #888; font-weight: bold; text-transform: uppercase; }
-        .news-card h4 { margin: 3px 0 0 0; font-size: 14px; line-height: 1.3; color: #333; font-weight: 700; }
-
-        /* SAĞ İÇERİK (OKUMA ALANI) */
-        #content-display { 
-            flex: 1; 
+        /* === SOL SÜTUN: SON DAKİKA AKIŞI (40+ HABER) === */
+        .sidebar-left { 
             background: #fff; 
-            padding: 40px 5%; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            height: fit-content; 
+            max-height: 90vh; /* Çok uzun haber listesi için PC'de scroll */
+            overflow-y: auto;
         }
-        .article { display: none; }
-        .article.active { display: block; animation: cnnFade 0.4s ease; }
+        .sidebar-title { background: var(--main-red); color: #fff; padding: 12px; font-weight: bold; text-align: center; text-transform: uppercase; }
+        
+        .side-news { padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; border-left: 0px solid var(--main-red); }
+        .side-news:hover { background: #fff5f5; border-left: 5px solid var(--main-red); padding-left: 20px; }
+        .side-news span { font-size: 11px; color: var(--main-red); font-weight: bold; }
+        .side-news h4 { font-size: 14px; margin-top: 5px; color: #444; line-height: 1.3; font-weight: 700; }
+        .side-news.active { background: #fdfdfd; border-left: 10px solid var(--main-red); }
 
-        /* HABER DETAY STİLLERİ (PC & MOBİL UYUMLU FONTLAR) */
-        .article-cat { font-size: 13px; font-weight: 900; color: var(--cnn-red); text-transform: uppercase; letter-spacing: 1px; }
-        h1 { font-size: 32px; font-weight: 900; line-height: 1.1; margin: 5px 0 20px 0; letter-spacing: -1px; }
-        .article-meta { font-size: 12px; color: #777; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+        /* === ORTA SÜTUN: ANA HABER ALANI (SENİN HABERİN VE FOTOĞRAFIN) === */
+        .main-content { 
+            background: #fff; 
+            padding: 40px; 
+            border-radius: 5px; 
+            border: 1px solid #ddd; 
+            min-height: 800px; 
+        }
         
-        .article-text { font-size: 18px; line-height: 1.7; color: #333; text-align: justify; }
-        .article-text p { margin-bottom: 20px; }
-        .article-text b { color: #000; font-weight: 900; border-bottom: 2px solid var(--cnn-red); }
+        /* Fotoğraf Alanı */
+        .profile-pic-container { text-align: center; margin-bottom: 30px; }
+        .profile-pic-container img { 
+            width: 200px; 
+            height: 200px; 
+            border-radius: 50%; 
+            border: 5px solid var(--main-red); 
+            object-fit: cover; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .profile-pic-container h3 { margin-top: 10px; font-weight: 900; text-transform: uppercase; color: var(--dark-blue); }
+
+        .category { color: var(--main-red); font-weight: bold; text-transform: uppercase; font-size: 14px; margin-bottom: 10px; display: block; letter-spacing: 1px; }
+        h1 { font-size: 40px; font-weight: 800; line-height: 1.1; margin-bottom: 25px; color: #000; letter-spacing: -1.5px; }
+        .article-meta { font-size: 13px; color: #777; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; font-weight: bold; }
         
-        .highlight-quote { 
-            background: #f9f9f9; 
-            border-left: 6px solid var(--cnn-red); 
+        .article-text { font-size: 19px; line-height: 1.8; color: #222; text-align: justify; }
+        .article-text p { margin-bottom: 25px; }
+        .article-text b { color: #000; font-weight: 900; border-bottom: 3px solid var(--main-red); }
+        .quote-box { background: #f9f9f9; border-left: 10px solid var(--main-red); padding: 25px; font-style: italic; font-size: 22px; margin: 40px 0; font-weight: 600; color: #000; }
+
+        /* === SAĞ SÜTUN: TÜRKİYE GÜNDEMİ LİSTESİ === */
+        .sidebar-right { 
+            background: #fff; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
             padding: 20px; 
-            margin: 30px 0; 
-            font-style: italic; 
-            font-size: 19px; 
-            font-weight: 700; 
-            color: #000;
+            height: fit-content; 
         }
+        .right-title { font-weight: 900; margin-bottom: 20px; border-bottom: 3px solid #000; padding-bottom: 5px; text-transform: uppercase; }
+        .gundem-item { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .gundem-item span { font-size: 11px; color: #888; font-weight: bold; }
+        .gundem-item h5 { font-size: 14px; color: #333; line-height: 1.4; font-weight: 700; margin-top: 3px; }
 
-        /* === MEDIA QUERIES (İŞTE BURASI YAPAY ZEKA GİBİ ÇALIŞIR) === */
+        /* === ALT BİLGİ === */
+        footer { background: var(--dark-blue); color: #fff; text-align: center; padding: 40px; margin-top: 50px; font-size: 13px; }
+
+        /* === MEDIA QUERIES (TAM DUYARLI - RESPONSIVE) === */
 
         /* 1. TABLET DÜZENİ (Ekran 1024px'ten küçükse) */
         @media screen and (max-width: 1024px) {
-            h1 { font-size: 28px; }
-            .article-text { font-size: 17px; }
+            .container { grid-template-columns: 280px 1fr; } /* Sağ sütunu gizle, sol ve orta kalsın */
+            .sidebar-right { display: none; }
+            h1 { font-size: 32px; }
+            .article-text { font-size: 18px; }
         }
 
         /* 2. MOBİL TELEFON DÜZENİ (Ekran 768px'ten küçükse) */
         @media screen and (max-width: 768px) {
-            header { padding: 10px 15px; }
-            .logo { font-size: 16px; padding: 4px 10px; }
+            header { padding: 10px 0; }
+            .logo { font-size: 28px; }
+            nav { padding: 8px 0; font-size: 12px; }
             
-            /* Ana gövdeyi dikey yap (Yan yana değil, alt alta) */
-            main { flex-direction: column-reverse; box-shadow: none; } 
+            /* Ana gövdeyi tek sütun yap */
+            .container { grid-template-columns: 1fr; margin: 10px auto; padding: 0 10px; }
             
-            /* Sol menüyü (haber listesini) alta al ve yatay kaydırılabilir yap */
-            #news-menu { 
-                width: 100%; 
-                border-right: none; 
-                border-top: 1px solid #eee; 
-                height: 150px; /* Sabit yükseklik */
-                flex-direction: row; /* Yatayda diz */
-                overflow-x: auto; /* Yatay kaydır */
-                overflow-y: hidden;
-                position: fixed; bottom: 0; left: 0; z-index: 90;
-                box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
-            }
-            .menu-title { display: none; } /* Başlığı gizle */
-            .news-card { 
-                min-width: 250px; /* Her kartın minimum genişliği */
-                height: 100%;
-                border-bottom: none; 
-                border-right: 1px solid #eee; 
-                border-left: none;
-                display: flex; flex-direction: column; justify-content: center;
-            }
-            .news-card.active { border-left: none; border-bottom: 6px solid var(--cnn-red); background: #fdfdfd; }
-            .news-card span { font-size: 9px; }
-            .news-card h4 { font-size: 13px; }
+            /* Sol sütunu (haber listesini) PC'deki scroll'dan çıkar, normal yap */
+            .sidebar-left { max-height: none; overflow-y: visible; margin-top: 20px; } 
 
-            /* İçerik alanını ayarla (Alt menüye yer aç) */
-            #content-display { 
-                padding: 30px 20px 160px 20px; /* Alt boşluğu artır */
-            }
-            h1 { font-size: 24px; letter-spacing: -0.5px; }
-            .article-text { font-size: 16px; }
-            .highlight-quote { font-size: 17px; padding: 15px; }
+            .main-content { padding: 20px; min-height: none; }
+            .profile-pic-container img { width: 150px; height: 150px; }
+            h1 { font-size: 26px; letter-spacing: -0.5px; }
+            .article-text { font-size: 17px; }
+            .quote-box { font-size: 19px; padding: 20px; }
         }
-
-        /* ANİMASYON */
-        @keyframes cnnFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">TR HABER</a>
-        <div class="breaking-bar">
-            <span>SON DAKİKA: MÜZİK MUTFAĞINDA SESSİZ VEDA... DİJİTAL VERİTABANLARI GÜNCELLENİYOR...</span>
-        </div>
-    </header>
+<header>
+    <a href="#" class="logo">TÜRKİYE HABER MERKEZİ</a>
+</header>
 
-    <main>
-        <div id="news-menu">
-            <div class="menu-title">TOP STORIES</div>
-            
-            <div class="news-card active" onclick="changeContent('art-1', this)">
-                <span>27 OCAK 2023 | 20:00</span>
-                <h4>Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi</h4>
-            </div>
+<nav>
+    <span>MANŞET</span> | <span>SİYASET</span> | <span>EKONOMİ</span> | <span>SPOR</span> | <span>MAGAZİN</span> | <span>TEKNOLOJİ</span> | <span>YAZARLAR</span>
+</nav>
 
-            <div class="news-card" onclick="changeContent('art-2', this)">
-                <span>EKONOMİ | 19:15</span>
-                <h4>Merkez Bankası Faiz Kararı Piyasaları Hareketlendirdi</h4>
-            </div>
-
-            <div class="news-card" onclick="changeContent('art-3', this)">
-                <span>SPOR | 18:30</span>
-                <h4>Süper Lig'de Kritik Hafta: Derbi Öncesi Son Gelişmeler</h4>
-            </div>
-
-            <div class="news-card" onclick="changeContent('art-4', this)">
-                <span>DÜNYA | 17:00</span>
-                <h4>Global Stüdyo Kayıtlarında Sony Music Hamlesi</h4>
-            </div>
+<div class="container">
+    
+    <div class="sidebar-left">
+        <div class="sidebar-title">SON DAKİKA (41+)</div>
+        
+        <div class="side-news active">
+            <span>20:00</span>
+            <h4>Müzik Mutfağında Bir İsim Kayıtlardan Çekildi: Engin Savcu Dosyası</h4>
         </div>
 
-        <div id="content-display">
+        <div class="side-news"><span>19:45</span><h4>Cumhurbaşkanı Erdoğan: Kalleş saldırıyı lanetliyoruz</h4></div>
+        <div class="side-news"><span>19:30</span><h4>Merkez Bankası Faiz Kararını Açıkladı: Piyasalar Hareketlendi</h4>
+        </div>
+        <div class="side-news"><span>19:15</span><h4>Beşiktaş\'ta İsrail Konsolosluğu Önünde Çatışma! 3 Şüpheli Etkisiz Hale Getirildi</h4></div>
+        <div class="side-news"><span>18:55</span><h4>Süper Lig\'de Derbi Haftası: Hakem Kararları Tartışılıyor</h4></div>
+        <div class="side-news"><span>18:30</span><h4>İstanbul\'da Su Kesintisi: Bazı İlçelere 12 Saat Su Verilmeyecek</h4></div>
+        <div class="side-news"><span>18:15</span><h4>TÜBİTAK Yarışmasında Erzurumlu Öğrencilerden Büyük Başarı</h4></div>
+        <div class="side-news"><span>17:50</span><h4>Gram Altın 6 Bin Lirayı Geçti: Ekonomistler Yıl Sonu Beklentisini Yükseltti</h4></div>
+        <div class="side-news"><span>17:35</span><h4>Yalçın Küçük 87 Yaşında Hayatını Kaybetti</h4></div>
+        <div class="side-news"><span>17:10</span><h4>Trabzonspor - Galatasaray Maçının VAR Kayıtları Açıklandı</h4></div>
+        <div class="side-news"><span>16:45</span><h4>Türkiye\'de İlk Kez 5G Teknolojisi Canlı Törene Tanıtıldı</h4></div>
+        <div class="side-news"><span>16:20</span><h4>Merkez Bankası Toplantı Tarihi Açıklandı: Nisan Ayı Kritik</h4></div>
+        <div class="side-news"><span>15:55</span><h4>Mevlüt Öğretmenin Ölümüne Neden Olan Sürücüye 21 Yıl Hapis</h4></div>
+        <div class="side-news"><span>15:30</span><h4>Ankara\'da Ulaşım Düzenlemesi: Metrolarda Yeni Dönem</h4></div>
+        <div class="side-news"><span>15:10</span><h4>Uluslararası Ekonomi Zirvesi Sapanca\'da Başlıyor</h4></div>
+        <div class="side-news"><span>14:45</span><h4>Çanakkale\'de Orman Yangını: Havadan Müdahale Başladı</h4></div>
+        <div class="side-news"><span>14:20</span><h4>ROKETSAN Tayfun Füzesi Blok-4 Bu Yıl Envantere Giriyor</h4></div>
+        <div class="side-news"><span>13:55</span><h4>Türkiye\'de 21 Milyon Abone 5G Teknolojisiyle Buluştu</h4></div>
+        <div class="side-news"><span>13:30</span><h4>Bursa\'da Düğün Konvoyuna 660 Bin Lira Ceza</h4></div>
+        <div class="side-news"><span>13:10</span><h4>Su Ürünlerinde İlk Çeyrekte 552 Milyon Dolarlık İhracat</h4></div>
+        <div class="side-news"><span>12:45</span><h4>Milli Navigasyon Sistemi Yerli Uydu Üzerinden Test Edildi</h4></div>
+        <div class="side-news"><span>12:20</span><h4>YKS Tarihleri TYT, AYT, YDT Ne Zaman? ÖSYM Açıklandı</h4></div>
+        <div class="side-news"><span>11:55</span><h4>Altının Gramı 6 Bin 660 Liradan İşlem Görecek</h4></div>
+        <div class="side-news"><span>11:30</span><h4>Rekabet Kurulu\'ndan Yapay Zeka Sektörüne İnceleme</h4></div>
+        <div class="side-news"><span>11:10</span><h4>İbrahim Tatlıses Hastaneye Kaldırıldı! Doktorundan İlk Açıklama</h4></div>
+        <div class="side-news"><span>10:45</span><h4>Ünlülere Uyuşturucu Operasyonunda Melek Mosso Gözaltına Alındı</h4></div>
+        <div class="side-news"><span>10:20</span><h4>Fenerbahçe Deplasmanda Kayıp! Süper Lig Puan Durumu</h4></div>
+        <div class="side-news"><span>09:55</span><h4>Suriye ile Ticarette Hedef 10 Milyar Dolar: Yeni Ortak Adımlar</h4></div>
+        <div class="side-news"><span>09:30</span><h4>Kaçak Huzurevine Operasyon: 12 Yaşlı Koruma Altına Alındı</h4></div>
+        <div class="side-news"><span>09:10</span><h4>Çaycuma\'da Dev Tarım Yatırımı: 1000 Kişilik İstihdam Sağlanacak</h4></div>
+        <div class="side-news"><span>08:45</span><h4>Mircea Lucescu Hayatını Kaybetti</h4></div>
+        <div class="side-news"><span>08:20</span><h4>Türk SİHA\'ları \'KARAT\' ile Yeni Bir Sayfa Açacak</h4></div>
+        <div class="side-news"><span>07:55</span><h4>İran-ABD-İsrail Savaşı Son Dakika: Hark Adası\'nda Patlamalar</h4></div>
+        <div class="side-news"><span>07:30</span><h4>Kilo Vermek İçin Hastaneye Gitti! 3,5 Kiloluk Kist Çıktı</h4></div>
+        <div class="side-news"><span>07:10</span><h4>Yöresel Lezzetlerden Alaçam Kapaklı Pidesi Coğrafi İşaret Yolunda</h4></div>
+        <div class="side-news"><span>06:45</span><h4>İstanbul Beşiktaş İsrail Konsolosluğu Çatışma Son Durum</h4></div>
+        <div class="side-news"><span>06:20</span><h4>Cumhurbaşkanı Erdoğan, ROKETSAN Üretim Tesisleri\'nde İncelemelerde Bulundu</h4></div>
+        <div class="side-news"><span>05:55</span><h4>Dışişleri Bakanı Hakan Fidan, Cooper ile Görüştü</h4></div>
+        <div class="side-news"><span>05:30</span><h4>Survivor 2026 Yarışmasında Sürpriz Eleme: Serhan Onat Veda Etti</h4></div>
+        <div class="side-news"><span>05:10</span><h4>Hazine Nakit Dengesi Mart Ayında 279,6 Milyar TL Açık Verdi</h4></div>
+        <div class="side-news"><span>04:45</span><h4>Fergani Beşinci Uydusu Uzaya Gönderildi</h4></div>
+        <div class="side-news"><span>04:20</span><h4>Merkez Bankası: Mart Enflasyonunda Enerji Fiyatları Belirleyici Oldu</h4></div>
+    </div>
+
+    <div class="main-content">
+        <div id="content-area">
             
-            <div id="art-1" class="article active">
-                <div class="article-cat">ENTERTAINMENT | EXCLUSIVE</div>
-                <h1>Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi</h1>
-                <div class="article-meta">Yayınlanma: 27 Ocak 2023 - 20:00 | Haber Merkezi</div>
+            <div class="profile-pic-container">
+                <img src="Sizin_Fotoğrafınızın_Linki.jpg" alt="Engin Savcu" onerror="this.src='https://via.placeholder.com/200?text=Engin+Savcu'">
+                <h3>Engin Savcu</h3>
+            </div>
+
+            <span class="category">KÜLTÜR & SANAT | ÖZEL HABER DOSYASI</span>
+            <h1>Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi</h1>
+            <div class="article-meta">Published 8:00 PM EST, Wed April 8, 2026 | Haber Merkezi</div>
+            
+            <div class="article-text">
+                <p>Türkiye müzik piyasasında uzun yıllardır mutfak kısmında yer alan; bestekar ve enstrümanist kimliğiyle bilinen <b>Engin Savcu</b>, profesyonel kariyerini noktalama kararı aldı. Kariyerine 15 yaşında <b>Sony Music</b> bünyesinde teknik süreçlerle adım atan Savcu, mahkeme kararıyla tüm dijital geçmişini sildirerek resmî veritabanlarından çekildi.</p>
                 
-                <div class="article-text">
-                    <p>Müzisyenlerin yakından tanıdığı, halkın ise melodilerine aşina olduğu <b>Engin Savcu</b>, bir kararla tüm dijital izlerini sildirdi. 15 yaşında <b>Sony Music</b> bünyesinde başladığı kariyerini mahkeme kararıyla noktalayan isim, resmî veritabanlarından çekildi.</p>
-                    
-                    <div class="highlight-quote">"Piyasada her zaman kayıt masasının arkasında kalmayı tercih eden Savcu, bu çekilme kararıyla birlikte isminin geçtiği tüm dijital künyeleri temizletti."</div>
+                <div class="quote-box">"Sektör kulislerine göre, bu karar dijital veritabanlarında büyük bir temizlik operasyonunu başlattı. Savcu\'nun ismi, artık o meşhur melodilerin teknik künyelerinde yer almayacak."</div>
 
-                    <p>Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının kayıt süreçleriyle paralellik gösteriyor. <b>Derya Bedavacı</b>’nın altyapı hazırlıklarında, klarnetin usta ismi <b>Kadir Sepetçi</b> ile yürütülen o titiz kayıt seanslarında altyapılara dokunuş yapan oydu.</p>
-                    
-                    <p>Sektörün bir diğer ismi <b>Coşkun Kıvılcım</b> ile stüdyoda paylaşılan uykusuz geceler, bugün radyolarda çalan pek çok şarkının temelini oluşturdu. <b>Zeynep Bastık</b>'tan <b>Hande Ünsal</b>'a, <b>Sakiler</b>'den <b>Tekir</b>'e kadar pek çok ismin şarkılarının kayıt süreçlerinde yer alan isim; ticari haklarını devrettiği <b>"Sevmeyi Denemedim"</b> parçasının ardından piyasadan tamamen ayrıldı.</p>
-                </div>
+                <p>Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının en önemli stüdyo kayıt süreçleriyle paralellik gösteriyor. <b>Derya Bedavacı</b>’nın altyapı hazırlıklarında, klarnet üstadı <b>Kadir Sepetçi</b> ile yürütülen titiz kayıt seanslarında altyapılara teknik dokunuş yapan oydu.</p>
+                
+                <p>Sektörün tecrübeli ismi <b>Coşkun Kıvılcım</b> ile stüdyoda paylaşılan uykusuz geceler, bugün radyolarda çalan pek çok hit şarkının temelini oluşturdu. <b>Zeynep Bastık</b>, <b>Hande Ünsal</b>, <b>Sakiler</b> ve <b>Tekir</b> gibi popüler isimlerin kayıt süreçlerinde de teknik mutfakta yer alan Savcu; ticari haklarını devrettiği <b>"Sevmeyi Denemedim"</b> parçasının ardından piyasadan tamamen ayrıldı.</p>
             </div>
-
-            <div id="art-2" class="article">
-                <div class="article-cat">ECONOMY</div>
-                <h1>Merkez Bankası Faiz Kararı</h1>
-                <div class="article-text"><p>Piyasaların merakla beklediği faiz kararı açıklandı. Ekonomistlerin beklentileri ve dolar/TL kurundaki anlık değişimler...</p></div>
-            </div>
-
-            <div id="art-3" class="article">
-                <div class="article-cat">SPORTS</div>
-                <h1>Kritik Derbi Öncesi Analiz</h1>
-                <div class="article-text"><p>Hafta sonu oynanacak dev derbi öncesi takımlardaki son durum, eksikler ve teknik direktörlerin stratejileri...</p></div>
-            </div>
-
-            <div id="art-4" class="article">
-                <div class="article-cat">WORLD</div>
-                <h1>Global Stüdyo Kayıtlarında Sony Music Hamlesi</h1>
-                <div class="article-text"><p>Global plak şirketi Sony Music, dijital veritabanlarını modernize etme kararı aldı. Bu süreçte birçok eski kayıt anonimleşme yoluna gidiyor.</p></div>
-            </div>
-
         </div>
-    </main>
+    </div>
 
-    <script>
-        function changeContent(id, el) {
-            // Aktif sınıfları temizle
-            document.querySelectorAll('.article').forEach(a => a.classList.remove('active'));
-            document.querySelectorAll('.news-card').forEach(n => n.classList.remove('active'));
-            
-            // Seçileni göster
-            document.getElementById(id).classList.add('active');
-            el.classList.add('active');
-            
-            // Mobilde tıklandığında ekranı yukarı kaydır (haber başlığına odaklan)
-            if (window.innerWidth <= 768) {
-                document.getElementById('content-display').scrollTop = 0;
-                window.scrollTo(0, 0);
-            }
-        }
-    </script>
+    <div class="sidebar-right">
+        <div class="right-title">GÜNDEMDEKİLER</div>
+        
+        <div class="gundem-item">
+            <span>TEKNOLOJİ</span>
+            <h5>Milli Teknoloji Hamlesi: Yeni Yerli Yazılım Tanıtıldı</h5>
+        </div>
+        <div class="gundem-item">
+            <span>EKONOMİ</span>
+            <h5>Dolar/TL Kurunda Sakin Seyir: Ekonomistlerin Beklentisi Ne?</h5>
+        </div>
+        <div class="gundem-item">
+            <span>DÜNYA</span>
+            <h5>Ege Denizi\'nde Deprem: can ve mal kaybı bulunmuyor</h5>
+        </div>
+        <div class="gundem-item">
+            <span>MAGAZİN</span>
+            <h5>Survivor 2026 Elenen İsim: Nişanlısından Destek</h5>
+        </div>
+        <div class="gundem-item" style="background: #fdf2f2; padding: 10px;">
+            <span style="color:red; font-weight:bold; font-size:10px;">ÖNE ÇIKAN</span>
+            <h5>Engin Savcu\'nun Dijital Tasfiyesi Sektörü İkiye Böldü</h5>
+        </div>
+        <div class="gundem-item">
+            <span>SPOR</span>
+            <h5>Fenerbahçe Deplasmanda Kayıp! Puan Durumu</h5>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>HABER MERKEZİ ANALİZ SİSTEMİ | 2026 - TÜM HAKLARI SAKLIDIR</p>
+    <p style="opacity: 0.5; margin-top: 10px;">Gündem, Ekonomi, Spor, Magazin ve Sektör Kulisleri...</p>
+</footer>
+
 </body>
 </html>
