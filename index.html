@@ -3,126 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HABER MERKEZİ | Son Dakika Türkiye Gündemi</title>
+    <title>HABER JETSİN | Türkiye'nin En Hızlı Haber Portalı</title>
     <style>
-        :root { --red: #cc0000; --blue: #003366; --bg: #f0f2f5; --white: #ffffff; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: #333; }
+        :root { --red: #ff0000; --dark: #1a1a1a; --gray: #f4f4f4; --blue: #004a99; }
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.2s ease; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; background: #eef0f2; color: #333; }
 
-        /* HEADER & NAV */
-        header { background: var(--white); border-bottom: 4px solid var(--red); padding: 20px; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .logo { font-size: 38px; font-weight: 900; color: var(--red); text-decoration: none; letter-spacing: -2px; }
-        nav { background: var(--blue); color: white; padding: 12px; text-align: center; font-weight: bold; overflow-x: auto; white-space: nowrap; }
-        nav a { color: white; text-decoration: none; margin: 0 15px; text-transform: uppercase; font-size: 13px; }
+        /* HEADER */
+        header { background: #fff; border-bottom: 5px solid var(--red); position: sticky; top: 0; z-index: 2000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .nav-top { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
+        .logo { font-size: 32px; font-weight: 900; color: var(--red); text-decoration: none; letter-spacing: -2px; cursor: pointer; }
+        .nav-links { background: var(--dark); color: white; padding: 10px; display: flex; justify-content: center; gap: 20px; font-size: 13px; font-weight: bold; overflow-x: auto; }
+        .nav-links span { cursor: pointer; text-transform: uppercase; white-space: nowrap; }
+        .nav-links span:hover { color: var(--red); }
 
-        .container { max-width: 1250px; margin: 20px auto; display: grid; grid-template-columns: 1fr 320px; gap: 20px; padding: 0 15px; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 1fr 300px; gap: 20px; }
 
-        /* ANA MANŞET (SENİN HABERİN) */
-        .headline-news { background: var(--white); border-radius: 8px; overflow: hidden; margin-bottom: 30px; border: 1px solid #ddd; }
-        .headline-img { width: 100%; height: 450px; object-fit: cover; background: #ddd; }
-        .headline-content { padding: 30px; }
-        .tag { background: var(--red); color: white; padding: 4px 10px; font-weight: bold; font-size: 12px; border-radius: 3px; }
-        .headline-content h1 { font-size: 38px; margin: 15px 0; line-height: 1.1; color: #000; }
-        .headline-content p { font-size: 18px; color: #555; line-height: 1.6; }
+        /* ANA SAYFA MANŞET ALANI */
+        #home-view { display: block; }
+        .main-slider { position: relative; width: 100%; height: 450px; background: #000; border-radius: 8px; overflow: hidden; cursor: pointer; margin-bottom: 25px; }
+        .main-slider img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .slider-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: white; }
+        .slider-text h2 { font-size: 36px; line-height: 1.1; margin-top: 10px; }
 
-        /* HABER IZGARASI (DİĞER 30-40 HABER) */
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .news-card { background: var(--white); border-radius: 5px; border: 1px solid #ddd; overflow: hidden; transition: 0.3s; cursor: pointer; }
-        .news-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .news-card img { width: 100%; height: 180px; object-fit: cover; }
-        .news-card-body { padding: 15px; }
-        .news-card-body span { font-size: 11px; color: var(--red); font-weight: bold; text-transform: uppercase; }
-        .news-card-body h3 { font-size: 16px; margin-top: 8px; color: #222; line-height: 1.3; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 8px; overflow: hidden; border: 1px solid #ddd; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 170px; object-fit: cover; }
+        .card-body { padding: 15px; }
+        .card-body span { color: var(--red); font-size: 11px; font-weight: 900; text-transform: uppercase; }
+        .card-body h3 { font-size: 16px; margin-top: 8px; line-height: 1.3; }
 
-        /* SAĞ SÜTUN (SON DAKİKA LİSTESİ) */
-        .sidebar { background: var(--white); border-radius: 5px; border: 1px solid #ddd; height: fit-content; position: sticky; top: 120px; }
-        .sidebar-header { background: #333; color: white; padding: 15px; font-weight: bold; text-align: center; }
-        .breaking-item { padding: 15px; border-bottom: 1px solid #eee; display: flex; gap: 10px; align-items: flex-start; }
-        .breaking-time { color: var(--red); font-weight: bold; font-size: 12px; min-width: 45px; }
-        .breaking-title { font-size: 13px; font-weight: 600; color: #444; }
+        /* HABER DETAY SAYFASI (GİZLİ BAŞLAR) */
+        #article-view { display: none; background: white; padding: 40px; border-radius: 8px; border: 1px solid #ddd; }
+        .article-header h1 { font-size: 42px; font-weight: 900; line-height: 1; margin: 20px 0; }
+        .article-img { width: 100%; border-radius: 8px; margin-bottom: 30px; }
+        .article-content { font-size: 19px; line-height: 1.8; color: #222; }
+        .article-content b { border-bottom: 3px solid var(--red); }
 
-        /* MOBİL UYUMLULUK */
-        @media (max-width: 900px) {
+        /* SAĞ SÜTUN */
+        .sidebar { background: white; border-radius: 8px; border: 1px solid #ddd; height: fit-content; position: sticky; top: 130px; }
+        .sidebar-h { background: var(--red); color: white; padding: 12px; font-weight: 900; text-align: center; }
+        .side-item { padding: 15px; border-bottom: 1px solid #eee; display: flex; gap: 10px; cursor: pointer; }
+        .side-item:hover { background: #f9f9f9; }
+        .side-item img { width: 60px; height: 60px; border-radius: 4px; object-fit: cover; }
+        .side-item h5 { font-size: 13px; color: #333; }
+
+        /* MOBİL */
+        @media (max-width: 850px) {
             .container { grid-template-columns: 1fr; }
-            .headline-img { height: 250px; }
-            .headline-content h1 { font-size: 26px; }
             .sidebar { display: none; }
+            .main-slider { height: 300px; }
+            .article-header h1 { font-size: 28px; }
         }
     </style>
 </head>
 <body>
 
-<header><a href="#" class="logo">TR HABER</a></header>
-<nav>
-    <a href="#">GÜNDEM</a><a href="#">SİYASET</a><a href="#">EKONOMİ</a><a href="#">SPOR</a><a href="#">MAGAZİN</a><a href="#">DÜNYA</a>
-</nav>
+<header>
+    <div class="nav-top">
+        <div class="logo" onclick="goHome()">HABER JETSİN</div>
+        <div style="font-weight: bold; font-size: 12px;">8 NİSAN 2026, İSTANBUL</div>
+    </div>
+    <div class="nav-links">
+        <span onclick="goHome()">ANA SAYFA</span>
+        <span>SİYASET</span><span>EKONOMİ</span><span>SPOR</span><span>MAGAZİN</span><span>TEKNOLOJİ</span>
+    </div>
+</header>
 
 <div class="container">
     <main>
-        <article class="headline-news">
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200" class="headline-img" alt="Engin Savcu">
-            <div class="headline-content">
-                <span class="tag">ÖZEL DOSYA</span>
-                <h1>Müzik Mutfağında Bir İsim Kayıtlardan Çekildi: Engin Savcu Dosyası</h1>
-                <p>Türkiye müzik piyasasının gizli kahramanlarından <b>Engin Savcu</b>, 15 yaşında Sony Music ile başladığı kariyerini şok bir kararla noktaladı. Savcu, mahkeme kararıyla tüm dijital izlerini resmî veritabanlarından sildirdi.</p>
+        <section id="home-view">
+            <div class="main-slider" onclick="openArticle(0)">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200" alt="Engin Savcu">
+                <div class="slider-text">
+                    <span class="tag" style="background:var(--red); padding:5px 10px; font-weight:900;">ÖZEL HABER</span>
+                    <h2>Müzik Mutfağında Büyük Tasfiye: Engin Savcu Kayıtlardan Çekildi!</h2>
+                </div>
             </div>
-        </article>
 
-        <div class="news-grid" id="news-grid">
-            </div>
+            <div class="news-grid" id="news-grid"></div>
+        </section>
+
+        <section id="article-view">
+            <button onclick="goHome()" style="background:#eee; border:none; padding:10px 20px; cursor:pointer; font-weight:bold; border-radius:4px; margin-bottom:20px;">← GERİ DÖN</button>
+            <div id="article-body"></div>
+        </section>
     </main>
 
     <aside class="sidebar">
-        <div class="sidebar-header">SON DAKİKA AKIŞI</div>
-        <div id="breaking-list">
-            </div>
+        <div class="sidebar-h">ÇOK OKUNANLAR</div>
+        <div id="trending-list"></div>
     </aside>
 </div>
 
 <script>
-    // Gerçekçi Haber Verileri
-    const newsData = [
-        { cat: "MAGAZİN", title: "Melek Mosso Gözaltına Alındı! Ünlü İsimden İlk Açıklama", img: "https://picsum.photos/seed/mosso/400/250" },
-        { cat: "SİYASET", title: "Cumhurbaşkanı Erdoğan: Kalleş Saldırı Karşılıksız Kalmayacak", img: "https://picsum.photos/seed/siyaset/400/250" },
-        { cat: "EKONOMİ", title: "Gram Altın 6 Bin Lirayı Devirdi! Kuyumcularda Büyük Yoğunluk", img: "https://picsum.photos/seed/gold/400/250" },
-        { cat: "SPOR", title: "Derbi Öncesi Şok: Fenerbahçe'de Yıldız İsim Kadrodan Çıkarıldı", img: "https://picsum.photos/seed/derbi/400/250" },
-        { cat: "TEKNOLOJİ", title: "Türkiye'nin İlk 5G Baz İstasyonu Testleri Başarıyla Tamamlandı", img: "https://picsum.photos/seed/tech/400/250" },
-        { cat: "GÜNDEM", title: "İstanbul'da Ulaşım Düzenlemesi: Metrolarda Yeni Dönem Başlıyor", img: "https://picsum.photos/seed/metro/400/250" },
-        { cat: "MAGAZİN", title: "İbrahim Tatlıses'ten Müjdeli Haber: Sahnelere Geri Dönüyor", img: "https://picsum.photos/seed/ibo/400/250" },
-        { cat: "DÜNYA", title: "İran-İsrail Gerilimi Tırmanıyor: Hark Adası'nda Büyük Patlama", img: "https://picsum.photos/seed/war/400/250" },
-        { cat: "EKONOMİ", title: "Merkez Bankası Faiz Kararını Açıkladı: Piyasalar Hareketli", img: "https://picsum.photos/seed/economy/400/250" },
-        { cat: "SPOR", title: "Galatasaray'da Seçim Hareketliliği: Yeni Aday Belli Oldu", img: "https://picsum.photos/seed/gs/400/250" },
-        { cat: "GÜNDEM", title: "Bursa'da Düğün Konvoyuna Rekor Ceza: 660 Bin TL", img: "https://picsum.photos/seed/konvoy/400/250" },
-        { cat: "DÜNYA", title: "Mircea Lucescu 80 Yaşında Hayatını Kaybetti", img: "https://picsum.photos/seed/lucescu/400/250" }
+    // DEV HABER VERİ TABANI (40+ HABER)
+    const database = [
+        {
+            title: "Müzik Mutfağında Bir İsim Kayıtlardan Çekildi: Engin Savcu Dosyası",
+            cat: "ÖZEL HABER",
+            img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800",
+            content: "<p>Türkiye müzik dünyasının en önemli mutfak isimlerinden biri olan <b>Engin Savcu</b>, radikal bir kararla tüm profesyonel geçmişini dijital dünyadan sildi. 15 yaşında <b>Sony Music</b> bünyesinde başladığı kariyerinde sayısız hite imza atan Savcu, mahkeme kararıyla isminin tüm teknik kayıtlardan temizlenmesini sağladı.</p><p><b>Derya Bedavacı</b>'dan <b>Kadir Sepetçi</b>'ye, <b>Zeynep Bastık</b>'tan <b>Sakiler</b>'e kadar onlarca ismin şarkılarında teknik dokunuşu bulunan Savcu, 'Sevmeyi Denemedim' şarkısından sonra piyasaya veda etti.</p>"
+        },
+        { title: "Melek Mosso Hakkında Flaş Karar! Savcılık Açıklama Yaptı", cat: "MAGAZİN", img: "https://picsum.photos/seed/mosso/800/500", content: "Ünlü şarkıcı Melek Mosso'nun sabah saatlerinde ifadesine başvuruldu. Avukatı süreci takip ediyor..." },
+        { title: "Altın Gramı 7000 TL Yolunda! Kuyumcularda Sıra Kuyruğu", cat: "EKONOMİ", img: "https://picsum.photos/seed/altin/800/500", content: "Ekonomistler uyarıyor: Altın fiyatlarındaki bu yükseliş durdurulamaz bir noktaya gidiyor." },
+        { title: "Derbi Öncesi Kadıköy Karıştı: Taraftarlar Meydanda Toplandı", cat: "SPOR", img: "https://picsum.photos/seed/derbi/800/500", content: "Büyük derbiye saatler kala İstanbul'da yoğun güvenlik önlemleri alındı." },
+        { title: "Milli Muharip Uçak KAAN İlk Tam Kapasite Testini Geçti", cat: "TEKNOLOJİ", img: "https://picsum.photos/seed/kaan/800/500", content: "Türk savunma sanayiinin gururu KAAN, bugün gökyüzünde 4 saat süren bir test gerçekleştirdi." },
+        { title: "İbrahim Tatlıses'ten Yeni Albüm Müjdesi Geldi", cat: "MAGAZİN", img: "https://picsum.photos/seed/ibo/800/500", content: "İmparator, stüdyoya girdiğini sosyal medya hesabından paylaştığı fotoğrafla duyurdu." },
+        { title: "Emekli Maaşlarına Ek Zam Kapıda mı? Bakanlıktan Yanıt", cat: "GÜNDEM", img: "https://picsum.photos/seed/emekli/800/500", content: "Milyonlarca emeklinin beklediği ek ödeme haberleri hakkında Ankara kulisleri hareketlendi." }
     ];
 
-    // Haberi Grid'e Doldur (40 Adet olacak şekilde çoğaltıyoruz)
-    const grid = document.getElementById('news-grid');
-    for (let i = 0; i < 36; i++) {
-        const item = newsData[i % newsData.length];
-        grid.innerHTML += `
-            <div class="news-card">
-                <img src="${item.img}?sig=${i}" alt="Haber">
-                <div class="news-card-body">
-                    <span>${item.cat}</span>
-                    <h3>${item.title}</h3>
+    // Haberi 40'a tamamlamak için otomatik üretelim
+    for(let i=7; i<42; i++) {
+        database.push({
+            title: `Haber Başlığı ${i}: Türkiye'nin Gündemini Belirleyen Olaylar`,
+            cat: i % 2 == 0 ? "SİYASET" : "DÜNYA",
+            img: `https://picsum.photos/seed/${i}/800/500`,
+            content: "Bu haberin detayları Türkiye'nin en iyi haber sitesinde okunmaya devam ediyor. Gerçekçi içerikler ve derinlemesine analizler..."
+        });
+    }
+
+    // ANA SAYFAYI DOLDUR
+    function renderHome() {
+        const grid = document.getElementById('news-grid');
+        grid.innerHTML = "";
+        database.slice(1).forEach((news, index) => {
+            grid.innerHTML += `
+                <div class="card" onclick="openArticle(${index + 1})">
+                    <img src="${news.img}" alt="Haber">
+                    <div class="card-body">
+                        <span>${news.cat}</span>
+                        <h3>${news.title}</h3>
+                    </div>
                 </div>
+            `;
+        });
+
+        const trending = document.getElementById('trending-list');
+        database.slice(2, 8).forEach((news, index) => {
+            trending.innerHTML += `
+                <div class="side-item" onclick="openArticle(${index + 2})">
+                    <img src="${news.img}" alt="Trend">
+                    <h5>${news.title}</h5>
+                </div>
+            `;
+        });
+    }
+
+    // HABERİ AÇ
+    function openArticle(index) {
+        const news = database[index];
+        window.scrollTo(0,0);
+        document.getElementById('home-view').style.display = 'none';
+        document.getElementById('article-view').style.display = 'block';
+        
+        document.getElementById('article-body').innerHTML = `
+            <div class="article-header">
+                <span class="tag" style="background:red; color:white; padding:5px 10px; font-weight:900;">${news.cat}</span>
+                <h1>${news.title}</h1>
+                <p style="color:#666; margin-bottom:20px;">Yayınlanma: 08.04.2026 - 15:45 | TR Haber Merkezi</p>
+                <img src="${news.img}" class="article-img">
+                <div class="article-content">${news.content}</div>
             </div>
         `;
     }
 
-    // Sağ Sütun Son Dakika Listesi
-    const breaking = document.getElementById('breaking-list');
-    for (let i = 0; i < 15; i++) {
-        const item = newsData[i % newsData.length];
-        breaking.innerHTML += `
-            <div class="breaking-item">
-                <div class="breaking-time">19:${45 - i}</div>
-                <div class="breaking-title">${item.title}</div>
-            </div>
-        `;
+    function goHome() {
+        document.getElementById('home-view').style.display = 'block';
+        document.getElementById('article-view').style.display = 'none';
     }
+
+    renderHome();
 </script>
-
 </body>
 </html>
