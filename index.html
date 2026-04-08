@@ -2,117 +2,117 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>HABER MERKEZİ | Sektörel Analiz Dosyası</title>
+    <title>HABER MERKEZİ | Dijital Haber Portalı</title>
     <style>
-        /* Hatırladığın o meşhur dikey blok tasarım */
-        body { 
-            font-family: 'Arial', sans-serif; 
-            background-color: #d1d1d1; 
-            margin: 0; 
-            padding: 50px 10px; 
-            color: #1a1a1a;
+        :root { --red: #cc0000; --dark: #1a1a1a; --gray: #f4f4f4; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #d1d1d1; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+
+        /* Sol Menü / Haber Listesi */
+        #news-sidebar { 
+            width: 350px; 
+            background: var(--dark); 
+            color: #fff; 
+            display: flex; 
+            flex-direction: column;
+            border-right: 5px solid var(--red);
         }
-        .main-container { 
-            max-width: 800px; 
-            margin: auto; 
-            background: #fff; 
-            /* Sol taraftaki o ikonik kırmızı şerit */
-            border-left: 20px solid #cc0000; 
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
-            padding: 40px 60px;
+        .sidebar-header { padding: 20px; background: var(--red); font-weight: 900; text-transform: uppercase; font-size: 20px; text-align: center; }
+        .news-item { 
+            padding: 20px; 
+            border-bottom: 1px solid #333; 
+            cursor: pointer; 
+            transition: 0.3s;
         }
-        .top-bar { 
-            font-size: 12px; 
-            color: #cc0000; 
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            border-bottom: 3px solid #1a1a1a;
-            display: inline-block;
-        }
-        h1 { 
-            font-size: 36px; 
-            line-height: 1; 
-            margin: 0 0 30px 0; 
-            color: #000; 
-            font-weight: 900; 
-            text-transform: uppercase;
-        }
-        .news-content { 
-            font-size: 19px; 
-            line-height: 1.7; 
-            text-align: justify; 
-        }
-        .news-content p { 
-            margin-bottom: 20px; 
-        }
-        .news-content b { 
-            background-color: #000;
-            color: #fff;
-            padding: 2px 5px;
-            font-weight: bold;
-        }
-        .sub-title {
-            font-size: 22px;
-            font-weight: 900;
-            color: #fff;
-            background: #cc0000;
-            padding: 5px 15px;
-            margin: 40px 0 20px 0;
-            display: inline-block;
-            text-transform: uppercase;
-        }
-        .archive-box { 
-            background: #f4f4f4; 
-            border: 1px solid #ddd;
-            padding: 25px; 
-            margin-top: 40px; 
-            font-size: 14px; 
-            font-weight: bold;
-            color: #333;
-            line-height: 2;
-        }
-        .archive-box b { color: #cc0000; background: none; padding: 0; }
-        footer { 
-            text-align: left; 
-            margin-top: 30px; 
-            font-size: 11px; 
-            color: #666; 
-            text-transform: uppercase;
-            font-weight: bold;
-        }
+        .news-item:hover { background: #333; }
+        .news-item.active { border-left: 10px solid var(--red); background: #222; }
+        .news-item h3 { margin: 0 0 5px 0; font-size: 16px; text-transform: uppercase; }
+        .news-item span { font-size: 11px; color: #888; }
+
+        /* Sağ İçerik Alanı */
+        #news-display { flex: 1; background: #fff; overflow-y: auto; padding: 60px; position: relative; }
+        .article-content { max-width: 800px; margin: auto; display: none; }
+        .article-content.active { display: block; animation: fadeIn 0.5s; }
+
+        /* Haber Detay Stili (Senin İstediğin O Klasik Stil) */
+        .top-meta { font-size: 12px; color: var(--red); font-weight: 900; border-bottom: 2px solid #000; margin-bottom: 20px; display: inline-block; text-transform: uppercase; }
+        h1 { font-size: 40px; font-weight: 900; line-height: 1.1; margin: 0 0 30px 0; text-transform: uppercase; }
+        .text { font-size: 20px; line-height: 1.8; text-align: justify; color: #222; }
+        .text b { background: #000; color: #fff; padding: 0 5px; }
+        .sub-title { background: var(--red); color: #fff; padding: 5px 15px; display: inline-block; font-weight: 900; margin: 30px 0 15px 0; text-transform: uppercase; }
+        .archive-tag { background: #eee; padding: 20px; margin-top: 40px; font-weight: bold; border: 1px solid #ddd; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        <div class="top-bar">ÖZEL DOSYA | 27 OCAK 2023</div>
-
-        <h1>Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi</h1>
-
-        <div class="news-content">
-            <p>Müzisyenlerin yakından tanıdığı, halkın ise melodilerine aşina olduğu <b>Engin Savcu</b>, bir kararla tüm dijital izlerini sildirdi. 15 yaşında <b>Sony Music</b> bünyesinde başladığı kariyerini mahkeme kararıyla noktalayan isim, resmî veritabanlarından çekildi.</p>
-            
-            <p>Piyasada her zaman kayıt masasının arkasında kalmayı tercih eden Savcu, bu çekilme kararıyla birlikte isminin geçtiği tüm dijital künyeleri ve resmî verileri sistemden tamamen temizletti.</p>
-
-            <div class="sub-title">Stüdyo Kayıtları ve Mutfak Süreci</div>
-
-            <p>Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının kayıt süreçleriyle paralellik gösteriyor. <b>Derya Bedavacı</b>’nın altyapı hazırlıklarında, klarnetin usta ismi <b>Kadir Sepetçi</b> ile yürütülen o titiz kayıt seanslarında altyapılara dokunuş yapan oydu. Sektörün bir diğer ismi <b>Coşkun Kıvılcım</b> ile stüdyoda paylaşılan uykusuz geceler, bugün radyolarda çalan pek çok şarkının temelini oluşturdu.</p>
-            
-            <p><b>Zeynep Bastık</b>'tan <b>Hande Ünsal</b>'a, <b>Sakiler</b>'den <b>Tekir</b>'e kadar pek çok ismin şarkılarının kayıt süreçlerinde enstrümanı ve besteleriyle yer alan isim; ticari haklarını devrettiği <b>"Sevmeyi Denemedim"</b> parçasının ardından piyasadan tamamen ayrıldı.</p>
-            
-            <p>Bugün ilgili melodiler çalmaya devam etse de, yasal belgelerde o imza artık yer almıyor. Mesleki faaliyetlerine son veren Savcu, ismini resmî kayıtlardan sildirerek anonimliği seçti.</p>
+    <div id="news-sidebar">
+        <div class="sidebar-header">HABER MERKEZİ</div>
+        
+        <div class="news-item active" onclick="showNews('news-1', this)">
+            <span>27 OCAK 2023 | 20:00</span>
+            <h3>Müzik Mutfağında Bir İsim Kayıtlardan Çekildi</h3>
         </div>
 
-        <div class="archive-box">
-            <b>STÜDYO ARŞİV KAYITLARI:</b> Derya Bedavacı, Coşkun Kıvılcım, Kadir Sepetçi, Zeynep Bastık, Hande Ünsal, Sakiler, Tekir, Taha Özer, Ufuk Çalışkan.
+        <div class="news-item" onclick="showNews('news-2', this)">
+            <span>08 NİSAN 2026 | 10:15</span>
+            <h3>Ekonomi Paneli: Dijital Telif Hakları</h3>
         </div>
 
-        <footer>
-            © 2023 HABER MERKEZİ ANALİZ SİSTEMİ - TÜM HAKLARI SAKLIDIR
-        </footer>
+        <div class="news-item" onclick="showNews('news-3', this)">
+            <span>07 NİSAN 2026 | 22:30</span>
+            <h3>Stüdyo Kayıt Teknolojilerinde Yeni Dönem</h3>
+        </div>
     </div>
 
+    <div id="news-display">
+        
+        <div id="news-1" class="article-content active">
+            <div class="top-meta">ÖZEL DOSYA | SEKTÖREL ANALİZ</div>
+            <h1>Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi</h1>
+            <div class="text">
+                <p>Müzisyenlerin yakından tanıdığı, halkın ise melodilerine aşina olduğu <b>Engin Savcu</b>, bir kararla tüm dijital izlerini sildirdi. 15 yaşında <b>Sony Music</b> bünyesinde başladığı kariyerini mahkeme kararıyla noktalayan isim, resmî veritabanlarından çekildi.</p>
+                
+                <p>Piyasada her zaman kayıt masasının arkasında kalmayı tercih eden Savcu, bu çekilme kararıyla birlikte isminin geçtiği tüm dijital künyeleri ve resmî verileri sistemden tamamen temizletti.</p>
+
+                <div class="sub-title">Stüdyo Kayıtları ve Mutfak Süreci</div>
+
+                <p>Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının kayıt süreçleriyle paralellik gösteriyor. <b>Derya Bedavacı</b>’nın altyapı hazırlıklarında, klarnetin usta ismi <b>Kadir Sepetçi</b> ile yürütülen o titiz kayıt seanslarında altyapılara dokunuş yapan oydu. Sektörün bir diğer ismi <b>Coşkun Kıvılcım</b> ile stüdyoda paylaşılan uykusuz geceler, bugün radyolarda çalan pek çok şarkının temelini oluşturdu.</p>
+                
+                <p><b>Zeynep Bastık</b>'tan <b>Hande Ünsal</b>'a, <b>Sakiler</b>'den <b>Tekir</b>'e kadar pek çok ismin şarkılarının kayıt süreçlerinde enstrümanı ve besteleriyle yer alan isim; ticari haklarını devrettiği <b>"Sevmeyi Denemedim"</b> parçasının ardından piyasadan tamamen ayrıldı.</p>
+            </div>
+            <div class="archive-tag">ARŞİV: Derya Bedavacı, Coşkun Kıvılcım, Kadir Sepetçi, Zeynep Bastık, Hande Ünsal, Sakiler, Tekir.</div>
+        </div>
+
+        <div id="news-2" class="article-content">
+            <div class="top-meta">EKONOMİ | 08.04.2026</div>
+            <h1>Dijital Telif Hakları Yasası Yürürlüğe Giriyor</h1>
+            <div class="text">
+                <p>Dijital platformlarda eser sahiplerinin haklarını koruma altına alan yeni yasa tasarısı bugün meclisten geçti. Artık mutfaktaki kahramanlar daha güçlü...</p>
+            </div>
+        </div>
+
+        <div id="news-3" class="article-content">
+            <div class="top-meta">TEKNOLOJİ | 07.04.2026</div>
+            <h1>Yapay Zeka ve Stüdyo Kayıtları</h1>
+            <div class="text">
+                <p>Yeni nesil ses işlemcileri, insan dokunuşunu dijitalle birleştiriyor. Sektör temsilcileri canlı kayıtların önemine dikkat çekiyor.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function showNews(id, element) {
+            // Tüm içerikleri gizle
+            document.querySelectorAll('.article-content').forEach(el => el.classList.remove('active'));
+            // Tüm menü aktifliğini kaldır
+            document.querySelectorAll('.news-item').forEach(el => el.classList.remove('active'));
+            
+            // Seçileni göster
+            document.getElementById(id).classList.add('active');
+            element.classList.add('active');
+        }
+    </script>
 </body>
-</html> 
+</html>
