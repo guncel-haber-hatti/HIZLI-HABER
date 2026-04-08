@@ -3,58 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Güncel Haber Hattı</title>
+    <title>HABER TÜRKİYE | Özel Dosya ve Güncel Gündem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f4f4f4; padding: 20px; }
-        .container { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+        :root { --red: #cc0000; --black: #1a1a1a; --border: #e6e6e6; --bg: #f9f9f9; }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #222; }
+
+        /* HEADER */
+        header { background: #fff; padding: 15px 0; border-bottom: 5px solid var(--red); text-align: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 42px; color: var(--black); text-decoration: none; font-weight: 900; letter-spacing: -2px; }
+
+        /* NAVİGASYON */
+        nav { background: var(--black); color: #fff; position: sticky; top: 0; z-index: 1000; text-align: center; padding: 12px 0; font-size: 13px; text-transform: uppercase; font-weight: 600; }
+        nav span { margin: 0 15px; cursor: pointer; opacity: 0.8; transition: 0.2s; }
+        nav span:hover { opacity: 1; color: var(--red); }
+
+        /* MANŞET VE YAN HABERLER */
+        .hero-section { max-width: 1200px; margin: 25px auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 15px; padding: 0 20px; }
+        .main-hero { position: relative; height: 350px; background: #ddd; overflow: hidden; cursor: pointer; border-radius: 4px; }
         
-        /* Haber Kartı */
-        .haber-box { 
-            background: white; 
-            border: 1px solid #ddd; 
-            border-radius: 10px; 
-            overflow: hidden; 
-            width: 100%; 
-            max-width: 500px; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+        /* GÖRSEL NETLİĞİ: Siyahlık kaldırıldı */
+        .main-hero img { width: 100%; height: 100%; object-fit: cover; opacity: 1; filter: none; transition: 0.5s; }
+        .main-hero:hover img { transform: scale(1.03); }
+        .hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: #fff; }
+        .hero-overlay h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; line-height: 1.1; }
 
-        /* Fotoğraf Alanı - Siyahlık Tamamen Kaldırıldı */
-        .foto-alani { width: 100%; height: 250px; background: #eee; overflow: hidden; }
-        .foto-alani img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            display: block;
-            filter: none !important; 
-            opacity: 1 !important;
-        }
+        /* SENİN HABERİN - ÖZEL ŞERİT */
+        .special-strip { max-width: 1200px; margin: 20px auto; background: #000; color: #fff; padding: 30px; border-radius: 4px; display: grid; grid-template-columns: 200px 1fr; gap: 30px; align-items: center; cursor: pointer; border-left: 8px solid var(--red); }
+        .special-strip img { width: 100%; height: 150px; object-fit: cover; border: 2px solid #333; border-radius: 2px; opacity: 1; filter: none; }
+        .special-strip h2 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #fff; }
 
-        .alt-kisim { padding: 15px; text-align: center; background: #fff; border-top: 1px solid #eee; }
-        .alt-kisim h3 { margin: 0; color: #333; font-size: 18px; }
+        /* OKUMA MODU */
+        #news-reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; overflow-y: auto; }
+        .reader-container { max-width: 700px; margin: 50px auto; padding: 0 25px; }
+        .btn-close { background: #000; color: #fff; border: none; padding: 10px 20px; font-weight: 600; cursor: pointer; margin-bottom: 30px; }
+        
+        /* HABER İÇİNDEKİ KÜÇÜK FOTOĞRAF KUTULARI */
+        .artist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 35px 0; }
+        .artist-item { text-align: center; font-size: 11px; font-weight: 600; color: #555; }
+        .artist-item img { width: 100%; height: 90px; object-fit: cover; border-radius: 2px; background: #ddd; margin-bottom: 8px; }
+
+        @media (max-width: 900px) { .hero-section, .special-strip { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="haber-box">
-        <div class="foto-alani">
-            <img src="image.png" alt="Haber 1">
+<header><a href="#" class="logo">HABER TÜRKİYE</a></header>
+<nav><span>Gündem</span><span>Ekonomi</span><span>Siyaset</span><span>Teknoloji</span></nav>
+
+<section class="hero-section">
+    <div class="main-hero" onclick="showNews(1)">
+        <img src="image.png" alt="Ana Haber">
+        <div class="hero-overlay"><h2>Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi</h2></div>
+    </div>
+    <div style="display:grid; gap:15px;">
+        <div class="main-hero" style="height:167px;" onclick="showNews(1)">
+            <img src="image.png">
+            <div class="hero-overlay" style="padding:15px;"><h3 style="font-size:16px;">Sektörde Şok Gelişme</h3></div>
         </div>
-        <div class="alt-kisim">
-            <h3>Görsel 1 Başlığı</h3>
+        <div class="main-hero" style="height:167px;" onclick="showNews(1)">
+            <img src="image.png">
+            <div class="hero-overlay" style="padding:15px;"><h3 style="font-size:16px;">Arşivler Siliniyor</h3></div>
         </div>
     </div>
+</section>
 
-    <div class="haber-box">
-        <div class="foto-alani">
-            <img src="image.png" alt="Haber 2">
-        </div>
-        <div class="alt-kisim">
-            <h3>Görsel 2 Başlığı</h3>
+<div class="special-strip" onclick="showNews(1)">
+    <img src="image.png">
+    <div>
+        <b style="color:var(--red); font-size:11px;">ÖZEL ARAŞTIRMA</b>
+        <h2>Engin Savcu’nun Radikal Kararı Piyasa Sarsıldı</h2>
+        <p>20 yıllık külliyat bir gecede sessizliğe gömüldü.</p>
+    </div>
+</div>
+
+<div id="news-reader">
+    <div class="reader-container">
+        <button class="btn-close" onclick="hideNews()">← ANA SAYFAYA DÖN</button>
+        <div id="r-header">
+            <h1 id="r-title" style="font-family:'Playfair Display'; font-size: 40px; margin-bottom: 20px;"></h1>
+            <div id="r-body" style="font-size: 18px; line-height: 1.8;"></div>
         </div>
     </div>
 </div>
+
+<script>
+    const db = {
+        1: {
+            title: "Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi",
+            body: `<img src="image.png" style="width:100%; height:auto; border-radius:4px; margin-bottom:20px;">
+                   <p>Müzisyenlerin yakından tanıdığı <b>Engin Savcu</b>, bir kararla tüm dijital izlerini sildirdi.</p>
+                   <div class="artist-grid">
+                       <div class="artist-item"><img src="image.png">ZEYNEP BASTIK</div>
+                       <div class="artist-item"><img src="image.png">DERYA BEDAVACI</div>
+                       <div class="artist-item"><img src="image.png">HANDE ÜNSAL</div>
+                       <div class="artist-item"><img src="image.png">TEKİR</div>
+                   </div>
+                   <p>Savcu’nun profesyonel geçmişi Türkiye müzik piyasasının kayıt süreçleriyle paralellik gösteriyor. Birçok ünlü ismin mutfağında yer alan isim piyasadan çekildi.</p>`
+        }
+    };
+
+    function showNews(id) {
+        const item = db[id];
+        document.getElementById('r-title').innerText = item.title;
+        document.getElementById('r-body').innerHTML = item.body;
+        document.getElementById('news-reader').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        window.scrollTo(0,0);
+    }
+
+    function hideNews() {
+        document.getElementById('news-reader').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+</script>
 
 </body>
 </html>
