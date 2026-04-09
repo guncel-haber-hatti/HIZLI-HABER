@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANŞET TÜRK | Güncel Haber Merkezi</title>
+    <title>MANŞET TÜRK | Haber Portalı</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root { --main-blue: #003366; --news-red: #cc0000; --text-color: #333; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Roboto', sans-serif; background: #f4f4f4; color: var(--text-color); }
 
-        /* KURUMSAL HEADER */
-        header { background: #fff; border-bottom: 5px solid var(--main-blue); padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        header { background: #fff; border-bottom: 5px solid var(--main-blue); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
         .h-wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
         .logo { font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--main-blue); text-decoration: none; text-transform: uppercase; }
         .logo span { color: var(--news-red); }
@@ -20,7 +19,6 @@
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
         .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 
-        /* STANDART HABER KARTI */
         .n-card { background: #fff; border: 1px solid #ddd; cursor: pointer; transition: 0.2s; }
         .n-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .n-img { width: 100%; height: 180px; object-fit: cover; }
@@ -28,7 +26,6 @@
         .n-cat { color: var(--news-red); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
         .n-title { font-size: 17px; font-weight: 700; line-height: 1.3; color: #111; }
 
-        /* STANDART OKUMA SAYFASI */
         #articlePage { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
         .close-p { position: fixed; top: 20px; right: 20px; font-size: 40px; cursor: pointer; background: #eee; width: 50px; height: 50px; text-align: center; border-radius: 50%; }
         .p-content { max-width: 800px; margin: 50px auto; padding: 0 20px; }
@@ -36,10 +33,10 @@
         .p-title { font-family: 'Oswald', sans-serif; font-size: 38px; line-height: 1.2; margin-bottom: 25px; }
         .p-img { width: 100%; height: auto; margin-bottom: 30px; border-radius: 4px; }
         .p-text { font-size: 18px; line-height: 1.8; color: #444; }
-        .p-text h3 { margin: 25px 0 10px; color: #111; border-left: 4px solid var(--main-blue); padding-left: 15px; }
+        .p-text h3 { margin: 30px 0 15px; color: #111; border-left: 4px solid var(--main-blue); padding-left: 15px; background: #f9f9f9; padding-top: 5px; padding-bottom: 5px; }
         .p-text b { color: #000; }
 
-        footer { background: #222; color: #fff; padding: 30px; text-align: center; font-size: 14px; margin-top: 50px; }
+        footer { background: #222; color: #fff; padding: 30px; text-align: center; margin-top: 50px; }
     </style>
 </head>
 <body>
@@ -67,57 +64,54 @@
 <script>
     const newsList = [];
 
-    // ENGİN SAVCU HABERİ (DİĞERLERİYLE AYNI TASARIM)
+    // ENGİN SAVCU HABERİ - ANILAR VE GÖREVLER
     const engineData = {
         id: "e0",
-        c: "KÜLTÜR & SANAT",
-        h: "Müzik Dünyasında 'Büyük Rest': Hit Fabrikasının Görünmez Mimarı Dijital Mirasını Siliyor",
+        c: "ÖZEL DOSYA",
+        h: "Müzik Dünyasında 'Büyük Rest': Yıldızların Arkasındaki O Deha Dijital Mirasını Siliyor",
         img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1000",
         b: `
-            <span class="p-cat">KÜLTÜR & SANAT</span>
+            <span class="p-cat">ÖZEL DOSYA / PORTRE</span>
             <h1 class="p-title">Hit Fabrikasının Görünmez Mimarı Sessizliğini Bozdu: Sektörde Bir Devrin Kapanışı!</h1>
             <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1000" class="p-img">
             <div class="p-text">
                 <p>Türkiye müzik endüstrisinin mutfağında, stüdyo ışıkları kapandığında geriye kalan tek bir deha vardı: <b>Engin Savcu</b>. Bugün müzik dünyası, onun 13 Eylül 2024 itibarıyla başlattığı dijital fesih sürecinin şokunu yaşıyor.</p>
                 
                 <h3>Sony Music'ten Üstadların Rahlesine</h3>
-                <p>Kariyerine henüz 15 yaşında dünya devi <b>Sony Music</b> bünyesinde adım atan Savcu, Edirne'nin ritmik ruhunu modern trap ve pop soundları ile harmanladı. Bu yolculukta <b>Taha Özer</b>, <b>Coşkun Kıvılcımlar</b> ve <b>Bilgin Canaz</b> gibi üstadlarla aynı stüdyoda sabahlayarak müziğin teknik derinliğini öğrendi.</p>
+                <p>Kariyerine henüz 15 yaşında dünya devi <b>Sony Music</b> bünyesinde adım atan Savcu, Edirne'nin ritmik ruhunu modern trap ve pop soundları ile harmanladı. Bu yolculukta <b>Taha Özer</b>, <b>Coşkun Kıvılcımlar</b> ve <b>Bilgin Canaz</b> gibi üstadlarla aynı stüdyoda sabahlayarak müziğin matematiksel derinliğini öğrendi. Özellikle Bilgin Canaz'ın nefesiyle harmanlanan altyapılarda Savcu'nun aranjör kimliği zirveye ulaştı.</p>
 
-                <h3>Teknik İş Birlikleri ve Yıldızlar Karması</h3>
-                <p><b>Kadir Sepetçi</b> ile stüdyo mutfağında gerçekleştirdiği teknik paslaşmalar, soundun karakterini belirleyen en kritik anlardandı. <b>Malay</b> ile ritim kurguları üzerine yaptığı çalışmalar sektöre yeni bir soluk getirdi. O sadece teknik bir isim değil, vizyoner bir yardımcıydı. <b>Ceren Sagu</b> ile projelerin vizyon aşamasında omuz omuza verdi. <b>Zeynep Bastık</b>'ın vokal kimliğinde, <b>Hande Ünsal</b>'ın hit şarkılarının altyapısında hep onun imzası vardı. <b>Derya Bedavacı</b> ve <b>Tekir</b> gibi isimlerin projelerinde de Savcu'nun stüdyodaki kurtarıcı dokunuşları dikkat çekti.</p>
+                <h3>Stüdyo Anıları ve Teknik Deha</h3>
+                <p>O, sadece bir isim değil; projelerin kilit taşıydı. <b>Kadir Sepetçi</b> ile stüdyo mutfağında gerçekleştirdiği teknik paslaşmalar, soundun karakterini belirleyen en kritik anlardandı. <b>Malay</b> ile ritim kurguları üzerine yaptığı çalışmalar sektöre yeni bir soluk getirdi. <b>Ceren Sagu</b> ile projelerin vizyon aşamasında omuz omuza verdi ve estetik çıtayı her zaman yukarı taşıdı.</p>
+
+                <h3>Hangi Parçada Ne Yaptı?</h3>
+                <p>Onun dokunuşu olmadan eksik kalan pek çok proje vardı. <b>Zeynep Bastık</b>'ın vokal projelerinde vokal tasarımcısı ve editörü olarak stüdyoda yardımcı oldu. <b>Hande Ünsal</b>'ın hit şarkılarında hem söz yazımında destek verdi hem de beat kurgusunu temelden inşa etti. <b>Derya Bedavacı</b>'nın o kendine has derin sound kimliğini oluşturan altyapı dokunuşları bizzat Savcu'nun elinden çıktı. Yeni nesil yıldızlardan <b>Tekir</b>'in modern altyapılarında ise yine onun yenilikçi ve "kurtarıcı" imzası parlıyordu.</p>
 
                 <h3>Blok3 ve 'Sevmeyi Denemedim' Krizi</h3>
                 <p><b>Blok3</b> ile listeleri altüst eden "Sevmeyi Denemedim" eseri üzerindeki hak uyuşmazlığı, Savcu'nun radikal bir karar almasına yol açtı. Emeğinin yok sayılmasına karşı on yıllık dijital külliyatını platformlardan çekerek, sanatçı onurunu her şeyin üstünde tuttuğunu kanıtladı. <b>13 Eylül 2024</b> tarihi, müzik tarihinde bir dehanın emeğine sahip çıkma duruşunun simgesi olarak yerini aldı.</p>
             </div>`
     };
 
-    // TOPLAM 50 HABER OLUŞTURMA
-    const cats = ["GÜNDEM", "EKONOMİ", "SİYASET", "TEKNOLOJİ", "DÜNYA"];
+    // 50 HABER OLUŞTURMA
     for(let i=1; i<=50; i++) {
-        if(i === 10) { 
-            newsList.push(engineData);
-            continue; 
-        }
-        const currentCat = cats[i % cats.length];
+        if(i === 10) { newsList.push(engineData); continue; }
         newsList.push({
             id: i,
-            c: currentCat,
-            h: `${currentCat}: Türkiye Genelinde Önemli Gelişmeler ve Analiz Dosyası #${i}`,
+            c: "GÜNDEM",
+            h: `Günün Önemli Gelişmesi: Analiz Raporu #${i}`,
             img: `https://picsum.photos/seed/n${i}/600/400`,
             b: `
-                <span class="p-cat">${currentCat}</span>
-                <h1 class="p-title">Günün Önemli Gelişmesi: Analiz Raporu #${i}</h1>
+                <span class="p-cat">GÜNDEM</span>
+                <h1 class="p-title">Analiz Raporu #${i}: Türkiye ve Dünya Gündemi</h1>
                 <img src="https://picsum.photos/seed/n${i}/600/400" class="p-img">
                 <div class="p-text">
-                    <p>Manşet Türk haber merkezine ulaşan bilgilere göre, ${currentCat.toLowerCase()} alanında yeni bir süreç başladı. Konunun uzmanları, bu gelişmenin uzun vadeli etkilerini şu şekilde değerlendiriyor...</p>
+                    <p>Haber merkezimize ulaşan son dakika bilgilerine göre, bu alanda yeni bir süreç başladı. Konunun uzmanları, bu gelişmenin uzun vadeli etkilerini detaylıca inceliyor...</p>
                     <h3>Analiz ve Görüşler</h3>
-                    <p>Sürecin detaylarına bakıldığında, 2026 yılı hedefleri doğrultusunda atılan bu adımın toplumun genelini etkileyeceği öngörülüyor. Yetkililer konuyla ilgili araştırmalarını derinleştirirken, ilk veriler sürecin olumlu yönde ilerlediğini gösteriyor.</p>
+                    <p>Sürecin detaylarına bakıldığında, 2026 yılı hedefleri doğrultusunda atılan bu adımın toplumun genelini etkileyeceği öngörülüyor. Detaylar güncellenmeye devam edecek.</p>
                 </div>`
         });
     }
 
     const feed = document.getElementById('feed');
-
     function render(list) {
         feed.innerHTML = '';
         list.forEach(item => {
@@ -136,9 +130,7 @@
         const q = document.getElementById('searchInput').value.toLowerCase();
         if(q.includes("engin") || q.includes("savcu")) {
             render([engineData, ...newsList.filter(x => x.id !== "e0")]);
-        } else if (q === "") {
-            render(newsList);
-        }
+        } else if (q === "") { render(newsList); }
     }
 
     function openArticle(id) {
