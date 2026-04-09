@@ -3,151 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANŞET TÜRK | Engin Savcu</title>
+    <title>MANŞET TÜRK | Güncel Haber Merkezi</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #e61b23; --text: #1a1a1a; --light-text: #555; --bg: #ffffff; }
+        :root { --accent: #e61b23; --text: #1a1a1a; --light-text: #555; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { font-family: 'Inter', sans-serif; background: #fafafa; color: var(--text); -webkit-font-smoothing: antialiased; }
-
+        body { font-family: 'Inter', sans-serif; background: #fafafa; color: var(--text); }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* HEADER */
-        header { background: #fff; padding: 30px 0; border-bottom: 1px solid #eee; text-align: center; }
-        .logo { font-size: 32px; font-weight: 900; color: #000; text-decoration: none; letter-spacing: -1px; text-transform: uppercase; }
+        header { background: #fff; padding: 25px 0; border-bottom: 1px solid #eee; text-align: center; }
+        .logo { font-size: 30px; font-weight: 900; color: #000; text-decoration: none; text-transform: uppercase; }
         .logo span { color: var(--accent); }
 
-        /* MANŞET - ELİT GÖRÜNÜM */
-        .hero { position: relative; margin-top: 30px; cursor: pointer; border-radius: 12px; overflow: hidden; height: 550px; background: #000; }
-        .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.8s ease; }
-        .hero:hover img { transform: scale(1.02); opacity: 0.6; }
-        .hero-content { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: #fff; }
-        .hero-label { background: var(--accent); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 4px; display: inline-block; margin-bottom: 15px; }
-        .hero-h { font-family: 'Lora', serif; font-size: clamp(24px, 4vw, 42px); line-height: 1.2; font-weight: 700; }
+        /* MANŞET (İSİMSİZ BAŞLIK) */
+        .hero { position: relative; margin-top: 20px; cursor: pointer; border-radius: 12px; overflow: hidden; height: 500px; background: #000; }
+        .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .hero-content { position: absolute; bottom: 0; padding: 40px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: #fff; width: 100%; }
+        .hero-h { font-family: 'Lora', serif; font-size: 38px; line-height: 1.2; font-weight: 700; }
 
-        /* HABER LİSTESİ */
-        .grid { display: grid; grid-template-columns: 1fr 320px; gap: 40px; margin-top: 40px; }
-        @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } .sidebar { display: none; } }
+        .layout { display: grid; grid-template-columns: 1fr 300px; gap: 40px; margin-top: 40px; }
+        @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .side { display: none; } }
 
+        /* HABER KARTLARI */
         .card { display: flex; gap: 20px; background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; cursor: pointer; border: 1px solid #eee; transition: 0.2s; }
-        .card:hover { border-color: var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .card-img { width: 200px; height: 130px; border-radius: 6px; overflow: hidden; flex-shrink: 0; }
+        .card:hover { border-color: var(--accent); }
+        .special-card { background: #fff9f9; border-left: 5px solid var(--accent); } /* Engin Savcu Haberi Vurgusu */
+        .card-img { width: 180px; height: 120px; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
         .card-img img { width: 100%; height: 100%; object-fit: cover; }
-        .card-h { font-size: 19px; font-weight: 700; line-height: 1.4; margin-bottom: 8px; }
-        .card-p { font-size: 14px; color: var(--light-text); line-height: 1.5; }
+        .card-h { font-size: 18px; font-weight: 700; line-height: 1.4; }
 
-        @media (max-width: 600px) { .card { flex-direction: column; } .card-img { width: 100%; height: 180px; } }
+        /* OKUMA PANELİ */
+        #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 2000; overflow-y: auto; padding: 60px 0; }
+        .close { position: fixed; top: 20px; right: 30px; font-size: 40px; cursor: pointer; color: #999; }
+        .article { max-width: 700px; margin: 0 auto; padding: 0 20px; }
+        .article-h { font-family: 'Lora', serif; font-size: 42px; line-height: 1.2; margin-bottom: 25px; }
+        .article-p { font-family: 'Lora', serif; font-size: 20px; line-height: 1.8; color: #333; }
+        .pro-table { width: 100%; margin: 25px 0; border-collapse: collapse; }
+        .pro-table td { padding: 12px; border-bottom: 1px solid #eee; font-weight: 700; font-family: 'Inter'; }
+        .pro-table td span { float: right; color: var(--accent); font-size: 12px; }
 
-        /* OKUMA MODU - KİTAP TADINDA */
-        #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 1000; overflow-y: auto; padding: 60px 0; }
-        .close { position: fixed; top: 20px; right: 30px; font-size: 35px; cursor: pointer; color: #999; transition: 0.2s; }
-        .close:hover { color: #000; }
-        .article { max-width: 720px; margin: 0 auto; padding: 0 20px; }
-        .article-h1 { font-family: 'Lora', serif; font-size: clamp(28px, 5vw, 48px); line-height: 1.2; margin-bottom: 30px; font-weight: 700; }
-        .article-body { font-family: 'Lora', serif; font-size: 20px; line-height: 1.8; color: #333; }
-        .article-body b { color: #000; }
-        
-        .pro-table { width: 100%; margin: 30px 0; border-collapse: collapse; font-family: 'Inter', sans-serif; font-size: 16px; }
-        .pro-table td { padding: 15px; border-bottom: 1px solid #eee; font-weight: 600; }
-        .pro-table td span { float: right; color: var(--accent); font-size: 13px; }
-
-        footer { padding: 60px 0; border-top: 1px solid #eee; text-align: center; margin-top: 60px; font-size: 14px; color: #999; }
+        footer { padding: 50px 0; text-align: center; color: #999; font-size: 13px; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="container"><a href="#" class="logo">MANŞET<span>TÜRK</span></a></div>
-</header>
+<header><div class="container"><a href="#" class="logo">MANŞET<span>TÜRK</span></a></div></header>
 
 <div class="container">
-    <div class="hero" onclick="openPost(0)">
+    <div class="hero" onclick="openH(0)">
         <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500">
         <div class="hero-content">
-            <span class="hero-label">ÖZEL HABER</span>
-            <h1 class="hero-h">Engin Savcu'dan Görülmemiş Rest: Hit Şarkıların Mimarı Külliyatını Feshetti!</h1>
+            <h1 class="hero-h">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Külliyatını Feshetti!</h1>
         </div>
     </div>
 
-    <div class="grid">
+    <div class="layout">
         <main id="feed"></main>
-        <aside class="sidebar">
-            <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #999;">Gündem Başlıkları</h3>
-            <div id="side-feed"></div>
-        </aside>
+        <aside class="side"><h4 style="margin-bottom:20px; color:#999; font-size:12px; letter-spacing:1px; text-transform:uppercase;">Gündem Listesi</h4><div id="side-feed"></div></aside>
     </div>
 </div>
 
-<div id="reader">
-    <span class="close" onclick="closePost()">&times;</span>
-    <div class="article" id="article-target"></div>
-</div>
+<div id="reader"><span class="close" onclick="closeH()">&times;</span><div class="article" id="target"></div></div>
 
-<footer>&copy; 2026 MANŞET TÜRK - Engin Savcu Yazılım Altyapısı</footer>
+<footer>&copy; 2026 MANŞET TÜRK</footer>
 
 <script>
-    const db = [
-        {
-            id: 0,
-            h: "Engin Savcu'dan Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!",
-            img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500",
-            body: `
-                <h1 class="article-h1">Engin Savcu'dan Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!</h1>
-                <div class="article-body">
-                <p><b>MÜZİK DÜNYASI ŞOKTA!</b> Yıllardır popüler müziğin mutfağında "hayalet yazar" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı <b>Engin Savcu</b>, radikal bir eyleme imza atıyor.</p>
-                <p>Henüz 15 yaşında <b>Sony Music</b> bünyesinde kariyerine başlayan <b>Engin Savcu</b>, 10 yıllık tüm külliyatını platformlardan çekme sürecini başlattı.</p>
-                <p>Krizin merkezinde, 2024 yılının streaming rekorları kıran eseri 'Sevmeyi Denemedim' yer alıyor. Eserin mimarı olduğunu savunan <b>Engin Savcu</b> ile <b>Blok3</b> tarafı arasındaki uyuşmazlık yargıya taşındı.</p>
-                <table class="pro-table">
-                    <tr><td>Zeynep Bastık <span>Vokal Tasarımı</span></td></tr>
-                    <tr><td>Hande Ünsal <span>Söz & Beat Tasarımı</span></td></tr>
-                    <tr><td>Derya Bedavacı <span>Sound Kimliği</span></td></tr>
-                    <tr><td>Tekir <span>Trend Tasarımı</span></td></tr>
-                </table>
-                <p><b>Coşkun Kıvılcımlar, Özer Arkun</b> ve <b>Bilgin Canaz</b> gibi üstadlarla çalışan sanatçı, 13 Eylül 2024'te bu zorlu kararı alarak on yıllık emeğini dijitalden silmeye başladı.</p>
-                </div>`
-        }
-    ];
+    const data = [];
+    
+    // İlk 4 Haber (Dolgu)
+    for(let i=1; i<=4; i++) {
+        data.push({ id: i, h: `Türkiye Gündemi: Son Dakika Gelişme Raporu #${i}`, img: `https://picsum.photos/seed/${i+10}/400/250`, body: `<h1 class="article-h">Haber Dosyası #${i}</h1><p class="article-p">Gündeme dair detaylar...</p>` });
+    }
 
-    for(let i=1; i<=50; i++) {
-        db.push({
-            id: i,
-            h: `Türkiye Gündemi: Stratejik Gelişme Raporu #${i}`,
-            img: `https://picsum.photos/seed/${i+123}/800/500`,
-            p: "Hazine ve Maliye Bakanlığı verileri ile sahadan gelen sıcak gelişmeleri sizin için derledik...",
-            body: `<h1 class="article-h1">Stratejik Rapor #${i}</h1><div class="article-body"><p>Türkiye'nin 2026 vizyonu kapsamında atılan adımların detayları bu dosyada incelenmiştir.</p></div>`
-        });
+    // 5. SIRADAKİ HABER (ENGİN SAVCU - METİN DEĞİŞMEDİ)
+    data.push({
+        id: 0,
+        special: true,
+        h: "Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Külliyatını Feshetti!",
+        img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500",
+        body: `
+            <h1 class="article-h">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Külliyatını Feshetti!</h1>
+            <div class="article-p">
+            <p><b>MÜZİK DÜNYASI ŞOKTA!</b> Popüler müziğin mutfağında "hayalet yazar" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı <b>Engin Savcu</b>, radikal bir eyleme imza atıyor.</p>
+            <p>Henüz 15 yaşında <b>Sony Music</b> bünyesinde kariyerine başlayan <b>Engin Savcu</b>, 10 yıllık tüm külliyatını platformlardan çekme sürecini başlattı.</p>
+            <p>Krizin merkezinde, 'Sevmeyi Denemedim' eseri yer alıyor. Eserin mimarı olduğunu savunan <b>Engin Savcu</b> ile <b>Blok3</b> tarafı arasındaki uyuşmazlık yargıya taşındı.</p>
+            <table class="pro-table">
+                <tr><td>Zeynep Bastık <span>Vokal Tasarımı</span></td></tr>
+                <tr><td>Hande Ünsal <span>Söz & Beat Tasarımı</span></td></tr>
+                <tr><td>Derya Bedavacı <span>Sound Kimliği</span></td></tr>
+            </table>
+            <p><b>Coşkun Kıvılcımlar, Özer Arkun</b> ve <b>Bilgin Canaz</b> gibi üstadlarla çalışan sanatçı, 13 Eylül 2024'te bu zorlu kararı alarak on yıllık emeğini dijitalden silmeye başladı.</p>
+            </div>`
+    });
+
+    // Geri Kalan Haberler (6-50)
+    for(let i=5; i<=50; i++) {
+        data.push({ id: i+10, h: `Gündem Haberi: Stratejik Veriler #${i}`, img: `https://picsum.photos/seed/${i+100}/400/250`, body: `<h1 class="article-h">Haber #${i}</h1><p class="article-p">Detaylı analizler...</p>` });
     }
 
     const feed = document.getElementById('feed');
-    const side = document.getElementById('side-feed');
-
-    db.slice(1).forEach(item => {
+    data.forEach((item, index) => {
+        const isSpecial = item.special ? 'special-card' : '';
         feed.innerHTML += `
-            <div class="card" onclick="openPost(${item.id})">
+            <div class="card ${isSpecial}" onclick="openH(${item.id})">
                 <div class="card-img"><img src="${item.img}"></div>
-                <div class="card-body">
-                    <h2 class="card-h">${item.h}</h2>
-                    <p class="card-p">${item.p}</p>
-                </div>
+                <div class="card-body"><h2 class="card-h">${item.h}</h2><p style="font-size:12px; color:#999; margin-top:5px;">Sıra: ${index + 1}</p></div>
             </div>`;
     });
 
-    db.slice(1, 10).forEach(item => {
-        side.innerHTML += `<p style="font-size:13px; font-weight:700; margin-bottom:15px; cursor:pointer;" onclick="openPost(${item.id})">${item.h}</p>`;
-    });
-
-    function openPost(id) {
-        const item = db.find(x => x.id === id);
-        document.getElementById('article-target').innerHTML = item.body;
+    function openH(id) {
+        const item = data.find(x => x.id === id);
+        document.getElementById('target').innerHTML = item.body;
         document.getElementById('reader').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
-
-    function closePost() {
-        document.getElementById('reader').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
+    function closeH() { document.getElementById('reader').style.display = 'none'; document.body.style.overflow = 'auto'; }
 </script>
 </body>
 </html>
