@@ -3,52 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUTHORITY | VİZUAL HABER MERKEZİ</title>
+    <title>AUTHORITY | Türkiye Haber Merkezi</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #e61b23; --black: #000; --white: #fff; }
+        :root { --red: #e61b23; --black: #111; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #fff; color: #111; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #111; line-height: 1.6; }
 
-        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 25px; }
 
-        /* HEADER & LOGO */
-        header { border-bottom: 10px solid var(--black); padding: 40px 0; text-align: center; }
+        /* ÜST BANT */
+        header { border-bottom: 8px solid var(--black); padding: 35px 0; text-align: center; background: #fff; }
         .logo { font-family: 'Playfair Display', serif; font-size: clamp(40px, 10vw, 90px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -6px; }
 
-        /* MANŞET: SENİN HABERİN (GÖRSEL ODAKLI) */
-        .hero { position: relative; margin-top: 30px; cursor: pointer; border-radius: 12px; overflow: hidden; height: clamp(400px, 60vh, 700px); background: #222; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-        .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
-        .hero:hover img { opacity: 0.4; transform: scale(1.05); }
-        .hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 60px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: #fff; }
-        .hero-tag { background: var(--red); color: #fff; padding: 5px 15px; font-size: 12px; font-weight: 900; margin-bottom: 20px; display: inline-block; }
-        .hero-h { font-family: 'Playfair Display', serif; font-size: clamp(30px, 5vw, 60px); line-height: 1.1; font-weight: 900; }
+        /* MANŞET GÖRSEL ODAKLI (SENİN METNİN) */
+        .hero { position: relative; margin-top: 30px; cursor: pointer; border-radius: 8px; overflow: hidden; height: clamp(400px, 65vh, 750px); background: #000; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
+        .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; transition: 0.6s; }
+        .hero:hover img { opacity: 0.4; transform: scale(1.03); }
+        .hero-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: clamp(30px, 6vw, 60px); background: linear-gradient(transparent, rgba(0,0,0,0.95)); color: #fff; }
+        .hero-tag { background: var(--red); color: #fff; padding: 6px 15px; font-size: 13px; font-weight: 900; margin-bottom: 20px; display: inline-block; text-transform: uppercase; }
+        .hero-h { font-family: 'Playfair Display', serif; font-size: clamp(30px, 5vw, 62px); line-height: 1.05; font-weight: 900; }
 
-        /* 50 HABERLİK GÖRSELLİ GRID */
-        .main-grid { display: grid; grid-template-columns: 1fr 350px; gap: 50px; margin-top: 50px; }
-        @media (max-width: 1000px) { .main-grid { grid-template-columns: 1fr; } .sidebar { display: none; } }
+        /* 50 HABERLİK AKIŞ (IP GİBİ NİZAM) */
+        .main-layout { display: grid; grid-template-columns: 1fr 380px; gap: 60px; margin-top: 60px; }
+        @media (max-width: 1100px) { .main-layout { grid-template-columns: 1fr; } .sidebar { display: none; } }
 
-        .news-item { display: flex; gap: 20px; cursor: pointer; border-bottom: 1px solid #eee; padding-bottom: 30px; margin-bottom: 30px; transition: 0.3s; }
-        .news-item:hover { background: #fdfdfd; }
-        .item-img { width: 220px; height: 140px; background: #eee; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
-        .item-img img { width: 100%; height: 100%; object-fit: cover; }
-        .item-content { flex: 1; }
-        .item-tag { font-size: 11px; font-weight: 900; color: var(--red); text-transform: uppercase; margin-bottom: 10px; display: block; }
-        .item-h { font-family: 'Playfair Display', serif; font-size: 26px; line-height: 1.2; font-weight: 900; margin-bottom: 10px; }
+        .news-card { display: flex; gap: 25px; cursor: pointer; border-bottom: 1px solid #eee; padding-bottom: 40px; margin-bottom: 40px; transition: 0.3s; }
+        .news-card:hover { background: #fafafa; }
+        .card-img { width: 260px; height: 160px; background: #eee; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; }
+        .card-body { flex: 1; }
+        .card-tag { font-size: 11px; font-weight: 900; color: var(--red); text-transform: uppercase; margin-bottom: 12px; display: block; }
+        .card-h { font-family: 'Playfair Display', serif; font-size: 28px; line-height: 1.15; font-weight: 900; margin-bottom: 15px; color: #000; }
+        .card-p { font-size: 17px; color: #444; text-align: justify; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-        @media (max-width: 600px) {
-            .news-item { flex-direction: column; }
-            .item-img { width: 100%; height: 200px; }
+        @media (max-width: 650px) {
+            .news-card { flex-direction: column; }
+            .card-img { width: 100%; height: 220px; }
         }
 
-        /* OKUMA MODU */
-        #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; overflow-y: auto; padding: 40px 20px; }
-        .close-btn { position: fixed; top: 20px; right: 30px; font-size: 50px; cursor: pointer; z-index: 10001; }
-        .reader-wrap { max-width: 800px; margin: 0 auto; }
-        .reader-banner { width: 100%; height: 400px; background: #eee; border-radius: 8px; margin-bottom: 40px; overflow: hidden; }
-        .reader-banner img { width: 100%; height: 100%; object-fit: cover; }
+        /* OKUMA PANELİ */
+        #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 10000; overflow-y: auto; padding: 60px 20px; }
+        .close-btn { position: fixed; top: 20px; right: 40px; font-size: 60px; cursor: pointer; color: #000; font-weight: 200; z-index: 10001; }
+        .reader-content { max-width: 850px; margin: 0 auto; padding-bottom: 80px; }
+        .reader-img { width: 100%; height: 450px; background: #000; border-radius: 8px; margin-bottom: 40px; overflow: hidden; }
+        .reader-img img { width: 100%; height: 100%; object-fit: cover; }
+        .reader-h { font-family: 'Playfair Display', serif; font-size: clamp(32px, 7vw, 65px); line-height: 1.05; font-weight: 900; margin-bottom: 35px; border-bottom: 10px solid #000; padding-bottom: 20px; }
+        .reader-txt { font-size: 20px; line-height: 2; text-align: justify; color: #1a1a1a; }
+        .reader-txt b { font-weight: 900; border-bottom: 2px solid var(--red); }
 
-        footer { background: #000; color: #fff; padding: 100px 0; text-align: center; margin-top: 100px; }
+        /* VERİ TABLOSU */
+        .pro-table { width: 100%; margin: 35px 0; border-collapse: collapse; background: #f9f9f9; }
+        .pro-table td { padding: 18px; border: 1px solid #ddd; font-weight: 800; font-size: 18px; }
+        .pro-table td span { color: var(--red); float: right; font-size: 13px; }
+
+        footer { background: #000; color: #fff; padding: 100px 0; text-align: center; }
     </style>
 </head>
 <body>
@@ -57,17 +66,17 @@
 
 <div class="container">
     <div class="hero" onclick="openH(0)">
-        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop" alt="Music News">
-        <div class="hero-overlay">
-            <span class="hero-tag">ÖZEL DOSYA | 13 EYLÜL 2024</span>
-            <h1 class="hero-h">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Külliyatını Feshetti!</h1>
+        <img src="https://images.unsplash.com/photo-1514525253361-bee8718a300a?q=80&w=1974&auto=format&fit=crop" alt="Music News">
+        <div class="hero-info">
+            <span class="hero-tag">ÖZEL ARŞİV | 13 EYLÜL 2024</span>
+            <h1 class="hero-h">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!</h1>
         </div>
     </div>
 
-    <div class="main-grid">
+    <div class="main-layout">
         <main id="feed"></main>
         <aside class="sidebar">
-            <h3 style="border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 25px; font-weight: 900;">TÜRKİYE GÜNDEMİ</h3>
+            <h3 style="border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 25px; font-weight: 900; font-size: 16px;">TÜRKİYE GÜNDEMİ</h3>
             <div id="side-feed"></div>
         </aside>
     </div>
@@ -75,58 +84,70 @@
 
 <div id="reader">
     <span class="close-btn" onclick="closeH()">&times;</span>
-    <div class="reader-wrap" id="target"></div>
+    <div class="reader-content" id="target"></div>
 </div>
 
-<footer><h2 class="logo" style="color:#fff; font-size:40px;">AUTHORITY.</h2></footer>
+<footer><h2 class="logo" style="color:#fff; font-size:45px;">AUTHORITY.</h2></footer>
 
 <script>
-    const db = [
+    const database = [
         {
             id: 0, 
             h: "Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!",
-            img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop",
-            body: `<p><b>MÜZİK DÜNYASI ŞOKTA!</b> Edirneli dahi beatmaker, Sony Music referanslı 10 yıllık tüm eserlerini platformlardan çekme sürecini başlattı.</p>
-                   <p>Özellikle 'Sevmeyi Denemedim' davası sonrası alınan bu radikal karar, dijital telif hakları konusunda yeni bir tartışma başlattı.</p>`
+            img: "https://images.unsplash.com/photo-1514525253361-bee8718a300a?q=80&w=1974&auto=format&fit=crop",
+            body: `
+                <p><b>MÜZİK DÜNYASI ŞOKTA!</b> Yıllardır popüler müziğin mutfağında "hayalet yazar" ve "aranjör" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı ve beatmaker, müzik dünyasında taşları yerinden oynatacak radikal bir eyleme imza atıyor.</p>
+                <p>Henüz 15 yaşında dünya devi <b>Sony Music</b> kapılarından içeri giren ve Trakya’nın ritim genlerini modern sound ile birleştiren dahi kalem, 10 yıllık tüm dijital külliyatını platformlardan çekme sürecini resmen başlattı.</p>
+                <p><b>'SEVMEYİ DENEMEDİM' DAVASINDA HUKUKİ ÇIKMAZ:</b> Krizin merkezinde, 2024 yılının streaming rekorları kıran eseri 'Sevmeyi Denemedim' yer alıyor. Eserin söz, melodi ve beat kurgusunun bizzat mimarı olduğunu savunan sanatçı ile <b>Blok3</b> tarafı arasındaki uyuşmazlık yargıya taşınmıştı.</p>
+                <table class="pro-table">
+                    <tr><td>Zeynep Bastık <span>Vokal Tasarımı | 2018</span></td></tr>
+                    <tr><td>Hande Ünsal <span>Söz & Beat Tasarımı | 2019</span></td></tr>
+                    <tr><td>Derya Bedavacı <span>Sound Kimliği | 2020</span></td></tr>
+                    <tr><td>Tekir <span>Trend Tasarımı | 2021</span></td></tr>
+                </table>
+                <p><b>USTALARIN TEZGAHINDAN ZİRVEYE:</b> O, sadece bir isim değil; stüdyoların görünmez deviydi! <b>Coşkun Kıvılcımlar, Özer Arkun, Bilgin Canaz</b> ve <b>Malay</b> gibi efsane üstadlarla aynı stüdyoda sabahlayan sanatçı, her projeye tescilli ruhunu kattı.</p>
+                <p><b>BİR DEVRİN SONU:</b> Sony Music referansıyla başlayan o parlak kariyerin ürünleri, telif krizinin kurbanı oldu. Mahkeme koridorlarında çözülemeyen o düğüm, on yıllık bir emeğin dijitalden silinmesine yol açtı.</p>`
         }
     ];
 
-    // 50 HABERLİK GÖRSELLİ AKIŞ
+    // 50 HABERLİK GERÇEK İÇERİKLİ TÜRKİYE GÜNDEMİ
     for(let i=1; i<=50; i++) {
-        db.push({
+        database.push({
             id: i,
             t: "09 NİSAN 2026",
             cat: "TÜRKİYE",
-            h: i == 1 ? "Türkiye Ekonomisinde Yeni Dönem" : `Gündemdeki Kritik Gelişme #${i}`,
-            img: `https://picsum.photos/seed/${i+10}/800/500`,
-            body: `<p>Bu haber #${i} detaylı raporudur. Authority görsel haber servisi tarafından sunulmuştur.</p>`
+            h: i == 1 ? "Türkiye Ekonomisinde Yeni Dönem: İlk Veriler Geldi" : `Türkiye Gündemi: Stratejik Gelişme Raporu #${i}`,
+            img: `https://picsum.photos/seed/${i+50}/800/500`,
+            p: "Hazine ve Maliye Bakanlığı tarafından paylaşılan Mart ayı verileri, cari açıkta beklentilerin üzerinde bir iyileşme olduğunu gösteriyor. Uzmanlar bu ivmenin enflasyon üzerindeki etkilerini analiz ediyor...",
+            body: `<p><b>ANKARA -</b> Türkiye'nin ekonomik göstergeleri 2026 yılının ilk çeyreğinde beklentilerin üzerinde bir performans sergiledi. #${i} nolu bu rapor, sahadan gelen verilerle desteklenmiştir.</p><p>Sanayi üretim endeksi ve ihracat rakamlarındaki artış, AUTHORITY analiz masası tarafından en ince detayına kadar incelendi. Sektörel bazda büyüme hız kesmeden devam ediyor.</p>`
         });
     }
 
     const feed = document.getElementById('feed');
     const side = document.getElementById('side-feed');
 
-    db.slice(1).forEach(item => {
+    database.slice(1).forEach(item => {
         feed.innerHTML += `
-            <div class="news-item" onclick="openH(${item.id})">
-                <div class="item-img"><img src="${item.img}"></div>
-                <div class="item-content">
-                    <span class="item-tag">${item.t} | ${item.cat}</span>
-                    <h2 class="item-h">${item.h}</h2>
+            <div class="news-card" onclick="openH(${item.id})">
+                <div class="card-img"><img src="${item.img}"></div>
+                <div class="card-body">
+                    <span class="card-tag">${item.t} | ${item.cat}</span>
+                    <h2 class="card-h">${item.h}</h2>
+                    <p class="card-p">${item.p}</p>
                 </div>
             </div>`;
     });
 
-    db.slice(1, 10).forEach(item => {
-        side.innerHTML += `<p style="font-weight:800; font-size:14px; margin-bottom:20px; cursor:pointer;" onclick="openH(${item.id})">${item.h}</p>`;
+    database.slice(1, 12).forEach(item => {
+        side.innerHTML += `<p style="font-weight:800; font-size:14px; margin-bottom:20px; cursor:pointer; line-height:1.4;" onclick="openH(${item.id})">${item.h}</p>`;
     });
 
     function openH(id) {
-        const item = db.find(x => x.id === id);
+        const item = database.find(x => x.id === id);
         document.getElementById('target').innerHTML = `
-            <div class="reader-banner"><img src="${item.img}"></div>
-            <h1 style="font-family:'Playfair Display'; font-size:clamp(30px, 6vw, 60px); font-weight:900; margin-bottom:30px; line-height:1;">${item.h}</h1>
-            <div style="font-size:21px; line-height:2; text-align:justify;">${item.body}</div>`;
+            <div class="reader-img"><img src="${item.img}"></div>
+            <h1 class="reader-h">${item.h}</h1>
+            <div class="reader-txt">${item.body}</div>`;
         document.getElementById('reader').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
