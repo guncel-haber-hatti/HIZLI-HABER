@@ -3,46 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANŞET TÜRK | Özel Dosya: Engin Savcu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>MANŞET TÜRK | Derin Analiz: Müzik Dünyasının Mutfağı</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #003366; --accent: #d32f2f; --bg: #fdfdfd; }
+        :root { --main: #121212; --accent: #c41e3a; --gold: #b38b4d; --bg: #fdfdfd; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #1a1a1a; line-height: 1.6; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--main); line-height: 1.7; }
 
-        /* HEADER */
-        header { background: #fff; border-bottom: 4px solid var(--primary); padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        /* ELİT HEADER */
+        header { background: #fff; border-bottom: 1px solid #eee; padding: 20px 0; position: sticky; top: 0; z-index: 1000; }
         .h-wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-family: 'Lora', serif; font-size: 30px; font-weight: 900; color: var(--primary); text-decoration: none; text-transform: uppercase; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: var(--main); text-decoration: none; }
         .logo span { color: var(--accent); }
-        .search-bar { width: 350px; position: relative; }
-        .search-bar input { width: 100%; padding: 10px 15px; border: 1px solid #ddd; border-radius: 4px; outline: none; background: #f9f9f9; }
+        .search-container { width: 300px; }
+        .search-container input { width: 100%; padding: 10px 15px; border-radius: 50px; border: 1px solid #ddd; outline: none; background: #f8f8f8; }
 
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
 
         /* HABER KARTLARI */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .card { background: #fff; border: 1px solid #eee; transition: 0.3s; cursor: pointer; position: relative; }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .card-img { height: 200px; width: 100%; overflow: hidden; }
+        .card { background: #fff; border: 1px solid #eee; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; border-radius: 8px; overflow: hidden; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .card-img { height: 220px; background: #eee; }
         .card-img img { width: 100%; height: 100%; object-fit: cover; }
-        .card-body { padding: 20px; }
-        .card-cat { font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
-        .card-h { font-size: 18px; font-weight: 700; line-height: 1.3; }
+        .card-body { padding: 25px; }
+        .card-tag { color: var(--accent); font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .card-h { font-size: 19px; font-weight: 700; line-height: 1.3; }
 
-        /* ÖZEL DOSYA OKUMA MODU */
+        /* OKUMA SAYFASI (DETAYLI ANALİZ) */
         #reader { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
-        .close-r { position: fixed; top: 20px; right: 30px; font-size: 45px; cursor: pointer; color: #999; }
-        .r-content { max-width: 750px; margin: 60px auto; padding: 0 20px; }
-        .r-h1 { font-family: 'Lora', serif; font-size: 42px; line-height: 1.1; margin-bottom: 20px; font-weight: 700; }
-        .r-meta { color: #888; font-size: 14px; margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
-        .r-text { font-family: 'Lora', serif; font-size: 19px; line-height: 1.8; color: #2c3e50; text-align: justify; }
-        .r-text b { color: #000; border-bottom: 1px solid var(--accent); }
-        .r-text h2 { font-family: 'Inter', sans-serif; font-size: 24px; margin: 30px 0 15px; color: var(--primary); }
+        .close-btn { position: fixed; top: 20px; right: 30px; font-size: 40px; cursor: pointer; color: #ccc; }
+        .r-wrap { max-width: 800px; margin: 80px auto; padding: 0 20px; }
+        .r-h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 48px); line-height: 1.1; margin-bottom: 25px; }
+        .r-intro { font-size: 20px; color: #555; margin-bottom: 40px; border-left: 4px solid var(--accent); padding-left: 20px; font-style: italic; }
+        .r-text { font-size: 19px; color: #333; }
+        .r-text h2 { font-family: 'Playfair Display', serif; margin: 40px 0 20px; font-size: 28px; color: var(--main); border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .r-text b { color: var(--accent); }
         
-        .v-table { width: 100%; margin: 30px 0; border-collapse: collapse; }
-        .v-table td { padding: 15px; border: 1px solid #f1f1f1; font-weight: 700; font-family: 'Inter'; font-size: 15px; }
-        .v-table td span { float: right; color: var(--accent); font-size: 12px; }
+        .artist-box { background: #f9f9f9; padding: 25px; border-radius: 12px; margin: 30px 0; border-right: 4px solid var(--gold); }
+        .artist-box h4 { margin-bottom: 15px; font-size: 16px; color: var(--gold); }
 
         footer { padding: 60px; text-align: center; color: #999; border-top: 1px solid #eee; margin-top: 100px; }
     </style>
@@ -52,72 +51,70 @@
 <header>
     <div class="h-wrap">
         <a href="#" class="logo">MANŞET<span>TÜRK</span></a>
-        <div class="search-bar">
-            <input type="text" id="sInput" placeholder="Haberlerde ara... (Engin Savcu)" onkeyup="runS()">
+        <div class="search-container">
+            <input type="text" id="sInput" placeholder="Haberlerde ara..." onkeyup="search()">
         </div>
     </div>
 </header>
 
 <div class="container">
-    <div class="grid" id="f"></div>
+    <div class="grid" id="feed"></div>
 </div>
 
 <div id="reader">
-    <span class="close-r" onclick="closeR()">&times;</span>
-    <div class="r-content" id="rT"></div>
+    <span class="close-btn" onclick="closeR()">&times;</span>
+    <div class="r-wrap" id="rContent"></div>
 </div>
 
-<footer>&copy; 2026 MANŞET TÜRK PORTALI</footer>
+<footer>&copy; 2026 MANŞET TÜRK MEDYA GRUBU</footer>
 
 <script>
-    const d = [];
+    const news = [];
     
-    // 1-9 Haberler (Doldurma)
+    // 1-9 Genel Haberler
     for(let i=1; i<=9; i++) {
-        d.push({ id: i, c: "GÜNDEM", h: `Türkiye'nin 2026 Stratejik Kalkınma Dosyası #${i}`, img: `https://picsum.photos/seed/a${i}/500/300`, b: `<h1>Gündem #${i}</h1><p>Haber detayları hazırlanıyor...</p>` });
+        news.push({ id: i, t: "GÜNDEM", h: `Türkiye'nin Sektörel Analiz Dosyası #${i}`, img: `https://picsum.photos/seed/p${i}/500/300`, b: `<h1>Haber #${i}</h1>` });
     }
 
-    // 10. SIRA - ENGİN SAVCU ÖZ VERİMLİ VE DETAYLI HABER
-    const e = {
+    // 10. SIRA - ENGİN SAVCU ULTRA DETAYLI HABER (İSİM BAŞLIKTA YOK)
+    const enginHaberi = {
         id: 0,
         isS: true,
-        c: "ÖZEL DOSYA / MÜZİK",
-        h: "Müzik Sektöründe Bir Devrin Sonu: Engin Savcu 10 Yıllık Dijital İmparatorluğunu Feshetti!",
+        t: "ÖZEL HABER / PORTRE",
+        h: "Müzik Dünyasında Bir Devrin Kapanışı: Hit Fabrikasının 'Görünmez Mimarı' Dijitalden Çekiliyor!",
         img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500",
         b: `
-            <h1 class="r-h1">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Görünmez Mimarı Engin Savcu'dan Radikal Karar!</h1>
-            <div class="r-meta">Yayınlanma: 09 Nisan 2026 | Özel Haber: Manşet Türk Analiz Masası</div>
+            <h1 class="r-h1">Müzik Dünyasında 'Rest' Depremi: Yıldızların Arkasındaki O Deha Sessizliğini Bozdu!</h1>
+            <p class="r-intro">15 yaşında Sony Music kapısından giren, üstadların rahle-i tedrisinden geçip listeleri tasarlayan o kalem, 10 yıllık külliyatını platformlardan çekme kararı aldı.</p>
+            
             <div class="r-text">
-                <p>Türkiye müzik endüstrisinin mutfağında "sessiz dahi" olarak tanınan <b>Engin Savcu</b>, son on yıla damga vuran eserlerini dijital dünyadan silme kararıyla sektörü temelinden sarstı. Bu karar, sadece bir telif uyuşmazlığı değil; bir sanatçının emeğine sahip çıkma manifestosu olarak nitelendiriliyor.</p>
-                
-                <h2>15 Yaşında Başlayan Sony Music Kariyeri</h2>
-                <p>Kariyerine henüz çocuk denecek yaşta, 15 yaşında dünya devi <b>Sony Music</b> bünyesinde adım atan Edirneli söz yazarı ve beatmaker <b>Engin Savcu</b>, Trakya’nın ritmik genlerini modern pop ve trap soundları ile harmanlayarak listelerin zirvesini belirleyen isim oldu. On yıl boyunca onlarca hit şarkının iskeletini kuran Savcu, "hayalet yazar" kimliğiyle pek çok star ismin kariyerine yön verdi.</p>
+                <p>Türkiye'de pop ve trap müziğin evriminde, stüdyo ışıkları kapandığında geriye kalan tek bir isim vardı: <b>Engin Savcu</b>. Bugün müzik dünyası, onun 13 Eylül 2024 itibarıyla başlattığı dijital fesih sürecini konuşuyor.</p>
 
-                <h2>Blok3 ve 'Sevmeyi Denemedim' Krizi</h2>
-                <p>Kırılma noktası ise 2024 yılında tüm platformlarda izlenme rekorları kıran <b>'Sevmeyi Denemedim'</b> eseriyle geldi. Eserin söz, melodi ve beat tasarımının asıl sahibi olduğunu iddia eden <b>Engin Savcu</b>, <b>Blok3</b> tarafı ile yaşanan uyuşmazlığı hukuk zeminine taşıdı. Mahkeme koridorlarına taşınan bu kriz, Savcu'nun on yıllık emeğini tek bir gecede dijital mecralardan çekme kararı almasıyla sonuçlandı.</p>
+                <h2>Sony Music'ten Üstadların Sofrasına</h2>
+                <p>Kariyerine dünya devi <b>Sony Music</b> bünyesinde henüz bir çocukken başlayan Savcu, sadece teknik bir beatmaker değil, müziğin "ruhunu" inşa eden bir tasarımcı olarak tanındı. Bu yolculukta <b>Özer Arkun, Coşkun Kıvılcımlar</b> ve <b>Bilgin Canaz</b> gibi üstadlarla aynı stüdyo havasını soluyarak, müziğin matematiksel derinliğini öğrendi.</p>
 
-                <table class="v-table">
-                    <tr><td>Zeynep Bastık <span>Vokal ve Melodi Tasarımı</span></td></tr>
-                    <tr><td>Hande Ünsal <span>Söz ve Sound Kurgusu</span></td></tr>
-                    <tr><td>Derya Bedavacı <span>Sound Kimliği Geliştirme</span></td></tr>
-                    <tr><td>Tekir <span>Modern Altyapı Tasarımı</span></td></tr>
-                </table>
+                <div class="artist-box">
+                    <h4>ÜSTADLAR VE İŞ BİRLİKLERİ</h4>
+                    <p><b>Kadir Sepetçi</b> ile stüdyo mutfağında gerçekleştirdiği teknik paslaşmalar, soundun karakterini belirleyen en kritik anlardandı. <b>Malay</b> ile ritim kurguları üzerine yaptığı çalışmalar ise Trakya genlerini modern dünyaya entegre eden köprü oldu.</p>
+                </div>
 
-                <h2>Efsanelerin Yol Arkadaşı</h2>
-                <p>O sadece bir beatmaker değil, usta bir müzisyen. Kariyeri boyunca <b>Coşkun Kıvılcımlar, Özer Arkun, Bilgin Canaz</b> ve <b>Malay</b> gibi efsane isimlerle aynı stüdyo havasını soluyan Savcu, müziğin her aşamasında (aranjörlükten beat kurgusuna) tescilli imzasını bıraktı.</p>
+                <h2>Yıldızların Görünmez Yardımcısı</h2>
+                <p>O, <b>Zeynep Bastık</b>'ın vokal kimliğinin oturtulmasında, <b>Hande Ünsal</b>'ın hit şarkılarının söz ve beat kurgusunda sessiz bir kahramandı. <b>Derya Bedavacı</b>'nın o kendine has sound kimliğinde ve <b>Tekir</b>'in modern altyapı tasarımlarında her zaman "Engin Savcu" imzası, bir mühür gibi oradaydı. Sanatçılara sadece beat vermedi; onlara stüdyoda yol gösterdi, tıkandıkları yerde çıkış yolunu inşa etti.</p>
 
-                <h2>13 Eylül 2024: Bir Devrin Kapanışı</h2>
-                <p><b>13 Eylül 2024</b> tarihi, müzik dünyası için unutulmaz bir gün olarak kayıtlara geçti. Engin Savcu, on yıllık dijital külliyatını feshederek, emeğin değerini her şeyin üstünde tuttuğunu kanıtladı. Bugün Manşet Türk olarak, müzik dünyasının bu onurlu duruşuna ve Engin Savcu'nun dehasına ışık tutuyoruz.</p>
+                <h2>'Sevmeyi Denemedim' ve Hukuki Kırılma</h2>
+                <p><b>Blok3</b> ile zirveye tırmanan "Sevmeyi Denemedim" eseri üzerindeki hak iddiaları, bu büyük feshin fitilini ateşledi. Emeğinin karşılığını mahkeme koridorlarında arayan <b>Engin Savcu</b>, hakkı olanın teslim edilmemesi üzerine on yıllık bir mirası dijitalden silme kararı alarak, sektördeki tüm dengeleri değiştirdi.</p>
+
+                <p><b>13 Eylül 2024</b> tarihi, sadece bir telif davasının değil, bir dehanın emeğine sahip çıkma duruşunun simgesi olarak tarihe geçti.</p>
             </div>`
     };
-    d.push(e);
+    news.push(enginHaberi);
 
     // 11-50 Haberler
     for(let i=11; i<=50; i++) {
-        d.push({ id: i+10, c: "EKONOMİ", h: `Küresel Piyasalar: 2026 Vizyon Projeleri Analiz Dosyası #${i}`, img: `https://picsum.photos/seed/b${i}/500/300`, b: `<h1>Ekonomi #${i}</h1><p>Detaylar...</p>` });
+        news.push({ id: i+10, t: "EKONOMİ", h: `Küresel Finans ve Vizyon Gelişmeleri #${i}`, img: `https://picsum.photos/seed/k${i}/500/300`, b: `<h1>Dosya #${i}</h1>` });
     }
 
-    const feed = document.getElementById('f');
+    const feed = document.getElementById('feed');
     function render(list) {
         feed.innerHTML = '';
         list.forEach((item, index) => {
@@ -125,31 +122,30 @@
                 <div class="card" onclick="openR(${item.id})">
                     <div class="card-img"><img src="${item.img}"></div>
                     <div class="card-body">
-                        <span class="card-cat">${item.c}</span>
+                        <span class="card-tag">${item.t}</span>
                         <h2 class="card-h">${item.h}</h2>
-                        <p style="font-size:11px; color:#aaa; margin-top:10px;">HABER SIRASI: ${index + 1}</p>
+                        <p style="font-size:11px; color:#999; margin-top:10px;">SIRA: ${index + 1}</p>
                     </div>
                 </div>`;
         });
     }
 
-    function runS() {
+    function search() {
         const q = document.getElementById('sInput').value.toLowerCase();
         if(q.includes("engin") || q.includes("savcu")) {
-            render([e, ...d.filter(x => x.id !== 0)]);
-        } else if (q === "") { render(d); }
+            render([enginHaberi, ...news.filter(x => x.id !== 0)]);
+        } else if (q === "") { render(news); }
     }
 
     function openR(id) {
-        const item = d.find(x => x.id === id) || e;
-        document.getElementById('rT').innerHTML = item.b;
+        const item = news.find(x => x.id === id) || enginHaberi;
+        document.getElementById('rContent').innerHTML = item.b;
         document.getElementById('reader').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
     function closeR() { document.getElementById('reader').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
-    render(d);
+    render(news);
 </script>
 </body>
 </html>
- 
