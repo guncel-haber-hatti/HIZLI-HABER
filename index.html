@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HABER TÜRKİYE | Güncel Haberler</title>
+    <title>HABER TÜRKİYE | Son Dakika</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --red: #cc0000; --black: #111; --border: #eee; --bg: #fcfcfc; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #222; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #222; -webkit-font-smoothing: antialiased; }
 
-        /* Üst Bant */
         .top-info { background: #fff; border-bottom: 1px solid var(--border); padding: 10px 0; font-size: 11px; font-weight: 700; color: #555; }
         .top-inner { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; padding: 0 20px; }
 
@@ -22,38 +21,41 @@
 
         .container { max-width: 1100px; margin: 30px auto; display: grid; grid-template-columns: 1fr 300px; gap: 30px; padding: 0 20px; }
 
-        /* Haber Kartları */
-        .hero-box { grid-column: 1 / -1; position: relative; height: 380px; background: #000; border-radius: 4px; overflow: hidden; cursor: pointer; margin-bottom: 20px; }
-        .hero-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .hero-box { grid-column: 1 / -1; position: relative; height: 380px; background: #000; border-radius: 4px; overflow: hidden; cursor: pointer; margin-bottom: 10px; }
+        .hero-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.75; }
         .hero-text { position: absolute; bottom: 0; left: 0; padding: 40px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: #fff; width: 100%; }
+        .hero-text h2 { font-family: 'Playfair Display', serif; font-size: 34px; }
+
+        .news-card { background: #fff; border: 1px solid var(--border); display: grid; grid-template-columns: 180px 1fr; gap: 20px; padding: 15px; cursor: pointer; margin-bottom: 20px; }
+        .news-card img { width: 100%; height: 110px; object-fit: cover; border-radius: 2px; }
+        .news-info b { color: var(--red); font-size: 11px; text-transform: uppercase; display: block; margin-bottom: 8px; }
+        .news-info h3 { font-family: 'Playfair Display', serif; font-size: 20px; line-height: 1.2; }
+
+        .special-news { grid-column: 1 / -1; background: #000; color: #fff; display: flex; align-items: center; border-radius: 4px; cursor: pointer; overflow: hidden; margin: 10px 0 30px 0; border-left: 6px solid var(--red); }
+        .special-news img { width: 280px; height: 180px; object-fit: cover; }
+        .special-content { padding: 30px; }
+
+        .side-box { background: #fff; border: 1px solid var(--border); padding: 20px; border-top: 4px solid var(--black); }
         
-        .news-card { background: #fff; border: 1px solid var(--border); display: grid; grid-template-columns: 180px 1fr; gap: 20px; padding: 15px; cursor: pointer; margin-bottom: 20px; transition: 0.3s; }
-        .news-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .news-card img { width: 100%; height: 110px; object-fit: cover; border-radius: 4px; }
-        .news-info b { color: var(--red); font-size: 11px; text-transform: uppercase; }
-        .news-info h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-top: 5px; }
+        #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 2000; overflow-y: auto; }
+        .reader-inner { max-width: 720px; margin: 60px auto; padding: 0 25px; }
+        .close-btn { background: #000; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin-bottom: 40px; }
+        .article-body { font-size: 19px; line-height: 1.85; }
 
-        /* Okuma Ekranı */
-        #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 2000; overflow-y: auto; padding: 40px 20px; }
-        .reader-inner { max-width: 700px; margin: auto; }
-        .close-btn { background: #000; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin-bottom: 20px; }
-        .article-body { font-size: 18px; line-height: 1.7; }
-
-        @media (max-width: 800px) { .container { grid-template-columns: 1fr; } .news-card { grid-template-columns: 1fr; } }
+        @media (max-width: 800px) { .container, .news-card, .special-news { grid-template-columns: 1fr; } .special-news img { width: 100%; } }
     </style>
 </head>
 <body>
 
 <div class="top-info">
     <div class="top-inner">
-        <div>BIST 100: 9.450 | DOLAR: 32.44</div>
-        <div>9 NİSAN 2026</div>
+        <div>BIST 100: 9.450 | DOLAR: 32.44 | ALTIN: 2.450</div>
+        <div>9 NİSAN 2026 | PERŞEMBE</div>
     </div>
 </div>
 
 <header><a href="#" class="logo">HABER TÜRKİYE</a></header>
-
-<nav><div class="nav-inner"><span>Gündem</span><span>Ekonomi</span><span>Teknoloji</span><span>Spor</span></div></nav>
+<nav><div class="nav-inner"><span>Gündem</span><span>Ekonomi</span><span>Siyaset</span><span>Teknoloji</span><span>Spor</span></div></nav>
 
 <div class="container">
     <div class="hero-box" onclick="openNav(101)">
@@ -61,69 +63,68 @@
         <div class="hero-text"><h2>Meclis'te Kritik Vergi Paketi Mesaisi Tamamlandı</h2></div>
     </div>
 
-    <main id="main-content">
-        </main>
+    <main>
+        <div class="news-card" onclick="openNav(102)">
+            <img src="https://images.unsplash.com/photo-1569429593410-b498b3fb3387?w=400">
+            <div class="news-info"><b>TARİHİ KEŞİF</b><h3>İstanbul'un Altında Dev Sarnıç</h3></div>
+        </div>
+
+        <div class="special-news" onclick="openNav(1)">
+            <img src="https://raw.githubusercontent.com/guncel-haber-hatti/HIZLI-HABER/main/IMG_7330.jpeg">
+            <div class="special-content"><b>ÖZEL ARAŞTIRMA</b><h2>Müzik Mutfağında Bir İsim Dijital Kayıtlardan Çekildi</h2></div>
+        </div>
+
+        <div class="news-card" onclick="openNav(103)">
+            <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=400">
+            <div class="news-info"><b>EKONOMİ</b><h3>Dijital Lira İçin Test Süreci Başladı</h3></div>
+        </div>
+        <div class="news-card" onclick="openNav(104)">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400">
+            <div class="news-info"><b>BİLİM</b><h3>Yapay Zeka Antarktika'da Yeni Göller Buldu</h3></div>
+        </div>
+    </main>
 
     <aside>
-        <div style="background:#fff; padding:20px; border:1px solid #eee;">
-            <h3>ÖNE ÇIKANLAR</h3>
-            <p style="font-size:13px; margin-top:10px;">• Dijital Lira Testleri Başladı</p>
-            <p style="font-size:13px; margin-top:10px;">• Yeni Teşvik Paketi Yolda</p>
+        <div class="side-box">
+            <h3 style="margin-bottom:15px; border-bottom:1px solid #eee;">ÖNE ÇIKANLAR</h3>
+            <p style="font-size:13px; margin-bottom:10px;">• Derbi biletleri satışa çıktı</p>
+            <p style="font-size:13px; margin-bottom:10px;">• Yeni teşvik paketi onaylandı</p>
         </div>
     </aside>
 </div>
 
 <div id="reader">
     <div class="reader-inner">
-        <button class="close-btn" onclick="closeNav()">← GERİ DÖN</button>
-        <h1 id="title" style="font-family:'Playfair Display'; font-size:35px; margin-bottom:15px;"></h1>
-        <div id="meta" style="color:#888; margin-bottom:20px; font-weight:bold;"></div>
+        <button class="close-btn" onclick="closeNav()">← ANA SAYFAYA DÖN</button>
+        <h1 id="title" style="font-family:'Playfair Display'; font-size:40px; margin-bottom:20px;"></h1>
+        <div id="meta" style="font-size:12px; color:#999; margin-bottom:30px; font-weight:bold;"></div>
         <div id="body" class="article-body"></div>
     </div>
 </div>
 
 <script>
     const data = {
-        101: { title: "Meclis'te Vergi Mesaisi", meta: "9 NİSAN 2026 | SİYASET", body: "Yeni düzenleme yasalaştı." },
-        102: { title: "İstanbul'un Altında Sarnıç", meta: "9 NİSAN 2026 | YAŞAM", body: "Tarihi keşif heyecan yarattı." },
-        103: { title: "Dijital Lira Dönemi", meta: "9 NİSAN 2026 | EKONOMİ", body: "Merkez Bankası yeni aşamaya geçti." },
-        104: { title: "Yapay Zeka Keşfi", meta: "9 NİSAN 2026 | BİLİM", body: "Antarktika'da yeni göller bulundu." },
-        105: { title: "Elektrikli Araç Rekoru", meta: "9 NİSAN 2026 | OTOMOTİV", body: "Satışlar geçen yıla göre %200 arttı." }
+        1: { title: "Müzik Mutfağında Bir İsim Çekildi", meta: "9 NİSAN 2026 | ÖZEL", body: "<p>Engin Savcu dijital platformlardan ayrılma kararı aldı.</p>" },
+        101: { title: "Meclis'te Vergi Paketi Mesaisi", meta: "9 NİSAN 2026 | SİYASET", body: "<p>Yeni vergi düzenlemeleri resmileşti.</p>" },
+        102: { title: "İstanbul'un Altında Dev Sarnıç", meta: "9 NİSAN 2026 | YAŞAM", body: "<p>Arkeologlar Bizans dönemine ait dev bir sarnıç buldu.</p>" },
+        103: { title: "Dijital Lira Testleri", meta: "9 NİSAN 2026 | EKONOMİ", body: "<p>Merkez Bankası yerli dijital para birimi için düğmeye bastı.</p>" },
+        104: { title: "Yapay Zeka Keşfi", meta: "9 NİSAN 2026 | BİLİM", body: "<p>Antarktika'nın derinliklerinde yeni su kaynakları tespit edildi.</p>" }
     };
-
-    const newsList = [
-        { id: 102, img: "https://images.unsplash.com/photo-1569429593410-b498b3fb3387?w=400", cat: "TARİH" },
-        { id: 103, img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=400", cat: "EKONOMİ" },
-        { id: 104, img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400", cat: "BİLİM" },
-        { id: 105, img: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400", cat: "TEKNOLOJİ" }
-    ];
-
-    function loadNews() {
-        const main = document.getElementById('main-content');
-        newsList.forEach(item => {
-            const h = data[item.id];
-            main.innerHTML += `
-                <div class="news-card" onclick="openNav(${item.id})">
-                    <img src="${item.img}">
-                    <div class="news-info"><b>${item.cat}</b><h3>${h.title}</h3></div>
-                </div>`;
-        });
-    }
 
     function openNav(id) {
         const h = data[id];
+        if(!h) return;
         document.getElementById('title').innerText = h.title;
         document.getElementById('meta').innerText = h.meta;
-        document.getElementById('body').innerText = h.body;
+        document.getElementById('body').innerHTML = h.body;
         document.getElementById('reader').style.display = 'block';
+        document.body.style.overflow = 'hidden';
     }
 
     function closeNav() {
         document.getElementById('reader').style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
-
-    window.onload = loadNews;
 </script>
-
 </body>
 </html>
