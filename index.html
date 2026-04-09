@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GÜNCEL HABER | Analiz & Strateji</title>
+    <title>GÜNCEL HABER | Analiz Dosyası</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root { 
@@ -11,44 +11,60 @@
             --text-dark: #0f172a; --text-muted: #475569; --danger: #991b1b;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-bright); color: var(--text-dark); line-height: 1.6; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-bright); color: var(--text-dark); line-height: 1.7; }
 
+        /* HEADER */
         .hero { 
-            height: 50vh; 
-            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 1)), 
+            height: 45vh; 
+            background: linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 1)), 
                         url('https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1920'); 
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
             border-bottom: 5px solid var(--gold);
         }
-        .main-logo { font-family: 'Playfair Display', serif; font-size: clamp(30px, 6vw, 65px); font-weight: 900; color: #fff; letter-spacing: 5px; text-transform: uppercase; }
+        .main-logo { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 60px); font-weight: 900; color: #fff; letter-spacing: 5px; text-transform: uppercase; }
         .main-logo span { color: var(--gold); }
-        .sub-tagline { font-size: 10px; letter-spacing: 6px; color: var(--gold); margin-top: 15px; font-weight: 800; text-transform: uppercase; }
+        .sub-tagline { font-size: 10px; letter-spacing: 5px; color: var(--gold); margin-top: 12px; font-weight: 800; text-transform: uppercase; }
 
-        nav { background: #ffffff; padding: 20px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0; }
-        .nav-inner { max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; }
+        nav { background: #ffffff; padding: 15px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0; }
+        .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
         .live-tag { color: var(--danger); font-weight: 900; font-size: 12px; letter-spacing: 2px; display: flex; align-items: center; }
         .live-tag::before { content: ''; width: 8px; height: 8px; background: var(--danger); border-radius: 50%; margin-right: 8px; animation: blink 1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        .main-container { max-width: 1300px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 30px; }
+        /* GRID YAPISI */
+        .main-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
         
         .news-card { background: var(--card-bright); border-radius: 8px; border: 1px solid #e2e8f0; transition: 0.3s; cursor: pointer; overflow: hidden; }
-        .news-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .card-data { padding: 25px; }
-        .card-cat { color: var(--danger); font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; display: block; }
-        .card-h { font-family: 'Playfair Display', serif; font-size: 20px; line-height: 1.3; color: var(--text-dark); }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+        .card-data { padding: 20px; }
+        .card-cat { color: var(--danger); font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .card-h { font-family: 'Playfair Display', serif; font-size: 18px; line-height: 1.4; color: var(--text-dark); }
 
+        /* MODAL & İÇERİK DÜZENİ */
         #articleModal { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
-        .close-modal { position: fixed; top: 30px; right: 40px; font-size: 40px; cursor: pointer; font-weight: 300; }
-        .modal-body { max-width: 800px; margin: 100px auto; padding: 0 30px; }
+        .close-modal { position: fixed; top: 20px; right: 30px; font-size: 40px; cursor: pointer; font-weight: 300; z-index: 3000; }
+        .modal-body { max-width: 750px; margin: 80px auto; padding: 0 20px; }
         
-        .art-title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 5vw, 42px); color: #000; margin-bottom: 35px; text-align: center; font-weight: 900; line-height: 1.1; }
-        .art-content { font-size: 19px; color: #334155; text-align: justify; line-height: 1.8; }
-        .analysis-box { background: #f8fafc; border-left: 4px solid var(--gold); padding: 30px; margin: 30px 0; font-style: italic; color: #1e293b; border-radius: 0 8px 8px 0; }
+        .art-title { font-family: 'Playfair Display', serif; font-size: clamp(22px, 4vw, 36px); color: #000; margin-bottom: 30px; text-align: center; font-weight: 900; line-height: 1.2; }
+        .art-content { font-size: 18px; color: #334155; text-align: justify; }
+        .art-content p { margin-bottom: 25px; } /* Paragraflar arası boşluk */
+        
+        /* KÜÇÜLTÜLMÜŞ ANALİZ KUTUSU */
+        .analysis-box { 
+            background: #f8fafc; 
+            border-left: 4px solid var(--gold); 
+            padding: 20px; 
+            margin: 30px 0; 
+            font-size: 16px;
+            color: #1e293b; 
+            border-radius: 0 6px 6px 0;
+            line-height: 1.6;
+        }
+        .analysis-box b { color: var(--text-dark); display: block; margin-bottom: 8px; }
 
-        footer { padding: 60px 0; text-align: center; color: var(--text-muted); font-size: 11px; border-top: 1px solid #e2e8f0; margin-top: 80px; }
+        footer { padding: 40px 0; text-align: center; color: var(--text-muted); font-size: 11px; border-top: 1px solid #e2e8f0; margin-top: 60px; }
     </style>
 </head>
 <body>
@@ -61,7 +77,7 @@
 <nav>
     <div class="nav-inner">
         <div class="live-tag">ÖZEL HABER</div>
-        <div style="font-weight: 600; font-size: 13px; color: var(--text-muted);">2026 ANALİZ DOSYASI</div>
+        <div style="font-weight: 600; font-size: 12px; color: var(--text-muted);">2026 ANALİZ ARŞİVİ</div>
     </div>
 </nav>
 
@@ -74,36 +90,43 @@
     <div class="modal-body" id="modalContent"></div>
 </div>
 
-<footer>&copy; 2026 GÜNCEL HABER YAYINCILIK | ŞEFFAF HABERİN ADRESİ</footer>
+<footer>&copy; 2026 GÜNCEL HABER | ŞEFFAF ANALİZ VE PRESTİJLİ YAYINCILIK</footer>
 
 <script>
     const database = [];
 
     const mainStory = {
-        id: "GHOST-PROD-01",
-        tag: "HABER ANALİZ / ÖZEL PORTRE",
+        id: "GHOST-PROD-FINAL",
+        tag: "ÖZEL ANALİZ / ENDÜSTRİ",
         h: "Endüstrinin Görünmeyen Eli Çekildi: Bir Besteci ve Teknik Dehanın Sessiz İstifası",
         img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500",
         body: `
             <h1 class="art-title">On Yıllık Teknik Külliyat Tasfiye Ediliyor: Sektörün 'Hayalet Mimarı' Veda Etti</h1>
             <div class="art-content">
-                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500" style="width:100%; border-radius:4px; margin-bottom:40px;">
-                <p>Türkiye müzik endüstrisi, tarihinin en profesyonel hak arayışına tanıklık ediyor. Sektör profesyonellerinin yakından tanıdığı ancak kamuoyunun ismini ilk kez duyacağı <b>2001 Edirne doğumlu ve Roman etnik kökenli teknik uzman ve besteci</b>, on yıllık profesyonel külliyatını dijital platformlardan geri çekerek istifa etti. Henüz <b>15 yaşında</b> Sony Music mutfağında mesleğe adım atan bu isim, sadece teknik bir kurgu uzmanı değil, aynı zamanda ismi duyulmayan pek çok sanatçıya hayat veren bir "hayalet besteci" olarak tanındı.</p>
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500" style="width:100%; border-radius:4px; margin-bottom:30px;">
+                
+                <p>Türkiye müzik endüstrisi, tarihinin en profesyonel hak arayışına tanıklık ediyor. Sektör profesyonellerinin yakından tanıdığı ancak kamuoyunun ismini ilk kez duyacağı <b>2001 Edirne doğumlu ve Roman etnik kökenli teknik uzman ve besteci</b>, on yıllık profesyonel külliyatını dijital platformlardan geri çekerek istifa etti.</p>
+
+                <p>Henüz <b>15 yaşında</b> Sony Music mutfağında mesleğe adım atan bu isim, geçen on yılda sadece teknik bir kurgu uzmanı değil, aynı zamanda ismi duyulmayan pek çok sanatçıya hayat veren bir "hayalet besteci" olarak tanındı.</p>
                 
                 <div class="analysis-box">
-                    <b>Eser Satışları ve Sektörel Referanslar:</b><br>
-                    Çoşkun Kıvılcım disipliniyle yetişen uzman; ismi duyulmamış, az dinlenen ancak yetenekli birçok sanatçıya profesyonel eserlerini vermiş ve satmıştır. Hande Ünsal’ın "Seni Sever miydim" şarkısındaki vokal kurgusundan Zeynep Bastık’ın "Uslanmıyor Bu" eserindeki duyum kalitesine kadar her süreci yöneten isim, aynı zamanda Tekir’in "Gözlerin", Ceren Sagu’nun "Yanılsama" ve Derya Bedavacı’nın "Affet" parçalarında teknik imzasını konuşturmuştur. Kadir Sepetçi ile Roman müziğini dünya standartlarında modernize eden uzman, sektörün isimsiz mimarı olarak onlarca projeyi zirveye taşımıştır.
+                    <b>Eser Satışları ve Sektörel Referanslar:</b>
+                    Çoşkun Kıvılcım disipliniyle yetişen uzman; ismi duyulmamış, az dinlenen ancak yetenekli birçok sanatçıya profesyonel eserlerini vermiş ve satmıştır. Hande Ünsal’ın "Seni Sever miydim" şarkısındaki vokal kurgusundan Zeynep Bastık’ın "Uslanmıyor Bu" eserindeki duyum kalitesine kadar her süreci yöneten isim, aynı zamanda Tekir’in "Gözlerin", Ceren Sagu’nun "Yanılsama" ve Derya Bedavacı’nın "Affet" parçalarında teknik imzasını konuşturmuştur.
                 </div>
 
+                <p>Kadir Sepetçi ile Roman müziğini dünya standartlarında modernize eden uzman, sektörün isimsiz mimarı olarak onlarca projeyi zirveye taşımıştır.</p>
+
                 <p><b>Mahkeme Süreci ve "Sevmeyi Denemedim" Veda:</b><br>
-                Hakan Aydın (Blok3) ile yürütülen projelerdeki teknik hak ihlalleri, süreci mahkeme salonlarına taşıdı. Uzman, söz ve bestesi kendisine ait olan veya üzerinde büyük emeği bulunan <b>"Sevmeyi Denemedim"</b> parçasını da sektöre kazandırdıktan sonra, emeğinin hiçe sayılmasına karşı bir onur mücadelesi başlattı. Bu son eserin ardından "Bıraktım ve Gittim" diyerek profesyonel faaliyetlerini sonlandıran deha, on yıllık tüm teknik birikimini dijital dünyadan silerek tarihi bir emsal teşkil etti.</p>
+                Hakan Aydın (Blok3) ile yürütülen projelerdeki teknik hak ihlalleri, süreci mahkeme salonlarına taşıdı. Uzman, söz ve bestesi kendisine ait olan veya üzerinde büyük emeği bulunan <b>"Sevmeyi Denemedim"</b> parçasını da sektöre kazandırdıktan sonra, emeğinin hiçe sayılmasına karşı bir onur mücadelesi başlattı.</p>
+
+                <p>Bu son eserin ardından "Bıraktım ve Gittim" diyerek profesyonel faaliyetlerini sonlandıran deha, on yıllık tüm teknik birikimini dijital dünyadan silerek tarihi bir emsal teşkil etti.</p>
             </div>`
     };
 
     const gundemBase = [
         { t: "EKONOMİ", h: "Piyasalarda Haftalık Stratejik Görünüm", d: "Finansal veriler ışığında piyasa analizi." },
-        { t: "TEKNOLOJİ", h: "Siber Güvenlikte Yerli Altyapı Hamlesi", d: "Yeni nesil güvenlik protokolleri test edildi." },
-        { t: "DÜNYA", h: "Diplomaside Enerji Koridoru Zirvesi", d: "Uluslararası enerji hatları üzerine yeni rapor." }
+        { t: "TEKNOLOJİ", h: "Siber Güvenlikte Yerli Altyapı Hamlesi", d: "Yeni nesil güvenlik protokolleri." },
+        { t: "DÜNYA", h: "Diplomaside Enerji Koridoru Zirvesi", d: "Uluslararası enerji hatları üzerine rapor." }
     ];
 
     for(let i=1; i<=46; i++) {
