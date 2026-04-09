@@ -1,32 +1,23 @@
-/* CSS Güncellemesi: Daha Modern Kartlar ve Geçişler */
-.news-card {
-    border-radius: 8px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.news-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-.news-card img {
-    transition: transform 0.5s ease;
-}
-
-.news-card:hover img {
-    transform: scale(1.1);
-}
-
-/* Okuma Ekranı İçin Yumuşak Geçiş */
-#reader {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-#reader.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
+const data = {
+    // ... eski verileriniz burada kalabilir ...
+    103: {
+        title: "Merkez Bankası'ndan Dijital Lira Hamlesi",
+        meta: "9 NİSAN 2026 | EKONOMİ",
+        body: "<p>Merkez Bankası, yerli dijital para birimi projesinde ikinci aşamaya geçildiğini duyurdu. Yeni sistemin bankalar arası transferlerde hızı %80 artırması bekleniyor.</p>"
+    },
+    104: {
+        title: "Yapay Zeka Antarktika'da Gizli Göller Keşfetti",
+        meta: "9 NİSAN 2026 | BİLİM & TEKNOLOJİ",
+        body: "<p>Uydu görüntülerini analiz eden yeni nesil bir algoritma, buz tabakasının yüzlerce metre altında daha önce haritalanmamış 12 yeni göl tespit etti.</p>"
+    },
+    105: {
+        title: "Otomobil Satışlarında Elektrikli Devrimi",
+        meta: "9 NİSAN 2026 | OTOMOTİV",
+        body: "<p>Türkiye pazarında Mart ayında satılan her 3 araçtan birinin elektrikli olması, sektörde tarihi bir rekor olarak kayıtlara geçti.</p>"
+    },
+    106: {
+        title: "Bodrum'da Antik Tiyatro Restore Ediliyor",
+        meta: "9 NİSAN 2026 | KÜLTÜR & SANAT",
+        body: "<p>Kültür Bakanlığı, Halikarnas bölgesindeki antik tiyatronun aslına uygun restorasyonu için dev bir bütçe ayırdı.</p>"
+    }
+};
