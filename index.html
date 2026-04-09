@@ -3,170 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HABER TÜRKİYE | Son Dakika</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>GÜNCEL HABER | Haberin Kalbi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #cc0000; --black: #111; --border: #eee; --bg: #fcfcfc; --text: #1a1a1a; }
+        :root { --red: #e31212; --black: #0a0a0a; --border: #ececec; --bg: #ffffff; --text: #1a1a1a; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
 
-        /* HEADER & NAV */
-        header { background: #fff; padding: 15px 0; border-bottom: 1px solid var(--border); text-align: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 40px; color: var(--black); text-decoration: none; font-weight: 900; letter-spacing: -2px; }
-        
-        nav { background: var(--black); color: #fff; position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid var(--red); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .nav-inner { max-width: 1100px; margin: auto; display: flex; gap: 25px; padding: 15px 20px; font-size: 11px; font-weight: 800; text-transform: uppercase; overflow-x: auto; scrollbar-width: none; }
-        .nav-inner span { cursor: pointer; transition: 0.2s; white-space: nowrap; }
+        /* ÜST BİLGİ ŞERİDİ */
+        .top-bar { background: #f8f8f8; border-bottom: 1px solid var(--border); padding: 8px 0; font-size: 11px; font-weight: 700; color: #666; }
+        .top-inner { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; padding: 0 20px; text-transform: uppercase; }
+
+        /* LOGO ALANI - ÖZEL TASARIM */
+        header { padding: 40px 0; text-align: center; border-bottom: 1px solid var(--border); background: #fff; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 55px; color: var(--black); text-decoration: none; font-weight: 900; letter-spacing: -3px; line-height: 1; }
+        .logo span { color: var(--red); font-style: italic; font-weight: 700; letter-spacing: -1px; margin-left: 5px; }
+        .slogan { font-size: 11px; text-transform: uppercase; letter-spacing: 4px; color: #999; margin-top: 10px; font-weight: 600; }
+
+        /* NAVİGASYON */
+        nav { background: #fff; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--black); }
+        .nav-inner { max-width: 1200px; margin: auto; display: flex; justify-content: center; gap: 35px; padding: 18px 20px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-inner span { cursor: pointer; transition: 0.3s; position: relative; }
         .nav-inner span:hover { color: var(--red); }
 
-        /* CONTAINER */
-        .container { max-width: 1100px; margin: 30px auto; display: grid; grid-template-columns: 1fr 320px; gap: 30px; padding: 0 20px; }
+        /* İÇERİK */
+        .container { max-width: 1200px; margin: 40px auto; display: grid; grid-template-columns: 1fr 320px; gap: 40px; padding: 0 20px; }
 
-        /* NEWS CARDS */
-        .news-card { background: #fff; border: 1px solid var(--border); display: grid; grid-template-columns: 220px 1fr; gap: 20px; padding: 15px; cursor: pointer; margin-bottom: 20px; transition: all 0.3s ease; border-radius: 4px; }
-        .news-card:hover { border-color: #ccc; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .news-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 2px; }
-        .news-info b { color: var(--red); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 8px; }
-        .news-info h3 { font-family: 'Playfair Display', serif; font-size: 22px; line-height: 1.2; margin-bottom: 10px; font-weight: 700; }
-        .news-info p { font-size: 14px; color: #666; line-height: 1.5; }
+        /* HABER KARTLARI */
+        .news-card { background: #fff; display: grid; grid-template-columns: 240px 1fr; gap: 25px; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid var(--border); cursor: pointer; transition: 0.3s; }
+        .news-card:hover .news-info h3 { color: var(--red); }
+        .news-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 4px; filter: grayscale(20%); transition: 0.5s; }
+        .news-card:hover img { filter: grayscale(0%); transform: scale(1.02); }
+        .news-info b { color: var(--red); font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; display: block; }
+        .news-info h3 { font-family: 'Playfair Display', serif; font-size: 26px; line-height: 1.2; font-weight: 800; margin-bottom: 12px; transition: 0.3s; }
+        .news-info p { font-size: 15px; color: #555; line-height: 1.6; font-weight: 400; }
 
-        /* READER SCREEN */
-        #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 2001; overflow-y: auto; }
-        .reader-inner { max-width: 750px; margin: 40px auto; padding: 0 25px; }
-        .close-btn { background: #f0f0f0; color: #000; border: none; padding: 12px 20px; cursor: pointer; margin-bottom: 30px; font-weight: 800; border-radius: 50px; transition: 0.2s; }
-        .close-btn:hover { background: var(--black); color: #fff; }
-        .article-header h1 { font-family: 'Playfair Display', serif; font-size: 48px; line-height: 1.1; margin-bottom: 20px; }
-        .article-meta { font-size: 12px; color: #888; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid #f0f0f0; display: flex; justify-content: space-between; font-weight: 700; }
-        .article-body { font-size: 20px; line-height: 1.9; color: #222; }
-        .article-body p { margin-bottom: 25px; }
-        
-        .related-section { margin-top: 50px; padding-top: 30px; border-top: 5px solid var(--black); }
-        .related-title { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 20px; }
+        /* OKUMA MODU */
+        #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 2000; overflow-y: auto; }
+        .reader-inner { max-width: 800px; margin: 60px auto; padding: 0 30px; }
+        .close-btn { background: var(--black); color: #fff; border: none; padding: 14px 28px; cursor: pointer; margin-bottom: 50px; font-size: 12px; font-weight: 800; border-radius: 2px; }
+        .article-title { font-family: 'Playfair Display', serif; font-size: 52px; line-height: 1.1; font-weight: 900; margin-bottom: 25px; }
+        .article-meta { color: #888; font-size: 13px; font-weight: 700; margin-bottom: 40px; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .article-body { font-size: 21px; line-height: 2; color: #111; text-align: justify; }
+        .article-body p { margin-bottom: 30px; }
 
-        /* ASIDE STICKY */
-        aside { position: sticky; top: 100px; height: fit-content; }
-        .side-widget { background: #fff; border: 1px solid var(--border); padding: 25px; border-top: 5px solid var(--red); margin-bottom: 20px; }
+        /* YAN SÜTUN */
+        .side-title { font-family: 'Playfair Display', serif; font-size: 22px; border-bottom: 3px solid var(--black); padding-bottom: 10px; margin-bottom: 20px; }
+        .side-item { font-size: 14px; font-weight: 700; line-height: 1.5; margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; cursor: pointer; }
+        .side-item:hover { color: var(--red); }
 
-        @media (max-width: 850px) { 
-            .container { grid-template-columns: 1fr; }
-            .news-card { grid-template-columns: 1fr; }
-            .news-card img { height: 200px; }
-            .article-header h1 { font-size: 32px; }
+        @media (max-width: 900px) {
+            .container, .news-card { grid-template-columns: 1fr; }
+            .logo { font-size: 40px; }
+            .article-title { font-size: 34px; }
         }
     </style>
 </head>
 <body>
 
-<header><a href="#" class="logo">HABER TÜRKİYE</a></header>
+<div class="top-bar">
+    <div class="top-inner">
+        <div>IST: 24°C | BIST: 9.450 | USD: 32.44</div>
+        <div>9 NİSAN 2026 | PERŞEMBE</div>
+    </div>
+</div>
+
+<header>
+    <a href="#" class="logo">GÜNCEL<span>HABER</span></a>
+    <div class="slogan">Gerçek Bilgi, Doğru Zaman</div>
+</header>
+
 <nav>
     <div class="nav-inner">
-        <span>Gündem</span><span>Ekonomi</span><span>Siyaset</span><span>Teknoloji</span><span>Spor</span><span>Yaşam</span><span>Kültür</span>
+        <span>Gündem</span><span>Siyaset</span><span>Ekonomi</span><span>Teknoloji</span><span>Spor</span><span>Yaşam</span>
     </div>
 </nav>
 
 <div class="container">
-    <main id="main-flow">
-        </main>
-
+    <main id="haber-akisi"></main>
+    
     <aside>
-        <div class="side-widget">
-            <h4 style="margin-bottom:15px; font-family:'Playfair Display'; border-bottom: 1px solid #eee; padding-bottom:10px;">SON DAKİKA</h4>
-            <ul style="list-style:none; font-size:13px; font-weight:600; line-height:2.5;">
-                <li style="border-bottom:1px solid #f9f9f9;">• Altın piyasasında hareketli saatler</li>
-                <li style="border-bottom:1px solid #f9f9f9;">• İstanbul metrosunda yeni hat açıldı</li>
-                <li style="border-bottom:1px solid #f9f9f9;">• Milli Takım kadrosu açıklandı</li>
-                <li>• Teknoloji devinden dev yatırım</li>
-            </ul>
-        </div>
+        <div class="side-title">Trendler</div>
+        <div class="side-item">#MilliTeknoloji: Yerli çip üretimi için tesis kuruluyor.</div>
+        <div class="side-item">#SüperLig: Dev derbinin hakemi belli oldu.</div>
+        <div class="side-item">#Antarktika: Türk bilim heyeti yeni üsse ulaştı.</div>
     </aside>
 </div>
 
 <div id="reader">
     <div class="reader-inner">
         <button class="close-btn" onclick="closeNav()">← ANA SAYFAYA DÖN</button>
-        <div class="article-header">
-            <h1 id="r-title"></h1>
-            <div class="article-meta">
-                <span id="r-meta"></span>
-                <span id="r-time">⏱ 4 DK OKUMA</span>
-            </div>
-        </div>
+        <h1 id="r-title" class="article-title"></h1>
+        <div id="r-meta" class="article-meta"></div>
         <div id="r-body" class="article-body"></div>
-        
-        <div class="related-section">
-            <h3 class="related-title">Benzer Haberler</h3>
-            <div id="related-news"></div>
-        </div>
     </div>
 </div>
 
 <script>
-    const config = {
-        haberSayisi: 50,
-        kategoriler: ["GÜNDEM", "EKONOMİ", "SİYASET", "SPOR", "TEKNOLOJİ", "DÜNYA"],
-        basliklar: [
-            "Türkiye'nin Ekonomi Vizyonu Belli Oldu",
-            "İstanbul'da Tarihi Keşif Heyecanı",
-            "Milli Teknoloji Hamlesinde Yeni Adım",
-            "Süper Lig'de Şampiyonluk Yarışı",
-            "Uluslararası Zirveden Kritik Kararlar",
-            "Enerjide Yeni Dönem Başlıyor"
-        ],
-        gorseller: [
-            "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=600",
-            "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600",
-            "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600",
-            "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600"
-        ]
-    };
+    const haberHavuzu = [
+        { t: "Türkiye'nin Ekonomi Yol Haritası Belli Oldu", c: "EKONOMİ", i: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=700" },
+        { t: "İstanbul'da Tarihi Sarnıç Heyecanı Sürüyor", c: "KÜLTÜR", i: "https://images.unsplash.com/photo-1569429593410-b498b3fb3387?w=700" },
+        { t: "KAAN Gökyüzünde Gövde Gösterisi Yaptı", c: "SAVUNMA", i: "https://images.unsplash.com/photo-1517976487492-5750f3195933?w=700" },
+        { t: "Yerli Otomobil İçin Yeni Yazılım Güncellemesi", c: "TEKNOLOJİ", i: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=700" },
+        { t: "Süper Lig'de Şampiyonluk Yarışı Nefes Kesiyor", c: "SPOR", i: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=700" }
+    ];
 
     const data = {};
-    const flow = document.getElementById('main-flow');
+    const akis = document.getElementById('haber-akisi');
 
-    // HABERLERİ OLUŞTUR
-    for(let i = 1; i <= config.haberSayisi; i++) {
-        const cat = config.kategoriler[i % config.kategoriler.length];
-        const title = config.basliklar[i % config.basliklar.length] + " #" + i;
-        const img = config.gorseller[i % config.gorseller.length];
-
+    // 50+ HABER ÜRETİMİ
+    for(let i = 1; i <= 55; i++) {
+        const h = haberHavuzu[i % haberHavuzu.length];
+        const baslik = h.t + " (" + i + ")";
+        
         data[i] = {
-            title: title,
-            meta: `9 NİSAN 2026 | ${cat} | TÜRKİYE`,
+            title: baslik,
+            meta: `9 NİSAN 2026 | ${h.c} | GÜNCEL HABER ÖZEL`,
             body: `
-                <p>Türkiye'nin gündemini belirleyen önemli gelişmelerden biri olan <b>${title}</b> konusu, uzmanlar tarafından derinlemesine analiz edildi. Alınan bilgilere göre, bu adım Türkiye'nin gelecek 10 yıllık vizyonuyla birebir örtüşüyor.</p>
-                <p>Sektör temsilcileri yaptıkları ortak açıklamada, bu hamlenin istihdamdan teknoloji üretimine kadar geniş bir yelpazede pozitif etkiler yaratacağını vurguladı. Özellikle kamu ve özel sektör işbirliği ile yürütülen projelerin, Türkiye'nin global rekabet gücünü artıracağı öngörülüyor.</p>
-                <p>Olayın arka planında yatan detaylar ise oldukça çarpıcı. Uzun süredir üzerinde çalışılan bu paket, sadece yerel değil, aynı zamanda bölgesel bir etki yaratma potansiyeline sahip. Bakanlık tarafından yayınlanan teknik detaylarda, projenin şeffaflık ilkesiyle yürütüleceği belirtildi.</p>
-                <p>Vatandaşların da büyük destek verdiği bu gelişme, sosyal medyada en çok tartışılan konular listesinde bir numaraya yükseldi. Önümüzdeki günlerde gerçekleşecek olan tanıtım toplantısıyla birlikte, projenin tüm detayları grafikler ve veriler eşliğinde halkla paylaşılacak.</p>
+                <p>Türkiye'nin kalbi Ankara ve İstanbul'dan gelen son dakika bilgilerine göre, <b>${baslik}</b> konusuyla ilgili beklenen kritik eşik aşıldı. Uzman heyetlerin aylardır üzerinde çalıştığı raporlar bugün kamuoyuyla paylaşıldı.</p>
+                <p>Projenin teknik detaylarına bakıldığında, yerli kaynakların kullanım oranının %85 seviyesine ulaştığı görülüyor. Bu durum, Türkiye'nin kendi kendine yetebilme vizyonunun ne kadar başarılı ilerlediğinin en büyük kanıtı olarak gösteriliyor. Bakanlık tarafından yapılan açıklamada, sürecin planlandığı gibi işlediği ve herhangi bir aksama yaşanmadığı belirtildi.</p>
+                <p>Halkın ve yatırımcıların büyük bir merakla beklediği bu gelişme, sadece bugünümüzü değil, önümüzdeki yirmi yılımızı da doğrudan etkileyecek güce sahip. Finans çevreleri, bu adımın piyasalara olan yansımasını "tarihi bir dönüm noktası" olarak nitelendiriyor. Sürecin her adımını takip etmeye devam edeceğiz.</p>
+                <p>Haberin diğer ayrıntılarında ise sosyal etkiler ön plana çıkıyor. Projenin hayata geçmesiyle birlikte binlerce kişiye yeni iş imkanı sağlanması ve bölgesel kalkınmanın hızlanması hedefleniyor. Gelişmeler anlık olarak GÜNCEL HABER üzerinden aktarılacaktır.</p>
             `
         };
 
-        flow.innerHTML += `
+        akis.innerHTML += `
             <div class="news-card" onclick="openNav(${i})">
-                <img src="${img}">
+                <img src="${h.i}">
                 <div class="news-info">
-                    <b>${cat}</b>
-                    <h3>${title}</h3>
-                    <p>Türkiye'nin gündemini sarsan gelişmenin detayları belli oldu. Uzmanlar ne diyor?</p>
+                    <b>${h.c}</b>
+                    <h3>${baslik}</h3>
+                    <p>Haberin tüm detayları ve uzman yorumlarıyla Türkiye'nin en güncel haber akışı burada.</p>
                 </div>
             </div>`;
     }
 
     function openNav(id) {
         const h = data[id];
-        if(!h) return;
-
         document.getElementById('r-title').innerText = h.title;
         document.getElementById('r-meta').innerText = h.meta;
         document.getElementById('r-body').innerHTML = h.body;
-        
-        // Okuma ekranını aç
-        const reader = document.getElementById('reader');
-        reader.style.display = 'block';
+        document.getElementById('reader').style.display = 'block';
         document.body.style.overflow = 'hidden';
-        reader.scrollTo(0, 0);
-
-        // Tarayıcı geçmişine ekle (Geri tuşu için)
-        window.history.pushState({articleId: id}, h.title, `#haberno-${id}`);
+        window.history.pushState({aid: id}, h.title, "#haber-" + id);
+        document.getElementById('reader').scrollTo(0,0);
     }
 
     function closeNav() {
@@ -174,11 +154,7 @@
         document.body.style.overflow = 'auto';
     }
 
-    // Geri tuşu kontrolü
-    window.onpopstate = function(event) {
-        closeNav();
-    };
-
+    window.onpopstate = () => closeNav();
 </script>
 
 </body>
