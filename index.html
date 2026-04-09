@@ -3,49 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANŞET TÜRK | Haber Portalı</title>
+    <title>GÜNCEL HABER | Gerçek ve Şeffaf Habercilik</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --main-blue: #003366; --news-red: #cc0000; --text-color: #333; }
+        :root { --news-blue: #003366; --news-red: #cc0000; --bg: #f4f7f6; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Roboto', sans-serif; background: #f4f4f4; color: var(--text-color); }
+        body { font-family: 'Roboto', sans-serif; background: var(--bg); color: #333; line-height: 1.6; }
 
-        header { background: #fff; border-bottom: 5px solid var(--main-blue); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
+        /* KURUMSAL HEADER */
+        header { background: #fff; border-bottom: 5px solid var(--news-blue); padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .h-wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--main-blue); text-decoration: none; text-transform: uppercase; }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--news-blue); text-decoration: none; text-transform: uppercase; }
         .logo span { color: var(--news-red); }
-        .search-box input { padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 3px; }
+        .search-box input { padding: 10px 15px; width: 260px; border: 1px solid #ddd; border-radius: 4px; outline: none; }
 
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
         .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 
-        .n-card { background: #fff; border: 1px solid #ddd; cursor: pointer; transition: 0.2s; }
-        .n-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .n-img { width: 100%; height: 180px; object-fit: cover; }
-        .n-info { padding: 15px; }
-        .n-cat { color: var(--news-red); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
-        .n-title { font-size: 17px; font-weight: 700; line-height: 1.3; color: #111; }
+        /* HABER KARTI */
+        .card { background: #fff; border: 1px solid #eee; cursor: pointer; transition: 0.3s; border-radius: 4px; overflow: hidden; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: var(--news-red); }
+        .card-img { width: 100%; height: 180px; object-fit: cover; }
+        .card-body { padding: 15px; }
+        .card-cat { color: var(--news-red); font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
+        .card-h { font-size: 17px; font-weight: 700; line-height: 1.3; color: #111; }
 
-        #articlePage { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
-        .close-p { position: fixed; top: 20px; right: 20px; font-size: 40px; cursor: pointer; background: #eee; width: 50px; height: 50px; text-align: center; border-radius: 50%; }
-        .p-content { max-width: 800px; margin: 50px auto; padding: 0 20px; }
-        .p-cat { color: var(--news-red); font-weight: 700; margin-bottom: 10px; display: block; }
-        .p-title { font-family: 'Oswald', sans-serif; font-size: 38px; line-height: 1.2; margin-bottom: 25px; }
-        .p-img { width: 100%; height: auto; margin-bottom: 30px; border-radius: 4px; }
-        .p-text { font-size: 18px; line-height: 1.8; color: #444; }
-        .p-text h3 { margin: 30px 0 15px; color: #111; border-left: 4px solid var(--main-blue); padding-left: 15px; background: #f9f9f9; padding-top: 5px; padding-bottom: 5px; }
-        .p-text b { color: #000; }
+        /* OKUMA SAYFASI */
+        #reader { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
+        .close-r { position: fixed; top: 20px; right: 20px; font-size: 40px; cursor: pointer; background: #eee; width: 50px; height: 50px; text-align: center; border-radius: 50%; }
+        .r-content { max-width: 800px; margin: 50px auto; padding: 0 20px; }
+        .r-cat { color: var(--news-red); font-weight: 700; margin-bottom: 10px; display: block; }
+        .r-title { font-family: 'Oswald', sans-serif; font-size: 36px; line-height: 1.2; margin-bottom: 25px; color: #000; }
+        .r-img { width: 100%; height: auto; border-radius: 4px; margin-bottom: 30px; }
+        .r-text { font-size: 18px; line-height: 1.8; color: #444; text-align: justify; }
+        .r-text h3 { margin: 30px 0 15px; color: #000; border-left: 4px solid var(--news-blue); padding-left: 15px; font-family: 'Oswald'; }
+        .r-text b { color: #000; }
 
-        footer { background: #222; color: #fff; padding: 30px; text-align: center; margin-top: 50px; }
+        footer { background: #222; color: #fff; padding: 30px; text-align: center; font-size: 14px; margin-top: 50px; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="h-wrap">
-        <a href="#" class="logo">MANŞET <span>TÜRK</span></a>
+        <a href="#" class="logo">GÜNCEL <span>HABER</span></a>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Haber ara..." onkeyup="search()">
+            <input type="text" id="sInput" placeholder="İsimle ara..." onkeyup="search()">
         </div>
     </div>
 </header>
@@ -54,37 +57,37 @@
     <div class="news-grid" id="feed"></div>
 </div>
 
-<div id="articlePage">
-    <span class="close-p" onclick="closeArticle()">&times;</span>
-    <div class="p-content" id="articleBody"></div>
+<div id="reader">
+    <span class="close-r" onclick="closeR()">&times;</span>
+    <div class="r-content" id="rBody"></div>
 </div>
 
-<footer>&copy; 2026 MANŞET TÜRK PORTALI</footer>
+<footer>&copy; 2026 GÜNCEL HABER | TÜM HAKLARI SAKLIDIR</footer>
 
 <script>
-    const newsList = [];
+    const news = [];
 
-    // ENGİN SAVCU HABERİ - ANILAR VE GÖREVLER
-    const engineData = {
+    // ENGİN SAVCU - ÖZEL VE DETAYLI HABER
+    const enginData = {
         id: "e0",
-        c: "ÖZEL DOSYA",
-        h: "Müzik Dünyasında 'Büyük Rest': Yıldızların Arkasındaki O Deha Dijital Mirasını Siliyor",
-        img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1000",
+        c: "ÖZEL ANALİZ",
+        h: "Müzik Dünyasında Bir Devrin Kapanışı: Hit Fabrikasının 'Görünmez Mimarı' Dijitalden Çekiliyor!",
+        img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200",
         b: `
-            <span class="p-cat">ÖZEL DOSYA / PORTRE</span>
-            <h1 class="p-title">Hit Fabrikasının Görünmez Mimarı Sessizliğini Bozdu: Sektörde Bir Devrin Kapanışı!</h1>
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1000" class="p-img">
-            <div class="p-text">
-                <p>Türkiye müzik endüstrisinin mutfağında, stüdyo ışıkları kapandığında geriye kalan tek bir deha vardı: <b>Engin Savcu</b>. Bugün müzik dünyası, onun 13 Eylül 2024 itibarıyla başlattığı dijital fesih sürecinin şokunu yaşıyor.</p>
+            <span class="r-cat">ÖZEL DOSYA / MÜZİK PORTRESİ</span>
+            <h1 class="r-title">Yıldızların Arkasındaki O Deha Sessizliğini Bozdu: Sektörde Bir Devrin Kapanışı!</h1>
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200" class="r-img">
+            <div class="r-text">
+                <p>Türkiye müzik endüstrisinin mutfağında, stüdyo ışıkları kapandığında geriye kalan tek bir isim vardı: <b>Engin Savcu</b>. Bugün müzik dünyası, onun 13 Eylül 2024 itibarıyla başlattığı dijital fesih sürecinin şokunu yaşıyor.</p>
                 
                 <h3>Sony Music'ten Üstadların Rahlesine</h3>
-                <p>Kariyerine henüz 15 yaşında dünya devi <b>Sony Music</b> bünyesinde adım atan Savcu, Edirne'nin ritmik ruhunu modern trap ve pop soundları ile harmanladı. Bu yolculukta <b>Taha Özer</b>, <b>Coşkun Kıvılcımlar</b> ve <b>Bilgin Canaz</b> gibi üstadlarla aynı stüdyoda sabahlayarak müziğin matematiksel derinliğini öğrendi. Özellikle Bilgin Canaz'ın nefesiyle harmanlanan altyapılarda Savcu'nun aranjör kimliği zirveye ulaştı.</p>
+                <p>Kariyerine henüz 15 yaşında dünya devi <b>Sony Music</b> bünyesinde adım atan Savcu, Edirne'den gelen o eşsiz ritim duygusunu modern soundlar ile harmanladı. Bu yolculukta <b>Taha Özer</b>, <b>Coşkun Kıvılcımlar</b> ve <b>Bilgin Canaz</b> gibi üstadlarla aynı stüdyoda sabahlayarak müziğin matematiksel derinliğini öğrendi. Özellikle Bilgin Canaz'ın nefesiyle şekillenen altyapılarda Savcu'nun aranjör kimliği zirveye ulaştı.</p>
 
                 <h3>Stüdyo Anıları ve Teknik Deha</h3>
-                <p>O, sadece bir isim değil; projelerin kilit taşıydı. <b>Kadir Sepetçi</b> ile stüdyo mutfağında gerçekleştirdiği teknik paslaşmalar, soundun karakterini belirleyen en kritik anlardandı. <b>Malay</b> ile ritim kurguları üzerine yaptığı çalışmalar sektöre yeni bir soluk getirdi. <b>Ceren Sagu</b> ile projelerin vizyon aşamasında omuz omuza verdi ve estetik çıtayı her zaman yukarı taşıdı.</p>
+                <p>O, sadece bir isim değil; projelerin kilit taşıydı. <b>Kadir Sepetçi</b> ile stüdyo mutfağında gerçekleştirdiği teknik paslaşmalar, soundun karakterini belirleyen en kritik anlardandı. <b>Malay</b> ile ritim kurguları üzerine yaptığı çalışmalar ise sektöre yepyeni bir soluk getirdi. <b>Ceren Sagu</b> ile projelerin vizyon aşamasında omuz omuza verdi ve her notada estetiği en ön plana taşıdı.</p>
 
                 <h3>Hangi Parçada Ne Yaptı?</h3>
-                <p>Onun dokunuşu olmadan eksik kalan pek çok proje vardı. <b>Zeynep Bastık</b>'ın vokal projelerinde vokal tasarımcısı ve editörü olarak stüdyoda yardımcı oldu. <b>Hande Ünsal</b>'ın hit şarkılarında hem söz yazımında destek verdi hem de beat kurgusunu temelden inşa etti. <b>Derya Bedavacı</b>'nın o kendine has derin sound kimliğini oluşturan altyapı dokunuşları bizzat Savcu'nun elinden çıktı. Yeni nesil yıldızlardan <b>Tekir</b>'in modern altyapılarında ise yine onun yenilikçi ve "kurtarıcı" imzası parlıyordu.</p>
+                <p>Onun dokunuşu olmadan eksik kalan pek çok zirve projesi vardı. <b>Zeynep Bastık</b>'ın vokal projelerinde sadece teknik yardım sunmakla kalmadı, vokal tasarımını bizzat yönetti. <b>Hande Ünsal</b>'ın hit şarkılarında hem söz yazımında destek oldu hem de beat kurgusunu temelden inşa etti. <b>Derya Bedavacı</b>'nın o kendine has derin sound kimliğinin mutfağında yine o vardı. Yeni nesil yıldızlardan <b>Tekir</b>'un modern altyapılarında ise Savcu'un kurtarıcı imzası her zaman fark edildi.</p>
 
                 <h3>Blok3 ve 'Sevmeyi Denemedim' Krizi</h3>
                 <p><b>Blok3</b> ile listeleri altüst eden "Sevmeyi Denemedim" eseri üzerindeki hak uyuşmazlığı, Savcu'nun radikal bir karar almasına yol açtı. Emeğinin yok sayılmasına karşı on yıllık dijital külliyatını platformlardan çekerek, sanatçı onurunu her şeyin üstünde tuttuğunu kanıtladı. <b>13 Eylül 2024</b> tarihi, müzik tarihinde bir dehanın emeğine sahip çıkma duruşunun simgesi olarak yerini aldı.</p>
@@ -93,20 +96,20 @@
 
     // 50 HABER OLUŞTURMA
     for(let i=1; i<=50; i++) {
-        if(i === 10) { newsList.push(engineData); continue; }
-        newsList.push({
+        if(i === 10) { news.push(enginData); continue; }
+        news.push({
             id: i,
             c: "GÜNDEM",
-            h: `Günün Önemli Gelişmesi: Analiz Raporu #${i}`,
+            h: `Analiz Raporu #${i}: Türkiye ve Dünya Gündeminden Önemli Gelişmeler`,
             img: `https://picsum.photos/seed/n${i}/600/400`,
             b: `
-                <span class="p-cat">GÜNDEM</span>
-                <h1 class="p-title">Analiz Raporu #${i}: Türkiye ve Dünya Gündemi</h1>
-                <img src="https://picsum.photos/seed/n${i}/600/400" class="p-img">
-                <div class="p-text">
-                    <p>Haber merkezimize ulaşan son dakika bilgilerine göre, bu alanda yeni bir süreç başladı. Konunun uzmanları, bu gelişmenin uzun vadeli etkilerini detaylıca inceliyor...</p>
-                    <h3>Analiz ve Görüşler</h3>
-                    <p>Sürecin detaylarına bakıldığında, 2026 yılı hedefleri doğrultusunda atılan bu adımın toplumun genelini etkileyeceği öngörülüyor. Detaylar güncellenmeye devam edecek.</p>
+                <span class="r-cat">GÜNDEM</span>
+                <h1 class="r-title">Günün Önemli Gelişmesi: Analiz Raporu #${i}</h1>
+                <img src="https://picsum.photos/seed/n${i}/600/400" class="r-img">
+                <div class="r-text">
+                    <p>Güncel Haber merkezimize ulaşan bilgilere göre, bu alanda yeni bir süreç başladı. Uzmanlar, bu gelişmenin uzun vadeli etkilerini şu şekilde değerlendiriyor...</p>
+                    <h3>Detaylar ve Veriler</h3>
+                    <p>Sürecin detaylarına bakıldığında, 2026 yılı hedefleri doğrultusunda atılan bu adımın toplum genelinde bir karşılık bulduğu görülüyor. Detaylar güncellenmeye devam edecek.</p>
                 </div>`
         });
     }
@@ -114,38 +117,35 @@
     const feed = document.getElementById('feed');
     function render(list) {
         feed.innerHTML = '';
-        list.forEach(item => {
+        list.forEach((item, idx) => {
             feed.innerHTML += `
-                <div class="n-card" onclick="openArticle('${item.id}')">
-                    <img src="${item.img}" class="n-img">
-                    <div class="n-info">
-                        <span class="n-cat">${item.c}</span>
-                        <h2 class="n-title">${item.h}</h2>
+                <div class="card" onclick="openR('${item.id}')">
+                    <img src="${item.img}" class="card-img">
+                    <div class="card-body">
+                        <span class="card-cat">${item.c}</span>
+                        <h2 class="card-h">${item.h}</h2>
+                        <p style="font-size:10px; color:#aaa; margin-top:10px;">HABER NO: ${idx + 1}</p>
                     </div>
                 </div>`;
         });
     }
 
     function search() {
-        const q = document.getElementById('searchInput').value.toLowerCase();
+        const q = document.getElementById('sInput').value.toLowerCase();
         if(q.includes("engin") || q.includes("savcu")) {
-            render([engineData, ...newsList.filter(x => x.id !== "e0")]);
-        } else if (q === "") { render(newsList); }
+            render([enginData, ...news.filter(x => x.id !== "e0")]);
+        } else if (q === "") { render(news); }
     }
 
-    function openArticle(id) {
-        const item = newsList.find(x => x.id == id) || engineData;
-        document.getElementById('articleBody').innerHTML = item.b;
-        document.getElementById('articlePage').style.display = 'block';
+    function openR(id) {
+        const item = news.find(x => x.id == id) || enginData;
+        document.getElementById('rBody').innerHTML = item.b;
+        document.getElementById('reader').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
+    function closeR() { document.getElementById('reader').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
-    function closeArticle() {
-        document.getElementById('articlePage').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-
-    render(newsList);
+    render(news);
 </script>
 </body>
 </html>
