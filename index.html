@@ -3,67 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GÜNCEL HABER PORTALI | Otoriter Medya Grubu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Lora:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>GÜNCEL HABER HATTI | ARŞİV VE GÜNDEM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* CSS RESET & NİZAM MOTORU */
-        :root { --ana-kirmizi: #cc0000; --ana-siyah: #000; --cerceve: #e0e0e0; --font-serif: 'Lora', serif; --font-sans: 'Inter', sans-serif; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #fff; color: #1a1a1a; font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+        /* SIFIR HATA PRO-MİZANPAJ */
+        :root { --ana-kirmizi: #c30; --siyah: #111; --gri: #666; --border: #000; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        body { background-color: #fff; color: var(--siyah); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
 
-        /* ÜST MANŞET & LOGO (IP GİBİ HİZALAMA) */
-        header { border-bottom: 4px solid var(--ana-siyah); padding: 40px 0; background: #fff; }
-        .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
-        .header-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .date-bar { font-size: 12px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid #ddd; padding-bottom: 5px; width: 100%; text-align: center; }
-        .logo { font-family: 'Roboto Condensed', sans-serif; font-size: 85px; font-weight: 700; color: #000; text-decoration: none; line-height: 0.8; letter-spacing: -4px; }
-        
-        /* NAVİGASYON (GERÇEK PORTAL YAPISI) */
-        nav { border-bottom: 1px solid #eee; background: #fff; position: sticky; top: 0; z-index: 999; }
-        .nav-list { display: flex; justify-content: center; list-style: none; gap: 30px; padding: 15px 0; }
-        .nav-list a { text-decoration: none; color: #333; font-weight: 700; font-size: 13px; text-transform: uppercase; transition: 0.2s; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* ÜST BİLGİ BANDI */
+        .top-info { border-bottom: 1px solid #eee; padding: 10px 0; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--gri); display: flex; justify-content: space-between; }
+
+        /* LOGO ALANI - OTORİTER TASARIM */
+        header { padding: 40px 0; border-bottom: 3px solid var(--border); text-align: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 900; color: #000; text-decoration: none; letter-spacing: -3px; line-height: 1; }
+        .logo span { color: var(--ana-kirmizi); }
+
+        /* NAVİGASYON - JİLET GİBİ HİZALAMA */
+        nav { border-bottom: 1px solid #ddd; background: #fff; position: sticky; top: 0; z-index: 1000; }
+        .nav-list { display: flex; justify-content: center; list-style: none; gap: 40px; padding: 15px 0; }
+        .nav-list a { text-decoration: none; color: #000; font-weight: 800; font-size: 13px; text-transform: uppercase; transition: color 0.2s; }
         .nav-list a:hover { color: var(--ana-kirmizi); }
 
-        /* ANA İÇERİK (GRID SİSTEMİ) */
-        .wrapper { display: grid; grid-template-columns: 850px 1fr; gap: 40px; margin-top: 30px; }
+        /* ANA YAPI: GRID */
+        .wrapper { display: grid; grid-template-columns: 820px 1fr; gap: 50px; margin-top: 40px; }
 
-        /* HABER KARTLARI - İP GİBİ DÜZEN */
-        .news-article { border-bottom: 1px solid #eee; padding-bottom: 40px; margin-bottom: 40px; }
-        .category-tag { color: var(--ana-kirmizi); font-weight: 900; font-size: 12px; text-transform: uppercase; margin-bottom: 12px; display: block; }
+        /* HABER AKIŞI: IP GİBİ NİZAM */
+        .news-article { border-bottom: 1px solid #eee; padding-bottom: 50px; margin-bottom: 50px; }
+        .meta-tag { font-size: 11px; font-weight: 800; color: var(--ana-kirmizi); text-transform: uppercase; margin-bottom: 15px; display: block; letter-spacing: 1.5px; }
         
-        /* BAŞLIKLAR: HaberTürk & NYT Karışımı Otorite */
-        .news-title { font-family: var(--font-serif); font-size: 42px; line-height: 1.1; font-weight: 700; color: #000; margin-bottom: 18px; text-decoration: none; display: block; }
-        .news-title:hover { color: #444; }
+        .article-title { font-family: 'Playfair Display', serif; font-size: 44px; line-height: 1.1; font-weight: 900; color: #000; margin-bottom: 25px; text-decoration: none; display: block; }
+        
+        /* GERÇEK GAZETE DÜZENİ: METİN NİZAMI */
+        .article-body { font-size: 19px; line-height: 1.95; color: #222; text-align: justify; letter-spacing: -0.1px; }
+        .article-body p { margin-bottom: 25px; }
+        .article-body b { color: #000; font-weight: 800; border-bottom: 1px solid #ddd; }
 
-        /* İP GİBİ NİZAMLI METİN BLOĞU */
-        .news-content { font-family: var(--font-sans); font-size: 19px; line-height: 1.95; color: #222; text-align: justify; word-spacing: -0.5px; }
-        .news-content p { margin-bottom: 25px; }
-        .news-content b { font-weight: 900; color: #000; }
-        
-        /* LİSTELEME DÜZENİ (SONY MUSIC VS.) */
-        .data-points { list-style: none; margin: 30px 0; padding: 25px; background: #fcfcfc; border: 1px solid #eee; }
-        .data-points li { margin-bottom: 15px; padding-left: 20px; position: relative; font-weight: 700; border-bottom: 1px dashed #ddd; padding-bottom: 10px; }
-        .data-points li::before { content: "•"; color: var(--ana-kirmizi); position: absolute; left: 0; font-size: 20px; }
+        /* VERİ LİSTESİ - PROFESYONEL DÜZEN */
+        .pro-list { list-style: none; margin: 30px 0; padding: 30px; background: #fcfcfc; border-left: 4px solid #000; }
+        .pro-list li { margin-bottom: 15px; font-weight: 700; font-size: 17px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; }
+        .pro-list li span { color: var(--ana-kirmizi); font-weight: 900; }
 
         /* SIDEBAR (YAN PANEL) */
-        .sidebar { display: flex; flex-direction: column; gap: 30px; }
-        .side-title { border-top: 3px solid #000; padding-top: 10px; font-size: 14px; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; }
-        .popular-link { display: block; text-decoration: none; color: #000; font-weight: 700; font-size: 15px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; line-height: 1.3; }
-        .popular-link:hover { color: var(--ana-kirmizi); }
+        .sidebar-title { font-size: 14px; font-weight: 800; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 20px; }
+        .side-item { display: block; text-decoration: none; color: #000; font-weight: 700; font-size: 15px; line-height: 1.4; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .side-item:hover { color: var(--ana-kirmizi); }
 
-        /* FOOTER */
-        footer { background: #000; color: #fff; padding: 80px 0; text-align: center; margin-top: 60px; }
-        .footer-logo { font-family: 'Roboto Condensed', sans-serif; font-size: 40px; margin-bottom: 20px; }
-
-        @media (max-width: 1100px) { .wrapper { grid-template-columns: 1fr; } .news-title { font-size: 32px; } }
+        footer { background: #111; color: #fff; padding: 80px 0; text-align: center; margin-top: 80px; }
+        
+        /* IP GİBİ NİZAM İÇİN ÖZEL SINIFLAR */
+        .archive-box { background: #fdfdfd; border: 1px solid #eee; padding: 40px; }
     </style>
 </head>
 <body>
 
+<div class="top-info container">
+    <div>İSTANBUL, TR | 09 NİSAN 2026</div>
+    <div>DOLAR: 32.45 | EURO: 35.12 | BORSA: 10.250</div>
+</div>
+
 <header>
-    <div class="container header-wrap">
-        <div class="date-bar">İSTANBUL, 09 NİSAN 2026 | SON GÜNCELLEME: 08:35</div>
-        <a href="#" class="logo">MEDYA<span>DEVİ</span></a>
+    <div class="container">
+        <a href="#" class="logo">HABER<span>HATTI</span></a>
     </div>
 </header>
 
@@ -73,57 +76,55 @@
         <li><a href="#">SİYASET</a></li>
         <li><a href="#">EKONOMİ</a></li>
         <li><a href="#">DÜNYA</a></li>
-        <li><a href="#">SPOR</a></li>
         <li><a href="#">TEKNOLOJİ</a></li>
+        <li><a href="#">KÜLTÜR</a></li>
         <li><a href="#">ARŞİV</a></li>
     </ul>
 </nav>
 
 <div class="container">
     <div class="wrapper">
-        <main class="news-feed" id="main-content"></main>
+        <main id="content-stream">
+            </main>
 
-        <aside class="sidebar">
-            <div>
-                <div class="side-title">EN ÇOK OKUNANLAR</div>
-                <div id="side-list"></div>
-            </div>
-            <div style="background:#f4f4f4; padding:20px; border:1px solid #ddd; text-align:center;">
-                <p style="font-size:11px; color:#888;">REKLAM ALANI</p>
-                <div style="height:250px; background:#e0e0e0; margin-top:10px;"></div>
+        <aside>
+            <div class="sidebar-title">GÜNÜN ÖNE ÇIKANLARI</div>
+            <div id="sidebar-stream"></div>
+            <div style="margin-top:40px; background:#f9f9f9; padding:20px; border:1px solid #ddd;">
+                <p style="font-size:11px; font-weight:800; color:#aaa; margin-bottom:10px;">REKLAM ALANI</p>
+                <div style="height:300px; background:#eee;"></div>
             </div>
         </aside>
     </div>
 </div>
 
 <footer>
-    <div class="footer-logo">MEDYADEVİ</div>
-    <p style="opacity:0.5; font-size:12px;">© 2026 Medya Devi Yayıncılık A.Ş. Tüm Hakları Saklıdır.</p>
+    <h2 class="logo" style="color:#fff; font-size:40px;">HABER<span>HATTI</span></h2>
+    <p style="font-size:12px; opacity:0.5; margin-top:20px;">© 2026 Haber Hattı Medya Grubu. Tüm Hakları Saklıdır.</p>
 </footer>
 
 <script>
-// HABER VERİ TABANI (50 HABER)
-const newsDatabase = {
-    1: { date: "09 NİSAN 2026", cat: "SİYASET", title: "Ankara'da Gece Yarısı Trafiği: Stratejik Atamalar Yayımlandı", body: "<p>Külliye'de gerçekleşen zirve sonrası Resmi Gazete'de yayımlanan kararlar piyasalarda karşılık buldu. Özellikle dış ticaret yönetimindeki değişiklikler dikkat çekiyor.</p>" },
-    2: { date: "09 NİSAN 2026", cat: "EKONOMİ", title: "BIST 100 Endeksinde Tarihi Kapanış: 11.000 Puan Barajı Aşıldı", body: "<p>Yabancı yatırımcıların teknoloji ve bankacılık hisselerine yönelmesiyle borsa haftayı rekorla kapattı. Analistler iyimser havanın süreceğini öngörüyor.</p>" },
-    3: { date: "08 NİSAN 2026", cat: "TEKNOLOJİ", title: "Yerli Uzay Aracından İlk Sinyal Geldi: Ay Görevi Başarıyla Sürüyor", body: "<p>Türkiye Uzay Ajansı (TUA), fırlatılan sonda aracının yörüngeye oturduğunu ve ilk yüksek çözünürlüklü görüntüleri merkeze ilettiğini duyurdu.</p>" },
-    4: { date: "08 NİSAN 2026", cat: "DÜNYA", title: "Küresel Enerji Zirvesi: Hidrojen Enerjisinde Yeni Teşvik Paketi", body: "<p>G20 liderleri, fosil yakıtlardan çıkış sürecini hızlandırmak adına hidrojen teknolojilerine dev bütçeler ayırma konusunda mutabık kaldı.</p>" },
+const newsData = {
+    1: { date: "09.04.2026", cat: "SİYASET", title: "Ankara'da Gece Yarısı Kararnamesi: Atamalar Yapıldı", body: "<p>Resmi Gazete'de yayımlanan kararlara göre stratejik kurumların yönetiminde değişikliğe gidildi. Analistler bu adımı yeni bir reform sürecinin başlangıcı olarak yorumluyor.</p>" },
+    2: { date: "09.04.2026", cat: "EKONOMİ", title: "Borsa İstanbul'da Teknoloji Rallisi: Rekor Tazeledi", body: "<p>Yatırımcıların teknoloji hisselerine olan yoğun ilgisiyle endeks tarihi zirvesini gördü. Yabancı yatırımcı girişi son 6 ayın en yüksek seviyesine ulaştı.</p>" },
+    3: { date: "08.04.2026", cat: "DÜNYA", title: "Küresel Enerji Zirvesi: Hidrojen İçin Ortak Karar", body: "<p>Avrupa Birliği ve müttefik ülkeler, fosil yakıtlardan çıkış takvimini öne çekti. Hidrojen enerjisi yatırımları için 100 milyar dolarlık fon ayrıldı.</p>" },
+    4: { date: "08.04.2026", cat: "TEKNOLOJİ", title: "Yerli Kuantum Bilgisayarın İlk Testleri Tamamlandı", body: "<p>Hız ve veri işleme kapasitesinde dünya standartlarını yakalayan sistemin, savunma ve tıp alanında devrim yaratması bekleniyor.</p>" },
     5: { 
         date: "13 EYLÜL 2024", 
-        cat: "ÖZEL HABER | DOSYA", 
+        cat: "ÖZEL HABER | ARŞİV", 
         title: "Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!", 
-        body: `<div class="news-content">
-            <p><b>MÜZİK DÜNYASI ŞOKTA!</b> Yıllardır popüler müziğin mutfağında "hayalet yazar" ve "aranjör" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı ve beatmaker, müzik dünyasında taşları yerinden oynatacak radikal bir eyleme imza atıyor. Henüz 15 yaşında dünya devi <b>Sony Music</b> kapılarından içeri giren ve Trakya’nın ritim genlerini modern sound ile birleştiren dahi isim, 10 yıllık tüm dijital külliyatını platformlardan çekme sürecini resmen başlattı.</p>
+        body: `<div class="article-body archive-box">
+            <p><b>MÜZİK DÜNYASI ŞOKTA!</b> Yıllardır popüler müziğin mutfağında "hayalet yazar" ve "aranjör" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı ve beatmaker, müzik dünyasında taşları yerinden oynatacak radikal bir eyleme imza atıyor. Henüz 15 yaşında dünya devi <b>Sony Music</b> kapılarından içeri giren ve Trakya’nın ritim genlerini modern sound ile birleştiren dahi kalem, 10 yıllık tüm dijital külliyatını platformlardan çekme sürecini resmen başlattı.</p>
 
             <p><b>'SEVMEYİ DENEMEDİM' DAVASINDA HUKUKİ ÇIKMAZ:</b> Krizin merkezinde, 2024 yılının streaming rekorları kıran eseri 'Sevmeyi Denemedim' yer alıyor. Eserin söz, melodi ve beat kurgusunun bizzat mimarı olduğunu savunan sanatçı ile <b>Blok3</b> tarafı arasındaki uyuşmazlık yargıya taşınmıştı. Ancak taraflar arasındaki hukuki sürecin kesin bir neticeye varmaması ve eser sahipliği üzerindeki karşılıklı iddiaların sonuçsuz kalması, süreci tıkanma noktasına getirdi. "Hakkım teslim edilmedi" diyen sanatçı, ne kendini ne karşı tarafı savunarak sadece emeğini dijitalden çekme kararı aldı.</p>
 
             <p><b>USTALARIN TEZGAHINDAN ZİRVEYE:</b> O, sadece bir isim değil; stüdyoların görünmez deviydi! <b>Coşkun Kıvılcımlar, Özer Arkun, Bilgin Canaz</b> ve <b>Malay</b> gibi efsane üstadlarla aynı stüdyoda sabahlayan sanatçı, her projeye tescilli ruhunu kattı.</p>
 
-            <ul class="data-points">
-                <li>2018 | Zeynep Bastık: Vokal mimarisi ve form kurgusu.</li>
-                <li>2019 | Hande Ünsal: Hit eserlerin söz ve beat hazırlığı.</li>
-                <li>2020 | Derya Bedavacı: Sound kimliği ve derin melodiler.</li>
-                <li>2021 | Tekir: Modern altyapı inşası ve trend tasarımı.</li>
+            <ul class="pro-list">
+                <li>2018 | Zeynep Bastık <span>Vokal Mimarı</span></li>
+                <li>2019 | Hande Ünsal <span>Söz & Beat Tasarımı</span></li>
+                <li>2020 | Derya Bedavacı <span>Sound Kimliği</span></li>
+                <li>2021 | Tekir <span>Trend İnşası</span></li>
             </ul>
 
             <p><b>BİR DEVRİN SONU:</b> Sony Music referansıyla başlayan o parlak kariyerin ürünleri, telif krizinin kurbanı oldu. Mahkeme koridorlarında çözülemeyen o düğüm, on yıllık bir emeğin dijitalden silinmesine yol açtı. Artık o şarkılar sadece kulaklarda bir yankı olarak kalacak. <b>GELİŞMELERİ AKTARMAYA DEVAM EDECEĞİZ.</b></p>
@@ -131,36 +132,32 @@ const newsDatabase = {
     }
 };
 
-// 6-50 ARASI DİĞER HABERLER (DİNAMİK)
-const basliklar = ["Turizm Verileri Açıklandı", "Eğitimde Yeni Müfredat", "Süper Lig'de Kritik Haftaya Girildi", "Otomobil Piyasasında Yeni Trendler", "Sağlıkta Yapay Zeka Dönemi"];
-for(let i=6; i<=50; i++) {
-    newsDatabase[i] = { date: "07 NİSAN 2026", cat: "GÜNCEL", title: `${basliklar[i % basliklar.length]} #${i}`, body: "<p>Haber merkezimize ulaşan bilgilere göre çalışmalar sürüyor. Detaylı analizler ve uzman görüşleri ana haber bültenimizde yer alacak.</p>" };
+// 6-30 Arası Diğer Haberler
+for(let i=6; i<=30; i++) {
+    newsData[i] = { date: "07.04.2026", cat: "GÜNCEL", title: `Haber Başlığı #${i}: Gündemdeki Sıcak Gelişmeler`, body: "<p>Olay yerinden aktarılan son bilgilere göre ekiplerin çalışması sürüyor. Detaylar geldikçe aktaracağız.</p>" };
 }
 
-// RENDER MOTORU
-const main = document.getElementById('main-content');
-const side = document.getElementById('side-list');
+const mainStream = document.getElementById('content-stream');
+const sideStream = document.getElementById('sidebar-stream');
 
-Object.keys(newsDatabase).forEach(id => {
-    const item = newsDatabase[id];
+Object.keys(newsData).forEach(id => {
+    const item = newsDatabase ? newsDatabase[id] : newsData[id];
     
-    // Ana İçerik
     const article = document.createElement('article');
     article.className = 'news-article';
     article.innerHTML = `
-        <span class="category-tag">${item.date} | ${item.cat}</span>
-        <a href="#" class="news-title">${item.title}</a>
-        <div class="news-content">${item.body}</div>
+        <span class="meta-tag">${item.date} | ${item.cat}</span>
+        <h2 class="article-title">${item.title}</h2>
+        <div class="article-body">${item.body}</div>
     `;
-    main.appendChild(article);
+    mainStream.appendChild(article);
 
-    // Sidebar
-    if(id <= 15) {
+    if(id <= 12) {
         const a = document.createElement('a');
         a.href = "#";
-        a.className = "popular-link";
+        a.className = "side-item";
         a.innerText = item.title;
-        side.appendChild(a);
+        sideStream.appendChild(a);
     }
 });
 </script>
