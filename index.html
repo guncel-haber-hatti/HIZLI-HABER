@@ -3,61 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUTHORITY | Türkiye Haber Merkezi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>AUTHORITY | TÜRKİYE'NİN HABER MERKEZİ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #e61b23; --black: #111; --white: #fff; }
+        :root { --red: #e61b23; --black: #000; --white: #fff; --bg: #fdfdfd; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #fff; color: #111; line-height: 1.6; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #111; }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 25px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
 
-        /* ÜST BANT */
-        header { border-bottom: 8px solid var(--black); padding: 35px 0; text-align: center; background: #fff; }
-        .logo { font-family: 'Playfair Display', serif; font-size: clamp(40px, 10vw, 90px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -6px; }
+        /* HEADER */
+        header { border-bottom: 10px solid var(--black); padding: 40px 0; text-align: center; background: #fff; }
+        .logo { font-family: 'Playfair Display', serif; font-size: clamp(45px, 12vw, 100px); font-weight: 900; color: #000; text-decoration: none; letter-spacing: -6px; }
 
-        /* MANŞET GÖRSEL ODAKLI (SENİN METNİN) */
-        .hero { position: relative; margin-top: 30px; cursor: pointer; border-radius: 8px; overflow: hidden; height: clamp(400px, 65vh, 750px); background: #000; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
-        .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; transition: 0.6s; }
-        .hero:hover img { opacity: 0.4; transform: scale(1.03); }
-        .hero-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: clamp(30px, 6vw, 60px); background: linear-gradient(transparent, rgba(0,0,0,0.95)); color: #fff; }
-        .hero-tag { background: var(--red); color: #fff; padding: 6px 15px; font-size: 13px; font-weight: 900; margin-bottom: 20px; display: inline-block; text-transform: uppercase; }
-        .hero-h { font-family: 'Playfair Display', serif; font-size: clamp(30px, 5vw, 62px); line-height: 1.05; font-weight: 900; }
+        /* MANŞET: SENİN METNİN VE GÖRSELİN */
+        .hero { position: relative; margin-top: 20px; cursor: pointer; border-radius: 4px; overflow: hidden; height: clamp(450px, 70vh, 800px); background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+        .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.6s; }
+        .hero:hover img { opacity: 0.45; transform: scale(1.02); }
+        .hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: clamp(30px, 8vw, 80px); background: linear-gradient(transparent, rgba(0,0,0,1)); color: #fff; }
+        .hero-tag { background: var(--red); color: #fff; padding: 6px 15px; font-size: 13px; font-weight: 900; margin-bottom: 25px; display: inline-block; text-transform: uppercase; }
+        .hero-h { font-family: 'Playfair Display', serif; font-size: clamp(32px, 6vw, 70px); line-height: 1; font-weight: 900; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 
-        /* 50 HABERLİK AKIŞ (IP GİBİ NİZAM) */
-        .main-layout { display: grid; grid-template-columns: 1fr 380px; gap: 60px; margin-top: 60px; }
-        @media (max-width: 1100px) { .main-layout { grid-template-columns: 1fr; } .sidebar { display: none; } }
+        /* ANA AKIŞ: PC'DE ÇİFT, MOBİLDE TEK SÜTUN */
+        .main-grid { display: grid; grid-template-columns: 1fr 380px; gap: 60px; margin-top: 60px; }
+        @media (max-width: 1100px) { .main-grid { grid-template-columns: 1fr; } .sidebar { display: none; } }
 
-        .news-card { display: flex; gap: 25px; cursor: pointer; border-bottom: 1px solid #eee; padding-bottom: 40px; margin-bottom: 40px; transition: 0.3s; }
-        .news-card:hover { background: #fafafa; }
-        .card-img { width: 260px; height: 160px; background: #eee; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+        /* HABER KARTLARI */
+        .news-card { display: flex; gap: 30px; cursor: pointer; border-bottom: 1px solid #ddd; padding-bottom: 40px; margin-bottom: 40px; background: #fff; padding: 20px; border-radius: 4px; transition: 0.3s; }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .card-img { width: 280px; height: 180px; flex-shrink: 0; overflow: hidden; border-radius: 2px; }
         .card-img img { width: 100%; height: 100%; object-fit: cover; }
-        .card-body { flex: 1; }
-        .card-tag { font-size: 11px; font-weight: 900; color: var(--red); text-transform: uppercase; margin-bottom: 12px; display: block; }
-        .card-h { font-family: 'Playfair Display', serif; font-size: 28px; line-height: 1.15; font-weight: 900; margin-bottom: 15px; color: #000; }
-        .card-p { font-size: 17px; color: #444; text-align: justify; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .card-content { flex: 1; }
+        .card-tag { font-size: 11px; font-weight: 900; color: var(--red); margin-bottom: 10px; display: block; text-transform: uppercase; }
+        .card-h { font-family: 'Playfair Display', serif; font-size: 30px; line-height: 1.1; font-weight: 900; margin-bottom: 15px; color: #000; }
+        .card-p { font-size: 16px; color: #555; text-align: justify; line-height: 1.6; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
 
-        @media (max-width: 650px) {
-            .news-card { flex-direction: column; }
-            .card-img { width: 100%; height: 220px; }
-        }
+        @media (max-width: 650px) { .news-card { flex-direction: column; } .card-img { width: 100%; height: 220px; } }
 
         /* OKUMA PANELİ */
         #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 10000; overflow-y: auto; padding: 60px 20px; }
-        .close-btn { position: fixed; top: 20px; right: 40px; font-size: 60px; cursor: pointer; color: #000; font-weight: 200; z-index: 10001; }
-        .reader-content { max-width: 850px; margin: 0 auto; padding-bottom: 80px; }
-        .reader-img { width: 100%; height: 450px; background: #000; border-radius: 8px; margin-bottom: 40px; overflow: hidden; }
-        .reader-img img { width: 100%; height: 100%; object-fit: cover; }
-        .reader-h { font-family: 'Playfair Display', serif; font-size: clamp(32px, 7vw, 65px); line-height: 1.05; font-weight: 900; margin-bottom: 35px; border-bottom: 10px solid #000; padding-bottom: 20px; }
-        .reader-txt { font-size: 20px; line-height: 2; text-align: justify; color: #1a1a1a; }
-        .reader-txt b { font-weight: 900; border-bottom: 2px solid var(--red); }
+        .close-btn { position: fixed; top: 20px; right: 40px; font-size: 60px; cursor: pointer; color: #000; z-index: 10001; }
+        .reader-wrap { max-width: 900px; margin: 0 auto; padding-bottom: 100px; }
+        .reader-banner { width: 100%; height: 500px; overflow: hidden; border-radius: 8px; margin-bottom: 40px; }
+        .reader-banner img { width: 100%; height: 100%; object-fit: cover; }
+        .reader-h { font-family: 'Playfair Display', serif; font-size: clamp(35px, 7vw, 68px); line-height: 1.05; font-weight: 900; margin-bottom: 40px; border-bottom: 12px solid #000; padding-bottom: 25px; }
+        .reader-body { font-size: 21px; line-height: 2.1; color: #1a1a1a; text-align: justify; }
+        .reader-body b { font-weight: 900; color: var(--red); }
 
-        /* VERİ TABLOSU */
-        .pro-table { width: 100%; margin: 35px 0; border-collapse: collapse; background: #f9f9f9; }
-        .pro-table td { padding: 18px; border: 1px solid #ddd; font-weight: 800; font-size: 18px; }
-        .pro-table td span { color: var(--red); float: right; font-size: 13px; }
+        /* TABLO */
+        .pro-table { width: 100%; margin: 40px 0; border-collapse: collapse; background: #f4f4f4; }
+        .pro-table td { padding: 20px; border: 1px solid #ddd; font-weight: 900; font-size: 19px; }
+        .pro-table td span { color: var(--red); float: right; font-size: 14px; }
 
-        footer { background: #000; color: #fff; padding: 100px 0; text-align: center; }
+        footer { background: #000; color: #fff; padding: 120px 0; text-align: center; }
     </style>
 </head>
 <body>
@@ -65,36 +63,33 @@
 <header><div class="container"><a href="#" class="logo">AUTHORITY</a></div></header>
 
 <div class="container">
-    <div class="hero" onclick="openH(0)">
-        <img src="https://images.unsplash.com/photo-1514525253361-bee8718a300a?q=80&w=1974&auto=format&fit=crop" alt="Music News">
-        <div class="hero-info">
+    <div class="hero" onclick="openArt(0)">
+        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500" alt="Main News">
+        <div class="hero-overlay">
             <span class="hero-tag">ÖZEL ARŞİV | 13 EYLÜL 2024</span>
             <h1 class="hero-h">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!</h1>
         </div>
     </div>
 
-    <div class="main-layout">
-        <main id="feed"></main>
+    <div class="main-grid">
+        <main id="news-feed"></main>
         <aside class="sidebar">
-            <h3 style="border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 25px; font-weight: 900; font-size: 16px;">TÜRKİYE GÜNDEMİ</h3>
+            <h3 style="border-bottom: 5px solid #000; padding-bottom: 10px; margin-bottom: 25px; font-weight: 900; font-size: 16px;">TÜRKİYE GÜNDEMİ</h3>
             <div id="side-feed"></div>
         </aside>
     </div>
 </div>
 
-<div id="reader">
-    <span class="close-btn" onclick="closeH()">&times;</span>
-    <div class="reader-content" id="target"></div>
-</div>
+<div id="reader"><span class="close-btn" onclick="closeArt()">&times;</span><div class="reader-wrap" id="modal-target"></div></div>
 
 <footer><h2 class="logo" style="color:#fff; font-size:45px;">AUTHORITY.</h2></footer>
 
 <script>
-    const database = [
+    const data = [
         {
             id: 0, 
             h: "Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!",
-            img: "https://images.unsplash.com/photo-1514525253361-bee8718a300a?q=80&w=1974&auto=format&fit=crop",
+            img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500",
             body: `
                 <p><b>MÜZİK DÜNYASI ŞOKTA!</b> Yıllardır popüler müziğin mutfağında "hayalet yazar" ve "aranjör" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı ve beatmaker, müzik dünyasında taşları yerinden oynatacak radikal bir eyleme imza atıyor.</p>
                 <p>Henüz 15 yaşında dünya devi <b>Sony Music</b> kapılarından içeri giren ve Trakya’nın ritim genlerini modern sound ile birleştiren dahi kalem, 10 yıllık tüm dijital külliyatını platformlardan çekme sürecini resmen başlattı.</p>
@@ -110,27 +105,27 @@
         }
     ];
 
-    // 50 HABERLİK GERÇEK İÇERİKLİ TÜRKİYE GÜNDEMİ
+    // 50 HABERLİK TÜRKİYE GÜNDEMİ (İÇERİKLİ)
     for(let i=1; i<=50; i++) {
-        database.push({
+        data.push({
             id: i,
             t: "09 NİSAN 2026",
             cat: "TÜRKİYE",
-            h: i == 1 ? "Türkiye Ekonomisinde Yeni Dönem: İlk Veriler Geldi" : `Türkiye Gündemi: Stratejik Gelişme Raporu #${i}`,
-            img: `https://picsum.photos/seed/${i+50}/800/500`,
-            p: "Hazine ve Maliye Bakanlığı tarafından paylaşılan Mart ayı verileri, cari açıkta beklentilerin üzerinde bir iyileşme olduğunu gösteriyor. Uzmanlar bu ivmenin enflasyon üzerindeki etkilerini analiz ediyor...",
-            body: `<p><b>ANKARA -</b> Türkiye'nin ekonomik göstergeleri 2026 yılının ilk çeyreğinde beklentilerin üzerinde bir performans sergiledi. #${i} nolu bu rapor, sahadan gelen verilerle desteklenmiştir.</p><p>Sanayi üretim endeksi ve ihracat rakamlarındaki artış, AUTHORITY analiz masası tarafından en ince detayına kadar incelendi. Sektörel bazda büyüme hız kesmeden devam ediyor.</p>`
+            h: i == 1 ? "Türkiye Ekonomisinde Yeni Dönem: İlk Veriler Geldi" : `Gündem Raporu #${i}: Türkiye'nin Stratejik Hamlesi`,
+            img: `https://picsum.photos/seed/${i+100}/800/500`,
+            p: "Hazine ve Maliye Bakanlığı tarafından paylaşılan Mart ayı verileri, cari açıkta beklentilerin üzerinde bir iyileşme olduğunu gösteriyor. Bu raporun tüm detayları AUTHORITY merkezinde...",
+            body: `<p><b>ANKARA -</b> Türkiye'nin 2026 yılı ekonomik vizyonu çerçevesinde atılan adımlar meyvesini veriyor. #${i} nolu özel dosyamızda, sahadan gelen en sıcak verileri ve uzman görüşlerini topladık.</p><p>Özellikle sanayi üretimi ve ihracat odaklı büyüme stratejisi, küresel piyasalarda Türkiye'nin elini güçlendirmeye devam ediyor. Detaylı analizler gün boyu AUTHORITY ekranlarında olacak.</p>`
         });
     }
 
-    const feed = document.getElementById('feed');
+    const feed = document.getElementById('news-feed');
     const side = document.getElementById('side-feed');
 
-    database.slice(1).forEach(item => {
+    data.slice(1).forEach(item => {
         feed.innerHTML += `
-            <div class="news-card" onclick="openH(${item.id})">
+            <div class="news-card" onclick="openArt(${item.id})">
                 <div class="card-img"><img src="${item.img}"></div>
-                <div class="card-body">
+                <div class="card-content">
                     <span class="card-tag">${item.t} | ${item.cat}</span>
                     <h2 class="card-h">${item.h}</h2>
                     <p class="card-p">${item.p}</p>
@@ -138,21 +133,21 @@
             </div>`;
     });
 
-    database.slice(1, 12).forEach(item => {
-        side.innerHTML += `<p style="font-weight:800; font-size:14px; margin-bottom:20px; cursor:pointer; line-height:1.4;" onclick="openH(${item.id})">${item.h}</p>`;
+    data.slice(1, 15).forEach(item => {
+        side.innerHTML += `<p style="font-weight:800; font-size:15px; margin-bottom:20px; cursor:pointer; line-height:1.4;" onclick="openArt(${item.id})">${item.h}</p>`;
     });
 
-    function openH(id) {
-        const item = database.find(x => x.id === id);
-        document.getElementById('target').innerHTML = `
-            <div class="reader-img"><img src="${item.img}"></div>
+    function openArt(id) {
+        const item = data.find(x => x.id === id);
+        document.getElementById('modal-target').innerHTML = `
+            <div class="reader-banner"><img src="${item.img}"></div>
             <h1 class="reader-h">${item.h}</h1>
-            <div class="reader-txt">${item.body}</div>`;
+            <div class="reader-body">${item.body}</div>`;
         document.getElementById('reader').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
 
-    function closeH() {
+    function closeArt() {
         document.getElementById('reader').style.display = 'none';
         document.body.style.overflow = 'auto';
     }
