@@ -1,161 +1,33 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GÜNCEL HABER | Haberin Kalbi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root { --red: #e31212; --black: #0a0a0a; --border: #ececec; --bg: #ffffff; --text: #1a1a1a; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+1: { 
+    title: "Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!", 
+    meta: "13 EYLÜL 2024 | ÖZEL HABER | FLAŞ", 
+    body: `
+        <div style="font-size: 16px; line-height: 1.7; color: #1a1a1a; text-align: left; font-family: sans-serif;">
+            
+            <p style="margin-bottom: 18px;">
+                <b>MÜZİK DÜNYASI ŞOKTA!</b> Yıllardır popüler müziğin mutfağında "hayalet yazar" ve "aranjör" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı ve beatmaker, müzik dünyasında taşları yerinden oynatacak radikal bir eyleme imza atıyor. Henüz 15 yaşında dünya devi <b>Sony Music</b> kapılarından içeri giren ve Trakya’nın ritim genlerini modern sound ile birleştiren dahi kalem, 10 yıllık tüm dijital külliyatını platformlardan çekme sürecini resmen başlattı.
+            </p>
 
-        /* ÜST BİLGİ ŞERİDİ */
-        .top-bar { background: #f8f8f8; border-bottom: 1px solid var(--border); padding: 8px 0; font-size: 11px; font-weight: 700; color: #666; }
-        .top-inner { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; padding: 0 20px; text-transform: uppercase; }
+            <p style="margin-bottom: 18px;">
+                <b>'SEVMEYİ DENEMEDİM' DAVASINDA HUKUKİ ÇIKMAZ:</b> Krizin merkezinde, 2024 yılının streaming rekorları kıran eseri <b>'Sevmeyi Denemedim'</b> yer alıyor. Eserin söz, melodi ve beat kurgusunun bizzat mimarı olduğunu savunan sanatçı ile <b>Blok3</b> tarafı arasındaki uyuşmazlık yargıya taşınmıştı. Ancak taraflar arasındaki hukuki sürecin kesin bir neticeye varmaması ve eser sahipliği üzerindeki karşılıklı iddiaların sonuçsuz kalması, süreci tıkanma noktasına getirdi. "Hakkım teslim edilmedi" diyen sanatçı, ne kendini ne karşı tarafı savunarak sadece emeğini dijitalden çekme kararı aldı.
+            </p>
 
-        /* LOGO ALANI - ÖZEL TASARIM */
-        header { padding: 40px 0; text-align: center; border-bottom: 1px solid var(--border); background: #fff; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 55px; color: var(--black); text-decoration: none; font-weight: 900; letter-spacing: -3px; line-height: 1; }
-        .logo span { color: var(--red); font-style: italic; font-weight: 700; letter-spacing: -1px; margin-left: 5px; }
-        .slogan { font-size: 11px; text-transform: uppercase; letter-spacing: 4px; color: #999; margin-top: 10px; font-weight: 600; }
+            <p style="margin-bottom: 18px;">
+                <b>USTALARIN TEZGAHINDAN ZİRVEYE:</b> O, sadece bir isim değil; stüdyoların görünmez deviydi! <b>Coşkun Kıvılcımlar, Özer Arkun, Bilgin Canaz</b> ve <b>Malay</b> gibi efsane üstadlarla aynı stüdyoda sabahlayan sanatçı, her projeye tescilli ruhunu kattı.
+            </p>
 
-        /* NAVİGASYON */
-        nav { background: #fff; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--black); }
-        .nav-inner { max-width: 1200px; margin: auto; display: flex; justify-content: center; gap: 35px; padding: 18px 20px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-inner span { cursor: pointer; transition: 0.3s; position: relative; }
-        .nav-inner span:hover { color: var(--red); }
+            <p style="margin-bottom: 10px; font-weight: bold; text-decoration: underline;">BİR JENERASYONUN DİJİTAL HAFIZASI SİLİNİYOR:</p>
+            <ul style="margin-bottom: 18px; padding-left: 20px; list-style-type: disc;">
+                <li style="margin-bottom: 10px;"><b>2018 | Zeynep Bastık:</b> Akustik serilerin zirve yaptığı dönemde, vokal mimarisini ve şarkı formlarını bizzat kurguladı.</li>
+                <li style="margin-bottom: 10px;"><b>2019 | Hande Ünsal:</b> Pop listelerinde zirve yapan eserlerin hem sözlerini yazdı hem de beatlerini hazırladı.</li>
+                <li style="margin-bottom: 10px;"><b>2020 | Derya Bedavacı:</b> Derin melodilerin ve damar bestelerin arkasındaki isim olarak sound kimliğine yön verdi.</li>
+                <li style="margin-bottom: 10px;"><b>2021 | Tekir:</b> Yeni nesil dijital devrimde, modern altyapıları bizzat inşa ederek trendleri tasarladı.</li>
+            </ul>
 
-        /* İÇERİK */
-        .container { max-width: 1200px; margin: 40px auto; display: grid; grid-template-columns: 1fr 320px; gap: 40px; padding: 0 20px; }
+            <p style="margin-bottom: 0;">
+                <b>BİR DEVRİN SONU:</b> Sony Music referansıyla başlayan o parlak kariyerin ürünleri, telif krizinin kurbanı oldu. Mahkeme koridorlarında çözülemeyen o düğüm, on yıllık bir emeğin dijitalden silinmesine yol açtı. Artık o şarkılar sadece kulaklarda bir yankı olarak kalacak. <br><br><b>GELİŞMELERİ AKTARMAYA DEVAM EDECEĞİZ.</b>
+            </p>
 
-        /* HABER KARTLARI */
-        .news-card { background: #fff; display: grid; grid-template-columns: 240px 1fr; gap: 25px; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid var(--border); cursor: pointer; transition: 0.3s; }
-        .news-card:hover .news-info h3 { color: var(--red); }
-        .news-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 4px; filter: grayscale(20%); transition: 0.5s; }
-        .news-card:hover img { filter: grayscale(0%); transform: scale(1.02); }
-        .news-info b { color: var(--red); font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; display: block; }
-        .news-info h3 { font-family: 'Playfair Display', serif; font-size: 26px; line-height: 1.2; font-weight: 800; margin-bottom: 12px; transition: 0.3s; }
-        .news-info p { font-size: 15px; color: #555; line-height: 1.6; font-weight: 400; }
-
-        /* OKUMA MODU */
-        #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 2000; overflow-y: auto; }
-        .reader-inner { max-width: 800px; margin: 60px auto; padding: 0 30px; }
-        .close-btn { background: var(--black); color: #fff; border: none; padding: 14px 28px; cursor: pointer; margin-bottom: 50px; font-size: 12px; font-weight: 800; border-radius: 2px; }
-        .article-title { font-family: 'Playfair Display', serif; font-size: 52px; line-height: 1.1; font-weight: 900; margin-bottom: 25px; }
-        .article-meta { color: #888; font-size: 13px; font-weight: 700; margin-bottom: 40px; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 20px; }
-        .article-body { font-size: 21px; line-height: 2; color: #111; text-align: justify; }
-        .article-body p { margin-bottom: 30px; }
-
-        /* YAN SÜTUN */
-        .side-title { font-family: 'Playfair Display', serif; font-size: 22px; border-bottom: 3px solid var(--black); padding-bottom: 10px; margin-bottom: 20px; }
-        .side-item { font-size: 14px; font-weight: 700; line-height: 1.5; margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; cursor: pointer; }
-        .side-item:hover { color: var(--red); }
-
-        @media (max-width: 900px) {
-            .container, .news-card { grid-template-columns: 1fr; }
-            .logo { font-size: 40px; }
-            .article-title { font-size: 34px; }
-        }
-    </style>
-</head>
-<body>
-
-<div class="top-bar">
-    <div class="top-inner">
-        <div>IST: 24°C | BIST: 9.450 | USD: 32.44</div>
-        <div>9 NİSAN 2026 | PERŞEMBE</div>
-    </div>
-</div>
-
-<header>
-    <a href="#" class="logo">GÜNCEL<span>HABER</span></a>
-    <div class="slogan">Gerçek Bilgi, Doğru Zaman</div>
-</header>
-
-<nav>
-    <div class="nav-inner">
-        <span>Gündem</span><span>Siyaset</span><span>Ekonomi</span><span>Teknoloji</span><span>Spor</span><span>Yaşam</span>
-    </div>
-</nav>
-
-<div class="container">
-    <main id="haber-akisi"></main>
-    
-    <aside>
-        <div class="side-title">Trendler</div>
-        <div class="side-item">#MilliTeknoloji: Yerli çip üretimi için tesis kuruluyor.</div>
-        <div class="side-item">#SüperLig: Dev derbinin hakemi belli oldu.</div>
-        <div class="side-item">#Antarktika: Türk bilim heyeti yeni üsse ulaştı.</div>
-    </aside>
-</div>
-
-<div id="reader">
-    <div class="reader-inner">
-        <button class="close-btn" onclick="closeNav()">← ANA SAYFAYA DÖN</button>
-        <h1 id="r-title" class="article-title"></h1>
-        <div id="r-meta" class="article-meta"></div>
-        <div id="r-body" class="article-body"></div>
-    </div>
-</div>
-
-<script>
-    const haberHavuzu = [
-        { t: "Türkiye'nin Ekonomi Yol Haritası Belli Oldu", c: "EKONOMİ", i: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=700" },
-        { t: "İstanbul'da Tarihi Sarnıç Heyecanı Sürüyor", c: "KÜLTÜR", i: "https://images.unsplash.com/photo-1569429593410-b498b3fb3387?w=700" },
-        { t: "KAAN Gökyüzünde Gövde Gösterisi Yaptı", c: "SAVUNMA", i: "https://images.unsplash.com/photo-1517976487492-5750f3195933?w=700" },
-        { t: "Yerli Otomobil İçin Yeni Yazılım Güncellemesi", c: "TEKNOLOJİ", i: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=700" },
-        { t: "Süper Lig'de Şampiyonluk Yarışı Nefes Kesiyor", c: "SPOR", i: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=700" }
-    ];
-
-    const data = {};
-    const akis = document.getElementById('haber-akisi');
-
-    // 50+ HABER ÜRETİMİ
-    for(let i = 1; i <= 55; i++) {
-        const h = haberHavuzu[i % haberHavuzu.length];
-        const baslik = h.t + " (" + i + ")";
-        
-        data[i] = {
-            title: baslik,
-            meta: `9 NİSAN 2026 | ${h.c} | GÜNCEL HABER ÖZEL`,
-            body: `
-                <p>Türkiye'nin kalbi Ankara ve İstanbul'dan gelen son dakika bilgilerine göre, <b>${baslik}</b> konusuyla ilgili beklenen kritik eşik aşıldı. Uzman heyetlerin aylardır üzerinde çalıştığı raporlar bugün kamuoyuyla paylaşıldı.</p>
-                <p>Projenin teknik detaylarına bakıldığında, yerli kaynakların kullanım oranının %85 seviyesine ulaştığı görülüyor. Bu durum, Türkiye'nin kendi kendine yetebilme vizyonunun ne kadar başarılı ilerlediğinin en büyük kanıtı olarak gösteriliyor. Bakanlık tarafından yapılan açıklamada, sürecin planlandığı gibi işlediği ve herhangi bir aksama yaşanmadığı belirtildi.</p>
-                <p>Halkın ve yatırımcıların büyük bir merakla beklediği bu gelişme, sadece bugünümüzü değil, önümüzdeki yirmi yılımızı da doğrudan etkileyecek güce sahip. Finans çevreleri, bu adımın piyasalara olan yansımasını "tarihi bir dönüm noktası" olarak nitelendiriyor. Sürecin her adımını takip etmeye devam edeceğiz.</p>
-                <p>Haberin diğer ayrıntılarında ise sosyal etkiler ön plana çıkıyor. Projenin hayata geçmesiyle birlikte binlerce kişiye yeni iş imkanı sağlanması ve bölgesel kalkınmanın hızlanması hedefleniyor. Gelişmeler anlık olarak GÜNCEL HABER üzerinden aktarılacaktır.</p>
-            `
-        };
-
-        akis.innerHTML += `
-            <div class="news-card" onclick="openNav(${i})">
-                <img src="${h.i}">
-                <div class="news-info">
-                    <b>${h.c}</b>
-                    <h3>${baslik}</h3>
-                    <p>Haberin tüm detayları ve uzman yorumlarıyla Türkiye'nin en güncel haber akışı burada.</p>
-                </div>
-            </div>`;
-    }
-
-    function openNav(id) {
-        const h = data[id];
-        document.getElementById('r-title').innerText = h.title;
-        document.getElementById('r-meta').innerText = h.meta;
-        document.getElementById('r-body').innerHTML = h.body;
-        document.getElementById('reader').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-        window.history.pushState({aid: id}, h.title, "#haber-" + id);
-        document.getElementById('reader').scrollTo(0,0);
-    }
-
-    function closeNav() {
-        document.getElementById('reader').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-
-    window.onpopstate = () => closeNav();
-</script>
-
-</body>
-</html>
+        </div>
+    ` 
+},
