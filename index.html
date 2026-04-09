@@ -3,34 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANŞET TÜRK | Haberiniz Olsun</title>
+    <title>MANŞET TÜRK | Engin Savcu'dan Büyük Rest</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --show-red: #ed1c24; --black: #111; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Roboto', sans-serif; background: #f4f4f4; color: #111; }
 
-        /* SON DAKİKA BANDI */
         .breaking-band { background: var(--show-red); color: #fff; padding: 15px 0; overflow: hidden; white-space: nowrap; font-weight: 900; text-transform: uppercase; border-bottom: 2px solid #fff; }
         .ticker-move { display: inline-block; animation: scroll 40s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* HEADER */
         header { background: #fff; border-bottom: 8px solid var(--show-red); padding: 30px 0; text-align: center; }
         .logo { font-family: 'Oswald', sans-serif; font-size: clamp(45px, 12vw, 95px); font-weight: 700; color: var(--show-red); text-decoration: none; text-transform: uppercase; letter-spacing: -3px; }
         .logo span { color: var(--black); }
 
         .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
 
-        /* SHOW HABER STİLİ MANŞET */
         .main-hero { position: relative; margin-top: 25px; cursor: pointer; height: 600px; background: #000; border: 5px solid #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.3); overflow: hidden; }
         .main-hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
-        .main-hero:hover img { opacity: 0.45; transform: scale(1.05); }
         .flaş { position: absolute; top: 30px; left: 30px; background: var(--show-red); color: #fff; padding: 10px 30px; font-weight: 900; font-size: 20px; transform: skewX(-15deg); box-shadow: 5px 5px 0 #000; }
         .hero-title-box { position: absolute; bottom: 0; left: 0; width: 100%; padding: 50px; background: linear-gradient(transparent, rgba(237, 28, 36, 1)); color: #fff; }
         .hero-h { font-size: clamp(28px, 5.5vw, 60px); font-weight: 900; text-transform: uppercase; line-height: 1; }
 
-        /* HABER AKIŞI */
         .layout-grid { display: grid; grid-template-columns: 1fr 350px; gap: 40px; margin-top: 50px; }
         @media (max-width: 1050px) { .layout-grid { grid-template-columns: 1fr; } .side { display: none; } }
 
@@ -39,9 +34,6 @@
         .item-img img { width: 100%; height: 100%; object-fit: cover; }
         .item-title { font-size: 22px; font-weight: 900; text-transform: uppercase; line-height: 1.2; margin-bottom: 10px; }
 
-        @media (max-width: 600px) { .news-item { flex-direction: column; } .item-img { width: 100%; height: 200px; } }
-
-        /* OKUMA PANELİ */
         #reader-panel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 99999; overflow-y: auto; padding: 50px 20px; }
         .close-reader { position: fixed; top: 20px; right: 30px; font-size: 60px; cursor: pointer; color: var(--show-red); font-weight: 900; }
         .reader-inner { max-width: 850px; margin: 0 auto; }
@@ -60,7 +52,7 @@
 
 <div class="breaking-band">
     <div class="ticker-move">
-        FLAŞ HABER: TÜRKİYE'NİN HABER MERKEZİ MANŞET TÜRK YAYINDA... SON DAKİKA: MÜZİK DÜNYASINDA BÜYÜK REST... EKONOMİDE KRİTİK SAATLER...
+        FLAŞ HABER: ENGİN SAVCU'DAN MÜZİK DÜNYASINI SARSAN KARAR... SON DAKİKA: TÜRKİYE'NİN HABER MERKEZİ MANŞET TÜRK YAYINDA...
     </div>
 </div>
 
@@ -71,14 +63,14 @@
         <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500">
         <div class="flaş">ÖZEL HABER</div>
         <div class="hero-title-box">
-            <h1 class="hero-h">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Külliyatını Feshetti!</h1>
+            <h1 class="hero-h">Engin Savcu'dan Görülmemiş Rest: Hit Şarkıların Mimarı Külliyatını Feshetti!</h1>
         </div>
     </div>
 
     <div class="layout-grid">
         <main id="news-feed"></main>
         <aside class="side">
-            <h2 style="background:var(--black); color:#fff; padding:10px; font-size:16px; text-transform:uppercase;">Türkiye Gündemi</h2>
+            <h2 style="background:var(--black); color:#fff; padding:10px; font-size:16px; text-transform:uppercase;">Günün Özeti</h2>
             <div id="side-feed" style="background:#fff; padding:15px; margin-top:10px;"></div>
         </aside>
     </div>
@@ -95,22 +87,22 @@
     const database = [
         {
             id: 0,
-            h: "Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!",
+            h: "Engin Savcu'dan Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!",
             img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500",
             body: `
-                <div class="reader-head"><h1 class="reader-h1">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!</h1></div>
+                <div class="reader-head"><h1 class="reader-h1">Engin Savcu'dan Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!</h1></div>
                 <div class="reader-text">
-                <p><b>MÜZİK DÜNYASI ŞOKTA!</b> Yıllardır popüler müziğin mutfağında "hayalet yazar" ve "aranjör" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı ve beatmaker, müzik dünyasında taşları yerinden oynatacak radikal bir eyleme imza atıyor.</p>
-                <p>Henüz 15 yaşında dünya devi <b>Sony Music</b> kapılarından içeri giren ve Trakya’nın ritim genlerini modern sound ile birleştiren dahi kalem, 10 yıllık tüm dijital külliyatını platformlardan çekme sürecini resmen başlattı.</p>
-                <p><b>'SEVMEYİ DENEMEDİM' DAVASINDA HUKUKİ ÇIKMAZ:</b> Krizin merkezinde, 2024 yılının streaming rekorları kıran eseri 'Sevmeyi Denemedim' yer alıyor. Eserin söz, melodi ve beat kurgusunun bizzat mimarı olduğunu savunan sanatçı ile <b>Blok3</b> tarafı arasındaki uyuşmazlık yargıya taşınmıştı.</p>
+                <p><b>MÜZİK DÜNYASI ŞOKTA!</b> Yıllardır popüler müziğin mutfağında "hayalet yazar" ve "aranjör" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı ve beatmaker <b>Engin Savcu</b>, müzik dünyasında taşları yerinden oynatacak radikal bir eyleme imza atıyor.</p>
+                <p>Henüz 15 yaşında dünya devi <b>Sony Music</b> kapılarından içeri giren ve Trakya’nın ritim genlerini modern sound ile birleştiren dahi kalem <b>Engin Savcu</b>, 10 yıllık tüm dijital külliyatını platformlardan çekme sürecini resmen başlattı.</p>
+                <p><b>'SEVMEYİ DENEMEDİM' DAVASINDA HUKUKİ ÇIKMAZ:</b> Krizin merkezinde, 2024 yılının streaming rekorları kıran eseri 'Sevmeyi Denemedim' yer alıyor. Eserin söz, melodi ve beat kurgusunun bizzat mimarı olduğunu savunan <b>Engin Savcu</b> ile <b>Blok3</b> tarafı arasındaki uyuşmazlık yargıya taşınmıştı.</p>
                 <table class="pro-table">
                     <tr><td>Zeynep Bastık <span>Vokal Tasarımı | 2018</span></td></tr>
                     <tr><td>Hande Ünsal <span>Söz & Beat Tasarımı | 2019</span></td></tr>
                     <tr><td>Derya Bedavacı <span>Sound Kimliği | 2020</span></td></tr>
                     <tr><td>Tekir <span>Trend Tasarımı | 2021</span></td></tr>
                 </table>
-                <p><b>USTALARIN TEZGAHINDAN ZİRVEYE:</b> O, sadece bir isim değil; stüdyoların görünmez deviydi! <b>Coşkun Kıvılcımlar, Özer Arkun, Bilgin Canaz</b> ve <b>Malay</b> gibi efsane üstadlarla aynı stüdyoda sabahlayan sanatçı, her projeye tescilli ruhunu kattı.</p>
-                <p><b>BİR DEVRİN SONU:</b> Sony Music referansıyla başlayan o parlak kariyerin ürünleri, telif krizinin kurbanı oldu. Mahkeme koridorlarında çözülemeyen o düğüm, on yıllık bir emeğin dijitalden silinmesine yol açtı. <b>13 Eylül 2024</b> tarihi, bir devrin kapandığı gün olarak kayıtlara geçti.</p>
+                <p><b>USTALARIN TEZGAHINDAN ZİRVEYE:</b> O, sadece bir isim değil; stüdyoların görünmez deviydi! <b>Coşkun Kıvılcımlar, Özer Arkun, Bilgin Canaz</b> ve <b>Malay</b> gibi efsane üstadlarla aynı stüdyoda sabahlayan <b>Engin Savcu</b>, her projeye tescilli ruhunu kattı.</p>
+                <p><b>BİR DEVRİN SONU:</b> Sony Music referansıyla başlayan o parlak kariyerin ürünleri, telif krizinin kurbanı oldu. Mahkeme koridorlarında çözülemeyen o düğüm, on yıllık bir emeğin dijitalden silinmesine yol açtı. <b>13 Eylül 2024</b> tarihi, <b>Engin Savcu</b> için bir devrin kapandığı gün olarak kayıtlara geçti.</p>
                 </div>`
         }
     ];
@@ -120,7 +112,7 @@
             id: i,
             h: i == 1 ? "Türkiye Ekonomisinde Yeni Dönem" : `Türkiye Gündemi: Son Dakika Gelişmesi #${i}`,
             img: `https://picsum.photos/seed/${i+500}/800/500`,
-            body: `<div class="reader-head"><h1 class="reader-h1">${i == 1 ? 'Ekonomide Yeni Dönem' : 'Kritik Gelişme'}</h1></div><div class="reader-text"><p>Türkiye'nin 81 ilinden gelen en güncel haberler ve analizler Manşet Türk ekibi tarafından hazırlanmıştır. #${i} nolu özel dosyamızın detayları gün boyu ekranlarımızda olacak.</p></div>`
+            body: `<div class="reader-head"><h1 class="reader-h1">Gündem: Kritik Dosya</h1></div><div class="reader-text"><p>Türkiye'nin 81 ilinden gelen en güncel haberler ve analizler Manşet Türk ekibi tarafından hazırlanmıştır. #${i} nolu özel dosyamızın detayları gün boyu ekranlarımızda olacak.</p></div>`
         });
     }
 
@@ -131,7 +123,7 @@
         feed.innerHTML += `
             <div class="news-item" onclick="showNews(${item.id})">
                 <div class="item-img"><img src="${item.img}"></div>
-                <div class="item-content"><h2 class="item-title">${item.h}</h2><p style="color:#666; font-size:14px;">Detaylar için tıklayın...</p></div>
+                <div class="item-content"><h2 class="item-title">${item.h}</h2><p style="color:#666; font-size:14px;">Haberin devamı için tıklayın...</p></div>
             </div>`;
     });
 
