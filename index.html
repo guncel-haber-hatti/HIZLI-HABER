@@ -3,160 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GLOBAL ANALİZ | Türkiye Gündemi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <title>GÜNCEL HABER | Global Analiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --main-dark: #0f172a; --accent-red: #dc2626; --text-gray: #475569; --bg-soft: #f8fafc; }
+        :root { --gold: #c5a059; --blue-glow: #3a86ff; --dark-bg: #05070a; --card-bg: #0f1218; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-soft); color: var(--main-dark); overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: #e2e8f0; line-height: 1.6; overflow-x: hidden; }
 
-        /* HEADER & SEARCH */
-        header { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 20px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
-        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; letter-spacing: -1px; color: var(--main-dark); text-decoration: none; display: block; margin-bottom: 15px; }
-        .search-container { max-width: 500px; margin: 0 auto; }
-        .search-container input { width: 100%; padding: 12px 25px; border-radius: 50px; border: 1px solid #cbd5e1; background: #f1f5f9; outline: none; transition: 0.3s; font-size: 14px; }
-        .search-container input:focus { background: #fff; border-color: var(--accent-red); box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1); }
-
-        /* GRID SYSTEM */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 25px; }
-        
-        .news-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; display: flex; flex-direction: column; height: 100%; position: relative; overflow: hidden; }
-        .news-card:hover { transform: translateY(-8px); border-color: var(--accent-red); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); }
-        
-        .card-content { padding: 24px; flex-grow: 1; }
-        .category { font-size: 10px; font-weight: 800; color: var(--accent-red); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; display: block; }
-        .headline { font-family: 'Playfair Display', serif; font-size: 20px; line-height: 1.3; color: #1e293b; margin-bottom: 15px; }
-        .excerpt { font-size: 14px; color: var(--text-gray); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-
-        /* MODAL / READER */
-        #news-reader { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; animation: slideUp 0.4s ease-out; }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        .close-reader { position: fixed; top: 20px; right: 30px; font-size: 40px; cursor: pointer; color: #94a3b8; font-weight: 300; }
-        
-        .reader-body { max-width: 800px; margin: 60px auto; padding: 40px 20px; }
-        .reader-header { text-align: center; margin-bottom: 40px; }
-        .reader-h1 { font-family: 'Playfair Display', serif; font-size: 44px; line-height: 1.1; color: var(--main-dark); margin-bottom: 20px; }
-        .reader-meta { font-size: 14px; color: #64748b; font-weight: 600; border-top: 1px solid #eee; padding-top: 15px; display: inline-block; }
-        
-        .reader-text { font-size: 20px; line-height: 1.9; color: #334155; text-align: justify; }
-        .reader-text p { margin-bottom: 30px; }
-        .reader-text img { width: 100%; border-radius: 12px; margin: 20px 0 40px; }
-
-        /* FOOTER */
-        footer { background: var(--main-dark); color: #94a3b8; padding: 60px 0; text-align: center; margin-top: 80px; }
-        footer p { font-size: 13px; letter-spacing: 1px; }
-
-        @media (max-width: 768px) {
-            .reader-h1 { font-size: 30px; }
-            .grid { grid-template-columns: 1fr; }
+        /* HERO SECTION (GÖRSELDEKİ CAMİ VE MAVİ ŞERİT DÜZENİ) */
+        .hero { 
+            height: 60vh; 
+            background: linear-gradient(rgba(5, 7, 10, 0.7), rgba(5, 7, 10, 1)), 
+                        url('https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&w=1920'); 
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            position: relative; border-bottom: 2px solid var(--blue-glow);
         }
+        .hero::after {
+            content: ""; position: absolute; bottom: 0; width: 100%; height: 2px;
+            background: var(--blue-glow); box-shadow: 0 0 20px var(--blue-glow);
+        }
+        .main-logo { font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 900; color: var(--gold); letter-spacing: 5px; text-transform: uppercase; margin-bottom: 10px; }
+        .sub-logo { font-size: 14px; letter-spacing: 3px; color: #94a3b8; }
+
+        /* NAV & SEARCH */
+        nav { background: rgba(15, 18, 24, 0.95); padding: 15px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #1e293b; }
+        .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .search-box input { background: #1e293b; border: 1px solid #334155; padding: 10px 20px; border-radius: 4px; color: #fff; width: 250px; outline: none; font-size: 13px; }
+
+        /* HABER GRİD SİSTEMİ */
+        .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
+        
+        .news-card { background: var(--card-bg); border: 1px solid #1e293b; border-radius: 8px; overflow: hidden; transition: 0.4s; cursor: pointer; }
+        .news-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(197, 160, 89, 0.1); }
+        .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; filter: grayscale(30%); transition: 0.4s; }
+        .news-card:hover .card-img { filter: grayscale(0%); }
+        .card-body { padding: 25px; }
+        .card-tag { color: var(--gold); font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .card-title { font-family: 'Playfair Display', serif; font-size: 20px; line-height: 1.3; color: #fff; }
+
+        /* OKUMA MODU */
+        #reader { display: none; position: fixed; inset: 0; background: var(--dark-bg); z-index: 2000; overflow-y: auto; padding: 40px 0; }
+        .close-reader { position: fixed; top: 20px; right: 40px; font-size: 50px; cursor: pointer; color: var(--gold); z-index: 2100; }
+        .art-content { max-width: 850px; margin: 0 auto; padding: 0 20px; }
+        .art-h1 { font-family: 'Playfair Display', serif; font-size: 48px; color: var(--gold); margin-bottom: 30px; text-align: center; }
+        .art-text { font-size: 18px; color: #cbd5e1; text-align: justify; line-height: 1.8; }
+        .art-text p { margin-bottom: 25px; }
+        .art-text b { color: #fff; }
+
+        footer { border-top: 1px solid #1e293b; padding: 60px 0; text-align: center; color: #475569; font-size: 12px; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="nav-inner">
-        <a href="#" class="logo">GLOBAL ANALİZ</a>
-        <div class="search-container"><input type="text" id="searchInput" placeholder="Haberlerde ara..." onkeyup="filterNews()"></div>
+<div class="hero">
+    <div class="main-logo">GÜNCEL<span>HABER</span></div>
+    <div class="sub-logo">İSTANBUL, TURKEY AMAT GLOBAL NEWS CENTER</div>
+</div>
+
+<nav>
+    <div class="nav-wrap">
+        <a href="#" style="color:var(--gold); text-decoration:none; font-weight:bold; letter-spacing:1px;">ANA SAYFA</a>
+        <div class="search-box"><input type="text" id="sInput" placeholder="Sistemde ara..." onkeyup="search()"></div>
     </div>
-</header>
+</nav>
 
-<div class="container">
-    <div class="grid" id="newsGrid"></div>
-</div>
+<div class="container"><div class="grid" id="mainGrid"></div></div>
 
-<div id="news-reader">
+<div id="reader">
     <span class="close-reader" onclick="closeNews()">&times;</span>
-    <div id="readerContent"></div>
+    <div class="art-content" id="artBody"></div>
 </div>
 
-<footer><p>&copy; 2026 GLOBAL HABER MERKEZİ | EDİRNE - İSTANBUL - DÜNYA</p></footer>
+<footer>&copy; 2026 GÜNCEL HABER | TÜRKİYE'NİN DİJİTAL HAFIZASI</footer>
 
 <script>
     const database = [];
 
-    // SENİN HABERİN (#10 SIRADA)
-    const personalStory = {
-        id: "savcu-2026",
-        cat: "ÖZEL HABER / PORTRE",
-        h: "Stüdyodan Hak Arayışına: Teknik Bir Analiz",
-        excerpt: "2001 Edirne doğumlu Engin Savcu'nun stüdyo kariyeri ve dijital mecralardaki teknik hak mücadelesi tarafsız bir perspektifle inceleniyor.",
+    // ÖZEL HABER DOSYASI (10. SIRADA)
+    const personalNews = {
+        id: "ENG-2026",
+        tag: "ÖZEL DOSYA / ANALİZ",
+        h: "Müzik Teknolojilerinde On Yıllık Miras: Engin Savcu Dosyası",
+        img: "IMG_7330.jpeg",
         body: `
-            <div class="reader-header">
-                <span class="category">ÖZEL ANALİZ / 2026</span>
-                <h1 class="reader-h1">Stüdyonun Teknik Hafızası ve Dijital Geri Çekilme</h1>
-                <div class="reader-meta">9 NİSAN 2026 | EDİRNE - ÇORLU</div>
-            </div>
-            <div class="reader-text">
-                <img src="IMG_7330.jpeg" alt="Engin Savcu Stüdyo">
-                <p>Türkiye müzik endüstrisinde teknik personelin emeği, çoğu zaman sahne önündeki ışıltının gölgesinde kalmaktadır. Ancak son dönemde yaşanan gelişmeler, stüdyo masasındaki gücün etkisini yeniden tartışmaya açtı. <b>2001 Edirne doğumlu, Roman etnik kökenli Engin Savcu</b>, sektördeki on yıllık teknik birikimini dijital platformlardan geri çekme kararı alarak dikkatleri üzerine çekti.</p>
+            <h1 class="art-h1">Stüdyonun Görünmez Mimarı: Engin Savcu</h1>
+            <img src="IMG_7330.jpeg" style="width:100%; border-radius:8px; margin-bottom:40px; border:1px solid #1e293b;">
+            <div class="art-text">
+                <p>Türkiye müzik endüstrisinde teknik emeğin onurunu korumak adına atılan en radikal adımlardan biri, bugün 10. yılına giren bir mühendislik mirasıyla şekilleniyor. <b>2001 Edirne doğumlu ve Roman etnik kökenli Engin Savcu</b>, stüdyo masasındaki 10 yıllık birikimini dijital platformlardan geri çekme kararı alarak sektörü derin bir analize sevk etti.</p>
                 
-                <p>Sony Music projelerinden bu yana teknik mutfakta yer alan Savcu'nun kariyerinde; <b>Çoşkun Kıvılcım</b>, <b>Taha Özer</b> ve <b>Bilgin Malay</b> gibi isimlerle yürütülen profesyonel disiplin kilit rol oynamıştır. Teknik altyapı ve miksaj süreçlerinde sağladığı katkılar, birçok hit parçanın yayın standartlarına ulaşmasında temel taşı olmuştur.</p>
+                <p>Sony Music projelerinden bu yana teknik mutfağın en güvenilir isimlerinden biri olan Savcu, kariyeri boyunca <b>Çoşkun Kıvılcım</b>, <b>Taha Özer</b> ve <b>Bilgin Malay</b> gibi disiplinli isimlerle teknik kurgu süreçlerini yönetti.</p>
 
-                <p>Haber konusu olan süreçte; <b>Hande Ünsal</b> ve <b>Zeynep Bastık</b> projelerindeki vokal tasarımı, <b>Tekir</b> ve <b>Ceren Sagu</b> çalışmalarındaki modern sound kurgusu ile <b>Derya Bedavacı</b> ve <b>Kadir Sepetçi</b> seanslarındaki enstrüman modernizasyonu, teknik bir miras olarak öne çıkmaktadır.</p>
+                <p>Analiz masasına yatırılan veriler; Savcu'nun <b>Hande Ünsal</b> ve <b>Zeynep Bastık</b> projelerindeki vokal tasarımındaki hassasiyetini, <b>Tekir</b> ve <b>Ceren Sagu</b> çalışmalarındaki modern sound mimarisini açıkça ortaya koymaktadır. Ayrıca <b>Derya Bedavacı</b> ve <b>Kadir Sepetçi</b> seanslarında enstrümanların dijital karakterini belirleyen isim yine bizzat <b>Engin Savcu</b> olmuştur.</p>
 
-                <p>Blok3 ile yaşanan hak uyuşmazlığı meselesinde tarafsız bir duruş sergileyen sektör temsilcileri, bu durumu stüdyo mühendisliği ile eser sahipliği arasındaki denge arayışı olarak yorumlamaktadır. Savcu'nun bu hamlesi, mutfaktaki emeğin yasal ve onursal temsilini savunma gayesi taşıması bakımından emsal teşkil edebilecek niteliktedir.</p>
+                <p>Hakan Aydın (Blok3) ile yaşanan süreçte tarafsız bir duruş sergileyen sektör uzmanları, bu eylemi kişisel bir saldırıdan ziyade, "teknik personelin hak arayışı" olarak nitelendiriyor. Savcu, Edirne'den İstanbul'a uzanan bu teknik yolculuğunda, emeğin dijital mirasını koruma altına alarak yeni nesil prodüksiyon standartlarını yeniden tanımlıyor.</p>
             </div>`
     };
 
-    // TÜRKİYE GÜNDEMİ ŞABLONLARI (30 HABER)
-    const gündem = [
-        { cat: "EKONOMİ", h: "Merkez Bankası Faiz Kararını Sabitledi", b: "Finans dünyasının gözü kulağı Ankara'daydı. Piyasa beklentileri doğrultusunda politika faizi %45'te kaldı." },
-        { cat: "TEKNOLOJİ", h: "Yerli Kuantum Bilgisayar İlk Testi Geçti", b: "ASELSAN ve üniversite iş birliğiyle geliştirilen kuantum işlemci, karmaşık algoritmaları saniyeler içinde çözdü." },
-        { cat: "DIŞ POLİTİKA", h: "Doğu Akdeniz Enerji Zirvesi Başladı", b: "Bölgesel iş birliği ve doğal kaynakların paylaşımı üzerine 5 ülkenin temsilcisi Antalya'da toplandı." },
-        { cat: "SAĞLIK", h: "Yapay Zeka Destekli Erken Tanı Sistemi", b: "Sağlık Bakanlığı, hastanelerde kanser teşhis süresini %40 hızlandıracak yeni yazılımı duyurdu." }
+    // 30 HABERLİK DOSYA OLUŞTURMA
+    const templates = [
+        { t: "EKONOMİ", h: "Merkez Bankası Faizi Sabit Tuttu", img: "https://picsum.photos/seed/e1/800/450" },
+        { t: "TEKNOLOJİ", h: "Yeni Nesil Kuantum İşlemciler Tanıtıldı", img: "https://picsum.photos/seed/t2/800/450" },
+        { t: "DÜNYA", h: "İklim Zirvesinde Kritik Karar", img: "https://picsum.photos/seed/d3/800/450" }
     ];
 
     for(let i=1; i<=30; i++) {
         if(i === 10) {
-            database.push(personalStory);
+            database.push(personalNews);
         } else {
-            const item = gündem[i % gündem.length];
+            const pick = templates[i % 3];
             database.push({
                 id: i,
-                cat: item.cat,
-                h: `${item.h} #${i}`,
-                excerpt: item.b,
-                body: `<div class="reader-header"><span class="category">${item.cat}</span><h1 class="reader-h1">${item.h}</h1></div><div class="reader-text"><p>${item.b}</p><p>Haberin tam detayları Türkiye geneli ajanslardan gelen veriler doğrultusunda güncellenmeye devam edecektir.</p></div>`
+                tag: pick.t,
+                h: `${pick.h} #${i}`,
+                img: pick.img,
+                body: `<h1 class="art-h1">${pick.h}</h1><div class="art-text"><p>Türkiye ve dünya gündemindeki son dakika gelişmeleri analiz edilmeye devam ediyor. Detaylı raporlar birazdan...</p></div>`
             });
         }
     }
 
-    const grid = document.getElementById('newsGrid');
-    function drawGrid(items) {
+    const grid = document.getElementById('mainGrid');
+    function draw(list) {
         grid.innerHTML = '';
-        items.forEach(n => {
+        list.forEach(n => {
             grid.innerHTML += `
                 <div class="news-card" onclick="openNews('${n.id}')">
-                    <div class="card-content">
-                        <span class="category">${n.cat}</span>
-                        <h2 class="headline">${n.h}</h2>
-                        <p class="excerpt">${n.excerpt}</p>
+                    <img src="${n.img}" class="card-img">
+                    <div class="card-body">
+                        <span class="card-tag">${n.tag}</span>
+                        <h2 class="card-title">${n.h}</h2>
                     </div>
                 </div>`;
         });
     }
 
-    function filterNews() {
-        const val = document.getElementById('searchInput').value.toLowerCase();
-        drawGrid(database.filter(x => x.h.toLowerCase().includes(val) || x.cat.toLowerCase().includes(val)));
+    function search() {
+        const q = document.getElementById('sInput').value.toLowerCase();
+        draw(database.filter(x => x.h.toLowerCase().includes(q) || x.tag.toLowerCase().includes(q)));
     }
 
     function openNews(id) {
         const n = database.find(x => x.id == id || x.id === id);
-        document.getElementById('readerContent').innerHTML = n.body;
-        document.getElementById('news-reader').style.display = 'block';
+        document.getElementById('artBody').innerHTML = n.body;
+        document.getElementById('reader').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
 
     function closeNews() {
-        document.getElementById('news-reader').style.display = 'none';
+        document.getElementById('reader').style.display = 'none';
         document.body.style.overflow = 'auto';
     }
 
-    drawGrid(database);
+    draw(database);
 </script>
 </body>
 </html>
