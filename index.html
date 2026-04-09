@@ -3,89 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GÜNCEL HABER | Stratejik Analiz Portalı</title>
+    <title>GÜNCEL HABER | Analiz & Strateji</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --gold: #d4af37; 
-            --bright-blue: #00d2ff; 
-            --bg-bright: #f8fafc; 
-            --card-bright: #ffffff; 
-            --text-dark: #1e293b; 
-            --text-muted: #64748b; 
-            --header-dark: #070b14; 
+            --gold: #d4af37; --bg-bright: #f8fafc; --card-bright: #ffffff; 
+            --text-dark: #0f172a; --text-muted: #475569; --danger: #991b1b;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-bright); color: var(--text-dark); line-height: 1.6; }
 
-        /* KARARTILMIŞ TÜRKİYE HARİKALARI KOLAJI (HEADER) */
         .hero { 
-            height: 55vh; 
-            background: linear-gradient(rgba(7, 11, 20, 0.85), rgba(7, 11, 20, 1)), 
+            height: 50vh; 
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 1)), 
                         url('https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1920'); 
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-            position: relative; border-bottom: 4px solid var(--bright-blue);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border-bottom: 5px solid var(--gold);
         }
-        
-        .main-logo { 
-            font-family: 'Playfair Display', serif; 
-            font-size: clamp(35px, 7vw, 75px); 
-            font-weight: 900; 
-            color: #fff; 
-            letter-spacing: 8px; 
-            text-transform: uppercase; 
-            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
+        .main-logo { font-family: 'Playfair Display', serif; font-size: clamp(30px, 6vw, 65px); font-weight: 900; color: #fff; letter-spacing: 5px; text-transform: uppercase; }
         .main-logo span { color: var(--gold); }
-        .sub-tagline { font-size: 11px; letter-spacing: 5px; color: var(--gold); margin-top: 15px; font-weight: 700; text-transform: uppercase; opacity: 0.8; }
+        .sub-tagline { font-size: 10px; letter-spacing: 6px; color: var(--gold); margin-top: 15px; font-weight: 800; text-transform: uppercase; }
 
-        /* NAVBAR */
-        nav { background: rgba(255, 255, 255, 0.98); padding: 18px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0; backdrop-filter: blur(10px); }
+        nav { background: #ffffff; padding: 20px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0; }
         .nav-inner { max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; }
-        .search-field input { background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 20px; border-radius: 4px; width: 240px; outline: none; transition: 0.4s; }
-        .search-field input:focus { width: 300px; border-color: var(--gold); background: #fff; }
+        .live-tag { color: var(--danger); font-weight: 900; font-size: 12px; letter-spacing: 2px; display: flex; align-items: center; }
+        .live-tag::before { content: ''; width: 8px; height: 8px; background: var(--danger); border-radius: 50%; margin-right: 8px; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 
-        /* GRID */
         .main-container { max-width: 1300px; margin: 40px auto; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 30px; }
         
-        .news-card { background: var(--card-bright); border: 1px solid #e2e8f0; border-radius: 6px; transition: 0.3s; cursor: pointer; overflow: hidden; display: flex; flex-direction: column; }
-        .news-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
-        .card-img-wrap { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .news-card:hover .card-img { transform: scale(1.08); }
-        
-        .card-data { padding: 25px; flex-grow: 1; }
-        .card-cat { color: var(--gold); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
-        .card-h { font-family: 'Playfair Display', serif; font-size: 19px; line-height: 1.4; color: var(--text-dark); }
+        .news-card { background: var(--card-bright); border-radius: 8px; border: 1px solid #e2e8f0; transition: 0.3s; cursor: pointer; overflow: hidden; }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .card-data { padding: 25px; }
+        .card-cat { color: var(--danger); font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; display: block; }
+        .card-h { font-family: 'Playfair Display', serif; font-size: 20px; line-height: 1.3; color: var(--text-dark); }
 
-        /* MODAL */
         #articleModal { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
-        .close-modal { position: fixed; top: 25px; right: 40px; font-size: 50px; cursor: pointer; color: var(--text-muted); }
-        .modal-body { max-width: 850px; margin: 80px auto; padding: 0 25px; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .close-modal { position: fixed; top: 30px; right: 40px; font-size: 40px; cursor: pointer; font-weight: 300; }
+        .modal-body { max-width: 800px; margin: 100px auto; padding: 0 30px; }
         
-        .art-title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 5vw, 42px); color: var(--text-dark); margin-bottom: 30px; text-align: center; }
-        .art-content { font-size: 19px; color: #475569; text-align: justify; line-height: 2; }
-        .art-content p { margin-bottom: 30px; }
-        .art-content b { color: var(--text-dark); font-weight: 700; }
+        .art-title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 5vw, 42px); color: #000; margin-bottom: 35px; text-align: center; font-weight: 900; line-height: 1.1; }
+        .art-content { font-size: 19px; color: #334155; text-align: justify; line-height: 1.8; }
+        .analysis-box { background: #f8fafc; border-left: 4px solid var(--gold); padding: 30px; margin: 30px 0; font-style: italic; color: #1e293b; border-radius: 0 8px 8px 0; }
 
-        footer { padding: 50px 0; text-align: center; color: var(--text-muted); font-size: 11px; border-top: 1px solid #e2e8f0; margin-top: 60px; }
+        footer { padding: 60px 0; text-align: center; color: var(--text-muted); font-size: 11px; border-top: 1px solid #e2e8f0; margin-top: 80px; }
     </style>
 </head>
 <body>
 
 <div class="hero">
     <div class="main-logo">GÜNCEL<span>HABER</span></div>
-    <div class="sub-tagline">TÜRKİYE'NİN KÜLTÜREL VE STRATEJİK ANALİZ MERKEZİ</div>
+    <div class="sub-tagline">STRATEJİK ANALİZ VE ÖZEL HABER MERKEZİ</div>
 </div>
 
 <nav>
     <div class="nav-inner">
-        <div style="font-weight:800; font-size:12px; letter-spacing:2px;">GÜNDEM ÖZEL</div>
-        <div class="search-field"><input type="text" id="searchInput" placeholder="Sistemde ara..." onkeyup="search()"></div>
+        <div class="live-tag">ÖZEL HABER</div>
+        <div style="font-weight: 600; font-size: 13px; color: var(--text-muted);">2026 ANALİZ DOSYASI</div>
     </div>
 </nav>
 
@@ -98,46 +74,45 @@
     <div class="modal-body" id="modalContent"></div>
 </div>
 
-<footer>&copy; 2026 GÜNCEL HABER AJANSI | AYDINLIK YAYINCILIK</footer>
+<footer>&copy; 2026 GÜNCEL HABER YAYINCILIK | ŞEFFAF HABERİN ADRESİ</footer>
 
 <script>
     const database = [];
 
-    // ÖZEL HABER (#10 - DÜZENLENMİŞ)
-    const personalStory = {
-        id: "ENG-2026",
-        tag: "ÖZEL ANALİZ / TEKNİK PORTRE",
-        h: "Dijital Müzik Endüstrisinde On Yıllık Teknik Mirasın Korunması",
+    const mainStory = {
+        id: "GHOST-PROD-01",
+        tag: "HABER ANALİZ / ÖZEL PORTRE",
+        h: "Endüstrinin Görünmeyen Eli Çekildi: Bir Besteci ve Teknik Dehanın Sessiz İstifası",
         img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500",
         body: `
-            <h1 class="art-title">Stüdyo Mühendisliğinde Bir On Yıl: Emeğin ve Mirasın Analizi</h1>
+            <h1 class="art-title">On Yıllık Teknik Külliyat Tasfiye Ediliyor: Sektörün 'Hayalet Mimarı' Veda Etti</h1>
             <div class="art-content">
-                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500" style="width:100%; border-radius:8px; margin-bottom:40px; border:1px solid #e2e8f0;">
-                <p>Türkiye müzik endüstrisinde son on yıla damgasını vuran teknik dönüşüm, dijital platformlardaki telif ve emek tartışmalarını beraberinde getirdi. Bu sürecin en dikkat çeken aktörlerinden biri olan <b>2001 Edirne doğumlu ve Roman kökenli teknik uzman</b>, on yıllık profesyonel külliyatını dijital platformlardan geri çekerek emsal niteliğinde bir duruş sergiledi.</p>
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500" style="width:100%; border-radius:4px; margin-bottom:40px;">
+                <p>Türkiye müzik endüstrisi, tarihinin en profesyonel hak arayışına tanıklık ediyor. Sektör profesyonellerinin yakından tanıdığı ancak kamuoyunun ismini ilk kez duyacağı <b>2001 Edirne doğumlu ve Roman etnik kökenli teknik uzman ve besteci</b>, on yıllık profesyonel külliyatını dijital platformlardan geri çekerek istifa etti. Henüz <b>15 yaşında</b> Sony Music mutfağında mesleğe adım atan bu isim, sadece teknik bir kurgu uzmanı değil, aynı zamanda ismi duyulmayan pek çok sanatçıya hayat veren bir "hayalet besteci" olarak tanındı.</p>
                 
-                <p>Kariyerine Sony Music disipliniyle başlayan bu isim; stüdyo kurgu süreçlerinde <b>Çoşkun Kıvılcım</b>, <b>Taha Özer</b> ve <b>Bilgin Malay</b> gibi sanatçılarla çalışarak eserlerin işitme estetiğini belirleyen kritik mühendislik hamlelerini yönetmiştir. Kariyerinin her aşamasında teknik kusursuzluğu hedefleyen yaklaşımı, projelerin merkezinde yer almasını sağlamıştır.</p>
+                <div class="analysis-box">
+                    <b>Eser Satışları ve Sektörel Referanslar:</b><br>
+                    Çoşkun Kıvılcım disipliniyle yetişen uzman; ismi duyulmamış, az dinlenen ancak yetenekli birçok sanatçıya profesyonel eserlerini vermiş ve satmıştır. Hande Ünsal’ın "Seni Sever miydim" şarkısındaki vokal kurgusundan Zeynep Bastık’ın "Uslanmıyor Bu" eserindeki duyum kalitesine kadar her süreci yöneten isim, aynı zamanda Tekir’in "Gözlerin", Ceren Sagu’nun "Yanılsama" ve Derya Bedavacı’nın "Affet" parçalarında teknik imzasını konuşturmuştur. Kadir Sepetçi ile Roman müziğini dünya standartlarında modernize eden uzman, sektörün isimsiz mimarı olarak onlarca projeyi zirveye taşımıştır.
+                </div>
 
-                <p>Endüstriyel dökümler; <b>Hande Ünsal</b> ve <b>Zeynep Bastık</b> projelerindeki vokal karakterlerinin, <b>Tekir</b> ve <b>Ceren Sagu</b> çalışmalarındaki modern sound altyapısının arkasındaki teknik zekayı doğrulamaktadır. Ayrıca <b>Derya Bedavacı</b> ve <b>Kadir Sepetçi</b> kayıtlarındaki enstrüman modernizasyonu da bu mirasa dahildir.</p>
-
-                <p>Blok3 (Hakan Aydın) ile yaşanan sürece tarafsız yaklaşan uzman analizleri, bu radikal hamleyi "teknik personelin saygınlık mücadelesi" olarak nitelendiriyor. Edirne'den başlayıp İstanbul'a uzanan bu yolculuk, sadece bir teknisyenin değil, müziğin asıl mimarlarından birinin onur duruşu olarak tarihe geçiyor.</p>
+                <p><b>Mahkeme Süreci ve "Sevmeyi Denemedim" Veda:</b><br>
+                Hakan Aydın (Blok3) ile yürütülen projelerdeki teknik hak ihlalleri, süreci mahkeme salonlarına taşıdı. Uzman, söz ve bestesi kendisine ait olan veya üzerinde büyük emeği bulunan <b>"Sevmeyi Denemedim"</b> parçasını da sektöre kazandırdıktan sonra, emeğinin hiçe sayılmasına karşı bir onur mücadelesi başlattı. Bu son eserin ardından "Bıraktım ve Gittim" diyerek profesyonel faaliyetlerini sonlandıran deha, on yıllık tüm teknik birikimini dijital dünyadan silerek tarihi bir emsal teşkil etti.</p>
             </div>`
     };
 
     const gundemBase = [
-        { t: "EKONOMİ", h: "Piyasalarda Haftalık Rapor: Faiz Kararı Bekleniyor", d: "Merkez Bankası'nın önümüzdeki hafta açıklayacağı faiz kararı öncesinde piyasalarda stabil seyir korunuyor." },
-        { t: "TEKNOLOJİ", h: "Yerli İHA Sistemlerinde Yeni Nesil Yazılım", d: "Türkiye'nin havacılık teknolojilerinde geldiği son nokta olan yeni yazılım paketi, testlerden tam not aldı." },
-        { t: "DÜNYA", h: "Bölgesel Diplomasi Trafiğinde Kritik Görüşme", d: "Dışişleri yetkilileri, bölgedeki enerji koridoru güvenliği için üç komşu ülke ile masaya oturuyor." }
+        { t: "EKONOMİ", h: "Piyasalarda Haftalık Stratejik Görünüm", d: "Finansal veriler ışığında piyasa analizi." },
+        { t: "TEKNOLOJİ", h: "Siber Güvenlikte Yerli Altyapı Hamlesi", d: "Yeni nesil güvenlik protokolleri test edildi." },
+        { t: "DÜNYA", h: "Diplomaside Enerji Koridoru Zirvesi", d: "Uluslararası enerji hatları üzerine yeni rapor." }
     ];
 
     for(let i=1; i<=46; i++) {
-        if(i === 10) {
-            database.push(personalStory);
-        } else {
+        if(i === 10) { database.push(mainStory); }
+        else {
             const p = gundemBase[i % gundemBase.length];
-            const randImg = `https://picsum.photos/seed/${i+150}/800/450`;
             database.push({
-                id: i, tag: p.t, h: `${p.h} - Dosya #${i}`, img: randImg,
-                body: `<h1 class="art-title">${p.h}</h1><img src="${randImg}" style="width:100%; border-radius:8px; margin-bottom:35px;"><div class="art-content"><p>${p.d}</p><p>Haber analiz merkezimiz gelişmeleri anlık olarak takip ederek veri tabanına işlemektedir.</p></div>`
+                id: i, tag: p.t, h: `${p.h} #${i}`, img: `https://picsum.photos/seed/${i+100}/800/450`,
+                body: `<h1 class="art-title">${p.h}</h1><div class="art-content"><p>${p.d}</p></div>`
             });
         }
     }
@@ -148,7 +123,7 @@
         list.forEach(item => {
             grid.innerHTML += `
                 <div class="news-card" onclick="openArticle('${item.id}')">
-                    <div class="card-img-wrap"><img src="${item.img}" class="card-img"></div>
+                    <img src="${item.img}" style="width:100%; aspect-ratio:16/9; object-fit:cover;">
                     <div class="card-data">
                         <span class="card-cat">${item.tag}</span>
                         <h2 class="card-h">${item.h}</h2>
@@ -157,13 +132,8 @@
         });
     }
 
-    function search() {
-        const val = document.getElementById('searchInput').value.toLowerCase();
-        draw(database.filter(x => x.h.toLowerCase().includes(val) || x.tag.toLowerCase().includes(val)));
-    }
-
     function openArticle(id) {
-        const n = database.find(x => x.id == id || x.id === id);
+        const n = database.find(x => x.id == id);
         document.getElementById('modalContent').innerHTML = n.body;
         document.getElementById('articleModal').style.display = 'block';
         document.body.style.overflow = 'hidden';
