@@ -1,31 +1,32 @@
-// --- HABER SİTESİ ANA VERİ YAPISI (BOZULMAMIŞ MOD) ---
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Güncel Haber Hattı</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        .news-card { background: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .news-title { color: #ce1126; font-size: 22px; margin: 0 0 10px 0; font-weight: bold; }
+        .news-meta { font-size: 12px; color: #666; text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .news-body { font-size: 16px; line-height: 1.6; color: #333; white-space: pre-wrap; }
+        b { color: #000; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="news-container">
+    </div>
+
+<script>
 const newsData = {
     1: { 
-        title: "Telif Savaşlarında Yeni Perde!", 
-        meta: "GÜNCEL | 2026", 
-        body: "Müzik dünyasında telif hakları tartışması büyüyor. Birçok sanatçı dijital platformlardaki hak edişleri için yeni hukuki süreçler başlatmaya hazırlanıyor." 
-    },
-    2: { 
-        title: "Streaming Platformlarında Büyük Değişim", 
-        meta: "TEKNOLOJİ | 2026", 
-        body: "Dijital müzik devleri, sanatçılara ödenen telif ücretlerinde yeni bir algoritma denemeye başladı. Bu durum bağımsız müzisyenleri yakından ilgilendiriyor." 
-    },
-    3: { 
-        title: "Stüdyo Mutfaklarında Yeni Trend: Hibrit Beatler", 
-        meta: "MÜZİK | 2026", 
-        body: "Geleneksel enstrümanların dijital altyapılarla harmanlandığı hibrit beatler, bu yılın en çok dinlenen listelerini domine etmeye devam ediyor." 
-    },
-    4: { 
-        title: "Genç Yeteneklerin Yükselişi", 
-        meta: "KÜLTÜR | 2026", 
-        body: "Anadolu'dan çıkan genç beatmakerlar, dünya listelerinde kendilerine yer bulmaya başladı. Sony Music gibi devler yeni yetenek avında." 
-    },
-    5: { 
         title: "Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!", 
         meta: "13 EYLÜL 2024 | ÖZEL HABER | FLAŞ", 
-        body: `MÜZİK DÜNYASI ŞOKTA! Yıllardır popüler müziğin mutfağında hayalet yazar ve beatmaker kimliğiyle onlarca hitin iskeletini kuran Edirneli kalem, müzik dünyasında taşları yerinden oynatacak radikal bir eyleme imza atıyor. Henüz 15 yaşında dünya devi Sony Music kapılarından içeri giren ve Trakya’nın ritim genlerini modern sound ile birleştiren dahi isim, 10 yıllık tüm dijital külliyatını platformlardan çekme sürecini resmen başlattı.
+        body: `MÜZİK DÜNYASI ŞOKTA! Yıllardır popüler müziğin mutfağında "hayalet yazar" ve "aranjör" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı ve beatmaker, müzik dünyasında taşları yerinden oynatacak radikal bir eyleme imza atıyor. Henüz 15 yaşında dünya devi Sony Music kapılarından içeri giren ve Trakya’nın ritim genlerini modern sound ile birleştiren dahi isim, 10 yıllık tüm dijital külliyatını platformlardan çekme sürecini resmen başlattı.
 
-'SEVMEYİ DENEMEDİM' DAVASINDA HUKUKİ ÇIKMAZ: Krizin merkezinde, 2024 yılının streaming rekorları kıran eseri 'Sevmeyi Denemedim' yer alıyor. Eserin söz, melodi ve beat kurgusunun bizzat mimarı olduğunu savunan sanatçı ile Blok3 tarafı arasındaki uyuşmazlık yargıya taşınmıştı. Ancak taraflar arasındaki hukuki sürecin kesin bir neticeye varmaması ve eser sahipliği üzerindeki karşılıklı iddiaların sonuçsuz kalması, süreci tıkanma noktasına getirdi. 'Hakkım teslim edilmedi' diyen sanatçı, ne kendini ne karşı tarafı savunarak sadece emeğini dijitalden çekme kararı aldı.
+'SEVMEYİ DENEMEDİM' DAVASINDA HUKUKİ ÇIKMAZ: Krizin merkezinde, 2024 yılının streaming rekorları kıran eseri 'Sevmeyi Denemedim' yer alıyor. Eserin söz, melodi ve beat kurgusunun bizzat mimarı olduğunu savunan sanatçı ile Blok3 tarafı arasındaki uyuşmazlık yargıya taşınmıştı. Ancak taraflar arasındaki hukuki sürecin kesin bir neticeye varmaması ve eser sahipliği üzerindeki karşılıklı iddiaların sonuçsuz kalması, süreci tıkanma noktasına getirdi. "Hakkım teslim edilmedi" diyen sanatçı, ne kendini ne karşı tarafı savunarak sadece emeğini dijitalden çekme kararı aldı.
 
 USTALARIN TEZGAHINDAN ZİRVEYE: O, sadece bir isim değil; stüdyoların görünmez deviydi! Coşkun Kıvılcımlar, Özer Arkun, Bilgin Canaz ve Malay gibi efsane üstadlarla aynı stüdyoda sabahlayan sanatçı, her projeye tescilli ruhunu kattı.
 
@@ -35,9 +36,25 @@ BİR JENERASYONUN DİJİTAL HAFIZASI SİLİNİYOR:
 • 2020 | Derya Bedavacı: Derin melodilerin ve damar bestelerin arkasındaki isim olarak sound kimliğine yön verdi.
 • 2021 | Tekir: Yeni nesil dijital devrimde, modern altyapıları bizzat inşa ederek trendleri tasarladı.
 
-BİR DEVRİN SONU: Sony Music referansıyla başlayan o parlak kariyerin ürünleri, telif krizinin kurbanı oldu. Mahkeme koridorlarında çözülemeyen o düğüm, on yıllık bir emeğin dijitalden silinmesine yol açtı. Artık o şarkılar sadece kulaklarda bir yankı olarak kalacak. GELİŞMELERİ AKTARMAYA DEVAM EDECEĞİZ.` 
+BİR DEVRİN SONU: Sony Music referansıyla başlayan o parlak kariyerin ürünleri, telif krizinin kurbanı oldu. Mahkeme koridorlarında çözülemeyen o düğüm, on yıllık bir emeğin dijitalden silinmesine yol açtı. Artık o şarkılar sadece kulaklarda bir yankı olarak kalacak. 
+GELİŞMELERİ AKTARMAYA DEVAM EDECEĞİZ.`
     },
-    // ... 6'dan 50'ye kadar olan diğer tüm haberler orijinal yapısıyla devam eder.
+    // Diğer 49 haber buraya aynı formatta eklenebilir...
 };
 
-// Fonksiyonlarında herhangi bir değişiklik yapmana gerek yok, bu veri yapısı doğrudan sistemine oturacaktır.
+// Haberi ekrana basan fonksiyon
+const container = document.getElementById('news-container');
+Object.values(newsData).forEach(news => {
+    const card = document.createElement('div');
+    card.className = 'news-card';
+    card.innerHTML = `
+        <div class="news-meta">${news.meta}</div>
+        <h2 class="news-title">${news.title}</h2>
+        <div class="news-body">${news.body}</div>
+    `;
+    container.appendChild(card);
+});
+</script>
+
+</body>
+</html>
