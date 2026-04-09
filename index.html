@@ -3,105 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANŞET TÜRK | Premium Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <title>MANŞET TÜRK | Son Dakika Güncel Haberler</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lora:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <style>
-        :root { --ivory: #fdfaf6; --gold: #c5a059; --text: #1c1c1c; --gray: #707070; }
+        :root { --main: #002d5b; --accent: #c4122e; --bg: #f8f9fa; --card: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #212529; }
+
+        /* HABER PORTALI HEADER */
+        header { background: #fff; border-bottom: 4px solid var(--main); padding: 20px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .nav-top { text-align: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; font-size: 12px; font-weight: 700; color: var(--main); }
+        .logo { font-family: 'Lora', serif; font-size: 45px; font-weight: 800; color: var(--main); text-decoration: none; text-transform: uppercase; letter-spacing: -2px; display: block; text-align: center; }
+        .logo span { color: var(--accent); }
+
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+
+        /* MANŞET DÜZENİ */
+        .hero-section { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-top: 25px; }
+        @media (max-width: 900px) { .hero-section { grid-template-columns: 1fr; } }
+
+        .main-headline { position: relative; height: 450px; background: #000; border-radius: 8px; overflow: hidden; cursor: pointer; }
+        .main-headline img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .headline-info { position: absolute; bottom: 0; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: #fff; width: 100%; }
+        .headline-cat { background: var(--accent); padding: 4px 10px; font-size: 11px; font-weight: 700; border-radius: 3px; margin-bottom: 10px; display: inline-block; }
+        .headline-h { font-family: 'Lora', serif; font-size: 32px; line-height: 1.2; }
+
+        /* HABER LİSTESİ */
+        .content-grid { display: grid; grid-template-columns: 1fr 320px; gap: 40px; margin-top: 40px; }
+        @media (max-width: 1000px) { .content-grid { grid-template-columns: 1fr; } }
+
+        .news-list-h { border-bottom: 2px solid var(--main); padding-bottom: 10px; margin-bottom: 20px; font-size: 18px; font-weight: 900; }
         
-        body { font-family: 'Inter', sans-serif; background-color: var(--ivory); color: var(--text); overflow-x: hidden; }
+        .news-card { display: grid; grid-template-columns: 240px 1fr; gap: 20px; background: var(--card); padding: 15px; border-radius: 6px; margin-bottom: 20px; cursor: pointer; transition: 0.2s; border: 1px solid #eee; }
+        .news-card:hover { box-shadow: 0 5px 20px rgba(0,0,0,0.08); transform: translateY(-3px); }
+        .news-card.special { border-left: 6px solid var(--accent); background: #fffafb; }
+        .card-img { height: 150px; border-radius: 4px; overflow: hidden; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; }
+        .card-title { font-size: 20px; font-weight: 800; line-height: 1.3; margin-bottom: 10px; color: #111; }
+        .card-meta { font-size: 11px; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+        /* OKUMA SAYFASI */
+        #article-reader { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; padding: 40px 0; }
+        .reader-close { position: fixed; top: 20px; right: 30px; font-size: 50px; cursor: pointer; color: #999; }
+        .reader-wrap { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+        .reader-h1 { font-family: 'Lora', serif; font-size: 42px; line-height: 1.1; margin-bottom: 30px; }
+        .reader-body { font-size: 19px; line-height: 1.8; color: #333; }
+        .reader-body b { color: #000; border-bottom: 1px solid var(--accent); }
+        .pro-table { width: 100%; margin: 30px 0; border-collapse: collapse; }
+        .pro-table td { padding: 15px; border-bottom: 1px solid #eee; font-weight: 700; font-size: 16px; }
+        .pro-table td span { float: right; color: var(--accent); font-size: 13px; }
 
-        /* ELİT HEADER */
-        header { padding: 40px 0; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.05); background: rgba(253, 250, 246, 0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; color: #000; text-decoration: none; letter-spacing: -1px; }
-        .logo span { color: var(--gold); }
-
-        /* PREMİUM MANŞET */
-        .hero { position: relative; margin-top: 40px; border-radius: 30px; overflow: hidden; height: 500px; cursor: pointer; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        .hero img { width: 100%; height: 100%; object-fit: cover; transition: 1s cubic-bezier(0.2, 1, 0.3, 1); }
-        .hero:hover img { transform: scale(1.05); }
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; align-items: flex-end; padding: 50px; }
-        .hero-h { font-family: 'Playfair Display', serif; color: #fff; font-size: 42px; line-height: 1.1; max-width: 800px; }
-
-        /* HABER AKIŞI */
-        .main-grid { display: grid; grid-template-columns: 1fr 300px; gap: 50px; margin-top: 60px; }
-        @media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } .sidebar { display: none; } }
-
-        .post-card { display: flex; gap: 25px; margin-bottom: 35px; cursor: pointer; padding: 15px; border-radius: 20px; transition: 0.3s; background: #fff; border: 1px solid rgba(0,0,0,0.03); }
-        .post-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
-        .post-img { width: 220px; height: 140px; border-radius: 15px; overflow: hidden; flex-shrink: 0; }
-        .post-img img { width: 100%; height: 100%; object-fit: cover; }
-        .post-h { font-size: 20px; font-weight: 600; line-height: 1.3; margin-bottom: 10px; }
-        
-        /* 5. SIRA ÖZEL VURGU */
-        .rank-5 { border: 2px solid var(--gold); }
-        .special-tag { color: var(--gold); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; display: block; }
-
-        /* OKUMA PANELİ */
-        #reader { display: none; position: fixed; inset: 0; background: var(--ivory); z-index: 1000; overflow-y: auto; }
-        .close-btn { position: fixed; top: 30px; right: 40px; font-size: 40px; cursor: pointer; color: var(--gray); }
-        .reader-wrap { max-width: 750px; margin: 100px auto; padding: 0 25px; }
-        .reader-h { font-family: 'Playfair Display', serif; font-size: 48px; line-height: 1.1; margin-bottom: 40px; }
-        .reader-body { font-size: 20px; line-height: 1.9; color: #333; }
-        .reader-body b { color: #000; border-bottom: 2px solid var(--gold); }
-        
-        .pro-table { width: 100%; margin: 30px 0; border-collapse: collapse; background: #fff; border-radius: 15px; overflow: hidden; border: 1px solid #eee; }
-        .pro-table td { padding: 20px; border-bottom: 1px solid #eee; font-weight: 600; }
-        .pro-table td span { float: right; color: var(--gold); font-size: 13px; }
-
-        footer { padding: 80px 0; text-align: center; font-size: 14px; opacity: 0.5; border-top: 1px solid rgba(0,0,0,0.05); }
+        footer { background: var(--main); color: #fff; padding: 60px 0; text-align: center; margin-top: 60px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="container"><a href="#" class="logo">MANŞET<span>TÜRK</span></a></div>
+    <div class="nav-top">09 NİSAN 2026 | TÜRKİYE'NİN GÜNCEL HABER MERKEZİ</div>
+    <div class="container">
+        <a href="#" class="logo">MANŞET <span>TÜRK</span></a>
+    </div>
 </header>
 
 <div class="container">
-    <div class="hero" onclick="openP(0)">
-        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1500">
-        <div class="hero-overlay">
-            <h1 class="hero-h">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Külliyatını Feshetti!</h1>
+    <div class="hero-section">
+        <div class="main-headline" onclick="openH(0)">
+            <img src="https://images.unsplash.com/photo-1514525253361-bee8718a300a?auto=format&fit=crop&w=1500">
+            <div class="headline-info">
+                <span class="headline-cat">GÜNCEL</span>
+                <h1 class="headline-h">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Külliyatını Feshetti!</h1>
+            </div>
         </div>
+        <div style="background: #eee; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999;">REKLAM ALANI</div>
     </div>
 
-    <div class="main-grid">
-        <main id="feed"></main>
-        <aside class="sidebar">
-            <h4 style="font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; opacity: 0.4;">Özel Dosyalar</h4>
+    <div class="content-grid">
+        <main>
+            <h2 class="news-list-h">SON HABERLER</h2>
+            <div id="feed"></div>
+        </main>
+        <aside>
+            <h2 class="news-list-h">EN ÇOK OKUNANLAR</h2>
             <div id="side-feed"></div>
         </aside>
     </div>
 </div>
 
-<div id="reader">
-    <span class="close-btn" onclick="closeP()">&times;</span>
-    <div class="reader-wrap" id="reader-target"></div>
+<div id="article-reader">
+    <span class="reader-close" onclick="closeH()">&times;</span>
+    <div class="reader-wrap" id="target"></div>
 </div>
 
-<footer>&copy; 2026 MANŞET TÜRK | Premium News Portal</footer>
+<footer>&copy; 2026 MANŞET TÜRK | Haberiniz Olsun</footer>
 
 <script>
     const news = [];
 
-    // 1-4. Haberler
+    // İlk 4 Haber
     for(let i=1; i<=4; i++) {
-        news.push({ id: i, h: `Türkiye'nin Stratejik Vizyonu: #${i} Nolu Gelişme Raporu`, img: `https://picsum.photos/seed/n${i}/600/400`, body: `<h1 class="reader-h">Gündem #${i}</h1><p class="reader-body">Türkiye'nin geleceğine yön veren stratejik analizlerin tüm detayları burada...</p>` });
+        news.push({ id: i, h: `Türkiye'nin Geleceği: Stratejik Gelişmeler #${i}`, img: `https://picsum.photos/seed/${i+50}/400/250`, body: `<h1 class="reader-h1">Stratejik Dosya #${i}</h1><p class="reader-body">Detaylı raporun içeriği burada yer alacaktır...</p>` });
     }
 
-    // 5. SIRADAKİ HABER (ENGİN SAVCU - TAM METİN)
+    // 5. SIRADAKİ HABER (ENGİN SAVCU - METİN SABİT)
     news.push({
         id: 0,
         isS: true,
         h: "Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Külliyatını Feshetti!",
-        img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1500",
+        img: "https://images.unsplash.com/photo-1514525253361-bee8718a300a?auto=format&fit=crop&w=1500",
         body: `
-            <h1 class="reader-h">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!</h1>
+            <h1 class="reader-h1">Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!</h1>
             <div class="reader-body">
-            <p><b>MÜZİK DÜNYASI ŞOKTA!</b> Yıllardır popüler müziğin mutfağında "hayalet yazar" ve "aranjör" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı ve beatmaker <b>Engin Savcu</b>, radikal bir eyleme imza atıyor.</p>
+            <p><b>MÜZİK DÜNYASI ŞOKTA!</b> Yıllardır popüler müziğin mutfağında "hayalet yazar" ve "aranjör" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı ve beatmaker <b>Engin Savcu</b>, müzik dünyasında taşları yerinden oynatacak radikal bir eyleme imza atıyor.</p>
             <p>Henüz 15 yaşında dünya devi <b>Sony Music</b> kapılarından içeri giren ve Trakya’nın ritim genlerini modern sound ile birleştiren dahi kalem <b>Engin Savcu</b>, 10 yıllık tüm dijital külliyatını platformlardan çekme sürecini resmen başlattı.</p>
             <p><b>'SEVMEYİ DENEMEDİM' DAVASINDA HUKUKİ ÇIKMAZ:</b> Krizin merkezinde, 2024 yılının streaming rekorları kıran eseri 'Sevmeyi Denemedim' yer alıyor. Eserin söz, melodi ve beat kurgusunun bizzat mimarı olduğunu savunan <b>Engin Savcu</b> ile <b>Blok3</b> tarafı arasındaki uyuşmazlık yargıya taşınmıştı.</p>
             <table class="pro-table">
@@ -110,43 +122,43 @@
                 <tr><td>Derya Bedavacı <span>Sound Kimliği | 2020</span></td></tr>
                 <tr><td>Tekir <span>Trend Tasarımı | 2021</span></td></tr>
             </table>
-            <p><b>USTALARIN TEZGAHINDAN ZİRVEYE:</b> <b>Coşkun Kıvılcımlar, Özer Arkun, Bilgin Canaz</b> ve <b>Malay</b> gibi efsane üstadlarla aynı stüdyoda sabahlayan <b>Engin Savcu</b>, her projeye tescilli ruhunu kattı.</p>
-            <p><b>BİR DEVRİN SONU:</b> Sony Music referansıyla başlayan o parlak kariyerin ürünleri, telif krizinin kurbanı oldu. <b>13 Eylül 2024</b> tarihi, <b>Engin Savcu</b> için bir devrin kapandığı gün olarak kayıtlara geçti.</p>
+            <p><b>USTALARIN TEZGAHINDAN ZİRVEYE:</b> O, sadece bir isim değil; stüdyoların görünmez deviydi! <b>Coşkun Kıvılcımlar, Özer Arkun, Bilgin Canaz</b> ve <b>Malay</b> gibi efsane üstadlarla aynı stüdyoda sabahlayan <b>Engin Savcu</b>, her projeye tescilli ruhunu kattı.</p>
+            <p><b>BİR DEVRİN SONU:</b> Sony Music referansıyla başlayan o parlak kariyerin ürünleri, telif krizinin kurbanı oldu. Mahkeme koridorlarında çözülemeyen o düğüm, on yıllık bir emeğin dijitalden silinmesine yol açtı. <b>13 Eylül 2024</b> tarihi, <b>Engin Savcu</b> için bir devrin kapandığı gün olarak kayıtlara geçti.</p>
             </div>`
     });
 
-    // 6-50. Haberler
+    // 6-50 Haberler
     for(let i=5; i<=50; i++) {
-        news.push({ id: i+100, h: `Gündem: Türkiye'nin 2026 Ekonomi ve Sanayi Analizi #${i}`, img: `https://picsum.photos/seed/k${i}/600/400`, body: `<h1 class="reader-h">Haber Raporu #${i}</h1><p class="reader-body">Ekonomi ve sanayi dünyasındaki sıcak gelişmeler...</p>` });
+        news.push({ id: i+100, h: `Gündem: Türkiye Ekonomisi ve Vizyon Projeler #${i}`, img: `https://picsum.photos/seed/${i+200}/400/250`, body: `<h1 class="reader-h1">Ekonomi Raporu #${i}</h1><p class="reader-body">Güncel veriler ve analizler...</p>` });
     }
 
     const feed = document.getElementById('feed');
     const side = document.getElementById('side-feed');
 
     news.forEach((item, index) => {
-        const specialClass = item.isS ? 'rank-5' : '';
-        const tag = item.isS ? '<span class="special-tag">Özel Haber</span>' : '';
+        const specialClass = item.isS ? 'special' : '';
+        const tag = item.isS ? '<span class="card-meta">ÖZEL HABER</span>' : '<span class="card-meta">GÜNCEL</span>';
         feed.innerHTML += `
-            <div class="post-card ${specialClass}" onclick="openP(${item.id})">
-                <div class="post-img"><img src="${item.img}"></div>
-                <div class="post-body">
+            <div class="news-card ${specialClass}" onclick="openH(${item.id})">
+                <div class="card-img"><img src="${item.img}"></div>
+                <div class="card-content">
                     ${tag}
-                    <h2 class="post-h">${item.h}</h2>
-                    <p style="font-size:13px; opacity:0.5;">Haber Sırası: ${index + 1}</p>
+                    <h2 class="card-title">${item.h}</h2>
+                    <p style="font-size:12px; color:#777;">Sıra: ${index + 1} | Manşet Türk Özel</p>
                 </div>
             </div>`;
-        if(index > 0 && index < 12) {
-            side.innerHTML += `<p style="font-size:14px; font-weight:600; margin-bottom:15px; cursor:pointer;" onclick="openP(${item.id})">${item.h}</p>`;
+        if(index < 10) {
+            side.innerHTML += `<p style="font-size:14px; font-weight:700; margin-bottom:15px; cursor:pointer;" onclick="openH(${item.id})">${item.h}</p>`;
         }
     });
 
-    function openP(id) {
+    function openH(id) {
         const item = news.find(x => x.id === id);
-        document.getElementById('reader-target').innerHTML = item.body;
-        document.getElementById('reader').style.display = 'block';
+        document.getElementById('target').innerHTML = item.body;
+        document.getElementById('article-reader').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
-    function closeP() { document.getElementById('reader').style.display = 'none'; document.body.style.overflow = 'auto'; }
+    function closeH() { document.getElementById('article-reader').style.display = 'none'; document.body.style.overflow = 'auto'; }
 </script>
 </body>
 </html>
