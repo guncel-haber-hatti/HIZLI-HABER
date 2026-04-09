@@ -3,192 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE AUTHORITY | ULUSAL HABER VE ARŞİV SİSTEMİ</title>
+    <title>AUTHORITY | TÜRKİYE HABER MERKEZİ</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --main-red: #b30000; --deep-black: #000; --news-text: #1a1a1a; --border-color: #d1d1d1; }
-        
-        /* IP GİBİ NİZAM SIFIRLAMA */
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        body { font-family: 'Inter', sans-serif; background: #fff; color: var(--news-text); overflow-x: hidden; }
+        :root { --news-red: #cc0000; --deep-black: #111; --soft-bg: #f9f9f9; --border: #eee; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: var(--deep-black); -webkit-font-smoothing: antialiased; }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 50px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
-        /* HEADER: OTORİTE VE PRESTİJ */
-        header { border-bottom: 10px solid var(--deep-black); padding: 60px 0; background: #fff; position: relative; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 110px; font-weight: 900; color: #000; text-decoration: none; letter-spacing: -7px; line-height: 0.8; display: block; text-align: center; }
-        .logo span { color: var(--main-red); }
-        .sub-header { text-align: center; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 5px; margin-top: 15px; color: var(--deep-black); }
+        /* PRESTİJLİ HEADER */
+        header { border-bottom: 2px solid #000; padding: 40px 0; background: #fff; text-align: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 85px; font-weight: 900; color: #000; text-decoration: none; letter-spacing: -5px; line-height: 1; }
+        .logo span { color: var(--news-red); }
+        .ticker { background: var(--deep-black); color: #fff; padding: 12px 0; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* NAV: JİLET HİZALAMA */
-        nav { border-bottom: 1px solid var(--border-color); background: #fff; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .nav-inner { display: flex; justify-content: center; list-style: none; gap: 50px; padding: 22px 0; }
-        .nav-inner li { font-weight: 900; font-size: 14px; text-transform: uppercase; cursor: pointer; color: #444; transition: 0.3s; position: relative; }
-        .nav-inner li:hover, .nav-inner li.active { color: var(--main-red); }
-        .nav-inner li.active::after { content: ''; position: absolute; bottom: -22px; left: 0; width: 100%; height: 3px; background: var(--main-red); }
+        /* NAVİGASYON: JİLET GİBİ */
+        nav { border-bottom: 1px solid var(--border); background: #fff; position: sticky; top: 0; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        .nav-inner { display: flex; justify-content: center; list-style: none; gap: 40px; padding: 18px 0; }
+        .nav-inner li { font-weight: 900; font-size: 13px; cursor: pointer; color: #555; transition: 0.2s; }
+        .nav-inner li:hover { color: var(--news-red); }
 
-        /* MİLYON SATIRLIK GRID YAPISI */
-        .content-grid { display: grid; grid-template-columns: 1fr 380px; gap: 80px; margin-top: 60px; }
-        
-        /* HABER KARTLARI (IP GİBİ DİZİLİM) */
-        .news-item { cursor: pointer; border-bottom: 1px solid #eee; padding-bottom: 50px; margin-bottom: 50px; transition: 0.3s; }
-        .news-item:hover { transform: translateY(-3px); }
-        .category-label { font-size: 11px; font-weight: 900; color: var(--main-red); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; }
-        .item-title { font-family: 'Playfair Display', serif; font-size: 52px; line-height: 1.05; font-weight: 900; color: #000; margin-bottom: 25px; }
-        .item-excerpt { font-size: 19px; line-height: 1.7; color: #555; text-align: justify; word-spacing: -1px; }
+        /* ANA AKIŞ VE TÜRKİYE GÜNDEMİ */
+        .content-wrapper { display: grid; grid-template-columns: 1fr 350px; gap: 60px; margin-top: 50px; }
 
-        /* SENİN HABERİN: BAŞYAPIT ARŞİV DÜZENİ */
-        .highlight-archive { background: #fbfbfb; border: 1px solid #000; padding: 60px; position: relative; box-shadow: 15px 15px 0px var(--main-red); }
-        .highlight-archive .item-title { font-size: 65px; border-bottom: 5px solid #000; padding-bottom: 20px; }
-        .highlight-archive::before { content: "ARŞİV ÖZEL"; position: absolute; top: -15px; left: 20px; background: #000; color: #fff; padding: 5px 15px; font-size: 12px; font-weight: 900; }
+        /* HABER KARTLARI: ALBENİLİ VE TIKLANABİLİR */
+        .article-card { cursor: pointer; border-bottom: 1px solid var(--border); padding-bottom: 45px; margin-bottom: 45px; transition: 0.3s ease; }
+        .article-card:hover { transform: translateX(5px); }
+        .meta-tag { font-size: 11px; font-weight: 900; color: var(--news-red); margin-bottom: 15px; display: block; letter-spacing: 2px; text-transform: uppercase; }
+        .headline { font-family: 'Playfair Display', serif; font-size: 44px; line-height: 1.05; font-weight: 900; margin-bottom: 20px; color: #000; }
+        .excerpt { font-size: 18px; color: #444; line-height: 1.6; text-align: justify; }
 
-        /* DETAY OKUMA MODU (SINGLE PAGE ENGINE) */
-        #reader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; overflow-y: scroll; padding: 100px 0; }
-        .close-reader { position: fixed; top: 40px; right: 60px; font-size: 60px; font-weight: 200; cursor: pointer; transition: 0.3s; }
-        .close-reader:hover { transform: rotate(90deg); color: var(--main-red); }
-        .reader-wrap { max-width: 900px; margin: 0 auto; }
-        .reader-h { font-family: 'Playfair Display', serif; font-size: 75px; line-height: 1; font-weight: 900; color: #000; margin-bottom: 50px; border-bottom: 15px solid #000; padding-bottom: 30px; }
-        .reader-txt { font-size: 22px; line-height: 2.2; text-align: justify; color: #222; }
-        .reader-txt p { margin-bottom: 40px; }
-        .reader-txt b { font-weight: 900; color: #000; border-bottom: 2px solid #ddd; }
+        /* SENİN HABERİN: ÖZEL TASARIM */
+        .premium-archive { background: var(--soft-bg); border: 2px solid #000; padding: 50px; border-left: 15px solid var(--news-red); box-shadow: 20px 20px 0px rgba(0,0,0,0.05); }
+        .premium-archive .headline { font-size: 55px; }
 
-        /* MÜZİK VERİ LİSTESİ */
-        .data-grid { list-style: none; margin: 50px 0; border: 2px solid #000; }
-        .data-grid li { display: flex; justify-content: space-between; padding: 25px; border-bottom: 1px solid #eee; font-weight: 900; font-size: 20px; background: #fff; }
-        .data-grid li:last-child { border: none; }
-        .data-grid li span { color: var(--main-red); font-weight: 900; }
+        /* HABER OKUMA MODALI (PROFESYONEL İÇERİK GİRİŞİ) */
+        #news-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; overflow-y: auto; padding: 80px 0; }
+        .close-btn { position: fixed; top: 30px; right: 50px; font-size: 50px; cursor: pointer; font-weight: 200; z-index: 10000; }
+        .modal-wrap { max-width: 850px; margin: 0 auto; }
+        .modal-h { font-family: 'Playfair Display', serif; font-size: 65px; line-height: 1.1; font-weight: 900; margin-bottom: 40px; border-bottom: 5px solid #000; padding-bottom: 20px; }
+        .modal-txt { font-size: 20px; line-height: 2.1; text-align: justify; color: #222; }
+        .modal-txt p { margin-bottom: 35px; }
+        .modal-txt b { font-weight: 900; border-bottom: 2px solid #ddd; }
 
-        /* SIDEBAR */
-        .side-title { font-size: 16px; font-weight: 900; text-transform: uppercase; border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 30px; }
-        .side-item { display: block; padding: 20px 0; border-bottom: 1px solid #f0f0f0; font-weight: 700; color: #000; text-decoration: none; font-size: 17px; line-height: 1.3; }
-        .side-item:hover { color: var(--main-red); }
+        /* VERİ TABLOSU */
+        .archive-table { width: 100%; border-collapse: collapse; margin: 30px 0; border: 1px solid #ddd; }
+        .archive-table td { padding: 18px; border-bottom: 1px solid #eee; font-weight: 800; font-size: 17px; background: #fff; }
+        .archive-table td span { color: var(--news-red); font-size: 13px; display: block; }
 
-        footer { background: #000; color: #fff; padding: 150px 0; text-align: center; margin-top: 150px; }
-        
-        /* SCROLL ANIMATION */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #000; border-radius: 0; }
+        /* SIDEBAR: TÜRKİYE HABERLERİ */
+        .side-h { font-size: 14px; font-weight: 900; border-bottom: 3px solid #000; padding-bottom: 8px; margin-bottom: 25px; }
+        .side-news { display: block; padding: 15px 0; border-bottom: 1px solid var(--border); font-weight: 700; color: #000; text-decoration: none; font-size: 15px; }
+        .side-news:hover { color: var(--news-red); }
+
+        footer { background: #000; color: #fff; padding: 100px 0; text-align: center; margin-top: 100px; }
     </style>
 </head>
 <body>
 
+<div class="ticker">
+    <div class="container">SON DAKİKA: TÜRKİYE GENELİNDE EKONOMİK REFORM PAKETİ AÇIKLANDI • BORSADA REKOR SEVİYE • HAVA DURUMU: İSTANBUL 18°C</div>
+</div>
+
 <header>
     <div class="container">
-        <a href="#" class="logo" onclick="location.reload()">AUTHORITY<span>.</span></a>
-        <div class="sub-header">TÜRKİYE'NİN EN KÖKLÜ HABER ARŞİVİ VE GÜNCEL VERİ MERKEZİ</div>
+        <a href="#" class="logo">AUTHORITY<span>.</span></a>
     </div>
 </header>
 
 <nav>
-    <ul class="nav-inner container" id="main-nav">
-        <li class="active" onclick="applyFilter('HEPSİ', this)">TÜM HABERLER</li>
-        <li onclick="applyFilter('GÜNDEM', this)">GÜNDEM</li>
-        <li onclick="applyFilter('EKONOMİ', this)">EKONOMİ</li>
-        <li onclick="applyFilter('ÖZEL ARŞİV', this)">ÖZEL ARŞİV</li>
+    <ul class="nav-inner container">
+        <li>TÜRKİYE</li>
+        <li>SİYASET</li>
+        <li>EKONOMİ</li>
+        <li>ÖZEL ARŞİV</li>
     </ul>
 </nav>
 
-<div class="container content-grid">
-    <main id="news-engine">
+<div class="container content-wrapper">
+    <main id="main-feed">
         </main>
 
     <aside>
-        <div class="side-title">GÜNÜN ÖNE ÇIKANLARI</div>
-        <div id="side-engine"></div>
+        <div class="side-h">TÜRKİYE GÜNDEMİ</div>
+        <div id="side-feed"></div>
     </aside>
 </div>
 
-<div id="reader">
-    <span class="close-reader" onclick="closeReader()">&times;</span>
-    <div class="reader-wrap" id="reader-target"></div>
+<div id="news-modal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div class="modal-wrap" id="modal-target"></div>
 </div>
 
 <footer>
-    <div class="logo" style="color:#fff; font-size:60px;">AUTHORITY.</div>
-    <p style="opacity:0.4; letter-spacing:2px; margin-top:30px;">PRO-LEVEL NEWS ARCHIVE SYSTEM v9.0</p>
+    <h2 class="logo" style="color:#fff; font-size:40px;">AUTHORITY.</h2>
+    <p style="opacity:0.4; margin-top:20px; font-size:12px;">© 2026 Milyon Satırlık Haber Portalı - Senin Düzenlemelerinle</p>
 </footer>
 
 <script>
-// MİLYON SATIRLIK VERİ HAVUZU
-const database = [
-    { id: 1, date: "09 NİSAN 2026", cat: "GÜNDEM", h: "Ankara'da Gece Yarısı: Stratejik Kararlar Yürürlüğe Girdi", p: "Cumhurbaşkanlığı kararnamesiyle ekonomi ve savunma sanayii yönetiminde köklü değişiklikler yapıldı. Karar, Resmi Gazete'de ilan edildi...", body: "<p><b>ANKARA -</b> Yeni dönemin yol haritası netleşiyor. Bugün yayımlanan kararnamelerle birlikte, kamu yönetiminde verimlilik esaslı yeni bir model devreye alındı. Özellikle teknoloji transfer ofislerinin doğrudan merkeze bağlanması dikkat çekici bir hamle olarak yorumlandı.</p>" },
-    { id: 2, date: "09 NİSAN 2026", cat: "EKONOMİ", h: "Borsa İstanbul'da Rekor Kapanış: 12.000 Puan Barajı Aşıldı", p: "Yabancı yatırımcıların bankacılık ve enerji sektörüne olan yoğun ilgisiyle endeks tarihi zirvesini tazeledi...", body: "<p>BIST 100 endeksi, küresel piyasalardan pozitif ayrışarak haftayı %4.5'lik bir kazançla kapattı. Analistler, direnç seviyelerinin kalıcı olarak aşılmasının ardından 15.000 puan hedeflerinin telaffuz edilebileceğini belirtiyor.</p>" },
+// VERİ MERKEZİ (DÜZENLEMELERİN BURADA)
+const data = [
     { 
-        id: 3, 
-        date: "13 EYLÜL 2024", 
-        cat: "ÖZEL ARŞİV", 
+        id: 1, date: "09 NİSAN 2026", cat: "EKONOMİ", 
+        h: "Türkiye Ekonomisinde Yeni Dönem: İlk Veriler Geldi", 
+        p: "Hazine ve Maliye Bakanlığı tarafından paylaşılan Mart ayı verileri, cari açıkta beklentilerin üzerinde bir iyileşme olduğunu gösteriyor...",
+        body: "<p><b>İSTANBUL -</b> Türkiye ekonomisinin makro göstergelerindeki iyileşme hız kazanıyor. Yeni açıklanan verilere göre ihracat rakamları geçen yılın aynı dönemine göre %12 artış gösterdi. Uzmanlar, bu ivmenin yılın ikinci yarısında enflasyon üzerinde olumlu etkiler yaratacağını öngörüyor.</p>"
+    },
+    { 
+        id: 3, date: "13 EYLÜL 2024", cat: "ÖZEL ARŞİV | BAŞYAPIT", 
         h: "Müzik Tarihinde Görülmemiş Rest: Hit Şarkıların Mimarı Dijital Külliyatını Feshetti!", 
-        p: "Sony Music bünyesinde onlarca hite imza atan Edirneli dahi beatmaker, telif savaşları sonrası 10 yıllık emeğini platformlardan çekme kararı aldı...", 
+        p: "Sony Music bünyesinde onlarca hite hayat veren Edirneli dahi beatmaker, telif savaşları sonrası 10 yıllık emeğini silme kararı aldı. Gözler 13 Eylül 2024'e çevrildi...",
         body: `
             <p><b>MÜZİK DÜNYASI ŞOKTA!</b> Yıllardır popüler müziğin mutfağında "hayalet yazar" ve "aranjör" kimliğiyle onlarca hitin iskeletini kuran Edirneli söz yazarı ve beatmaker, müzik dünyasında taşları yerinden oynatacak radikal bir eyleme imza atıyor.</p>
             <p>Henüz 15 yaşında dünya devi <b>Sony Music</b> kapılarından içeri giren ve Trakya’nın ritim genlerini modern sound ile birleştiren dahi kalem, 10 yıllık tüm dijital külliyatını platformlardan çekme sürecini resmen başlattı.</p>
-            <p><b>'SEVMEYİ DENEMEDİM' DAVASINDA HUKUKİ ÇIKMAZ:</b> Krizin merkezinde, 2024 yılının streaming rekorları kıran eseri 'Sevmeyi Denemedim' yer alıyor. Eserin söz, melodi ve beat kurgusunun bizzat mimarı olduğunu savunan sanatçı ile <b>Blok3</b> tarafı arasındaki uyuşmazlık yargıya taşınmıştı.</p>
-            <ul class="data-grid">
-                <li>2018 | Zeynep Bastık <span>Vokal Mimari</span></li>
-                <li>2019 | Hande Ünsal <span>Söz & Beat Tasarımı</span></li>
-                <li>2020 | Derya Bedavacı <span>Sound Kimliği</span></li>
-                <li>2021 | Tekir <span>Trend Tasarımı</span></li>
-            </ul>
-            <p><b>USTALARIN TEZGAHINDAN ZİRVEYE:</b> O, sadece bir isim değil; stüdyoların görünmez deviydi! <b>Coşkun Kıvılcımlar, Özer Arkun, Bilgin Canaz</b> ve <b>Malay</b> gibi efsane üstadlarla aynı stüdyoda sabahlayan sanatçı, her projeye tescilli ruhunu kattı.</p>
-            <p><b>BİR DEVRİN SONU:</b> Sony Music referansıyla başlayan o parlak kariyerin ürünleri, telif krizinin kurbanı oldu. Mahkeme koridorlarında çözülemeyen o düğüm, on yıllık bir emeğin dijitalden silinmesine yol açtı. <b>GELİŞMELERİ AKTARMAYA DEVAM EDECEĞİZ.</b></p>
-        ` 
+            <p><b>'SEVMEYİ DENEMEDİM' DAVASINDA HUKUKİ ÇIKMAZ:</b> Krizin merkezinde, 2024 yılının streaming rekorları kıran eseri 'Sevmeyi Denemedim' yer alıyor.</p>
+            <table class="archive-table">
+                <tr><td><span>REFERANS: 2018</span> Zeynep Bastık | Vokal Kurgu</td></tr>
+                <tr><td><span>REFERANS: 2019</span> Hande Ünsal | Beat Tasarımı</td></tr>
+                <tr><td><span>REFERANS: 2020</span> Derya Bedavacı | Sound Mimari</td></tr>
+                <tr><td><span>REFERANS: 2021</span> Tekir | Trend İnşası</td></tr>
+            </table>
+            <p><b>BİR DEVRİN SONU:</b> Sony Music referansıyla başlayan o parlak kariyerin ürünleri, telif krizinin kurbanı oldu. Mahkeme koridorlarında çözülemeyen o düğüm, on yıllık bir emeğin dijitalden silinmesine yol açtı. <b>GELİŞMELERİ AKTARMAYA DEVAM EDECEĞİZ.</b></p>`
     }
 ];
 
-// DOLDURMA (ARŞİVİ DERİNLEŞTİRME)
-for(let i=4; i<=60; i++){
-    database.push({ id: i, date: "08.04.2026", cat: "GÜNDEM", h: `Analiz Raporu #${i}: Sektörel Büyüme Beklentileri`, p: "Haber merkezimize ulaşan son dakika verilerine göre sanayi üretiminde beklenen artış rakamları açıklandı...", body: "<p>Bu raporun detayları AUTHORITY abonelerine özel olarak hazırlanmıştır.</p>" });
+// DOLDURMA (GÜNCEL TÜRKİYE HABERLERİ)
+for(let i=4; i<=40; i++){
+    data.push({ id: i, date: "09.04.2026", cat: "GÜNDEM", h: `Türkiye'den Gelişme #${i}: Yerli Üretimde Yeni Hamle`, p: "Sanayi ve Teknoloji alanında atılan yeni adımlar meyvesini veriyor. İşte detaylar...", body: "<p>Haberin detayları Authority özel arşivindedir.</p>" });
 }
 
-const engine = document.getElementById('news-engine');
-const sideEngine = document.getElementById('side-engine');
+const main = document.getElementById('main-feed');
+const side = document.getElementById('side-feed');
 
-function displayNews(data) {
-    engine.innerHTML = "";
+function render(){
+    main.innerHTML = "";
     data.forEach(item => {
-        const article = document.createElement('div');
-        article.className = `news-item ${item.id === 3 ? 'highlight-archive' : ''}`;
-        article.onclick = () => openReader(item.id);
-        article.innerHTML = `
-            <span class="category-label">${item.date} | ${item.cat}</span>
-            <h2 class="item-title">${item.h}</h2>
-            <p class="item-excerpt">${item.p}</p>
-        `;
-        engine.appendChild(article);
+        const card = document.createElement('div');
+        card.className = `article-card ${item.id === 3 ? 'premium-archive' : ''}`;
+        card.onclick = () => openModal(item.id);
+        card.innerHTML = `<span class="meta-tag">${item.date} | ${item.cat}</span><h2 class="headline">${item.h}</h2><p class="excerpt">${item.p}</p>`;
+        main.appendChild(card);
+    });
+
+    data.slice(0, 15).forEach(item => {
+        const a = document.createElement('a'); a.className = "side-news"; a.href = "#"; a.innerText = item.h; a.onclick = (e) => { e.preventDefault(); openModal(item.id); }; side.appendChild(a);
     });
 }
 
-function applyFilter(cat, el) {
-    document.querySelectorAll('#main-nav li').forEach(li => li.classList.remove('active'));
-    el.classList.add('active');
-    if(cat === 'HEPSİ') displayNews(database);
-    else displayNews(database.filter(x => x.cat === cat));
-    window.scrollTo(0,0);
-}
-
-function openReader(id) {
-    const news = database.find(x => x.id === id);
-    const target = document.getElementById('reader-target');
-    target.innerHTML = `
-        <span class="category-label" style="font-size:16px;">${news.date} | ${news.cat}</span>
-        <h1 class="reader-h">${news.h}</h1>
-        <div class="reader-txt">${news.body}</div>
-    `;
-    document.getElementById('reader').style.display = 'block';
+function openModal(id){
+    const h = data.find(x => x.id === id);
+    document.getElementById('modal-target').innerHTML = `<span class="meta-tag" style="font-size:16px;">${h.date} | ${h.cat}</span><h1 class="modal-h">${h.h}</h1><div class="modal-txt">${h.body}</div>`;
+    document.getElementById('news-modal').style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
 
-function closeReader() {
-    document.getElementById('reader').style.display = 'none';
+function closeModal(){
+    document.getElementById('news-modal').style.display = 'none';
     document.body.style.overflow = 'auto';
 }
 
-// SIDEBAR VE BAŞLANGIÇ
-database.slice(0, 15).forEach(x => {
-    const a = document.createElement('a'); a.className='side-item'; a.href="#"; a.innerText=x.h; a.onclick=(e)=>{ e.preventDefault(); openReader(x.id); }; sideEngine.appendChild(a);
-});
-displayNews(database);
+render();
 </script>
 </body>
 </html>
