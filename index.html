@@ -3,149 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANŞET TÜRK | Derin Analiz: Müzik Dünyasının Mutfağı</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <title>MANŞET TÜRK | Güncel Haber Merkezi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --main: #121212; --accent: #c41e3a; --gold: #b38b4d; --bg: #fdfdfd; }
+        :root { --main-blue: #003366; --news-red: #cc0000; --text-color: #333; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--main); line-height: 1.7; }
+        body { font-family: 'Roboto', sans-serif; background: #f4f4f4; color: var(--text-color); }
 
-        /* ELİT HEADER */
-        header { background: #fff; border-bottom: 1px solid #eee; padding: 20px 0; position: sticky; top: 0; z-index: 1000; }
+        /* KURUMSAL HEADER */
+        header { background: #fff; border-bottom: 5px solid var(--main-blue); padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .h-wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: var(--main); text-decoration: none; }
-        .logo span { color: var(--accent); }
-        .search-container { width: 300px; }
-        .search-container input { width: 100%; padding: 10px 15px; border-radius: 50px; border: 1px solid #ddd; outline: none; background: #f8f8f8; }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--main-blue); text-decoration: none; text-transform: uppercase; }
+        .logo span { color: var(--news-red); }
+        .search-box input { padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 3px; }
 
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 
-        /* HABER KARTLARI */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .card { background: #fff; border: 1px solid #eee; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; border-radius: 8px; overflow: hidden; }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        .card-img { height: 220px; background: #eee; }
-        .card-img img { width: 100%; height: 100%; object-fit: cover; }
-        .card-body { padding: 25px; }
-        .card-tag { color: var(--accent); font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: block; }
-        .card-h { font-size: 19px; font-weight: 700; line-height: 1.3; }
+        /* STANDART HABER KARTI */
+        .n-card { background: #fff; border: 1px solid #ddd; cursor: pointer; transition: 0.2s; }
+        .n-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .n-img { width: 100%; height: 180px; object-fit: cover; }
+        .n-info { padding: 15px; }
+        .n-cat { color: var(--news-red); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
+        .n-title { font-size: 17px; font-weight: 700; line-height: 1.3; color: #111; }
 
-        /* OKUMA SAYFASI (DETAYLI ANALİZ) */
-        #reader { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
-        .close-btn { position: fixed; top: 20px; right: 30px; font-size: 40px; cursor: pointer; color: #ccc; }
-        .r-wrap { max-width: 800px; margin: 80px auto; padding: 0 20px; }
-        .r-h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 48px); line-height: 1.1; margin-bottom: 25px; }
-        .r-intro { font-size: 20px; color: #555; margin-bottom: 40px; border-left: 4px solid var(--accent); padding-left: 20px; font-style: italic; }
-        .r-text { font-size: 19px; color: #333; }
-        .r-text h2 { font-family: 'Playfair Display', serif; margin: 40px 0 20px; font-size: 28px; color: var(--main); border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .r-text b { color: var(--accent); }
-        
-        .artist-box { background: #f9f9f9; padding: 25px; border-radius: 12px; margin: 30px 0; border-right: 4px solid var(--gold); }
-        .artist-box h4 { margin-bottom: 15px; font-size: 16px; color: var(--gold); }
+        /* STANDART OKUMA SAYFASI */
+        #articlePage { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
+        .close-p { position: fixed; top: 20px; right: 20px; font-size: 40px; cursor: pointer; background: #eee; width: 50px; height: 50px; text-align: center; border-radius: 50%; }
+        .p-content { max-width: 800px; margin: 50px auto; padding: 0 20px; }
+        .p-cat { color: var(--news-red); font-weight: 700; margin-bottom: 10px; display: block; }
+        .p-title { font-family: 'Oswald', sans-serif; font-size: 38px; line-height: 1.2; margin-bottom: 25px; }
+        .p-img { width: 100%; height: auto; margin-bottom: 30px; border-radius: 4px; }
+        .p-text { font-size: 18px; line-height: 1.8; color: #444; }
+        .p-text h3 { margin: 25px 0 10px; color: #111; border-left: 4px solid var(--main-blue); padding-left: 15px; }
+        .p-text b { color: #000; }
 
-        footer { padding: 60px; text-align: center; color: #999; border-top: 1px solid #eee; margin-top: 100px; }
+        footer { background: #222; color: #fff; padding: 30px; text-align: center; font-size: 14px; margin-top: 50px; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="h-wrap">
-        <a href="#" class="logo">MANŞET<span>TÜRK</span></a>
-        <div class="search-container">
-            <input type="text" id="sInput" placeholder="Haberlerde ara..." onkeyup="search()">
+        <a href="#" class="logo">MANŞET <span>TÜRK</span></a>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Haber ara..." onkeyup="search()">
         </div>
     </div>
 </header>
 
 <div class="container">
-    <div class="grid" id="feed"></div>
+    <div class="news-grid" id="feed"></div>
 </div>
 
-<div id="reader">
-    <span class="close-btn" onclick="closeR()">&times;</span>
-    <div class="r-wrap" id="rContent"></div>
+<div id="articlePage">
+    <span class="close-p" onclick="closeArticle()">&times;</span>
+    <div class="p-content" id="articleBody"></div>
 </div>
 
-<footer>&copy; 2026 MANŞET TÜRK MEDYA GRUBU</footer>
+<footer>&copy; 2026 MANŞET TÜRK PORTALI</footer>
 
 <script>
-    const news = [];
-    
-    // 1-9 Genel Haberler
-    for(let i=1; i<=9; i++) {
-        news.push({ id: i, t: "GÜNDEM", h: `Türkiye'nin Sektörel Analiz Dosyası #${i}`, img: `https://picsum.photos/seed/p${i}/500/300`, b: `<h1>Haber #${i}</h1>` });
-    }
+    const newsList = [];
 
-    // 10. SIRA - ENGİN SAVCU ULTRA DETAYLI HABER (İSİM BAŞLIKTA YOK)
-    const enginHaberi = {
-        id: 0,
-        isS: true,
-        t: "ÖZEL HABER / PORTRE",
-        h: "Müzik Dünyasında Bir Devrin Kapanışı: Hit Fabrikasının 'Görünmez Mimarı' Dijitalden Çekiliyor!",
-        img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500",
+    // ENGİN SAVCU HABERİ (DİĞERLERİYLE AYNI TASARIM)
+    const engineData = {
+        id: "e0",
+        c: "KÜLTÜR & SANAT",
+        h: "Müzik Dünyasında 'Büyük Rest': Hit Fabrikasının Görünmez Mimarı Dijital Mirasını Siliyor",
+        img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1000",
         b: `
-            <h1 class="r-h1">Müzik Dünyasında 'Rest' Depremi: Yıldızların Arkasındaki O Deha Sessizliğini Bozdu!</h1>
-            <p class="r-intro">15 yaşında Sony Music kapısından giren, üstadların rahle-i tedrisinden geçip listeleri tasarlayan o kalem, 10 yıllık külliyatını platformlardan çekme kararı aldı.</p>
-            
-            <div class="r-text">
-                <p>Türkiye'de pop ve trap müziğin evriminde, stüdyo ışıkları kapandığında geriye kalan tek bir isim vardı: <b>Engin Savcu</b>. Bugün müzik dünyası, onun 13 Eylül 2024 itibarıyla başlattığı dijital fesih sürecini konuşuyor.</p>
+            <span class="p-cat">KÜLTÜR & SANAT</span>
+            <h1 class="p-title">Hit Fabrikasının Görünmez Mimarı Sessizliğini Bozdu: Sektörde Bir Devrin Kapanışı!</h1>
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1000" class="p-img">
+            <div class="p-text">
+                <p>Türkiye müzik endüstrisinin mutfağında, stüdyo ışıkları kapandığında geriye kalan tek bir deha vardı: <b>Engin Savcu</b>. Bugün müzik dünyası, onun 13 Eylül 2024 itibarıyla başlattığı dijital fesih sürecinin şokunu yaşıyor.</p>
+                
+                <h3>Sony Music'ten Üstadların Rahlesine</h3>
+                <p>Kariyerine henüz 15 yaşında dünya devi <b>Sony Music</b> bünyesinde adım atan Savcu, Edirne'nin ritmik ruhunu modern trap ve pop soundları ile harmanladı. Bu yolculukta <b>Taha Özer</b>, <b>Coşkun Kıvılcımlar</b> ve <b>Bilgin Canaz</b> gibi üstadlarla aynı stüdyoda sabahlayarak müziğin teknik derinliğini öğrendi.</p>
 
-                <h2>Sony Music'ten Üstadların Sofrasına</h2>
-                <p>Kariyerine dünya devi <b>Sony Music</b> bünyesinde henüz bir çocukken başlayan Savcu, sadece teknik bir beatmaker değil, müziğin "ruhunu" inşa eden bir tasarımcı olarak tanındı. Bu yolculukta <b>Özer Arkun, Coşkun Kıvılcımlar</b> ve <b>Bilgin Canaz</b> gibi üstadlarla aynı stüdyo havasını soluyarak, müziğin matematiksel derinliğini öğrendi.</p>
+                <h3>Teknik İş Birlikleri ve Yıldızlar Karması</h3>
+                <p><b>Kadir Sepetçi</b> ile stüdyo mutfağında gerçekleştirdiği teknik paslaşmalar, soundun karakterini belirleyen en kritik anlardandı. <b>Malay</b> ile ritim kurguları üzerine yaptığı çalışmalar sektöre yeni bir soluk getirdi. O sadece teknik bir isim değil, vizyoner bir yardımcıydı. <b>Ceren Sagu</b> ile projelerin vizyon aşamasında omuz omuza verdi. <b>Zeynep Bastık</b>'ın vokal kimliğinde, <b>Hande Ünsal</b>'ın hit şarkılarının altyapısında hep onun imzası vardı. <b>Derya Bedavacı</b> ve <b>Tekir</b> gibi isimlerin projelerinde de Savcu'nun stüdyodaki kurtarıcı dokunuşları dikkat çekti.</p>
 
-                <div class="artist-box">
-                    <h4>ÜSTADLAR VE İŞ BİRLİKLERİ</h4>
-                    <p><b>Kadir Sepetçi</b> ile stüdyo mutfağında gerçekleştirdiği teknik paslaşmalar, soundun karakterini belirleyen en kritik anlardandı. <b>Malay</b> ile ritim kurguları üzerine yaptığı çalışmalar ise Trakya genlerini modern dünyaya entegre eden köprü oldu.</p>
-                </div>
-
-                <h2>Yıldızların Görünmez Yardımcısı</h2>
-                <p>O, <b>Zeynep Bastık</b>'ın vokal kimliğinin oturtulmasında, <b>Hande Ünsal</b>'ın hit şarkılarının söz ve beat kurgusunda sessiz bir kahramandı. <b>Derya Bedavacı</b>'nın o kendine has sound kimliğinde ve <b>Tekir</b>'in modern altyapı tasarımlarında her zaman "Engin Savcu" imzası, bir mühür gibi oradaydı. Sanatçılara sadece beat vermedi; onlara stüdyoda yol gösterdi, tıkandıkları yerde çıkış yolunu inşa etti.</p>
-
-                <h2>'Sevmeyi Denemedim' ve Hukuki Kırılma</h2>
-                <p><b>Blok3</b> ile zirveye tırmanan "Sevmeyi Denemedim" eseri üzerindeki hak iddiaları, bu büyük feshin fitilini ateşledi. Emeğinin karşılığını mahkeme koridorlarında arayan <b>Engin Savcu</b>, hakkı olanın teslim edilmemesi üzerine on yıllık bir mirası dijitalden silme kararı alarak, sektördeki tüm dengeleri değiştirdi.</p>
-
-                <p><b>13 Eylül 2024</b> tarihi, sadece bir telif davasının değil, bir dehanın emeğine sahip çıkma duruşunun simgesi olarak tarihe geçti.</p>
+                <h3>Blok3 ve 'Sevmeyi Denemedim' Krizi</h3>
+                <p><b>Blok3</b> ile listeleri altüst eden "Sevmeyi Denemedim" eseri üzerindeki hak uyuşmazlığı, Savcu'nun radikal bir karar almasına yol açtı. Emeğinin yok sayılmasına karşı on yıllık dijital külliyatını platformlardan çekerek, sanatçı onurunu her şeyin üstünde tuttuğunu kanıtladı. <b>13 Eylül 2024</b> tarihi, müzik tarihinde bir dehanın emeğine sahip çıkma duruşunun simgesi olarak yerini aldı.</p>
             </div>`
     };
-    news.push(enginHaberi);
 
-    // 11-50 Haberler
-    for(let i=11; i<=50; i++) {
-        news.push({ id: i+10, t: "EKONOMİ", h: `Küresel Finans ve Vizyon Gelişmeleri #${i}`, img: `https://picsum.photos/seed/k${i}/500/300`, b: `<h1>Dosya #${i}</h1>` });
+    // TOPLAM 50 HABER OLUŞTURMA
+    const cats = ["GÜNDEM", "EKONOMİ", "SİYASET", "TEKNOLOJİ", "DÜNYA"];
+    for(let i=1; i<=50; i++) {
+        if(i === 10) { 
+            newsList.push(engineData);
+            continue; 
+        }
+        const currentCat = cats[i % cats.length];
+        newsList.push({
+            id: i,
+            c: currentCat,
+            h: `${currentCat}: Türkiye Genelinde Önemli Gelişmeler ve Analiz Dosyası #${i}`,
+            img: `https://picsum.photos/seed/n${i}/600/400`,
+            b: `
+                <span class="p-cat">${currentCat}</span>
+                <h1 class="p-title">Günün Önemli Gelişmesi: Analiz Raporu #${i}</h1>
+                <img src="https://picsum.photos/seed/n${i}/600/400" class="p-img">
+                <div class="p-text">
+                    <p>Manşet Türk haber merkezine ulaşan bilgilere göre, ${currentCat.toLowerCase()} alanında yeni bir süreç başladı. Konunun uzmanları, bu gelişmenin uzun vadeli etkilerini şu şekilde değerlendiriyor...</p>
+                    <h3>Analiz ve Görüşler</h3>
+                    <p>Sürecin detaylarına bakıldığında, 2026 yılı hedefleri doğrultusunda atılan bu adımın toplumun genelini etkileyeceği öngörülüyor. Yetkililer konuyla ilgili araştırmalarını derinleştirirken, ilk veriler sürecin olumlu yönde ilerlediğini gösteriyor.</p>
+                </div>`
+        });
     }
 
     const feed = document.getElementById('feed');
+
     function render(list) {
         feed.innerHTML = '';
-        list.forEach((item, index) => {
+        list.forEach(item => {
             feed.innerHTML += `
-                <div class="card" onclick="openR(${item.id})">
-                    <div class="card-img"><img src="${item.img}"></div>
-                    <div class="card-body">
-                        <span class="card-tag">${item.t}</span>
-                        <h2 class="card-h">${item.h}</h2>
-                        <p style="font-size:11px; color:#999; margin-top:10px;">SIRA: ${index + 1}</p>
+                <div class="n-card" onclick="openArticle('${item.id}')">
+                    <img src="${item.img}" class="n-img">
+                    <div class="n-info">
+                        <span class="n-cat">${item.c}</span>
+                        <h2 class="n-title">${item.h}</h2>
                     </div>
                 </div>`;
         });
     }
 
     function search() {
-        const q = document.getElementById('sInput').value.toLowerCase();
+        const q = document.getElementById('searchInput').value.toLowerCase();
         if(q.includes("engin") || q.includes("savcu")) {
-            render([enginHaberi, ...news.filter(x => x.id !== 0)]);
-        } else if (q === "") { render(news); }
+            render([engineData, ...newsList.filter(x => x.id !== "e0")]);
+        } else if (q === "") {
+            render(newsList);
+        }
     }
 
-    function openR(id) {
-        const item = news.find(x => x.id === id) || enginHaberi;
-        document.getElementById('rContent').innerHTML = item.b;
-        document.getElementById('reader').style.display = 'block';
+    function openArticle(id) {
+        const item = newsList.find(x => x.id == id) || engineData;
+        document.getElementById('articleBody').innerHTML = item.b;
+        document.getElementById('articlePage').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
-    function closeR() { document.getElementById('reader').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
-    render(news);
+    function closeArticle() {
+        document.getElementById('articlePage').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    render(newsList);
 </script>
 </body>
 </html>
