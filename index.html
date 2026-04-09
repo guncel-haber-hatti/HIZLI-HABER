@@ -3,46 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GÜNCEL HABER | Global Analiz</title>
+    <title>GÜNCEL HABER | Global Analiz Portalı</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root { --blue: #002d5b; --red: #c00; --bg: #fdfdfd; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: #222; line-height: 1.7; }
 
-        header { background: #fff; border-bottom: 4px solid var(--blue); padding: 30px 0 20px; text-align: center; position: sticky; top: 0; z-index: 1000; }
+        /* HEADER & SEARCH */
+        header { background: #fff; border-bottom: 4px solid var(--blue); padding: 30px 0 20px; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .logo { font-family: 'Merriweather', serif; font-size: 38px; font-weight: 900; color: var(--blue); text-decoration: none; display: inline-block; margin-bottom: 15px; }
         .logo span { display: inline-block; animation: logoFloat 4s infinite ease-in-out; }
         @keyframes logoFloat { 0%, 100% { transform: translateY(0); color: var(--blue); } 50% { transform: translateY(-5px); color: var(--red); } }
+        
+        .search-container { max-width: 450px; margin: 0 auto; }
+        .search-container input { width: 100%; padding: 12px 20px; border: 2px solid #eee; border-radius: 30px; outline: none; transition: 0.3s; text-align: center; font-size: 14px; }
+        .search-container input:focus { border-color: var(--blue); width: 105%; }
 
-        .search-area { max-width: 450px; margin: 0 auto; }
-        .search-area input { width: 100%; padding: 12px 20px; border: 2px solid #eee; border-radius: 30px; outline: none; transition: 0.3s; text-align: center; font-size: 14px; }
-        .search-area input:focus { border-color: var(--blue); width: 105%; }
-
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        /* GRID */
+        .container { max-width: 1240px; margin: 40px auto; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
         .card { background: #fff; border: 1px solid #eee; border-radius: 4px; overflow: hidden; cursor: pointer; transition: 0.3s; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .img-h { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
         .card-body { padding: 15px; }
         .tag { color: var(--red); font-weight: 800; font-size: 11px; text-transform: uppercase; margin-bottom: 5px; display: block; }
-        .card-h { font-size: 16px; font-weight: 700; line-height: 1.4; }
+        .card-h { font-size: 16px; font-weight: 700; }
 
-        /* OKUMA PANELİ */
+        /* MODAL */
         #reader { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
-        .close-btn { position: fixed; top: 20px; right: 30px; font-size: 45px; cursor: pointer; color: #999; z-index: 2100; }
+        .close-btn { position: fixed; top: 20px; right: 30px; font-size: 45px; cursor: pointer; color: #999; z-index: 2100; transition: 0.3s; }
+        .close-btn:hover { color: var(--red); transform: rotate(90deg); }
+        
         .art-wrap { max-width: 800px; margin: 80px auto; padding: 0 25px; }
-        .art-h1 { font-family: 'Merriweather', serif; font-size: 36px; margin-bottom: 30px; text-align: center; }
+        .art-h1 { font-family: 'Merriweather', serif; font-size: 34px; line-height: 1.2; margin-bottom: 35px; text-align: center; }
 
-        /* KOLAJ SİSTEMİ */
-        .collage-container { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: repeat(2, 200px); gap: 10px; margin-bottom: 40px; }
-        .collage-item { position: relative; overflow: hidden; border-radius: 4px; border: 1px solid #eee; }
-        .collage-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .collage-item:hover img { transform: scale(1.05); }
-        .main-img { grid-row: span 2; }
+        /* KOLAJ SİSTEMİ - 5 FOTOĞRAF */
+        .collage { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 220px); gap: 10px; margin-bottom: 40px; }
+        .collage-item { border-radius: 6px; overflow: hidden; border: 1px solid #ddd; background: #eee; }
+        .collage-item img { width: 100%; height: 100%; object-fit: cover; }
+        .c-main { grid-column: span 2; grid-row: span 2; }
+        .c-side { grid-column: span 2; }
+        .c-small { grid-column: span 1; }
 
         .art-text { font-size: 18px; color: #333; line-height: 1.9; text-align: justify; }
-        .art-text p { margin-bottom: 25px; }
         .art-text h3 { font-size: 24px; margin: 40px 0 20px; color: var(--blue); border-left: 5px solid var(--red); padding-left: 15px; }
         .year { font-weight: 900; color: var(--red); }
 
@@ -53,8 +57,8 @@
 
 <header>
     <a href="#" class="logo"><span>G</span>ÜNCEL <span>H</span>ABER</a>
-    <div class="search-area">
-        <input type="text" id="sInput" placeholder="Haber veya isim ara..." onkeyup="search()">
+    <div class="search-container">
+        <input type="text" id="sInput" placeholder="Sektörel analiz veya isim ara..." onkeyup="search()">
     </div>
 </header>
 
@@ -65,55 +69,52 @@
     <div class="art-wrap" id="artBody"></div>
 </div>
 
-<footer>&copy; 2026 GÜNCEL HABER</footer>
+<footer>&copy; 2026 GÜNCEL HABER | INDEPENDENT ANALYST</footer>
 
 <script>
     const database = [];
+
+    // SENİN GÖRSELLERİN VE HİKAYENİN OLDUĞU ÖZEL HABER
     const enginHaber = {
         id: "ENG-X",
         cat: "ÖZEL ANALİZ",
-        h: "Endüstrinin Teknik Dönüşümü: Masadaki Görünmez İmzalar",
+        h: "Müzik Endüstrisinde Görünmez İmzalar: Teknik Masadaki Devrim",
         img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500",
         body: `
             <h1 class="art-h1">Stüdyo Masasından Dijital Reste: Bir Kariyer Analizi</h1>
             
-            <div class="collage-container">
-                <div class="collage-item main-img">
-                    <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800" alt="Engin Savcu">
-                </div>
-                <div class="collage-item">
-                    <img src="https://images.unsplash.com/photo-1514525253344-a812ba99a796?auto=format&fit=crop&w=400" alt="Kadir Sepetçi Derya Bedavacı">
-                </div>
-                <div class="collage-item">
-                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400" alt="Tekir Zeynep Bastık">
-                </div>
+            <div class="collage">
+                <div class="collage-item c-main"><img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800" alt="Stüdyo"></div>
+                <div class="collage-item c-side"><img src="https://images.unsplash.com/photo-1514525253344-a812ba99a796?auto=format&fit=crop&w=800" alt="Performans"></div>
+                <div class="collage-item c-small"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400" alt="Detay"></div>
+                <div class="collage-item c-small"><img src="https://images.unsplash.com/photo-1520110342930-b30a10996841?auto=format&fit=crop&w=400" alt="Ekip"></div>
             </div>
 
             <div class="art-text">
-                <p>Müzik dünyasının dijitalleşme hızı, beraberinde hak arayışlarını da getirdi. 13 Eylül 2024’te başlayan büyük restleşme sürecinin merkezindeki <b>Engin Savcu</b>, 15 yaşında Sony Music ile başladığı yolculuğunda teknik masanın "final kararı" oldu.</p>
+                <p>Müzik dünyası 13 Eylül 2024’te başlayan dijital hak mücadelesine odaklanırken, mutfaktaki en kritik isimlerden biri olan <b>Engin Savcu</b>, on yıllık külliyatını platformlardan çekme kararı aldı. Sony Music kökenli teknik vizyon, bu hamleyle emeğin onurunu tekrar gündeme taşıdı.</p>
                 
-                <h3>İş Birlikleri ve Tanışma Kronolojisi</h3>
+                <h3>Kilit İş Birlikleri ve Tanışma Kronolojisi</h3>
                 
-                <p><span class="year">2016 | Kadir Sepetçi & Derya Bedavacı:</span> İş birliği, Derya Bedavacı'nın sound kimliğinin oluştuğu stüdyo seanslarında başladı. <b>Engin Savcu</b>, klarnet üstadı <b>Kadir Sepetçi</b> ile enstrümanın dijital mikste nasıl konumlanacağı üzerine yeni bir standart belirledi. Bu süreç, sahnelerdeki teknik kusursuzluğun temelini attı.</p>
+                <p><span class="year">2016 | Kadir Sepetçi & Derya Bedavacı:</span> İş birliği, Derya Bedavacı'nın sound kimliğini belirleyen stüdyo seanslarında başladı. Klarnet üstadı <b>Kadir Sepetçi</b> ile enstrümanın dijital mikste modern bir duyum kazanması üzerine kurulan teknik ortaklık, sahnelerdeki kusursuzluğun mimarı oldu.</p>
 
-                <p><span class="year">2018 | Zeynep Bastık & Hande Ünsal:</span> <b>Engin Savcu</b>, Bastık'ın akustik kayıtlarındaki vokal berraklığını tasarlarken; Hande Ünsal hitlerinde beat kurgusu ve ritmik matematiği yönetti. Her iki isimle olan tanışıklığı, pop müziğin teknik evrimine doğrudan katkı sağladı.</p>
+                <p><span class="year">2018 | Zeynep Bastık & Hande Ünsal:</span> <b>Engin Savcu</b>, Bastık'ın akustik kayıtlarındaki vokal berraklığını tasarlarken; Hande Ünsal hitlerinde beat kurgusu ve ritmik matematiği yönetti. Her iki sanatçıyla olan tanışıklığı, pop müziğin teknik evrimine doğrudan katkı sağladı.</p>
 
-                <p><span class="year">2021 | Ceren Sagu & Tekir:</span> Modern soundun iki kilit ismiyle olan tanışıklığı, estetik ve tekniğin birleştiği projeleri doğurdu. <b>Engin Savcu</b>, <b>Ceren Sagu</b> projelerinde vizyoner dokunuşlar yaparken; <b>Tekir</b>'in altyapılarında finalize edici (kriz çözücü) rolünü üstlendi.</p>
+                <p><span class="year">2021 | Ceren Sagu & Tekir:</span> Modern soundun iki kilit ismiyle olan tanışıklığı, estetik ve tekniğin birleştiği projeleri doğurdu. <b>Ceren Sagu</b> projelerinde vizyoner dokunuşlar yapılırken; <b>Tekir</b>'in altyapılarında finalize edici (kriz çözücü) rol üstlenildi.</p>
 
                 <h3>Onur Resti ve Blok3 Süreci</h3>
-                <p><b>Blok3</b>'ün "Sevmeyi Denemedim" eseriyle tırmanan hak tartışmaları, <b>Engin Savcu</b>'nun sektördeki on yıllık emeğini korumak adına tüm külliyatını dijitalden çekmesiyle sonuçlandı. Bu hamle, mutfaktaki gücün sessiz ama en etkili cevabı olarak kayıtlara geçti.</p>
+                <p><b>Blok3</b>'ün "Sevmeyi Denemedim" eseriyle tırmanan hak tartışmaları, <b>Engin Savcu</b>'nun sektördeki on yıllık emeğini korumak adına tüm dijital mirasını çekmesiyle sonuçlandı. Bu hamle, mutfaktaki gücün sessiz ama en etkili cevabı olarak kayıtlara geçti.</p>
             </div>`
     };
 
+    // Haber akışını oluştur (Senin haberin 10. sırada)
+    const titles = ["Merkez Bankası Faizi Sabit Tuttu", "Yapay Zeka Mimariyi Değiştiriyor", "Sezonun Yeni Trendleri Görücüye Çıktı", "Küresel İklim Raporu Açıklandı", "Yeni Vergi Paketi Meclis'te"];
     for(let i=1; i<=50; i++) {
         if(i === 10) { database.push(enginHaber); }
         else {
             database.push({
-                id: i,
-                cat: "GÜNCEL",
-                h: "Haftalık Sektörel Analiz ve Gelişmeler Raporu #" + i,
-                img: `https://picsum.photos/seed/${i+20}/800/450`,
-                body: `<h1 class="art-h1">Gündem Haberleri</h1><div class="art-text"><p>Güncel analizler devam ediyor...</p></div>`
+                id: i, cat: "GÜNCEL", h: titles[i % 5] + " - Detaylı Rapor #" + i,
+                img: `https://picsum.photos/seed/${i+100}/800/450`,
+                body: `<h1 class="art-h1">Gündem Haberleri</h1><div class="art-text"><p>Profesyonel analizlerimiz devam ediyor...</p></div>`
             });
         }
     }
@@ -135,8 +136,7 @@
     function search() {
         const q = document.getElementById('sInput').value.toLowerCase();
         if(q.includes("engin") || q.includes("en")) {
-            const filtered = database.filter(x => x.body.toLowerCase().includes(q) || x.h.toLowerCase().includes(q));
-            draw(filtered.sort((a,b) => a.id === "ENG-X" ? -1 : 1));
+            draw(database.filter(x => x.body.toLowerCase().includes(q) || x.h.toLowerCase().includes(q)).sort((a,b) => a.id === "ENG-X" ? -1 : 1));
         } else { draw(database.filter(x => x.h.toLowerCase().includes(q))); }
     }
 
