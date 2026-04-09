@@ -3,176 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANALİZ PORTAL | Türkiye Geneli Haber ve Strateji</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>GÜNCEL HABER | Medya ve Analiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #0a192f; --accent: #e63946; --text: #1d1d1f; --bg: #f5f5f7; }
+        :root { --blue: #002d5b; --red: #c00; --bg: #fdfdfd; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #222; line-height: 1.8; }
 
-        /* PREMIUM NAVIGATION */
-        nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #ddd; padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: var(--primary); text-decoration: none; letter-spacing: -1px; }
-        .logo span { color: var(--accent); }
+        header { background: #fff; border-bottom: 4px solid var(--blue); padding: 30px 0 20px; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .logo { font-family: 'Merriweather', serif; font-size: 38px; font-weight: 900; color: var(--blue); text-decoration: none; display: inline-block; margin-bottom: 15px; }
         
-        .search-box { flex-grow: 1; max-width: 400px; margin: 0 40px; }
-        .search-box input { width: 100%; padding: 10px 20px; border-radius: 8px; border: 1px solid #e1e1e1; background: #f0f0f2; outline: none; font-size: 14px; transition: 0.3s; }
-        .search-box input:focus { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(10,25,47,0.05); }
+        .search-area { max-width: 450px; margin: 0 auto; }
+        .search-area input { width: 100%; padding: 12px 20px; border: 2px solid #eee; border-radius: 30px; outline: none; transition: 0.3s; text-align: center; font-size: 14px; }
+        .search-area input:focus { border-color: var(--blue); width: 105%; }
 
-        /* GRID SYSTEM */
-        .main-content { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        .card { background: #fff; border: 1px solid #eee; padding: 25px; cursor: pointer; transition: 0.3s; border-radius: 4px; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .tag { color: var(--red); font-weight: 800; font-size: 11px; text-transform: uppercase; display: block; margin-bottom: 10px; }
+        .card-h { font-size: 18px; font-weight: 700; color: #111; }
 
-        .news-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; border: 1px solid #eee; }
-        .news-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .card-img { width: 100%; height: 200px; object-fit: cover; background: #eef2f3; transition: 0.5s; }
-        .news-card:hover .card-img { transform: scale(1.05); }
-
-        .card-body { padding: 25px; }
-        .category { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; display: block; }
-        .card-title { font-family: 'Playfair Display', serif; font-size: 20px; line-height: 1.3; color: var(--primary); margin-bottom: 15px; }
-
-        /* READER PANEL */
-        #article-reader { display: none; position: fixed; inset: 0; background: #fff; z-index: 9999; overflow-y: auto; }
-        .reader-close { position: fixed; top: 20px; right: 30px; font-size: 35px; cursor: pointer; z-index: 10001; color: #888; transition: 0.3s; }
-        .reader-close:hover { color: var(--accent); transform: rotate(90deg); }
+        #reader { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
+        .close-btn { position: fixed; top: 20px; right: 30px; font-size: 45px; cursor: pointer; color: #999; z-index: 2100; }
         
-        .article-content { max-width: 850px; margin: 80px auto; padding: 40px; }
-        .article-meta { margin-bottom: 40px; text-align: center; }
-        .article-h1 { font-family: 'Playfair Display', serif; font-size: 42px; line-height: 1.1; margin-bottom: 20px; color: var(--primary); }
+        .art-wrap { max-width: 750px; margin: 80px auto; padding: 0 25px; }
+        .art-h1 { font-family: 'Merriweather', serif; font-size: 38px; line-height: 1.2; margin-bottom: 40px; text-align: center; color: #000; }
         
-        .article-text { font-size: 20px; color: #333; line-height: 1.8; }
-        .article-text p { margin-bottom: 30px; }
-        .article-text b { color: var(--primary); font-weight: 700; }
+        .art-text { font-size: 19px; color: #333; text-align: justify; }
+        .art-text p { margin-bottom: 25px; }
+        
+        .bio-entry { border-left: 4px solid var(--red); padding-left: 20px; margin: 40px 0; }
+        .bio-name { font-family: 'Merriweather', serif; font-size: 22px; font-weight: 900; color: var(--blue); display: block; }
+        .bio-year { font-weight: 700; color: var(--red); font-size: 14px; margin-bottom: 10px; display: block; }
+        .bio-role { font-style: italic; color: #666; font-size: 16px; margin-bottom: 8px; display: block; }
 
-        /* ANALYST BIO */
-        .author-box { display: flex; align-items: center; background: #f9f9fb; padding: 30px; border-radius: 20px; margin-top: 60px; border: 1px solid #eee; }
-        .author-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-right: 25px; border: 4px solid #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .author-info h4 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 5px; }
-        .author-info p { font-size: 15px; color: #666; font-weight: 500; }
-
-        footer { background: var(--primary); color: #8e9aaf; padding: 80px 0; text-align: center; margin-top: 100px; }
-        .footer-logo { font-family: 'Playfair Display', serif; color: #fff; font-size: 24px; margin-bottom: 20px; display: block; text-decoration: none; }
-
-        @media (max-width: 768px) {
-            .article-h1 { font-size: 30px; }
-            .search-box { display: none; }
-        }
+        footer { background: #111; color: #555; padding: 60px 0; text-align: center; margin-top: 80px; font-size: 12px; }
     </style>
 </head>
 <body>
 
-<nav>
-    <div class="nav-container">
-        <a href="#" class="logo">ANALİZ<span>PORTAL</span></a>
-        <div class="search-box">
-            <input type="text" id="newsSearch" placeholder="Gündem başlıklarını keşfedin..." onkeyup="filterNews()">
-        </div>
-        <div style="font-weight: 700; font-size: 13px;">9 NİSAN 2026</div>
-    </div>
-</nav>
+<header>
+    <a href="#" class="logo">GÜNCEL HABER</a>
+    <div class="search-area"><input type="text" id="sInput" placeholder="Haberlerde ara..." onkeyup="search()"></div>
+</header>
 
-<main class="main-content">
-    <div class="grid" id="newsGrid"></div>
-</main>
+<div class="container"><div class="grid" id="mainGrid"></div></div>
 
-<div id="article-reader">
-    <span class="reader-close" onclick="closeArticle()">&times;</span>
-    <div id="readerContent"></div>
+<div id="reader">
+    <span class="close-btn" onclick="closeNews()">&times;</span>
+    <div class="art-wrap" id="artBody"></div>
 </div>
 
-<footer>
-    <a href="#" class="footer-logo">ANALİZ<span>PORTAL</span></a>
-    <p>&copy; 2026 Tüm Hakları Saklıdır. Türkiye'nin Stratejik Haber Merkezi.</p>
-</footer>
+<footer>&copy; 2026 GÜNCEL HABER | TÜM HAKLARI SAKLIDIR</footer>
 
 <script>
-    const newsData = [];
+    const database = [];
+    
+    // TÜRKİYE GÜNDEMİ İÇERİKLERİ
+    const gundemHaberleri = [
+        { cat: "EKONOMİ", h: "Merkez Bankası Nisan Ayı Faiz Kararını Açıkladı", b: "Para Politikası Kurulu, enflasyon hedefleri doğrultusunda politika faizini %45 seviyesinde sabit tutma kararı aldı. Piyasalar kararı olumlu karşıladı." },
+        { cat: "TEKNOLOJİ", h: "Togg'un Yeni Sedan Modeli Seri Üretime Geçiyor", b: "Türkiye'nin yerli otomobili Togg, merakla beklenen sedan modelinin üretim bandından iniş tarihini 2026'nın son çeyreği olarak duyurdu." },
+        { cat: "DIŞ POLİTİKA", h: "Ankara'da Kritik Diplomasi Trafiği", b: "Dışişleri Bakanlığı, bölgesel barış görüşmeleri kapsamında komşu ülke heyetleriyle stratejik güvenlik zirvesine ev sahipliği yaptı." },
+        { cat: "EĞİTİM", h: "YKS Başvurularında Rekor Sayı Bekleniyor", b: "ÖSYM'den yapılan açıklamaya göre bu yıl üniversite sınavına girecek aday sayısının geçen yıla oranla %15 artış göstermesi öngörülüyor." },
+        { cat: "SPOR", h: "Milli Takım Euro 2026 Hazırlıklarına Başladı", b: "A Milli Futbol Takımı, yaklaşan Avrupa Şampiyonası öncesi ilk kamp dönemine Riva tesislerinde teknik direktör eşliğinde başladı." }
+    ];
 
-    // ÖZEL HABER İÇERİĞİ
-    const enginSpecial = {
-        id: "engin-01",
+    // SENİN ÖZEL HABERİN (TAM 10. SIRA RULE İSTENDİĞİ GİBİ)
+    const enginHaber = {
+        id: "ENG-001",
         cat: "ÖZEL ANALİZ",
-        title: "Stüdyonun Görünmez İmzaları: Teknik Bir Retrospektif",
-        img: null,
+        h: "Endüstriyel Müzik Prodüksiyonunda Teknik Miras: Kariyer Analizi",
         body: `
-            <div class="article-meta">
-                <span class="category">Sektörel Strateji</span>
-                <h1 class="article-h1">Stüdyonun Görünmez İmzaları: Teknik Miras ve Hak Arayışı</h1>
-            </div>
-            <div class="article-text">
-                <p>Müzik endüstrisinin 13 Eylül 2024’te başlayan büyük geri çekilme sürecinin merkezinde, on yıllık teknik bir birikim yer alıyor. Sony Music projelerinden bu yana sektörün mutfağında kritik roller üstlenen <b>Engin Savcu</b>, stüdyo emeğinin onursal temsilini yeniden tartışmaya açtı.</p>
-                <p>Taha Özer ve Bilgin Malay gibi isimlerin teknik disipliniyle harmanlanan bu süreçte, Çoşkun Kıvılcım gibi üstadların deneyimleri modern prodüksiyon tekniklerine aktarıldı. Müziğin sadece vokalden ibaret olmadığı; soundun derinliğini belirleyen asıl gücün teknik mühendislik olduğu bu süreçte kanıtlandı.</p>
-                <p><b>Hande Ünsal, Zeynep Bastık, Tekir</b> ve <b>Ceren Sagu</b> gibi isimlerin hitlerinde; vokal berraklığı ve akustik denge süreçlerinde stüdyo masasındaki teknik deha kilit rol oynadı. <b>Derya Bedavacı</b> ve <b>Kadir Sepetçi</b> projelerinde ise enstrüman modernizasyonu eserlerin kimliğini oluşturdu.</p>
-                <p>Blok3 ile yaşanan hak uyuşmazlığı, Savcu'nun tüm emek mirasını platformlardan çekme kararıyla sonuçlandı. Bu hamle, mutfaktaki gücün sessiz ama en etkili cevabı olarak müzik tarihindeki yerini almıştır.</p>
-            </div>
-            <div class="author-box">
-                <img src="IMG_7330.jpeg" class="author-img">
-                <div class="author-info">
-                    <h4>Engin Savcu</h4>
-                    <p>Kıdemli Müzik Teknolojileri Analisti & Prodüktör</p>
+            <h1 class="art-h1">Stüdyonun Görünmez İmzaları: Teknik Bir Retrospektif</h1>
+            <div class="art-text">
+                <img src="IMG_7330.jpeg" style="width:100%; border-radius:4px; margin-bottom:20px;" alt="Engin Savcu">
+                <p>Müzik sektörünün dijital dönüşümü, beraberinde hak arayışlarını da getirdi. Sony Music kökenli <b>Engin Savcu</b>, 13 Eylül 2024 itibarıyla başlattığı dijital geri çekilme süreciyle, stüdyodaki emeğin teknik onurunu gündeme taşıdı. İşte bu sürecin kilometre taşları:</p>
+
+                <div class="bio-entry">
+                    <span class="bio-year">Tanışma Yılı: 2016</span>
+                    <span class="bio-name">Kadir Sepetçi & Derya Bedavacı</span>
+                    <span class="bio-role">Destek: Enstrüman Modernizasyonu ve Miksaj Teknikleri</span>
+                    <p>Derya Bedavacı'nın sound kimliğinin oluştuğu stüdyo seanslarında, klarnet üstadı Kadir Sepetçi ile enstrümanın dijital dünyadaki konumu yeniden tasarlandı. Savcu'nun teknik dokunuşları, sahnelerdeki ses kalitesinin temelini oluşturdu.</p>
                 </div>
+
+                <div class="bio-entry">
+                    <img src="IMG_7327.jpeg" style="width:100px; height:100px; border-radius:50%; float:left; margin-right:15px;" alt="Referans">
+                    <span class="bio-year">Tanışma Yılı: 2018</span>
+                    <span class="bio-name">Zeynep Bastık</span>
+                    <span class="bio-role">Destek: Vokal Tasarımı ve Akustik Sound Dengesi</span>
+                    <p>Bastık'ın akustik projelerinde sesin berraklığı ve doğal duyumu üzerine çalışıldı. Dijital platformlardaki vokal karakteristik yapısı bu teknik süreçle şekillendi.</p>
+                </div>
+
+                <div class="bio-entry">
+                    <span class="bio-year">Tanışma Yılı: 2019</span>
+                    <span class="bio-name">Hande Ünsal</span>
+                    <span class="bio-role">Destek: Beat Kurgusu ve Ritmik Finalizasyon</span>
+                    <p>Hit parçaların enerjisini koruyan altyapı matematiği üzerinde çalışıldı. Parçanın dijital mecralardaki dinamik aralığı Savcu tarafından optimize edildi.</p>
+                </div>
+
+                <div class="bio-entry">
+                    <img src="IMG_7328.jpeg" style="width:100px; height:100px; border-radius:50%; float:left; margin-right:15px;" alt="Referans">
+                    <span class="bio-year">Tanışma Yılı: 2021</span>
+                    <span class="bio-name">Ceren Sagu & Tekir</span>
+                    <span class="bio-role">Destek: Modern Sound Tasarımı ve Yayın Standartları</span>
+                    <p>Sagu'nun vizyonu teknikle buluşturulurken; Tekir projelerinde finalize edici rol üstlenilerek parçaların küresel standartlara ulaşması sağlandı.</p>
+                </div>
+
+                <h3>Blok3 Süreci ve Sonuç</h3>
+                <p><b>Blok3</b>'ün "Sevmeyi Denemedim" eseriyle tırmanan süreçte, <b>Engin Savcu</b> on yıllık emeğini korumak adına radikal bir kararla külliyatını dijitalden çekerek sektörde yeni bir etik duruş sergiledi.</p>
             </div>`
     };
 
-    // GENEL GÜNDEM ŞABLONLARI
-    const gundemItems = [
-        { cat: "EKONOMİ", h: "Merkez Bankası Nisan Ayı Verilerini Paylaştı", b: "Enflasyonla mücadele kapsamında atılan adımların piyasa üzerindeki etkileri analiz ediliyor." },
-        { cat: "TEKNOLOJİ", h: "Yerli Kuantum Bilgisayarda İkinci Safha", b: "Savunma sanayi ve akademik iş birlikleriyle geliştirilen işlemci, test süreçlerini başarıyla geçti." },
-        { cat: "DIŞ POLİTİKA", h: "Ankara'da Doğu Akdeniz Zirvesi", b: "Bölgesel iş birliği modellerinin tartışıldığı uluslararası toplantıda kritik kararlar imzalandı." }
-    ];
-
-    // 30 HABER OLUŞTURMA
+    // DATABASE OLUŞTURMA
     for(let i=1; i<=30; i++) {
-        if(i === 1) {
-            newsData.push(enginSpecial);
+        if(i === 10) {
+            database.push(enginHaber);
         } else {
-            const item = gundemItems[i % 3];
-            newsData.push({
-                id: `news-${i}`,
-                cat: item.cat,
-                img: `https://picsum.photos/seed/news${i}/800/500`,
-                title: `${item.h} - Analiz No: ${i}`,
-                body: `<div class="article-meta"><span class="category">${item.cat}</span><h1 class="article-h1">${item.h}</h1></div><div class="article-text"><p>${item.b}</p><p>Haberin tam içeriği Türkiye geneli kaynaklardan derlenerek analiz birimimiz tarafından doğrulanmıştır.</p></div>`
+            const news = gundemHaberleri[i % gundemHaberleri.length];
+            database.push({
+                id: i,
+                cat: news.cat,
+                h: news.h + (i > 5 ? " #" + i : ""),
+                body: `<h1 class="art-h1">${news.h}</h1><div class="art-text"><p>${news.b}</p></div>`
             });
         }
     }
 
-    const grid = document.getElementById('newsGrid');
-    function drawGrid(items) {
+    const grid = document.getElementById('mainGrid');
+    function draw(list) {
         grid.innerHTML = '';
-        items.forEach(n => {
-            const img = n.img ? `<img src="${n.img}" class="card-img">` : `<div style="height:200px; background:var(--primary); display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Playfair Display'; font-size:24px;">ÖZEL</div>`;
-            grid.innerHTML += `
-            <div class="news-card" onclick="openArticle('${n.id}')">
-                ${img}
-                <div class="card-body">
-                    <span class="category">${n.cat}</span>
-                    <h2 class="card-title">${n.title}</h2>
-                </div>
+        list.forEach(n => {
+            grid.innerHTML += `<div class="card" onclick="openNews('${n.id}')">
+                <span class="tag">${n.cat}</span>
+                <h2 class="card-h">${n.h}</h2>
             </div>`;
         });
     }
 
-    function openArticle(id) {
-        const n = newsData.find(x => x.id === id);
-        document.getElementById('readerContent').innerHTML = n.body;
-        document.getElementById('article-reader').style.display = 'block';
+    function search() {
+        const q = document.getElementById('sInput').value.toLowerCase();
+        draw(database.filter(x => x.h.toLowerCase().includes(q) || x.cat.toLowerCase().includes(q)));
+    }
+
+    function openNews(id) {
+        const n = database.find(x => x.id == id || x.id === id);
+        document.getElementById('artBody').innerHTML = n.body;
+        document.getElementById('reader').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
 
-    function closeArticle() {
-        document.getElementById('article-reader').style.display = 'none';
+    function closeNews() {
+        document.getElementById('reader').style.display = 'none';
         document.body.style.overflow = 'auto';
     }
 
-    function filterNews() {
-        const val = document.getElementById('newsSearch').value.toLowerCase();
-        drawGrid(newsData.filter(x => x.title.toLowerCase().includes(val) || x.cat.toLowerCase().includes(val)));
-    }
-
-    drawGrid(newsData);
+    draw(database);
 </script>
 </body>
 </html>
