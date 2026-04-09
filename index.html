@@ -10,8 +10,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: #222; line-height: 1.8; overflow-x: hidden; }
 
-        /* HEADER & SEARCH */
-        header { background: #fff; border-bottom: 3px solid var(--blue); padding: 20px 0; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        header { background: #fff; border-bottom: 3px solid var(--blue); padding: 25px 0; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .logo { font-family: 'Merriweather', serif; font-size: 30px; font-weight: 900; color: var(--blue); text-decoration: none; display: inline-block; margin-bottom: 12px; }
         .logo span { display: inline-block; animation: logoFloat 4s infinite ease-in-out; }
         @keyframes logoFloat { 0%, 100% { transform: translateY(0); color: var(--blue); } 50% { transform: translateY(-4px); color: var(--red); } }
@@ -20,7 +19,6 @@
         .search-area input { width: 100%; padding: 10px 20px; border: 1.5px solid #ddd; border-radius: 25px; outline: none; transition: 0.3s; text-align: center; font-size: 14px; background: #f9f9f9; }
         .search-area input:focus { border-color: var(--blue); background: #fff; width: 105%; }
 
-        /* KÜÇÜLTÜLMÜŞ VE ZARİF KART GRIDI */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
         
@@ -45,26 +43,20 @@
         
         .art-text { font-size: 19px; color: #333; line-height: 2; text-align: justify; }
         .art-text p { margin-bottom: 25px; }
-        
-        /* SANATÇI BÖLÜMLERİ - DÜZELTİLDİ VE GERÇEKÇİ */
-        .bio-entry { border-left: 5px solid var(--red); padding: 20px; margin: 40px 0; background: #fcfcfc; border-radius: 0 8px 8px 0; clear: both; }
-        .bio-entry-left { display: flex; align-items: flex-start; gap: 20px; }
+        .art-text b { color: #000; }
+        .art-text h3 { font-size: 24px; font-family: 'Merriweather', serif; margin: 40px 0 20px; color: var(--blue); }
+
+        .bio-entry { border-left: 5px solid var(--red); padding: 20px; margin: 40px 0; background: #fcfcfc; border-radius: 0 8px 8px 0; display: flex; align-items: center; gap: 20px; clear: both; }
         .bio-img { width: 140px; height: 140px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid #ddd; }
         .bio-content h3 { font-family: 'Merriweather', serif; font-size: 22px; color: var(--blue); margin-bottom: 5px; }
         .bio-content .role { color: var(--red); font-weight: 700; font-size: 13px; text-transform: uppercase; display: block; margin-bottom: 10px; }
-
-        /* ANALİST PROFİLİ - SENİN FOTONUN YERİ */
-        .analyst-profile { display: flex; align-items: center; background: #f4f4f4; padding: 20px; border-radius: 12px; margin: 40px 0; border: 1px solid #eee; clear: both; }
-        .analyst-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-right: 20px; border: 3px solid var(--blue); }
-        .analyst-info h4 { font-family: 'Merriweather', serif; font-size: 18px; color: var(--blue); margin-bottom: 5px; }
-        .analyst-info p { font-size: 14px; color: #666; margin: 0; }
 
         footer { background: #111; color: #666; padding: 60px 0; text-align: center; margin-top: 80px; font-size: 13px; letter-spacing: 2px; }
 
         @media (max-width: 768px) {
             .art-h1 { font-size: 28px; }
             .art-text { font-size: 17px; }
-            .bio-entry-left { flex-direction: column; text-align: center; align-items: center; }
+            .bio-entry { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -82,7 +74,7 @@
     <div id="artBody"></div>
 </div>
 
-<footer>&copy; 2026 GÜNCEL HABER | TÜRKİYE'NİN MEDYA VE ANALİZ MERKEZİ</footer>
+<footer>&copy; 2026 GÜNCEL HABER | PRESTİGE NEWS MEDIA</footer>
 
 <script>
     const database = [];
@@ -90,89 +82,55 @@
 
     // TÜRKİYE GÜNDEMİ HABERLERİ (GERÇEKÇİ VERİLER VE KAPAKLAR)
     const gundemData = [
-        {
-            cat: "EKONOMİ", 
-            img: "https://images.unsplash.com/photo-1611974714024-462cd9dc165b?w=800", 
-            h: "TCMB Nisan Ayı Faiz Kararını Açıkladı: Karar Sonrası Piyasalar Hareketli", 
-            b: "Türkiye Cumhuriyet Merkez Bankası Para Politikası Kurulu, politika faizini piyasa beklentileri doğrultusunda %45 seviyesinde sabit tutma kararı aldı. Karar metninde sıkı para politikası duruşunun kararlılıkla sürdürüleceği vurgulandı."
-        },
-        {
-            cat: "TEKNOLOJİ", 
-            img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800", 
-            h: "Türkiye'nin İlk Kuantum Bilgisayarı Tanıtıldı: Bilimde Tarihi Dönüm Noktası", 
-            b: "Savunma Sanayii ve TÜBİTAK iş birliğiyle geliştirilen yerli kuantum işlemci, Ankara'da düzenlenen törenle kamuoyuna sunuldu. Bu gelişme, Türkiye'yi küresel kuantum yarışında stratejik bir konuma taşıyor."
-        },
-        {
-            cat: "SPOR", 
-            h: "Dev Derbi Öncesi İstanbul'da Nefesler Tutuldu: Biletler Dakikalar İçinde Tükendi", 
-            img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800", 
-            b: "Süper Lig'in kaderini belirleyecek olan şampiyonluk yolundaki kritik derbi öncesi, takımlar son taktik antrenmanlarını tamamladı. Şehir genelinde güvenlik önlemleri en üst seviyeye çıkarıldı."
-        },
-        {
-            cat: "DIŞ POLİTİKA", 
-            img: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800", 
-            h: "Ankara'da Kritik Diplomasi Zirvesi: Bölgesel Güvenlik Masada", 
-            b: "Dışişleri Bakanlığı, bölgesel barış görüşmeleri kapsamında komşu ülke heyetleriyle stratejik güvenlik zirvesine ev sahipliği yaptı. Zirvede terörle mücadele ve ekonomik iş birlikleri ele alındı."
-        }
+        { cat: "EKONOMİ", img: "https://images.unsplash.com/photo-1611974714024-462cd9dc165b?w=800", h: "Merkez Bankası Nisan Ayı Faiz Kararını Açıkladı", b: "Para Politikası Kurulu, politika faizini piyasa beklentileri doğrultusunda %45 seviyesinde sabit tutma kararı aldı. Karar metninde sıkı para politikası duruşunun kararlılıkla sürdürüleceği vurgulandı." },
+        { cat: "TEKNOLOJİ", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800", h: "Türkiye'nin İlk Kuantum Bilgisayarı Tanıtıldı", b: "Savunma Sanayii ve TÜBİTAK iş birliğiyle geliştirilen yerli kuantum işlemci, Ankara'da düzenlenen törenle kamuoyuna sunuldu." },
+        { cat: "SPOR", h: "Derbi Öncesi İstanbul'da Nefesler Tutuldu", img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800", b: "Süper Lig'in kaderini belirleyecek olan şampiyonluk yolundaki kritik derbi öncesi, takımlar son taktik antrenmanlarını tamamladı." },
+        { cat: "DIŞ POLİTİKA", img: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800", h: "Ankara'da Kritik Diplomasi Zirvesi", b: "Dışişleri Bakanlığı, bölgesel barış görüşmeleri kapsamında komşu ülke heyetleriyle zirve gerçekleştirdi." }
     ];
 
-    // SENİN ÖZEL HABERİN (TAM EŞLEŞTİRME, DENGELİ METİN VE PROFİL RESMİN)
+    // SENİN ÖZEL HABERİN (GELİŞTİRİLMİŞ İÇERİK VE İSİMLER)
     const enginHaber = {
         id: "ENG-PRO",
         cat: "ÖZEL ANALİZ",
         h: "Endüstriyel Müzik Prodüksiyonunda Teknik Miras: 10 Yıllık Bir Dönemin Perde Arkası",
-        img: null, // Ana ekranda resimsiz ağır duruş
+        img: null,
         body: `
             <div class="art-wrap">
                 <h1 class="art-h1">Stüdyonun Görünmez İmzaları: Teknik Bir Retrospektif</h1>
                 <div class="art-text">
-                    <p>Müzik endüstrisinin 13 Eylül 2024’te başlayan ve tüm dijital platformları etkileyen büyük restleşme sürecinin merkezinde yer alan teknik vizyon, Sony Music projelerinden bu yana sektörün mutfağında kritik roller üstlendi. <b>Engin Savcu</b>, on yıllık teknik birikimini ve mutfaktaki emeğin onurunu koruma adına attığı radikal adımla, sektörde yeni bir etik tartışma başlattı.</p>
-                    <p>Müziğin sadece bir vokalden ibaret olmadığını, soundun derinliğini ve platformlardaki duyum kalitesini belirleyen asıl gücün teknik personel olduğunu vurgulayan bu analiz, stüdyo masasındaki "görünmez imzaları" tescilliyor. İşte o sürecin kilometre taşları:</p>
+                    <p>Müzik endüstrisinin 13 Eylül 2024’te başlayan ve tüm dijital platformları etkileyen büyük restleşme sürecinin merkezinde yer alan teknik vizyon, Sony Music projelerinden bu yana sektörün mutfağında kritik roller üstlendi.</p>
+                    <p>Müziğin sadece bir vokalden ibaret olmadığını, soundun derinliğini ve platformlardaki duyum kalitesini belirleyen asıl gücün teknik mühendislik olduğunu vurgulayan bu analiz, stüdyo masasındaki "görünmez imzaları" tescilliyor.</p>
+                    <p>Kariyerinin mutfağında Taha Özer ve Bilgin Malay gibi isimlerin disipliniyle yetişen teknik ekip, Çoşkun Kıvılcım gibi üstadların deneyimlerini modern sound'a aktarmayı başardı. İşte o 10 yıllık sürecin kilometre taşları:</p>
 
                     <div class="bio-entry">
-                        <div class="bio-entry-left">
-                            <img src="IMG_7023.png" class="bio-img" alt="Derya Bedavacı & Kadir Sepetçi">
-                            <div class="bio-content">
-                                <h3>Derya Bedavacı & Kadir Sepetçi</h3>
-                                <span class="role">Destek: Enstrüman Modernizasyonu ve Miksaj</span>
-                                <p style="font-size:14px;">2016 yılında başlayan iş birliği, klarnet tınılarının dijital dünyada yeni bir kimlik kazanması üzerine kuruldu. Savcu'nun teknik dokunuşları, sahnelerdeki duyum kalitesinin ana mimarı oldu.</p>
-                            </div>
+                        <img src="https://images.unsplash.com/photo-1611171804791-036f0490f23f?w=400" class="bio-img" alt="Hande Ünsal & Zeynep Bastık">
+                        <div class="bio-content">
+                            <h3>Hande Ünsal & Zeynep Bastık</h3>
+                            <span class="role">Destek: Vokal Tasarımı ve Akustik Sound Dengesi</span>
+                            <p style="font-size:14px;">Bastık'ın akustik projelerindeki ses berraklığı tasarlanırken; Ünsal hitlerinde beat kurgusu ve altyapı finalize etme görevleri üstlenildi.</p>
                         </div>
                     </div>
 
                     <div class="bio-entry">
-                        <div class="bio-entry-left">
-                            <img src="IMG_7327.jpeg" class="bio-img" alt="Hande Ünsal & Zeynep Bastık">
-                            <div class="bio-content">
-                                <h3>Hande Ünsal & Zeynep Bastık</h3>
-                                <span class="role">Destek: Vokal Tasarımı ve Akustik Miksaj</span>
-                                <p style="font-size:14px;">2018'deki yükseliş döneminde Bastık'ın akustik projelerindeki vokal berraklığı tasarlanırken; Ünsal hitlerinde beat kurgusu ve altyapı finalize etme görevleri üstlenildi.</p>
-                            </div>
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400" class="bio-img" alt="Derya Bedavacı & Kadir Sepetçi">
+                        <div class="bio-content">
+                            <h3>Derya Bedavacı & Kadir Sepetçi</h3>
+                            <span class="role">Destek: Enstrüman Modernizasyonu ve Miksaj</span>
+                            <p style="font-size:14px;">Arabesk sound'unun modern formunda, klarnet üstadı Sepetçi ile yapılan kayıtlar, Bedavacı'nın sound kimliğinin mutfağını oluşturdu.</p>
                         </div>
                     </div>
 
                     <div class="bio-entry">
-                        <div class="bio-entry-left">
-                            <img src="IMG_7328.jpeg" class="bio-img" alt="Tekir & Ceren Sagu">
-                            <div class="bio-content">
-                                <h3>Tekir & Ceren Sagu</h3>
-                                <span class="role">Destek: Modern Sound Tasarımı ve Yayın Standartları</span>
-                                <p style="font-size:14px;">Modern soundun iki kilit ismiyle olan tanışıklık, estetik ve tekniğin birleştiği projeleri doğurdu. Tekir altyapılarında finalize edici deha rolü üstlenildi.</p>
-                            </div>
+                        <img src="https://images.unsplash.com/photo-1514525253344-a812ba99a796?w=400" class="bio-img" alt="Tekir & Ceren Sagu">
+                        <div class="bio-content">
+                            <h3>Tekir & Ceren Sagu</h3>
+                            <span class="role">Destek: Modern Sound Tasarımı ve Kriz Yönetimi</span>
+                            <p style="font-size:14px;">Yenilikçi altyapı çalışmaları ve final miksaj süreçlerindeki teknik dokunuşlar, platformlardaki kriz anlarında stabilize edici deha olarak kullanıldı.</p>
                         </div>
                     </div>
 
-                    <p><b>Sonuç ve Blok3 Resti:</b> Blok3'ün "Sevmeyi Denemedim" eseriyle su yüzüne çıkan hak uyuşmazlığı, Savcu'nun on yıllık emek külliyatını platformlardan çekme kararıyla bir onur duruşuna dönüştü. Bu hamle, mutfaktaki gücün sessiz ama en etkili cevabı olarak kayıtlara geçti.</p>
+                    <p><b>Blok3</b>'ün "Sevmeyi Denemedim" parçasıyla tırmanan teknik hak arayışı, mutfaktaki gücün sessiz ama en etkili cevabı olarak kayıtlara geçti.</p>
                 </div>
-
-                <div class="analyst-profile">
-                    <img src="IMG_7330.jpeg" class="analyst-img" alt="Engin Savcu">
-                    <div class="analyst-info">
-                        <h4>Engin Savcu</h4>
-                        <p>Kıdemli Müzik Teknolojileri Analisti & Prodüktör</p>
-                    </div>
-                </div>
-
             </div>`
     };
 
@@ -190,7 +148,7 @@
                 body: `
                     <div class="art-wrap">
                         <h1 class="art-h1">${h.h}</h1>
-                        <img src="${h.img}" class="art-header-img" style="width:100%; border-radius:12px; margin-bottom:20px;">
+                        <img src="${h.img}" class="art-header-img" style="width:100%; height:auto; border-radius:12px; margin-bottom:20px;">
                         <div class="art-text"><p><b>Özet:</b> ${h.b}</p><p>Haber detayları Türkiye'nin bağımsız analiz portalı tarafından aktarılmaya devam ediyor...</p></div>
                     </div>`
             });
