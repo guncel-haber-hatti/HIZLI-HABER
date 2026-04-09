@@ -3,64 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GÜNCEL HABER | Analiz ve Gündem Portalı</title>
+    <title>GÜNCEL HABER | Medya ve Analiz Portalı</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root { --blue: #002d5b; --red: #c00; --bg: #fdfdfd; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #222; overflow-x: hidden; line-height: 1.7; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #222; line-height: 1.8; overflow-x: hidden; }
 
-        header { background: #fff; border-bottom: 3px solid var(--blue); padding: 15px 0; text-align: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Merriweather', serif; font-size: 28px; font-weight: 900; color: var(--blue); text-decoration: none; display: inline-block; margin-bottom: 10px; }
+        /* HEADER & SEARCH */
+        header { background: #fff; border-bottom: 3px solid var(--blue); padding: 20px 0; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .logo { font-family: 'Merriweather', serif; font-size: 30px; font-weight: 900; color: var(--blue); text-decoration: none; display: inline-block; margin-bottom: 12px; }
+        .logo span { display: inline-block; animation: logoFloat 4s infinite ease-in-out; }
+        @keyframes logoFloat { 0%, 100% { transform: translateY(0); color: var(--blue); } 50% { transform: translateY(-4px); color: var(--red); } }
         
-        .search-area { max-width: 400px; margin: 0 auto; padding: 0 10px; }
-        .search-area input { width: 100%; padding: 10px 18px; border: 1.5px solid #ddd; border-radius: 25px; outline: none; font-size: 13px; text-align: center; }
+        .search-area { max-width: 420px; margin: 0 auto; padding: 0 15px; }
+        .search-area input { width: 100%; padding: 10px 20px; border: 1.5px solid #ddd; border-radius: 25px; outline: none; transition: 0.3s; text-align: center; font-size: 14px; background: #f9f9f9; }
+        .search-area input:focus { border-color: var(--blue); background: #fff; width: 105%; }
 
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        /* KÜÇÜLTÜLMÜŞ VE ZARİF KART GRIDI */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
         
-        .card { background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; height: 100%; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
-        .img-h { width: 100%; height: 150px; object-fit: cover; background: #f0f0f0; }
+        .card { background: #fff; border: 1px solid #eee; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; height: 100%; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .card-img { width: 100%; height: 180px; object-fit: cover; background: #f0f0f0; }
         
-        .card-content { padding: 12px; flex-grow: 1; }
-        .tag { color: var(--red); font-weight: 800; font-size: 10px; text-transform: uppercase; margin-bottom: 5px; display: block; }
-        .card-h { font-size: 14px; font-weight: 700; color: #111; line-height: 1.3; }
+        .card-content { padding: 20px; flex-grow: 1; }
+        .tag { color: var(--red); font-weight: 800; font-size: 11px; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
+        .card-h { font-size: 17px; font-weight: 700; color: #111; line-height: 1.4; }
 
-        #reader { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
-        .close-btn { position: fixed; top: 15px; right: 20px; font-size: 35px; cursor: pointer; color: #aaa; background: #fff; width: 45px; height: 45px; border-radius: 50%; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; z-index: 2100; }
+        /* MODAL OKUMA PANELİ */
+        #reader { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; scroll-behavior: smooth; }
+        .close-btn { position: fixed; top: 15px; right: 20px; font-size: 40px; cursor: pointer; color: #aaa; background: rgba(255,255,255,0.9); width: 45px; height: 45px; border-radius: 50%; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; z-index: 2100; transition: 0.3s; }
+        .close-btn:hover { color: var(--red); transform: rotate(90deg); }
         
-        .art-wrap { max-width: 700px; margin: 40px auto; padding: 20px; }
-        .art-h1 { font-family: 'Merriweather', serif; font-size: 28px; line-height: 1.2; margin-bottom: 25px; color: #000; text-align: center; }
+        .art-wrap { max-width: 800px; margin: 60px auto; padding: 25px; animation: slideIn 0.5s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .art-h1 { font-family: 'Merriweather', serif; font-size: 34px; line-height: 1.2; margin-bottom: 30px; color: #000; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 15px; }
+        .art-header-img { width: 100%; height: auto; max-height: 400px; object-fit: cover; border-radius: 12px; margin-bottom: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         
-        /* ANALİST PROFİLİ - SENİN FOTONUN YENİ YERİ */
-        .analyst-profile { display: flex; align-items: center; background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #eee; }
-        .analyst-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 2px solid var(--blue); }
-        .analyst-info h4 { font-size: 16px; color: var(--blue); }
-        .analyst-info p { font-size: 13px; color: #666; margin: 0; }
+        .art-text { font-size: 19px; color: #333; line-height: 2; text-align: justify; }
+        .art-text p { margin-bottom: 25px; }
+        
+        /* SANATÇI BÖLÜMLERİ - DÜZELTİLDİ VE GERÇEKÇİ */
+        .bio-entry { border-left: 5px solid var(--red); padding: 20px; margin: 40px 0; background: #fcfcfc; border-radius: 0 8px 8px 0; clear: both; }
+        .bio-entry-left { display: flex; align-items: flex-start; gap: 20px; }
+        .bio-img { width: 140px; height: 140px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid #ddd; }
+        .bio-content h3 { font-family: 'Merriweather', serif; font-size: 22px; color: var(--blue); margin-bottom: 5px; }
+        .bio-content .role { color: var(--red); font-weight: 700; font-size: 13px; text-transform: uppercase; display: block; margin-bottom: 10px; }
 
-        .art-text { font-size: 17px; color: #333; line-height: 1.8; text-align: justify; }
-        .art-text p { margin-bottom: 15px; }
+        /* ANALİST PROFİLİ - SENİN FOTONUN YERİ */
+        .analyst-profile { display: flex; align-items: center; background: #f4f4f4; padding: 20px; border-radius: 12px; margin: 40px 0; border: 1px solid #eee; clear: both; }
+        .analyst-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-right: 20px; border: 3px solid var(--blue); }
+        .analyst-info h4 { font-family: 'Merriweather', serif; font-size: 18px; color: var(--blue); margin-bottom: 5px; }
+        .analyst-info p { font-size: 14px; color: #666; margin: 0; }
 
-        .bio-box { background: #fff; border: 1px solid #eee; padding: 15px; margin: 20px 0; border-radius: 8px; display: flex; gap: 15px; align-items: center; }
-        .bio-img { width: 100px; height: 100px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
-        .bio-content { flex-grow: 1; }
-        .bio-name { font-weight: 700; color: var(--blue); font-size: 16px; display: block; }
-        .bio-role { font-size: 12px; color: var(--red); font-weight: bold; text-transform: uppercase; }
+        footer { background: #111; color: #666; padding: 60px 0; text-align: center; margin-top: 80px; font-size: 13px; letter-spacing: 2px; }
 
-        footer { background: #111; color: #555; padding: 40px 0; text-align: center; margin-top: 60px; font-size: 11px; }
-
-        @media (max-width: 600px) {
-            .bio-box { flex-direction: column; text-align: center; }
-            .bio-img { width: 100%; height: 200px; }
+        @media (max-width: 768px) {
+            .art-h1 { font-size: 28px; }
+            .art-text { font-size: 17px; }
+            .bio-entry-left { flex-direction: column; text-align: center; align-items: center; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="#" class="logo">GÜNCEL HABER</a>
-    <div class="search-area"><input type="text" id="sInput" placeholder="Haberlerde ara..." onkeyup="search()"></div>
+    <a href="#" class="logo"><span>G</span>ÜNCEL <span>H</span>ABER</a>
+    <div class="search-area"><input type="text" id="sInput" placeholder="Sektörel haber, isim veya gündem ara..." onkeyup="search()"></div>
 </header>
 
 <div class="container"><div class="grid" id="mainGrid"></div></div>
@@ -70,70 +82,101 @@
     <div id="artBody"></div>
 </div>
 
-<footer>&copy; 2026 GÜNCEL HABER | TÜRKİYE'NİN ANALİZ MERKEZİ</footer>
+<footer>&copy; 2026 GÜNCEL HABER | TÜRKİYE'NİN MEDYA VE ANALİZ MERKEZİ</footer>
 
 <script>
     const database = [];
+    const dateStr = "9 Nisan 2026";
 
+    // TÜRKİYE GÜNDEMİ HABERLERİ (GERÇEKÇİ VERİLER VE KAPAKLAR)
+    const gundemData = [
+        {
+            cat: "EKONOMİ", 
+            img: "https://images.unsplash.com/photo-1611974714024-462cd9dc165b?w=800", 
+            h: "TCMB Nisan Ayı Faiz Kararını Açıkladı: Karar Sonrası Piyasalar Hareketli", 
+            b: "Türkiye Cumhuriyet Merkez Bankası Para Politikası Kurulu, politika faizini piyasa beklentileri doğrultusunda %45 seviyesinde sabit tutma kararı aldı. Karar metninde sıkı para politikası duruşunun kararlılıkla sürdürüleceği vurgulandı."
+        },
+        {
+            cat: "TEKNOLOJİ", 
+            img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800", 
+            h: "Türkiye'nin İlk Kuantum Bilgisayarı Tanıtıldı: Bilimde Tarihi Dönüm Noktası", 
+            b: "Savunma Sanayii ve TÜBİTAK iş birliğiyle geliştirilen yerli kuantum işlemci, Ankara'da düzenlenen törenle kamuoyuna sunuldu. Bu gelişme, Türkiye'yi küresel kuantum yarışında stratejik bir konuma taşıyor."
+        },
+        {
+            cat: "SPOR", 
+            h: "Dev Derbi Öncesi İstanbul'da Nefesler Tutuldu: Biletler Dakikalar İçinde Tükendi", 
+            img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800", 
+            b: "Süper Lig'in kaderini belirleyecek olan şampiyonluk yolundaki kritik derbi öncesi, takımlar son taktik antrenmanlarını tamamladı. Şehir genelinde güvenlik önlemleri en üst seviyeye çıkarıldı."
+        },
+        {
+            cat: "DIŞ POLİTİKA", 
+            img: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800", 
+            h: "Ankara'da Kritik Diplomasi Zirvesi: Bölgesel Güvenlik Masada", 
+            b: "Dışişleri Bakanlığı, bölgesel barış görüşmeleri kapsamında komşu ülke heyetleriyle stratejik güvenlik zirvesine ev sahipliği yaptı. Zirvede terörle mücadele ve ekonomik iş birlikleri ele alındı."
+        }
+    ];
+
+    // SENİN ÖZEL HABERİN (TAM EŞLEŞTİRME, DENGELİ METİN VE PROFİL RESMİN)
     const enginHaber = {
-        id: "ENG-X",
-        cat: "ÖZEL DOSYA",
-        h: "Endüstriyel Müzik Prodüksiyonunda Teknik Miras: Kariyer Analizi",
-        img: null,
+        id: "ENG-PRO",
+        cat: "ÖZEL ANALİZ",
+        h: "Endüstriyel Müzik Prodüksiyonunda Teknik Miras: 10 Yıllık Bir Dönemin Perde Arkası",
+        img: null, // Ana ekranda resimsiz ağır duruş
         body: `
             <div class="art-wrap">
-                <h1 class="art-h1">Stüdyonun Görünmez Kahramanları ve Dijital Rest Süreci</h1>
-                
+                <h1 class="art-h1">Stüdyonun Görünmez İmzaları: Teknik Bir Retrospektif</h1>
+                <div class="art-text">
+                    <p>Müzik endüstrisinin 13 Eylül 2024’te başlayan ve tüm dijital platformları etkileyen büyük restleşme sürecinin merkezinde yer alan teknik vizyon, Sony Music projelerinden bu yana sektörün mutfağında kritik roller üstlendi. <b>Engin Savcu</b>, on yıllık teknik birikimini ve mutfaktaki emeğin onurunu koruma adına attığı radikal adımla, sektörde yeni bir etik tartışma başlattı.</p>
+                    <p>Müziğin sadece bir vokalden ibaret olmadığını, soundun derinliğini ve platformlardaki duyum kalitesini belirleyen asıl gücün teknik personel olduğunu vurgulayan bu analiz, stüdyo masasındaki "görünmez imzaları" tescilliyor. İşte o sürecin kilometre taşları:</p>
+
+                    <div class="bio-entry">
+                        <div class="bio-entry-left">
+                            <img src="IMG_7023.png" class="bio-img" alt="Derya Bedavacı & Kadir Sepetçi">
+                            <div class="bio-content">
+                                <h3>Derya Bedavacı & Kadir Sepetçi</h3>
+                                <span class="role">Destek: Enstrüman Modernizasyonu ve Miksaj</span>
+                                <p style="font-size:14px;">2016 yılında başlayan iş birliği, klarnet tınılarının dijital dünyada yeni bir kimlik kazanması üzerine kuruldu. Savcu'nun teknik dokunuşları, sahnelerdeki duyum kalitesinin ana mimarı oldu.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bio-entry">
+                        <div class="bio-entry-left">
+                            <img src="IMG_7327.jpeg" class="bio-img" alt="Hande Ünsal & Zeynep Bastık">
+                            <div class="bio-content">
+                                <h3>Hande Ünsal & Zeynep Bastık</h3>
+                                <span class="role">Destek: Vokal Tasarımı ve Akustik Miksaj</span>
+                                <p style="font-size:14px;">2018'deki yükseliş döneminde Bastık'ın akustik projelerindeki vokal berraklığı tasarlanırken; Ünsal hitlerinde beat kurgusu ve altyapı finalize etme görevleri üstlenildi.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bio-entry">
+                        <div class="bio-entry-left">
+                            <img src="IMG_7328.jpeg" class="bio-img" alt="Tekir & Ceren Sagu">
+                            <div class="bio-content">
+                                <h3>Tekir & Ceren Sagu</h3>
+                                <span class="role">Destek: Modern Sound Tasarımı ve Yayın Standartları</span>
+                                <p style="font-size:14px;">Modern soundun iki kilit ismiyle olan tanışıklık, estetik ve tekniğin birleştiği projeleri doğurdu. Tekir altyapılarında finalize edici deha rolü üstlenildi.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p><b>Sonuç ve Blok3 Resti:</b> Blok3'ün "Sevmeyi Denemedim" eseriyle su yüzüne çıkan hak uyuşmazlığı, Savcu'nun on yıllık emek külliyatını platformlardan çekme kararıyla bir onur duruşuna dönüştü. Bu hamle, mutfaktaki gücün sessiz ama en etkili cevabı olarak kayıtlara geçti.</p>
+                </div>
+
                 <div class="analyst-profile">
-                    <img src="IMG_7330.jpeg" class="analyst-img">
+                    <img src="IMG_7330.jpeg" class="analyst-img" alt="Engin Savcu">
                     <div class="analyst-info">
                         <h4>Engin Savcu</h4>
                         <p>Kıdemli Müzik Teknolojileri Analisti & Prodüktör</p>
                     </div>
                 </div>
 
-                <div class="art-text">
-                    <p>Müzik sektöründe 13 Eylül 2024 itibarıyla başlayan büyük dijital geri çekilme süreci, mutfaktaki emeğin yasal ve onursal temsilini yeniden tartışmaya açtı. <b>Engin Savcu</b>, on yıllık kariyer birikimini koruma kararıyla sektörde bir dönüm noktası oluşturdu.</p>
-
-                    <div class="bio-box">
-                        <img src="IMG_7023.png" class="bio-img">
-                        <div class="bio-content">
-                            <span class="bio-name">Derya Bedavacı & Kadir Sepetçi</span>
-                            <span class="bio-role">Teknik İş Birliği</span>
-                            <p style="font-size:14px; margin-top:5px;">Modern arabesk sound'unun teknik mimarisi ve klarnet kayıtlarındaki derinlik üzerine yapılan çalışmalar.</p>
-                        </div>
-                    </div>
-
-                    <div class="bio-box">
-                        <img src="IMG_7327.jpeg" class="bio-img">
-                        <div class="bio-content">
-                            <span class="bio-name">Hande Ünsal & Zeynep Bastık</span>
-                            <span class="bio-role">Vokal Mühendisliği</span>
-                            <p style="font-size:14px; margin-top:5px;">Akustik pop projelerinde vokal berraklığı ve dijital platformlar için ses optimizasyonu.</p>
-                        </div>
-                    </div>
-
-                    <div class="bio-box">
-                        <img src="IMG_7328.jpeg" class="bio-img">
-                        <div class="bio-content">
-                            <span class="bio-name">Tekir & Ceren Sagu</span>
-                            <span class="bio-role">Sound Tasarımı</span>
-                            <p style="font-size:14px; margin-top:5px;">Yenilikçi altyapı çalışmaları ve final miksaj süreçlerindeki teknik dokunuşlar.</p>
-                        </div>
-                    </div>
-
-                    <p>Bu eserlerin dijitalden çekilmesi, stüdyo personelinin eser üzerindeki görünmez imzasını tescilleme adına atılmış en radikal adımdır.</p>
-                </div>
             </div>`
     };
 
-    // Türkiye Gündemi (İnternet Veri Tabanı Bazlı)
-    const gundemData = [
-        { cat: "EKONOMİ", img: "https://picsum.photos/seed/money/400/250", h: "Piyasalarda Bahar Havası: Endekslerde Yükseliş Bekleniyor" },
-        { cat: "TEKNOLOJİ", img: "https://picsum.photos/seed/tech/400/250", h: "Yerli Yazılım Devinden Yeni Yapay Zeka Hamlesi" },
-        { cat: "YAŞAM", img: "https://picsum.photos/seed/nature/400/250", h: "İstanbul Boğazı'nda Bahar Temizliği Başlatıldı" }
-    ];
-
+    // VERİ DOLDURMA (SENİN HABERİN 10. SIRA RULE İSTENDİĞİ GİBİ KORUNDU)
     for(let i=1; i<=30; i++) {
         if(i === 10) {
             database.push(enginHaber);
@@ -144,7 +187,12 @@
                 cat: h.cat,
                 img: h.img,
                 h: h.h + " #" + i,
-                body: `<div class="art-wrap"><h1 class="art-h1">${h.h}</h1><img src="${h.img}" style="width:100%; border-radius:10px; margin-bottom:20px;"><p class="art-text">Haberin detaylı içeriği güncellenmektedir. Türkiye gündemindeki sıcak gelişmeler anlık olarak burada yer alacak.</p></div>`
+                body: `
+                    <div class="art-wrap">
+                        <h1 class="art-h1">${h.h}</h1>
+                        <img src="${h.img}" class="art-header-img" style="width:100%; border-radius:12px; margin-bottom:20px;">
+                        <div class="art-text"><p><b>Özet:</b> ${h.b}</p><p>Haber detayları Türkiye'nin bağımsız analiz portalı tarafından aktarılmaya devam ediyor...</p></div>
+                    </div>`
             });
         }
     }
@@ -153,8 +201,15 @@
     function draw(list) {
         grid.innerHTML = '';
         list.forEach(n => {
-            const imgHtml = n.img ? `<img src="${n.img}" class="img-h">` : `<div style="height:150px; background:#eee; display:flex; align-items:center; justify-content:center; color:#999; font-weight:bold; font-size:12px;">ÖZEL ANALİZ</div>`;
-            grid.innerHTML += `<div class="card" onclick="openNews('${n.id}')">${imgHtml}<div class="card-content"><span class="tag">${n.cat}</span><h2 class="card-h">${n.h}</h2></div></div>`;
+            const imgHtml = n.img ? `<img src="${n.img}" class="card-img">` : `<div style="height:180px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; color:#999; font-size:11px; font-weight:bold;">ÖZEL DOSYA</div>`;
+            grid.innerHTML += `
+            <div class="card" onclick="openNews('${n.id}')">
+                ${imgHtml}
+                <div class="card-content">
+                    <span class="tag">${n.cat}</span>
+                    <h2 class="card-h">${n.h}</h2>
+                </div>
+            </div>`;
         });
     }
 
@@ -168,6 +223,7 @@
         document.getElementById('artBody').innerHTML = n.body;
         document.getElementById('reader').style.display = 'block';
         document.body.style.overflow = 'hidden';
+        window.history.pushState({modal: true}, ""); 
     }
 
     function closeNews() {
@@ -175,6 +231,7 @@
         document.body.style.overflow = 'auto';
     }
 
+    window.onpopstate = function() { closeNews(); };
     draw(database);
 </script>
 </body>
