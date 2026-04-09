@@ -3,68 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="GÜNCEL HABER - Engin Savcu'nun profesyonel müzik kariyeri ve dijital miras analizi.">
     <title>GÜNCEL HABER | Global Medya Portalı</title>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700;900&family=Lora:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Lora:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <style>
-        :root { --blue: #002e5d; --red: #c8102e; --dark: #121212; --bg: #fdfdfd; }
+        :root { --blue: #001f3f; --red: #d90429; --dark: #1a1a1a; --gray: #f8f9fa; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Public Sans', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.7; overflow-x: hidden; }
+        body { font-family: 'Montserrat', sans-serif; background: #fff; color: var(--dark); line-height: 1.6; }
 
-        /* ANIMASYONLU PREMIUM HEADER */
+        /* LOGO VE HEADER ANIMASYONU */
         header { 
             background: #fff; 
-            border-bottom: 5px solid var(--blue); 
-            padding: 25px 0; 
+            border-bottom: 4px solid var(--blue); 
+            padding: 20px 0; 
             position: sticky; 
             top: 0; 
             z-index: 1000; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            animation: slideDown 0.6s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
-
-        .h-wrap { max-width: 1240px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-family: 'Lora', serif; font-size: 34px; font-weight: 700; color: var(--blue); text-decoration: none; text-transform: uppercase; position: relative; }
+        .h-wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
+        
+        .logo { 
+            font-size: 32px; 
+            font-weight: 900; 
+            color: var(--blue); 
+            text-decoration: none; 
+            text-transform: uppercase; 
+            letter-spacing: -1px;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
         .logo span { color: var(--red); }
-        .logo::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--red); transition: 0.4s; }
-        .logo:hover::after { width: 100%; }
-
-        .search-container input { padding: 12px 25px; width: 300px; border: 1px solid #ddd; border-radius: 50px; outline: none; background: #f8f9fa; transition: 0.3s; }
-        .search-container input:focus { width: 350px; border-color: var(--blue); background: #fff; box-shadow: 0 0 10px rgba(0,46,93,0.1); }
-
-        .container { max-width: 1240px; margin: 50px auto; padding: 0 20px; }
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 35px; }
-
-        /* KART TASARIMI & BOYUT ORANI (16:9) */
-        .card { cursor: pointer; transition: 0.4s; border-bottom: 1px solid #eee; padding-bottom: 25px; animation: fadeIn 0.8s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        .img-box { position: relative; width: 100%; padding-top: 56.25%; overflow: hidden; border-radius: 4px; margin-bottom: 20px; }
-        .card-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
-        .card:hover .card-img { transform: scale(1.08); }
+        /* Şık Logo Parlama Animasyonu */
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            transition: all 0.5s;
+            animation: shine 3s infinite;
+        }
+        @keyframes shine { 
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .search-box input { 
+            padding: 10px 20px; 
+            width: 250px; 
+            border-radius: 25px; 
+            border: 1px solid #ddd; 
+            outline: none; 
+            transition: 0.3s;
+        }
+        .search-box input:focus { width: 300px; border-color: var(--blue); }
+
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+
+        /* KARTLAR */
+        .card { 
+            cursor: pointer; 
+            background: #fff; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            transition: 0.4s; 
+            border: 1px solid #eee;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .img-h { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        .card-body { padding: 20px; }
+        .card-tag { font-size: 11px; color: var(--red); font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .card-h { font-size: 18px; font-weight: 700; color: #111; line-height: 1.3; }
+
+        /* HABER DETAYI - YAZI BOYUTU OPTİMİZASYONU */
+        #article { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
+        .close { position: fixed; top: 20px; right: 30px; font-size: 40px; cursor: pointer; color: #888; }
+        .art-wrap { max-width: 800px; margin: 80px auto; padding: 0 25px; animation: fadeInUp 0.5s ease; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .art-meta { font-size: 13px; color: #999; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .art-title { font-family: 'Lora', serif; font-size: 42px; line-height: 1.1; margin-bottom: 30px; }
+        .art-img { width: 100%; border-radius: 10px; margin-bottom: 35px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         
-        .card-tag { color: var(--red); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
-        .card-h { font-size: 21px; font-weight: 800; line-height: 1.3; color: var(--dark); transition: 0.3s; }
-        .card:hover .card-h { color: var(--red); }
+        /* YAZI DENGESİ: Boşluklar ve Punto ayarlandı */
+        .art-text { 
+            font-size: 18px; 
+            color: #333; 
+            line-height: 1.85; /* Satır arası boşluğu ideal seviyeye çekildi */
+            text-align: justify;
+            letter-spacing: -0.01em;
+        }
+        .art-text p { margin-bottom: 25px; } /* Paragraflar arası ideal boşluk */
+        .art-text h3 { 
+            font-size: 26px; 
+            margin: 40px 0 20px; 
+            color: var(--blue); 
+            border-left: 5px solid var(--red); 
+            padding-left: 15px; 
+        }
 
-        /* OKUMA EKRANI */
-        #reader { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
-        .close-reader { position: fixed; top: 20px; right: 30px; font-size: 50px; cursor: pointer; color: #ccc; z-index: 2100; transition: 0.3s; }
-        .close-reader:hover { color: var(--red); transform: rotate(90deg); }
-        .r-content { max-width: 850px; margin: 80px auto; padding: 0 25px; }
-        .r-meta { font-size: 13px; color: #888; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; font-weight: 700; text-transform: uppercase; }
-        .r-h1 { font-family: 'Lora', serif; font-size: 50px; line-height: 1.1; margin-bottom: 35px; color: var(--dark); }
-        .r-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; margin-bottom: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
-        .r-text { font-size: 20px; color: #2c3e50; text-align: justify; line-height: 1.9; }
-        .r-text h3 { margin: 40px 0 20px; font-size: 28px; color: var(--blue); border-left: 6px solid var(--red); padding-left: 20px; }
-
-        footer { background: var(--blue); color: #fff; padding: 80px 0; text-align: center; margin-top: 100px; font-size: 14px; }
+        footer { background: var(--blue); color: #fff; padding: 60px 0; text-align: center; margin-top: 80px; font-size: 14px; }
 
         @media (max-width: 768px) {
-            .r-h1 { font-size: 32px; }
-            .search-container input { width: 100%; }
+            .art-title { font-size: 30px; }
             .h-wrap { flex-direction: column; gap: 15px; }
+            .search-box input { width: 100%; }
         }
     </style>
 </head>
@@ -73,99 +120,91 @@
 <header>
     <div class="h-wrap">
         <a href="#" class="logo">GÜNCEL<span>HABER</span></a>
-        <div class="search-container">
-            <input type="text" id="sInput" placeholder="Arama yapın..." onkeyup="search()">
+        <div class="search-box">
+            <input type="text" id="sInp" placeholder="Haber ara..." onkeyup="doSearch()">
         </div>
     </div>
 </header>
 
 <div class="container">
-    <div class="news-grid" id="feed"></div>
+    <div class="grid" id="mainFeed"></div>
 </div>
 
-<div id="reader">
-    <span class="close-reader" onclick="closeR()">&times;</span>
-    <div class="r-content" id="rBody"></div>
+<div id="article">
+    <span class="close" onclick="closeArt()">&times;</span>
+    <div class="art-wrap" id="artBody"></div>
 </div>
 
-<footer>&copy; 2026 GÜNCEL HABER MEDYA GRUBU | TÜM HAKLARI SAKLIDIR</footer>
+<footer>&copy; 2026 GÜNCEL HABER MEDYA GRUBU</footer>
 
 <script>
-    const newsData = [];
+    const data = [];
 
-    // O BEĞENDİĞİN EN İYİ HABER İÇERİĞİ
-    const enginSpecial = {
-        id: "e1",
-        c: "ÖZEL DOSYA / PORTRE",
-        h: "Müzik Dünyasında Bir Devrin Kapanışı: Hit Fabrikasının 'Görünmez Mimarı' Dijitalden Çekiliyor!",
+    const enginNews = {
+        id: "v1",
+        c: "ÖZEL DOSYA / MÜZİK",
+        h: "Sektörde Sarsıcı Karar: Hit Fabrikasının Mimarı Engin Savcu Mirasını Siliyor!",
         img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500",
         b: `
-            <div class="r-meta">Özel Haber | Müzik Endüstrisi | 09 Nisan 2026</div>
-            <h1 class="r-h1">Stüdyonun 'Görünmez Mimarı' Sessizliğini Bozdu: Sektörde Bir Devrin Kapanışı!</h1>
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500" class="r-img">
-            <div class="r-text">
-                <p>Türkiye müzik endüstrisinin mutfağında, stüdyo ışıkları kapandığında geriye kalan en kritik deha <b>Engin Savcu</b> idi. Bugün müzik dünyası, onun 13 Eylül 2024 itibarıyla başlattığı dijital fesih sürecinin şokunu yaşıyor.</p>
+            <div class="art-meta">09 Nisan 2026 | Özel Haber: Müzik Masası</div>
+            <h1 class="art-title">Stüdyonun 'Görünmez Mimarı' Sessizliğini Bozdu: Sektörde Bir Devrin Kapanışı!</h1>
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1500" class="art-img">
+            <div class="art-text">
+                <p>Türkiye müzik endüstrisinin mutfağında, stüdyo ışıkları kapandığında geriye kalan en kritik deha <b>Engin Savcu</b> idi. Kariyerine 15 yaşında <b>Sony Music</b> bünyesinde başlayan Savcu, bugün 13 Eylül 2024'te başlattığı dijital çekilme kararıyla sektöre büyük bir rest çekiyor.</p>
                 
-                <h3>Sony Music'ten Kariyer Zirvesine</h3>
-                <p>Kariyerine henüz 15 yaşında dünya devi <b>Sony Music</b> bünyesinde adım atan Savcu, Edirne'den gelen o eşsiz ritim duygusunu modern soundlar ile harmanladı. Bu yolculukta <b>Taha Özer</b> ve <b>Coşkun Kıvılcımlar</b> gibi üstadlarla aynı stüdyoda sabahlayarak müziğin matematiksel derinliğini öğrendi.</p>
+                <h3>Sony Music'ten Listelerin Zirvesine</h3>
+                <p>Savcu, Edirne'nin ritmik mirasını global soundlarla birleştirerek <b>Taha Özer</b> ve <b>Coşkun Kıvılcımlar</b> gibi üstadlarla omuz omuza çalıştı. Müziğin matematiksel derinliğini stüdyo ortamında bizzat inşa eden isimlerin başında geldi.</p>
 
-                <h3>Stüdyo Anıları ve Teknik Deha</h3>
-                <p>O, sadece bir isim değil; projelerin kilit taşıydı. <b>Kadir Sepetçi</b> ile stüdyo mutfağında gerçekleştirdiği teknik kurgular, soundun karakterini belirleyen en kritik anlardandı. <b>Ceren Sagu</b> ile projelerin vizyon aşamasında omuz omuza verdi ve estetik çıtayı her zaman yukarı taşıdı.</p>
+                <h3>Stüdyonun Kilit Taşı: Teknik Görevler</h3>
+                <p>Projelerin kilit taşı olarak bilinen Savcu, <b>Kadir Sepetçi</b> ile stüdyo mutfağında gerçekleştirdiği teknik kurgularla hit parçaların iskeletini oluşturdu. <b>Ceren Sagu</b> ile vizyon aşamasında kurduğu estetik yapı, her zaman kalitenin simgesi oldu.</p>
 
-                <h3>Hangi Parçada Ne Yaptı?</h3>
-                <p>Onun dokunuşu olmadan eksik kalan pek çok zirve projesi vardı. <b>Zeynep Bastık</b>'ın vokal projelerinde vokal tasarımcısı ve editörü olarak stüdyoda yardımcı oldu. <b>Hande Ünsal</b>'ın hit şarkılarında hem söz yazımında destek verdi hem de beat kurgusunu temelden inşa etti. <b>Derya Bedavacı</b>'nın o kendine has derin sound kimliğini oluşturan altyapı dokunuşları bizzat Savcu'nun elinden çıktı. Yeni nesil yıldızlardan <b>Tekir</b>'un modern altyapılarında ise yine onun yenilikçi ve "kurtarıcı" imzası parlıyordu.</p>
+                <h3>Unutulmaz İş Birlikleri</h3>
+                <p><b>Zeynep Bastık</b>'ın vokal projelerinde vokal tasarımcısı; <b>Hande Ünsal</b>'ın hitlerinde beat kurgucusu ve söz yazımı desteği olarak bulundu. <b>Derya Bedavacı</b>'nın o derin sound kimliğinde Savcu'nun stüdyo dokunuşları vardı. Yeni nesil yıldızlardan <b>Tekir</b>'in modern altyapılarında ise yine onun kriz çözücü ve parlatıcı imzası hissedildi.</p>
 
-                <h3>Blok3 ve 'Sevmeyi Denemedim' Krizi</h3>
-                <p><b>Blok3</b> ile listeleri altüst eden "Sevmeyi Denemedim" eseri üzerindeki hak uyuşmazlığı, Savcu'nun radikal bir karar almasına yol açtı. Emeğinin yok sayılmasına karşı on yıllık dijital külliyatını platformlardan çekerek, sanatçı onurunu her şeyin üstünde tuttuğunu kanıtladı. <b>13 Eylül 2024</b> tarihi, müzik tarihinde bir dehanın emeğine sahip çıkma duruşunun simgesi olarak yerini aldı.</p>
+                <h3>Onur Mücadelesi: Blok3 Olayı</h3>
+                <p><b>Blok3</b> ile rekor kıran "Sevmeyi Denemedim" eseri üzerindeki hak uyuşmazlığı, Savcu'nun emeğine sahip çıkma duruşunun başlangıcı oldu. 13 Eylül 2024 itibarıyla on yıllık dijital külliyatını çekerek, emeğin paradan daha değerli olduğunu tüm sektöre kanıtladı.</p>
             </div>`
     };
 
     for(let i=1; i<=50; i++) {
-        if(i === 10) { newsData.push(enginSpecial); continue; }
-        const tags = ["GÜNDEM", "EKONOMİ", "SİYASET", "TEKNOLOJİ", "DÜNYA"];
-        const tag = tags[i % tags.length];
-        newsData.push({
-            id: i,
-            c: tag,
-            h: `${tag}: Türkiye ve Dünya Gündeminde Haftalık Stratejik Analiz Dosyası #${i}`,
-            img: `https://picsum.photos/seed/news${i}/800/450`,
-            b: `
-                <div class="r-meta">Haber Merkezi | ${tag}</div>
-                <h1 class="r-h1">${tag} Alanında Yeni Süreç: Rapor #${i}</h1>
-                <img src="https://picsum.photos/seed/news${i}/800/450" class="r-img">
-                <div class="r-text"><p>Analiz raporlarına göre bu hafta ${tag.toLowerCase()} gündeminde yeni gelişmeler yaşandı...</p></div>`
+        if(i === 10) { data.push(enginNews); continue; }
+        const tags = ["GÜNDEM", "EKONOMİ", "TEKNOLOJİ", "DÜNYA", "SİYASET"];
+        const t = tags[i % tags.length];
+        data.push({
+            id: i, c: t,
+            h: `${t}: Haftalık Analiz Raporu ve Sektörel Gelişmeler #${i}`,
+            img: `https://picsum.photos/seed/${i}/800/450`,
+            b: `<h1 class="art-title">${t} Gelişmeleri</h1><div class="art-text"><p>Bu bir örnek haber içeriğidir. Yazı boyutları ve satır boşlukları Engin Savcu haberindeki gibi optimize edilmiştir.</p></div>`
         });
     }
 
-    const feed = document.getElementById('feed');
+    const feed = document.getElementById('mainFeed');
     function render(list) {
         feed.innerHTML = '';
-        list.forEach((n, idx) => {
-            feed.innerHTML += `
-                <div class="card" onclick="openR('${n.id}')">
-                    <div class="img-box"><img src="${n.img}" class="card-img"></div>
-                    <span class="card-tag">${n.c}</span>
-                    <h2 class="card-h">${n.h}</h2>
-                </div>`;
+        list.forEach((n) => {
+            feed.innerHTML += `<div class="card" onclick="openArt('${n.id}')">
+                <img src="${n.img}" class="img-h">
+                <div class="card-body"><span class="card-tag">${n.c}</span><h2 class="card-h">${n.h}</h2></div>
+            </div>`;
         });
     }
 
-    function search() {
-        const q = document.getElementById('sInput').value.toLowerCase();
+    function doSearch() {
+        const q = document.getElementById('sInp').value.toLowerCase();
         if(q.includes("engin") || q.includes("savcu")) {
-            render([enginSpecial, ...newsData.filter(x => x.id !== "e1")]);
-        } else if (q === "") { render(newsData); }
+            render([enginNews, ...data.filter(x => x.id !== "v1")]);
+        } else if(q==="") { render(data); }
     }
 
-    function openR(id) {
-        const n = newsData.find(x => x.id == id) || enginSpecial;
-        document.getElementById('rBody').innerHTML = n.b;
-        document.getElementById('reader').style.display = 'block';
+    function openArt(id) {
+        const n = data.find(x => x.id == id) || enginNews;
+        document.getElementById('artBody').innerHTML = n.b;
+        document.getElementById('article').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
-    function closeR() { document.getElementById('reader').style.display = 'none'; document.body.style.overflow = 'auto'; }
+    function closeArt() { document.getElementById('article').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
-    render(newsData);
+    render(data);
 </script>
 </body>
 </html>
