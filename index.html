@@ -3,136 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAPAKLI HABER | Genç Yetenekler</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+    <title>GÜNCEL TÜRKİYE | Kapaklı Haber</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --accent: #2563eb; --bg: #f8fafc; --text: #0f172a; --white: #ffffff;
-        }
+        :root { --main: #1e40af; --accent: #dc2626; --bg: #f1f5f9; --white: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: #1e293b; line-height: 1.6; }
 
-        /* HEADER */
         .hero { 
-            height: 40vh; 
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 1)), 
-                        url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920'); 
+            height: 35vh; 
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 1)), url('https://images.unsplash.com/photo-1504711432869-efd597cdd045?auto=format&fit=crop&w=1920');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-            border-bottom: 6px solid var(--accent);
+            border-bottom: 5px solid var(--main);
         }
-        .logo { font-family: 'Playfair Display', serif; font-size: clamp(24px, 5vw, 50px); color: var(--white); font-weight: 900; letter-spacing: 2px; }
-        .logo span { color: var(--accent); }
-        .tagline { font-size: 10px; letter-spacing: 4px; color: #94a3b8; text-transform: uppercase; margin-top: 10px; font-weight: 800; }
+        .logo { font-family: 'Playfair Display', serif; font-size: clamp(24px, 5vw, 45px); color: var(--white); text-transform: uppercase; letter-spacing: 2px; }
+        .logo span { color: var(--main); background: #fff; padding: 0 8px; margin-left: 5px; }
 
-        nav { background: var(--white); padding: 15px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0; }
-        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .live { color: #dc2626; font-weight: 900; font-size: 12px; display: flex; align-items: center; }
-        .live::before { content: ''; width: 8px; height: 8px; background: #dc2626; border-radius: 50%; margin-right: 8px; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        nav { background: var(--white); padding: 15px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; font-weight: 700; font-size: 13px; }
 
-        /* GRID */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         
-        .card { background: var(--white); border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1); }
-        .card-img { width: 100%; height: 200px; object-fit: cover; }
-        .card-body { padding: 20px; }
-        .category { color: var(--accent); font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: block; }
-        .card-title { font-size: 17px; font-weight: 800; line-height: 1.4; color: var(--text); }
+        .card { background: var(--white); border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 1px solid #e2e8f0; }
+        .card:hover { transform: translateY(-5px); border-color: var(--main); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card-img { width: 100%; height: 180px; object-fit: cover; }
+        .card-body { padding: 15px; }
+        .cat { color: var(--accent); font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .card-h { font-size: 16px; font-weight: 800; line-height: 1.3; height: 42px; overflow: hidden; }
 
-        /* MODAL */
         #modal { display: none; position: fixed; inset: 0; background: var(--white); z-index: 2000; overflow-y: auto; }
-        .close { position: fixed; top: 20px; right: 30px; font-size: 40px; cursor: pointer; color: var(--text); z-index: 3000; }
-        .modal-inner { max-width: 800px; margin: 80px auto; padding: 0 20px; }
+        .close { position: fixed; top: 20px; right: 30px; font-size: 40px; cursor: pointer; z-index: 3000; }
+        .m-inner { max-width: 800px; margin: 60px auto; padding: 0 25px; }
+        .m-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; margin-bottom: 25px; text-align: center; color: #000; line-height: 1.2; }
+        .m-content { font-size: 18px; color: #334155; }
+        .m-content p { margin-bottom: 20px; }
         
-        .m-title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 5vw, 42px); font-weight: 900; line-height: 1.1; margin-bottom: 30px; text-align: center; }
-        .m-content { font-size: 18px; color: #334155; text-align: justify; }
-        .m-content p { margin-bottom: 25px; }
-        
-        .garage-box { 
-            background: #eff6ff; border-left: 5px solid var(--accent); padding: 25px; margin: 30px 0; border-radius: 0 8px 8px 0;
-        }
-        .garage-box b { color: var(--accent); font-size: 20px; display: block; margin-bottom: 10px; }
+        .special-box { background: #f0fdf4; border-left: 5px solid #16a34a; padding: 20px; margin: 20px 0; font-style: italic; }
 
-        footer { padding: 40px 0; text-align: center; color: #64748b; font-size: 11px; border-top: 1px solid #e2e8f0; }
+        footer { padding: 40px 0; text-align: center; background: #0f172a; color: #94a3b8; font-size: 11px; margin-top: 50px; }
     </style>
 </head>
 <body>
 
 <div class="hero">
-    <div class="logo">KAPAKLI<span>HABER</span></div>
-    <div class="tagline">TÜRKİYE'NİN GENÇ GÜCÜ | ÖZEL DOSYA</div>
+    <div class="logo">TÜRKİYE<span>HABER</span></div>
+    <div style="color:#fff; font-size:10px; letter-spacing:5px; margin-top:10px; font-weight:800;">GÜNCEL ANALİZ VE SON DAKİKA</div>
 </div>
 
 <nav>
     <div class="nav-inner">
-        <div class="live">CANLI YAYIN</div>
-        <div style="font-weight: 700; font-size: 13px;">24 NİSAN 2026</div>
+        <div style="color:var(--accent)">● SON DAKİKA</div>
+        <div>23 NİSAN 2026 | PERŞEMBE</div>
     </div>
 </nav>
 
 <div class="container">
-    <div class="grid" id="newsGrid"></div>
+    <div class="grid" id="mainGrid"></div>
 </div>
 
 <div id="modal">
     <span class="close" onclick="closeM()">&times;</span>
-    <div class="modal-inner" id="modalContent"></div>
+    <div class="m-inner" id="mContent"></div>
 </div>
 
-<footer>&copy; 2026 KAPAKLI HABER AJANSI | DOĞRU VE TARAFSIZ HABERCİLİK</footer>
+<footer>&copy; 2026 TÜRKİYE HABER MERKEZİ | KAPAKLI YEREL VE ULUSAL YAYINCILIK</footer>
 
 <script>
-    const news = [
+    const newsData = [
         {
-            id: "ORHAN-KONMAZ-01",
-            tag: "GENÇ YETENEK / OTOMOBİL",
-            h: "Kapaklı'da Bir Yıldız Doğuyor: Orhan Konmaz ve Laço Garaj Efsanesi!",
-            img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800",
+            id: 1, tag: "EKONOMİ", h: "Merkez Bankası Yıl Sonu Enflasyon Hedefini Güncelledi", img: "https://images.unsplash.com/photo-1611974714024-463ef9c7456b?w=500",
+            body: `<h1 class="m-title">Ekonomide Yeni Dönem Verileri</h1><div class="m-content"><p>Merkez Bankası Başkanı, bugün yaptığı basın toplantısında yıl sonu enflasyon tahminlerini revize ettiklerini duyurdu. Piyasa beklentilerine göre şekillenen yeni yol haritasında, sıkılaşma politikasının meyvelerini vermeye başladığı vurgulandı.</p><p>Yatırımcılar ve vatandaşlar, önümüzdeki çeyrekte faiz oranlarındaki stabilizasyonun devam etmesini bekliyor.</p></div>`
+        },
+        {
+            id: 2, tag: "TEKNOLOJİ", h: "Yerli Elektrikli Araç Togg İçin Yeni Yazılım Güncellemesi", img: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=500",
+            body: `<h1 class="m-title">Togg Akıllanmaya Devam Ediyor</h1><div class="m-content"><p>Türkiye'nin yerli otomobili Togg için beklenen 2.0 sürümü yayınlandı. Yeni güncellleme ile otonom sürüş özellikleri ve kullanıcı arayüzünde büyük iyileştirmeler yapıldı. Araç içi eğlence sistemine yeni yerli uygulamalar eklendi.</p></div>`
+        },
+        {
+            id: "ORHAN-3", tag: "KAPAKLI / ÖZEL", h: "Kapaklı'nın Genç Yıldızı Orhan Konmaz: Laço Garaj ile Türkiye'ye Açılıyor!", img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500",
             body: `
                 <h1 class="m-title">KAPAKLI'NIN GURURU: 24 YAŞINDAKİ DAHİ ORHAN KONMAZ TÜRKİYE'YE SESİNİ DUYURUYOR!</h1>
                 <div class="m-content">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800" style="width:100%; border-radius:8px; margin-bottom:30px;">
-                    <p>Tekirdağ Kapaklı, son yılların en heyecan verici başarı hikayelerinden birine tanıklık ediyor. Henüz <b>24 yaşında</b> olan ve otomobillere olan tutkusunu bir sanat dalına dönüştüren <b>Orhan Konmaz</b>, kurduğu markasıyla modifiye dünyasında fırtınalar estiriyor.</p>
-                    
-                    <div class="garage-box">
-                        <b>LAÇO GARAJ: Kapaklı'nın Vizyon Projesi</b>
-                        Orhan Konmaz'ın liderliğindeki Laço Garaj, sadece bir atölye değil, Türkiye'nin yeni otomobil tasarım merkezi olma yolunda ilerliyor. Genç yeteneğin elinden çıkan her araç, sosyal medyada milyonlara ulaşarak Kapaklı'nın ismini gururla temsil ediyor.
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800" style="width:100%; border-radius:8px; margin-bottom:20px;">
+                    <p>Tekirdağ Kapaklı'nın bağrından çıkan en büyük yeteneklerden biri olan <b>Orhan Konmaz</b>, otomobil dünyasında devrim yaratmaya devam ediyor. Henüz 24 yaşında olan Konmaz, kurduğu <b>Laço Garaj</b> markasıyla modifiye ve araç estetiği konusunda Türkiye'nin parlayan yıldızı oldu.</p>
+                    <div class="special-box">
+                        <b>LAÇO GARAJ VİZYONU:</b><br>
+                        Sıradan araçları birer sanat eserine dönüştüren Orhan Konmaz, sadece Kapaklı'nın değil, Türkiye'nin en iyi tasarımcıları arasında gösterilmeye başlandı. 
                     </div>
-
-                    <p><b>Türkiye Sesini Duyacak:</b><br>
-                    Sektörün dev isimlerinin bile dikkatini çeken Konmaz, "Hedefimiz Kapaklı'dan tüm Türkiye'ye yayılan bir tasarım ekolü oluşturmak" diyor. 24 yaşındaki bu genç yeteneğin azmi ve Laço Garaj'ın benzersiz tasarımları, çok yakında ulusal televizyonların ve büyük otomobil fuarlarının başrolü olmaya aday.</p>
+                    <p>Kapaklı haber merkezi olarak yerel değerlerimizin ulusal çapta kazandığı bu başarıyı yakından takip ediyoruz. Orhan Konmaz'ın vizyonu, Türkiye'nin dört bir yanındaki otomobil severleri şimdiden heyecanlandırmış durumda!</p>
                 </div>`
         },
         {
-            id: 2, tag: "EKONOMİ", h: "Kapaklı Sanayisinde Yeni Yatırım Hamlesi", img: "https://picsum.photos/seed/kap1/800/450",
-            body: `<h1 class="m-title">Kapaklı Ekonomisi Büyüyor</h1><div class="m-content"><p>Bölgedeki yeni fabrikalar istihdamı artırıyor.</p></div>`
+            id: 4, tag: "SPOR", h: "Süper Lig'de Şampiyonluk Yarışı Kızışıyor: Puan Farkı Kapandı", img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500",
+            body: `<h1 class="m-title">Süper Lig'de Nefes Kesen Mücadele</h1><div class="m-content"><p>Haftanın kritik derbisinin ardından ligin zirvesindeki puan durumu tamamen değişti. Liderlik koltuğu için 3 dev ekip kıyasıya bir yarışın içine girdi. Spor yorumcuları, şampiyonun son haftada belli olacağı konusunda hemfikir.</p></div>`
         },
         {
-            id: 3, tag: "ASAYİŞ", h: "İlçe Genelinde Huzur Operasyonu Tamamlandı", img: "https://picsum.photos/seed/kap2/800/450",
-            body: `<h1 class="m-title">Güvenlik Ekiplerinden Tam Not</h1><div class="m-content"><p>Emniyet güçleri Kapaklı'nın huzuru için çalışıyor.</p></div>`
+            id: 5, tag: "DÜNYA", h: "Avrupa Birliği'nden Türkiye'ye Vize Serbestisi İçin Yeni Adım", img: "https://images.unsplash.com/photo-1526644445381-1960d6910a34?w=500",
+            body: `<h1 class="m-title">Diplomaside Kritik Görüşme</h1><div class="m-content"><p>Brüksel'de gerçekleşen zirvede, Türk vatandaşlarına vize kolaylığı sağlanması konusu masaya yatırıldı. Karşılıklı atılan adımların önümüzdeki aylarda vize süreçlerini hızlandırması bekleniyor.</p></div>`
+        },
+        {
+            id: 6, tag: "SAĞLIK", h: "Modern Tıpta Devrim: Yerli Kanser Tedavisi Klinik Testlerde", img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500",
+            body: `<h1 class="m-title">Yerli Tıp Dünyasından Büyük Başarı</h1><div class="m-content"><p>Türk bilim insanlarının geliştirdiği yeni tedavi yöntemi, başarılı sonuçlar vermeye başladı. Sağlık Bakanlığı, projenin uluslararası arenada ses getireceğini açıkladı.</p></div>`
         }
     ];
 
-    const grid = document.getElementById('newsGrid');
-    function draw() {
-        news.forEach(item => {
+    const grid = document.getElementById('mainGrid');
+    function load() {
+        newsData.forEach(n => {
             grid.innerHTML += `
-                <div class="card" onclick="openM('${item.id}')">
-                    <img src="${item.img}" class="card-img">
+                <div class="card" onclick="openM('${n.id}')">
+                    <img src="${n.img}" class="card-img">
                     <div class="card-body">
-                        <span class="category">${item.tag}</span>
-                        <h2 class="card-title">${item.h}</h2>
+                        <span class="cat">${n.tag}</span>
+                        <h2 class="card-h">${n.h}</h2>
                     </div>
                 </div>`;
         });
     }
 
     function openM(id) {
-        const item = news.find(x => x.id == id);
-        document.getElementById('modalContent').innerHTML = item.body;
+        const item = newsData.find(x => x.id == id);
+        document.getElementById('mContent').innerHTML = item.body;
         document.getElementById('modal').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
@@ -142,7 +134,7 @@
         document.body.style.overflow = 'auto';
     }
 
-    draw();
+    load();
 </script>
 </body>
 </html>
