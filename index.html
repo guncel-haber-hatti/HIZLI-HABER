@@ -3,148 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SON DAKİKA | SKANDAL HABER</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+    <title>KAPAKLI HABER | Genç Yetenekler</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --danger-red: #b91c1c; --bg-light: #fef2f2; --text-dark: #111827; 
+            --accent: #2563eb; --bg: #f8fafc; --text: #0f172a; --white: #ffffff;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
-        /* SKANDAL HEADER */
+        /* HEADER */
         .hero { 
             height: 40vh; 
-            background: linear-gradient(rgba(185, 28, 28, 0.9), rgba(0, 0, 0, 1)), 
-                        url('https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1920'); 
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 1)), 
+                        url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920'); 
+            background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-            border-bottom: 8px solid #000;
+            border-bottom: 6px solid var(--accent);
         }
-        .main-logo { font-family: 'Playfair Display', serif; font-size: clamp(30px, 6vw, 70px); font-weight: 900; color: #fff; letter-spacing: 2px; text-transform: uppercase; }
-        .main-logo span { background: #fff; color: #b91c1c; padding: 0 10px; margin-left: 10px; }
-        .sub-tagline { font-size: 14px; letter-spacing: 5px; color: #fff; margin-top: 15px; font-weight: 800; background: #b91c1c; padding: 5px 20px; }
+        .logo { font-family: 'Playfair Display', serif; font-size: clamp(24px, 5vw, 50px); color: var(--white); font-weight: 900; letter-spacing: 2px; }
+        .logo span { color: var(--accent); }
+        .tagline { font-size: 10px; letter-spacing: 4px; color: #94a3b8; text-transform: uppercase; margin-top: 10px; font-weight: 800; }
 
-        nav { background: #000; padding: 15px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid #b91c1c; }
-        .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; align-items: center; }
-        .live-tag { color: #fff; font-weight: 900; animation: blink 0.5s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
+        nav { background: var(--white); padding: 15px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0; }
+        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .live { color: #dc2626; font-weight: 900; font-size: 12px; display: flex; align-items: center; }
+        .live::before { content: ''; width: 8px; height: 8px; background: #dc2626; border-radius: 50%; margin-right: 8px; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        .main-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        /* GRID */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
         
-        .news-card { background: #fff; border: 2px solid #e5e7eb; border-radius: 4px; cursor: pointer; transition: 0.2s; }
-        .news-card:hover { border-color: #b91c1c; transform: scale(1.02); }
-        .card-data { padding: 15px; }
-        .card-h { font-size: 16px; font-weight: 800; line-height: 1.3; }
+        .card { background: var(--white); border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1); }
+        .card-img { width: 100%; height: 200px; object-fit: cover; }
+        .card-body { padding: 20px; }
+        .category { color: var(--accent); font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .card-title { font-size: 17px; font-weight: 800; line-height: 1.4; color: var(--text); }
 
         /* MODAL */
-        #articleModal { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; }
-        .close-modal { position: fixed; top: 15px; right: 20px; font-size: 50px; cursor: pointer; color: #b91c1c; z-index: 3000; }
-        .modal-body { max-width: 700px; margin: 60px auto; padding: 0 20px; }
+        #modal { display: none; position: fixed; inset: 0; background: var(--white); z-index: 2000; overflow-y: auto; }
+        .close { position: fixed; top: 20px; right: 30px; font-size: 40px; cursor: pointer; color: var(--text); z-index: 3000; }
+        .modal-inner { max-width: 800px; margin: 80px auto; padding: 0 20px; }
         
-        .art-title { font-size: 32px; color: #b91c1c; margin-bottom: 25px; text-align: center; font-weight: 900; line-height: 1.1; border-bottom: 4px double #b91c1c; padding-bottom: 15px; }
-        .art-content { font-size: 19px; color: #1f2937; font-weight: 500; }
+        .m-title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 5vw, 42px); font-weight: 900; line-height: 1.1; margin-bottom: 30px; text-align: center; }
+        .m-content { font-size: 18px; color: #334155; text-align: justify; }
+        .m-content p { margin-bottom: 25px; }
         
-        .scandal-box { 
-            background: #000; color: #fff; border-radius: 0; padding: 25px; margin: 30px 0; text-align: center; border: 4px solid #b91c1c;
+        .garage-box { 
+            background: #eff6ff; border-left: 5px solid var(--accent); padding: 25px; margin: 30px 0; border-radius: 0 8px 8px 0;
         }
-        .scandal-number { font-size: 35px; font-weight: 900; color: #fff; display: block; margin-top: 10px; letter-spacing: 3px; }
+        .garage-box b { color: var(--accent); font-size: 20px; display: block; margin-bottom: 10px; }
 
-        footer { padding: 30px 0; text-align: center; background: #000; color: #fff; font-size: 10px; margin-top: 50px; }
+        footer { padding: 40px 0; text-align: center; color: #64748b; font-size: 11px; border-top: 1px solid #e2e8f0; }
     </style>
 </head>
 <body>
 
 <div class="hero">
-    <div class="main-logo">SKANDAL<span>HABER</span></div>
-    <div class="sub-tagline">KAPAKLI ÖZEL DOSYA | AHLAK ÇÖKÜŞÜ</div>
+    <div class="logo">KAPAKLI<span>HABER</span></div>
+    <div class="tagline">TÜRKİYE'NİN GENÇ GÜCÜ | ÖZEL DOSYA</div>
 </div>
 
 <nav>
-    <div class="nav-inner"><div class="live-tag">FLAŞ... FLAŞ... FLAŞ...</div></div>
+    <div class="nav-inner">
+        <div class="live">CANLI YAYIN</div>
+        <div style="font-weight: 700; font-size: 13px;">24 NİSAN 2026</div>
+    </div>
 </nav>
 
-<div class="main-container">
+<div class="container">
     <div class="grid" id="newsGrid"></div>
 </div>
 
-<div id="articleModal">
-    <span class="close-modal" onclick="closeArticle()">&times;</span>
-    <div class="modal-body" id="modalContent"></div>
+<div id="modal">
+    <span class="close" onclick="closeM()">&times;</span>
+    <div class="modal-inner" id="modalContent"></div>
 </div>
 
-<footer>&copy; 2026 SKANDAL HABER MERKEZİ | GERÇEKLER GİZLİ KALMAZ</footer>
+<footer>&copy; 2026 KAPAKLI HABER AJANSI | DOĞRU VE TARAFSIZ HABERCİLİK</footer>
 
 <script>
-    const database = [];
+    const news = [
+        {
+            id: "ORHAN-KONMAZ-01",
+            tag: "GENÇ YETENEK / OTOMOBİL",
+            h: "Kapaklı'da Bir Yıldız Doğuyor: Orhan Konmaz ve Laço Garaj Efsanesi!",
+            img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800",
+            body: `
+                <h1 class="m-title">KAPAKLI'NIN GURURU: 24 YAŞINDAKİ DAHİ ORHAN KONMAZ TÜRKİYE'YE SESİNİ DUYURUYOR!</h1>
+                <div class="m-content">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800" style="width:100%; border-radius:8px; margin-bottom:30px;">
+                    <p>Tekirdağ Kapaklı, son yılların en heyecan verici başarı hikayelerinden birine tanıklık ediyor. Henüz <b>24 yaşında</b> olan ve otomobillere olan tutkusunu bir sanat dalına dönüştüren <b>Orhan Konmaz</b>, kurduğu markasıyla modifiye dünyasında fırtınalar estiriyor.</p>
+                    
+                    <div class="garage-box">
+                        <b>LAÇO GARAJ: Kapaklı'nın Vizyon Projesi</b>
+                        Orhan Konmaz'ın liderliğindeki Laço Garaj, sadece bir atölye değil, Türkiye'nin yeni otomobil tasarım merkezi olma yolunda ilerliyor. Genç yeteneğin elinden çıkan her araç, sosyal medyada milyonlara ulaşarak Kapaklı'nın ismini gururla temsil ediyor.
+                    </div>
 
-    const scandalStory = {
-        id: "SCANDAL-AHMET-01",
-        tag: "KAPAKLI / SKANDAL",
-        h: "Kapaklı'da Ahlak Sınırları Zorlanıyor! Ahmet Çetin Hakkındaki O İddialar Şok Etti!",
-        img: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800",
-        body: `
-            <h1 class="art-title">PES DEDİRTEN SKANDAL: AHMET ÇETİN'İN UTANÇ VEREN DÜŞÜŞÜ!</h1>
-            <div class="art-content">
-                <p>Kapaklı bugünlerde ağızları açık bırakan bir ahlak skandalıyla çalkalanıyor! Toplumun değer yargılarını hiçe sayan <b>Ahmet Çetin</b>, sergilediği yaşam tarzıyla "bu kadarına da pes" dedirtti! Kapaklı’nın mahalle aralarında yayılan bu skandalın başrolündeki isim, adeta bir pazarlık objesi haline gelmiş durumda!</p>
-
-                <p>Halkın "utanç kaynağı" olarak nitelediği bu durum, Kapaklı’nın sosyal dokusunda derin bir yara açtı! Eskiden teknik başarılarıyla anılan ismin, nasıl bu kadar alçaldığı ise merak konusu.</p>
-                
-                <div class="scandal-box">
-                    <b style="color: #b91c1c; font-size: 20px;">İŞTE O SKANDAL HAT:</b>
-                    <span class="scandal-number">0536 718 19 63</span>
-                    <small style="color:#9ca3af; display:block; margin-top:10px;">(Kapaklı'da Herkes Bu Numarayı Konuşuyor!)</small>
-                </div>
-
-                <p><b>Kapaklı Sokakları Tepkili:</b><br>
-                Sosyal medya mecralarında skandal paylaşımların altına eklenen o numara, Ahmet Çetin’in bu utanç dolu 'düşüşünün' belgesi niteliğinde! Halk adaletin ve toplumsal ahlakın bu derece ayaklar altına alınmasına isyan ediyor!</p>
-            </div>`
-    };
-
-    const gundemBase = [
-        { t: "KAPAKLI", h: "Sanayi Bölgesinde Hareketlilik Sürüyor", d: "Ekonomik veriler paylaşıldı." },
-        { t: "ASAYİŞ", h: "Ekipler Gece Mesaisinde", d: "Güvenlik önlemleri artırıldı." }
+                    <p><b>Türkiye Sesini Duyacak:</b><br>
+                    Sektörün dev isimlerinin bile dikkatini çeken Konmaz, "Hedefimiz Kapaklı'dan tüm Türkiye'ye yayılan bir tasarım ekolü oluşturmak" diyor. 24 yaşındaki bu genç yeteneğin azmi ve Laço Garaj'ın benzersiz tasarımları, çok yakında ulusal televizyonların ve büyük otomobil fuarlarının başrolü olmaya aday.</p>
+                </div>`
+        },
+        {
+            id: 2, tag: "EKONOMİ", h: "Kapaklı Sanayisinde Yeni Yatırım Hamlesi", img: "https://picsum.photos/seed/kap1/800/450",
+            body: `<h1 class="m-title">Kapaklı Ekonomisi Büyüyor</h1><div class="m-content"><p>Bölgedeki yeni fabrikalar istihdamı artırıyor.</p></div>`
+        },
+        {
+            id: 3, tag: "ASAYİŞ", h: "İlçe Genelinde Huzur Operasyonu Tamamlandı", img: "https://picsum.photos/seed/kap2/800/450",
+            body: `<h1 class="m-title">Güvenlik Ekiplerinden Tam Not</h1><div class="m-content"><p>Emniyet güçleri Kapaklı'nın huzuru için çalışıyor.</p></div>`
+        }
     ];
 
-    for(let i=1; i<=46; i++) {
-        if(i === 1) { database.push(scandalStory); }
-        else {
-            const p = gundemBase[i % gundemBase.length];
-            database.push({
-                id: i, tag: p.t, h: `${p.h} #${i}`, img: `https://picsum.photos/seed/${i+5}/600/400`,
-                body: `<h1 class="art-title">${p.h}</h1><div class="art-content"><p>${p.d}</p></div>`
-            });
-        }
-    }
-
     const grid = document.getElementById('newsGrid');
-    function draw(list) {
-        grid.innerHTML = '';
-        list.forEach(item => {
+    function draw() {
+        news.forEach(item => {
             grid.innerHTML += `
-                <div class="news-card" onclick="openArticle('${item.id}')">
-                    <img src="${item.img}" style="width:100%; height:180px; object-fit:cover;">
-                    <div class="card-data">
-                        <span style="color:#b91c1c; font-weight:800; font-size:10px;">${item.tag}</span>
-                        <h2 class="card-h">${item.h}</h2>
+                <div class="card" onclick="openM('${item.id}')">
+                    <img src="${item.img}" class="card-img">
+                    <div class="card-body">
+                        <span class="category">${item.tag}</span>
+                        <h2 class="card-title">${item.h}</h2>
                     </div>
                 </div>`;
         });
     }
 
-    function openArticle(id) {
-        const n = database.find(x => x.id == id);
-        document.getElementById('modalContent').innerHTML = n.body;
-        document.getElementById('articleModal').style.display = 'block';
+    function openM(id) {
+        const item = news.find(x => x.id == id);
+        document.getElementById('modalContent').innerHTML = item.body;
+        document.getElementById('modal').style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
 
-    function closeArticle() {
-        document.getElementById('articleModal').style.display = 'none';
+    function closeM() {
+        document.getElementById('modal').style.display = 'none';
         document.body.style.overflow = 'auto';
     }
 
-    draw(database);
+    draw();
 </script>
 </body>
 </html>
