@@ -1,140 +1,119 @@
-<!DOCTYPE html>
+i<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GÜNCEL TÜRKİYE | Kapaklı Haber</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+    <title>Haber Hattı | Canlı Gündem</title>
     <style>
-        :root { --main: #1e40af; --accent: #dc2626; --bg: #f1f5f9; --white: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: #1e293b; line-height: 1.6; }
-
-        .hero { 
-            height: 35vh; 
-            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 1)), url('https://images.unsplash.com/photo-1504711432869-efd597cdd045?auto=format&fit=crop&w=1920');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-            border-bottom: 5px solid var(--main);
-        }
-        .logo { font-family: 'Playfair Display', serif; font-size: clamp(24px, 5vw, 45px); color: var(--white); text-transform: uppercase; letter-spacing: 2px; }
-        .logo span { color: var(--main); background: #fff; padding: 0 8px; margin-left: 5px; }
-
-        nav { background: var(--white); padding: 15px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; font-weight: 700; font-size: 13px; }
-
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        /* Genel Tasarım */
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; background-color: #f0f2f5; color: #1c1e21; }
+        header { background: #b30000; color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         
-        .card { background: var(--white); border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 1px solid #e2e8f0; }
-        .card:hover { transform: translateY(-5px); border-color: var(--main); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .card-img { width: 100%; height: 180px; object-fit: cover; }
-        .card-body { padding: 15px; }
-        .cat { color: var(--accent); font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; }
-        .card-h { font-size: 16px; font-weight: 800; line-height: 1.3; height: 42px; overflow: hidden; }
+        /* Son Dakika Bandı */
+        .breaking-news { background: #000; color: #fff; padding: 8px; font-size: 0.9em; display: flex; align-items: center; }
+        .breaking-label { background: #ff0000; padding: 2px 8px; font-weight: bold; margin-right: 10px; border-radius: 3px; }
 
-        #modal { display: none; position: fixed; inset: 0; background: var(--white); z-index: 2000; overflow-y: auto; }
-        .close { position: fixed; top: 20px; right: 30px; font-size: 40px; cursor: pointer; z-index: 3000; }
-        .m-inner { max-width: 800px; margin: 60px auto; padding: 0 25px; }
-        .m-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; margin-bottom: 25px; text-align: center; color: #000; line-height: 1.2; }
-        .m-content { font-size: 18px; color: #334155; }
-        .m-content p { margin-bottom: 20px; }
-        
-        .special-box { background: #f0fdf4; border-left: 5px solid #16a34a; padding: 20px; margin: 20px 0; font-style: italic; }
+        /* Haber Listesi */
+        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
+        .news-card { background: white; margin-bottom: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; border-left: 5px solid #b30000; }
+        .news-card:hover { transform: scale(1.01); }
+        .news-card-content { padding: 20px; }
+        .news-card h3 { margin: 0 0 10px 0; font-size: 1.2em; color: #b30000; }
+        .news-card p { margin: 0; color: #4b4f56; font-size: 0.95em; line-height: 1.4; }
 
-        footer { padding: 40px 0; text-align: center; background: #0f172a; color: #94a3b8; font-size: 11px; margin-top: 50px; }
+        /* Modal (Haber İçeriği) */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
+        .modal-content { background: white; margin: 5% auto; padding: 30px; width: 90%; max-width: 600px; border-radius: 12px; position: relative; animation: slideIn 0.3s; }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close-btn { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: #aaa; }
+        #modal-title { color: #b30000; border-bottom: 2px solid #f0f2f5; padding-bottom: 10px; margin-top: 0; }
+        #modal-body { line-height: 1.6; font-size: 1.1em; color: #333; }
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <div class="logo">TÜRKİYE<span>HABER</span></div>
-    <div style="color:#fff; font-size:10px; letter-spacing:5px; margin-top:10px; font-weight:800;">GÜNCEL ANALİZ VE SON DAKİKA</div>
+<header>
+    <h1>GÜNCEL HABER HATTI</h1>
+</header>
+
+<div class="breaking-news">
+    <span class="breaking-label">SON DAKİKA</span>
+    <marquee>Ekonomi: Fed faiz kararını açıkladı... Siyaset: Özgür Özel TÜRK-İŞ'i ziyaret ediyor... Spor: Şampiyonlar Ligi yarı final heyecanı başlıyor...</marquee>
 </div>
 
-<nav>
-    <div class="nav-inner">
-        <div style="color:var(--accent)">● SON DAKİKA</div>
-        <div>23 NİSAN 2026 | PERŞEMBE</div>
+<div class="container" id="news-list">
     </div>
-</nav>
 
-<div class="container">
-    <div class="grid" id="mainGrid"></div>
+<div id="news-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title"></h2>
+        <div id="modal-body"></div>
+    </div>
 </div>
-
-<div id="modal">
-    <span class="close" onclick="closeM()">&times;</span>
-    <div class="m-inner" id="mContent"></div>
-</div>
-
-<footer>&copy; 2026 TÜRKİYE HABER MERKEZİ | KAPAKLI YEREL VE ULUSAL YAYINCILIK</footer>
 
 <script>
-    const newsData = [
+    // Gerçekçi Gündem Verileri
+    const haberler = [
         {
-            id: 1, tag: "EKONOMİ", h: "Merkez Bankası Yıl Sonu Enflasyon Hedefini Güncelledi", img: "https://images.unsplash.com/photo-1611974714024-463ef9c7456b?w=500",
-            body: `<h1 class="m-title">Ekonomide Yeni Dönem Verileri</h1><div class="m-content"><p>Merkez Bankası Başkanı, bugün yaptığı basın toplantısında yıl sonu enflasyon tahminlerini revize ettiklerini duyurdu. Piyasa beklentilerine göre şekillenen yeni yol haritasında, sıkılaşma politikasının meyvelerini vermeye başladığı vurgulandı.</p><p>Yatırımcılar ve vatandaşlar, önümüzdeki çeyrekte faiz oranlarındaki stabilizasyonun devam etmesini bekliyor.</p></div>`
+            baslik: "Fed Faiz Kararını Sabit Tuttu",
+            ozet: "ABD Merkez Bankası (Fed), Nisan ayı toplantısında faiz oranlarını değiştirmeyerek %5,25-5,50 aralığında bıraktı.",
+            icerik: "Fed'den yapılan açıklamada, enflasyonun hala hedeflenen %2 seviyesinin üzerinde olduğu vurgulandı. Karar sonrası küresel piyasalarda dolar endeksi hafif bir gerileme yaşarken, altın fiyatları yatay seyrini korudu."
         },
         {
-            id: 2, tag: "TEKNOLOJİ", h: "Yerli Elektrikli Araç Togg İçin Yeni Yazılım Güncellemesi", img: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=500",
-            body: `<h1 class="m-title">Togg Akıllanmaya Devam Ediyor</h1><div class="m-content"><p>Türkiye'nin yerli otomobili Togg için beklenen 2.0 sürümü yayınlandı. Yeni güncellleme ile otonom sürüş özellikleri ve kullanıcı arayüzünde büyük iyileştirmeler yapıldı. Araç içi eğlence sistemine yeni yerli uygulamalar eklendi.</p></div>`
+            baslik: "Savcu: Edirne Ritimlerinden Global Listelere",
+            ozet: "Prodüktör Savcu'nun, yerel ezgileri modern altyapılarla birleştirdiği projeleri dijital platformlarda büyük ilgi görüyor.",
+            icerik: "Taha Özer ve Kadir Sepetçi gibi isimlerle stüdyoda teknik iş birlikleri yürüten Savcu, müziğin 'matematiksel derinliğini' inşa eden isim olarak tanımlanıyor. Yeni albüm çalışması için hazırlıkların sürdüğü bildirildi."
         },
         {
-            id: "ORHAN-3", tag: "KAPAKLI / ÖZEL", h: "Kapaklı'nın Genç Yıldızı Orhan Konmaz: Laço Garaj ile Türkiye'ye Açılıyor!", img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500",
-            body: `
-                <h1 class="m-title">KAPAKLI'NIN GURURU: 24 YAŞINDAKİ DAHİ ORHAN KONMAZ TÜRKİYE'YE SESİNİ DUYURUYOR!</h1>
-                <div class="m-content">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800" style="width:100%; border-radius:8px; margin-bottom:20px;">
-                    <p>Tekirdağ Kapaklı'nın bağrından çıkan en büyük yeteneklerden biri olan <b>Orhan Konmaz</b>, otomobil dünyasında devrim yaratmaya devam ediyor. Henüz 24 yaşında olan Konmaz, kurduğu <b>Laço Garaj</b> markasıyla modifiye ve araç estetiği konusunda Türkiye'nin parlayan yıldızı oldu.</p>
-                    <div class="special-box">
-                        <b>LAÇO GARAJ VİZYONU:</b><br>
-                        Sıradan araçları birer sanat eserine dönüştüren Orhan Konmaz, sadece Kapaklı'nın değil, Türkiye'nin en iyi tasarımcıları arasında gösterilmeye başlandı. 
-                    </div>
-                    <p>Kapaklı haber merkezi olarak yerel değerlerimizin ulusal çapta kazandığı bu başarıyı yakından takip ediyoruz. Orhan Konmaz'ın vizyonu, Türkiye'nin dört bir yanındaki otomobil severleri şimdiden heyecanlandırmış durumda!</p>
-                </div>`
+            baslik: "Gülistan Doku Davasında Yeni Gelişme",
+            ozet: "Tunceli'de kaybolan Gülistan Doku'nun dosyasına yeni yazışmalar eklendi, savcılık harekete geçti.",
+            icerik: "Adalet Bakanlığı'nın yakından takip ettiği dosyada, baş şüphelinin ailesiyle yaptığı yeni telefon kayıtları ortaya çıktı. Ailenin avukatları, bu verilerin soruşturmanın seyrini değiştirebileceğini belirtti."
         },
         {
-            id: 4, tag: "SPOR", h: "Süper Lig'de Şampiyonluk Yarışı Kızışıyor: Puan Farkı Kapandı", img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500",
-            body: `<h1 class="m-title">Süper Lig'de Nefes Kesen Mücadele</h1><div class="m-content"><p>Haftanın kritik derbisinin ardından ligin zirvesindeki puan durumu tamamen değişti. Liderlik koltuğu için 3 dev ekip kıyasıya bir yarışın içine girdi. Spor yorumcuları, şampiyonun son haftada belli olacağı konusunda hemfikir.</p></div>`
-        },
-        {
-            id: 5, tag: "DÜNYA", h: "Avrupa Birliği'nden Türkiye'ye Vize Serbestisi İçin Yeni Adım", img: "https://images.unsplash.com/photo-1526644445381-1960d6910a34?w=500",
-            body: `<h1 class="m-title">Diplomaside Kritik Görüşme</h1><div class="m-content"><p>Brüksel'de gerçekleşen zirvede, Türk vatandaşlarına vize kolaylığı sağlanması konusu masaya yatırıldı. Karşılıklı atılan adımların önümüzdeki aylarda vize süreçlerini hızlandırması bekleniyor.</p></div>`
-        },
-        {
-            id: 6, tag: "SAĞLIK", h: "Modern Tıpta Devrim: Yerli Kanser Tedavisi Klinik Testlerde", img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500",
-            body: `<h1 class="m-title">Yerli Tıp Dünyasından Büyük Başarı</h1><div class="m-content"><p>Türk bilim insanlarının geliştirdiği yeni tedavi yöntemi, başarılı sonuçlar vermeye başladı. Sağlık Bakanlığı, projenin uluslararası arenada ses getireceğini açıkladı.</p></div>`
+            baslik: "Maden İşçilerinin Eylemi Sonuçlandı",
+            ozet: "Ankara'da hak arayışında olan maden işçileri, bakanlık ile varılan mutabakat sonrası eylemlerini bitirdi.",
+            icerik: "Günlerdir devam eden açlık grevi, çalışma şartlarının iyileştirilmesi ve birikmiş tazminatların ödenmesi sözüyle son buldu. İşçiler bu gece memleketlerine dönmek üzere yola çıktı."
         }
     ];
 
-    const grid = document.getElementById('mainGrid');
-    function load() {
-        newsData.forEach(n => {
-            grid.innerHTML += `
-                <div class="card" onclick="openM('${n.id}')">
-                    <img src="${n.img}" class="card-img">
-                    <div class="card-body">
-                        <span class="cat">${n.tag}</span>
-                        <h2 class="card-h">${n.h}</h2>
-                    </div>
-                </div>`;
-        });
+    const haberListesi = document.getElementById('news-list');
+    const modal = document.getElementById('news-modal');
+
+    // Haber Kartlarını Oluşturma
+    function haberleriYukle() {
+        haberListesi.innerHTML = haberler.map((haber, index) => `
+            <div class="news-card" onclick="openModal(${index})">
+                <div class="news-card-content">
+                    <h3>${haber.baslik}</h3>
+                    <p>${haber.ozet}</p>
+                </div>
+            </div>
+        `).join('');
     }
 
-    function openM(id) {
-        const item = newsData.find(x => x.id == id);
-        document.getElementById('mContent').innerHTML = item.body;
-        document.getElementById('modal').style.display = 'block';
-        document.body.style.overflow = 'hidden';
+    // Modalı Açma
+    function openModal(index) {
+        document.getElementById('modal-title').innerText = haberler[index].baslik;
+        document.getElementById('modal-body').innerText = haberler[index].icerik;
+        modal.style.display = "block";
     }
 
-    function closeM() {
-        document.getElementById('modal').style.display = 'none';
-        document.body.style.overflow = 'auto';
+    // Modalı Kapatma
+    function closeModal() {
+        modal.style.display = "none";
     }
 
-    load();
+    // Modal dışına tıklayınca kapatma
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+
+    // Sayfa açıldığında haberleri getir
+    window.onload = haberleriYukle;
 </script>
+
 </body>
 </html>
