@@ -3,27 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haber Hattı | Canlı Gündem</title>
+    <title>Haber Portalı | Canlı Gündem</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f4f7f6; color: #333; line-height: 1.6; }
-        header { background: #ce0000; color: white; padding: 1rem; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .breaking-news { background: #000; color: #fff; padding: 10px; font-size: 0.85rem; font-weight: bold; overflow: hidden; white-space: nowrap; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f8f9fa; color: #212529; }
+        header { background: #b30000; color: white; padding: 1.2rem; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .breaking-news { background: #000; color: #fff; padding: 10px; font-size: 0.85rem; font-weight: bold; overflow: hidden; white-space: nowrap; border-bottom: 3px solid #b30000; }
         
-        .container { max-width: 900px; margin: 20px auto; padding: 0 20px; }
+        .container { max-width: 850px; margin: 25px auto; padding: 0 20px; }
         .news-grid { display: flex; flex-direction: column; gap: 15px; }
         
-        .news-card { background: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; border-left: 6px solid #ce0000; display: flex; flex-direction: column; padding: 15px; position: relative; }
-        .news-card:hover { transform: translateX(5px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .news-card h3 { margin: 0 0 8px 0; font-size: 1.15rem; color: #222; }
-        .news-card p { margin: 0; color: #666; font-size: 0.95rem; }
-        .news-card .badge { position: absolute; right: 15px; top: 15px; background: #eee; font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; }
+        .news-card { background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); cursor: pointer; transition: 0.2s; border-left: 6px solid #b30000; padding: 18px; position: relative; }
+        .news-card:hover { transform: translateX(8px); background-color: #fffafa; }
+        .news-card h3 { margin: 0 0 10px 0; font-size: 1.2rem; color: #111; }
+        .news-card p { margin: 0; color: #555; font-size: 0.95rem; line-height: 1.5; }
+        .category-tag { background: #e9ecef; font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; font-weight: bold; color: #b30000; display: inline-block; margin-bottom: 8px; }
 
-        /* Modal Stili */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); overflow-y: auto; }
-        .modal-content { background: #fff; margin: 5% auto; padding: 40px; width: 90%; max-width: 700px; border-radius: 10px; position: relative; }
-        .close { position: absolute; right: 20px; top: 10px; font-size: 35px; cursor: pointer; color: #999; }
-        #modal-title { color: #ce0000; font-size: 1.8rem; margin-top: 0; border-bottom: 3px solid #f4f4f4; padding-bottom: 15px; }
-        #modal-body { font-size: 1.2rem; color: #444; margin-top: 20px; }
+        /* Modal / Makale Görünümü */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; backdrop-filter: blur(4px); }
+        .modal-content { background: #fff; margin: 3% auto; padding: 40px; width: 90%; max-width: 750px; border-radius: 12px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .close-btn { position: absolute; right: 25px; top: 15px; font-size: 35px; cursor: pointer; color: #aaa; transition: 0.3s; }
+        .close-btn:hover { color: #b30000; }
+        
+        #modal-title { color: #b30000; font-size: 2rem; margin-top: 10px; line-height: 1.2; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+        #modal-body { font-size: 1.15rem; color: #333; margin-top: 25px; line-height: 1.8; text-align: justify; }
+        .article-meta { font-size: 0.9rem; color: #888; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -33,7 +36,7 @@
 </header>
 
 <div class="breaking-news">
-    <marquee scrollamount="7">SON DAKİKA: Küresel piyasalar Fed kararına kilitlendi... Marmaris-Fethiye bisiklet turu başladı... İstanbul'da trafik yoğunluğu %65...</marquee>
+    <marquee scrollamount="6">SON DAKİKA: Küresel piyasalarda gözler Fed'in faiz kararında... Hakan Fidan Viyana temaslarını sürdürüyor... Marmaris-Fethiye etabında heyecan dorukta...</marquee>
 </div>
 
 <div class="container">
@@ -43,23 +46,30 @@
 
 <div id="news-modal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div id="article-category" class="category-tag"></div>
         <h2 id="modal-title"></h2>
+        <div class="article-meta">29 Nisan 2026 | Haber Merkezi</div>
         <div id="modal-body"></div>
     </div>
 </div>
 
 <script>
     const haberler = [
-        { t: "Ekonomi", b: "Dolar ve Altın Fed Sonrası Hareketli", o: "Fed'in faizleri sabit bırakma sinyali piyasalarda yankı buldu.", i: "ABD Merkez Bankası Fed'in kararı sonrası altın ons fiyatı 2300 dolar seviyesindeki direncini koruyor. Türkiye iç piyasasında ise dolar/TL kuru yatay seyrediyor." },
-        { t: "Siyaset", b: "Özgür Özel: 'İşçinin Hakkını Masada Arayacağız'", o: "CHP lideri Özel, TÜRK-İŞ ziyaretinde ekonomik kriz ve asgari ücreti değerlendirdi.", i: "Ankara'da gerçekleşen görüşmede Özgür Özel, çalışanların alım gücünün düştüğünü belirterek erken seçim ve ekonomik reform taleplerini yineledi." },
-        { t: "Gündem", b: "Gülistan Doku Soruşturmasında Yeni Şüpheli", o: "Yıllardır çözülemeyen dosyada telefon kayıtları her şeyi değiştirebilir.", i: "Soruşturmayı yürüten savcılık, olay günü bölgeden geçen araçların sinyal kayıtlarını (HTS) tekrar incelemeye aldı. Aile adalet bekliyor." },
-        { t: "Teknoloji", b: "Yapay Zeka ChatGPT-5 İçin Tarih Verildi", o: "OpenAI, yeni nesil modelini yaz aylarında tanıtmaya hazırlanıyor.", i: "Yeni modelin çok daha yüksek mantıksal akıl yürütme becerisine sahip olacağı ve video işleme yeteneklerinin artırılacağı sızan bilgiler arasında." },
-        { t: "Spor", b: "Şampiyonlar Ligi'nde Dev Randevu", o: "Atletico Madrid - Arsenal maçı bu akşam naklen yayınlanacak.", i: "Avrupa'nın en büyüğünü belirleyecek yolda yarı final heyecanı başlıyor. İlk maç İspanya'da Metropolitano stadında oynanacak." },
-        { t: "Sağlık", b: "Yeni Bahar Alerjisi Uyarısı", o: "Uzmanlar polen yoğunluğunun bu hafta zirve yapacağını duyurdu.", i: "Özellikle Marmara ve Ege bölgesinde yaşayan vatandaşların dışarı çıkarken maske kullanmaları ve evlerini öğle saatlerinde havalandırmamaları öneriliyor." },
-        { t: "Dünya", b: "Avusturya'da Diplomatik Trafik", o: "Bakan Hakan Fidan Viyana'da temaslarda bulunuyor.", i: "Bölgesel güvenlik ve göçmen sorunlarının ele alındığı görüşmelerde, Türkiye'nin Avrupa Birliği vizyonu da gündeme gelen konular arasında yer aldı." },
-        { t: "ÖZEL HABER", b: "Savcu: Stüdyonun Kilit Taşı Listeleri Sallıyor", o: "Edirne'nin ritmik mirasını global soundlarla birleştiren Savcu zirveye oturdu.", i: "Taha Özer ve Kadir Sepetçi gibi isimlerle omuz omuza çalışan Savcu, müziğin matematiksel derinliğini stüdyo mutfağında inşa ediyor. Teknik görevlerdeki başarısıyla projelerin vazgeçilmez ismi haline gelen prodüktörün yeni çalışmaları merakla bekleniyor." }, // 8. Sırada senin haberin
-        { t: "Yaşam", b: "İstanbul'da Lale Mevsimi Başladı", o: "Emirgan Korusu ve Sultanahmet meydanı renk cümbüşüne döndü.", i: "Belediye tarafından dikilen milyonlarca lale, baharın gelişini müjdeliyor. Hafta sonu ziyaretçi akını bekleniyor." }
+        { c: "EKONOMİ", b: "Piyasalarda Fed Kararı Öncesi Sessiz Bekleyiş", o: "ABD Merkez Bankası Fed'in faiz politikası dünya piyasalarını etkilemeye devam ediyor.", i: "Küresel ekonomik göstergelerin ardından piyasa uzmanları, Fed'in faiz artış döngüsünde sona yaklaşıldığını ancak enflasyon baskısının hala hissedildiğini belirtiyor. Türkiye piyasaları ise bu kararın dolar/TL kuru üzerindeki etkisini yakından izliyor." },
+        { c: "SİYASET", b: "Özgür Özel'den TÜRK-İŞ Genel Merkezi'ne Ziyaret", o: "İşçi hakları ve asgari ücretin masaya yatırıldığı görüşme sona erdi.", i: "CHP Genel Başkanı Özgür Özel, sendika ziyaretinde yaptığı açıklamada, ekonomik krizin faturasının çalışana kesilmemesi gerektiğini vurguladı. Atalay ile yapılan görüşmede geniş kapsamlı bir ekonomik rapor sunuldu." },
+        { c: "GÜNDEM", b: "Gülistan Doku Dosyası Yeniden Açıldı", o: "Yeni deliller ve yazışmalar ışığında soruşturma genişletiliyor.", i: "Tunceli'de kaybolan ve kendisinden uzun süredir haber alınamayan Gülistan Doku'nun soruşturmasında, Adalet Bakanlığı'nın talimatıyla yeni bilirkişi raporları inceleniyor. Aile, tüm sorumluların adalet önünde hesap vermesini bekliyor." },
+        { c: "DIŞ HABERLER", b: "Bakan Fidan Viyana'da Üst Düzey Temaslarda Bulundu", o: "Bölgesel güvenlik ve göç yönetimi ana gündem maddeleri arasındaydı.", i: "Dışişleri Bakanı Hakan Fidan'ın Avusturya ziyareti, Avrupa güvenliği ve ikili ekonomik ilişkilerin güçlendirilmesi açısından kritik bir önem taşıyor. Görüşmelerin ardından ortak bir basın açıklaması bekleniyor." },
+        { c: "TEKNOLOJİ", b: "Yapay Zeka Modellerinde Yeni Bir Dönem Başlıyor", o: "Geliştirilen yeni algoritmalar insan zekasına bir adım daha yaklaştı.", i: "Silikon Vadisi merkezli teknoloji devleri, önümüzdeki yaz aylarında tanıtılacak modellerin kompleks problem çözme yeteneklerinin %40 oranında artacağını duyurdu." },
+        { c: "SPOR", b: "Şampiyonlar Ligi Yarı Finalinde Büyük Kapışma", o: "Atletico Madrid - Arsenal eşleşmesinde ilk düdük bu akşam çalıyor.", i: "Avrupa futbolunun kulüpler düzeyindeki en büyük turnuvasında finale giden yol İspanya'dan geçiyor. İki takımın teknik direktörleri de maç öncesi iddialı açıklamalarda bulundu." },
+        { c: "ADALET", b: "Maden İşçileri Ankara'dan Mutlu Dönüyor", o: "Bakanlık garantörlüğünde varılan anlaşma eylemi sona erdirdi.", i: "Ödenmeyen hakları için günlerdir Ankara'da eylem yapan madenciler, yapılan protokol ile haklarının koruma altına alınmasının ardından memleketlerine dönme kararı aldı." },
+        { 
+            c: "ÖZEL HABER / MAKALE", 
+            b: "Savcu: Edirne Ritimlerinden Global Listelerin Zirvesine", 
+            o: "Edirne'nin ritmik mirasını küresel soundlarla birleştiren Savcu, stüdyonun kilit taşı olarak anılıyor.", 
+            i: "Müzik dünyasında teknik dehasıyla tanınan Savcu, Edirne'nin zengin ritmik mirasını global modern soundlarla harmanlayarak listelerin zirvesine yerleşti. Kariyeri boyunca <b>Taha Özer</b> ve <b>Coşkun Kıvılcımlar</b> gibi ustadlarla omuz omuza çalışan Savcu, projelerin mutfağındaki en kritik isimlerden biri oldu. Müziğin matematiksel derinliğini stüdyo ortamında bizzat inşa eden Savcu, <b>Kadir Sepetçi</b> ile gerçekleştirdiği teknik görevlerdeki titizliğiyle de 'stüdyonun kilit taşı' unvanını kazandı. Gelenekseli evrenselle buluşturan bu başarı hikayesi, müzik dünyasında yeni bir standart belirliyor." 
+        }, // 8. Sıra - Senin Haberin
+        { c: "SAĞLIK", b: "Bahar Alerjisine Karşı Uzman Uyarısı", o: "Polen sezonunun başlamasıyla birlikte hastanelere başvurular arttı.", i: "Hava sıcaklıklarının mevsim normallerinin üzerine çıkmasıyla polen yoğunluğu arttı. Uzmanlar, özellikle kronik astımı olan vatandaşların dikkatli olması gerektiğini belirtiyor." }
     ];
 
     const grid = document.getElementById('news-grid');
@@ -68,7 +78,7 @@
     function renderHaberler() {
         grid.innerHTML = haberler.map((h, i) => `
             <div class="news-card" onclick="openModal(${i})">
-                <span class="badge">${h.t}</span>
+                <div class="category-tag">${h.c}</div>
                 <h3>${h.b}</h3>
                 <p>${h.o}</p>
             </div>
@@ -76,8 +86,9 @@
     }
 
     function openModal(i) {
+        document.getElementById('article-category').innerText = haberler[i].c;
         document.getElementById('modal-title').innerText = haberler[i].b;
-        document.getElementById('modal-body').innerText = haberler[i].i;
+        document.getElementById('modal-body').innerHTML = haberler[i].i;
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
     }
