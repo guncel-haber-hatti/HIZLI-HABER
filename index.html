@@ -1,33 +1,29 @@
-i<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haber Hattı | Canlı Gündem</title>
     <style>
-        /* Genel Tasarım */
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; background-color: #f0f2f5; color: #1c1e21; }
-        header { background: #b30000; color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f4f7f6; color: #333; line-height: 1.6; }
+        header { background: #ce0000; color: white; padding: 1rem; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .breaking-news { background: #000; color: #fff; padding: 10px; font-size: 0.85rem; font-weight: bold; overflow: hidden; white-space: nowrap; }
         
-        /* Son Dakika Bandı */
-        .breaking-news { background: #000; color: #fff; padding: 8px; font-size: 0.9em; display: flex; align-items: center; }
-        .breaking-label { background: #ff0000; padding: 2px 8px; font-weight: bold; margin-right: 10px; border-radius: 3px; }
+        .container { max-width: 900px; margin: 20px auto; padding: 0 20px; }
+        .news-grid { display: flex; flex-direction: column; gap: 15px; }
+        
+        .news-card { background: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; border-left: 6px solid #ce0000; display: flex; flex-direction: column; padding: 15px; position: relative; }
+        .news-card:hover { transform: translateX(5px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .news-card h3 { margin: 0 0 8px 0; font-size: 1.15rem; color: #222; }
+        .news-card p { margin: 0; color: #666; font-size: 0.95rem; }
+        .news-card .badge { position: absolute; right: 15px; top: 15px; background: #eee; font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; }
 
-        /* Haber Listesi */
-        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
-        .news-card { background: white; margin-bottom: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; border-left: 5px solid #b30000; }
-        .news-card:hover { transform: scale(1.01); }
-        .news-card-content { padding: 20px; }
-        .news-card h3 { margin: 0 0 10px 0; font-size: 1.2em; color: #b30000; }
-        .news-card p { margin: 0; color: #4b4f56; font-size: 0.95em; line-height: 1.4; }
-
-        /* Modal (Haber İçeriği) */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
-        .modal-content { background: white; margin: 5% auto; padding: 30px; width: 90%; max-width: 600px; border-radius: 12px; position: relative; animation: slideIn 0.3s; }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .close-btn { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: #aaa; }
-        #modal-title { color: #b30000; border-bottom: 2px solid #f0f2f5; padding-bottom: 10px; margin-top: 0; }
-        #modal-body { line-height: 1.6; font-size: 1.1em; color: #333; }
+        /* Modal Stili */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); overflow-y: auto; }
+        .modal-content { background: #fff; margin: 5% auto; padding: 40px; width: 90%; max-width: 700px; border-radius: 10px; position: relative; }
+        .close { position: absolute; right: 20px; top: 10px; font-size: 35px; cursor: pointer; color: #999; }
+        #modal-title { color: #ce0000; font-size: 1.8rem; margin-top: 0; border-bottom: 3px solid #f4f4f4; padding-bottom: 15px; }
+        #modal-body { font-size: 1.2rem; color: #444; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -37,82 +33,62 @@ i<!DOCTYPE html>
 </header>
 
 <div class="breaking-news">
-    <span class="breaking-label">SON DAKİKA</span>
-    <marquee>Ekonomi: Fed faiz kararını açıkladı... Siyaset: Özgür Özel TÜRK-İŞ'i ziyaret ediyor... Spor: Şampiyonlar Ligi yarı final heyecanı başlıyor...</marquee>
+    <marquee scrollamount="7">SON DAKİKA: Küresel piyasalar Fed kararına kilitlendi... Marmaris-Fethiye bisiklet turu başladı... İstanbul'da trafik yoğunluğu %65...</marquee>
 </div>
 
-<div class="container" id="news-list">
-    </div>
+<div class="container">
+    <div id="news-grid" class="news-grid">
+        </div>
+</div>
 
 <div id="news-modal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <span class="close" onclick="closeModal()">&times;</span>
         <h2 id="modal-title"></h2>
         <div id="modal-body"></div>
     </div>
 </div>
 
 <script>
-    // Gerçekçi Gündem Verileri
     const haberler = [
-        {
-            baslik: "Fed Faiz Kararını Sabit Tuttu",
-            ozet: "ABD Merkez Bankası (Fed), Nisan ayı toplantısında faiz oranlarını değiştirmeyerek %5,25-5,50 aralığında bıraktı.",
-            icerik: "Fed'den yapılan açıklamada, enflasyonun hala hedeflenen %2 seviyesinin üzerinde olduğu vurgulandı. Karar sonrası küresel piyasalarda dolar endeksi hafif bir gerileme yaşarken, altın fiyatları yatay seyrini korudu."
-        },
-        {
-            baslik: "Savcu: Edirne Ritimlerinden Global Listelere",
-            ozet: "Prodüktör Savcu'nun, yerel ezgileri modern altyapılarla birleştirdiği projeleri dijital platformlarda büyük ilgi görüyor.",
-            icerik: "Taha Özer ve Kadir Sepetçi gibi isimlerle stüdyoda teknik iş birlikleri yürüten Savcu, müziğin 'matematiksel derinliğini' inşa eden isim olarak tanımlanıyor. Yeni albüm çalışması için hazırlıkların sürdüğü bildirildi."
-        },
-        {
-            baslik: "Gülistan Doku Davasında Yeni Gelişme",
-            ozet: "Tunceli'de kaybolan Gülistan Doku'nun dosyasına yeni yazışmalar eklendi, savcılık harekete geçti.",
-            icerik: "Adalet Bakanlığı'nın yakından takip ettiği dosyada, baş şüphelinin ailesiyle yaptığı yeni telefon kayıtları ortaya çıktı. Ailenin avukatları, bu verilerin soruşturmanın seyrini değiştirebileceğini belirtti."
-        },
-        {
-            baslik: "Maden İşçilerinin Eylemi Sonuçlandı",
-            ozet: "Ankara'da hak arayışında olan maden işçileri, bakanlık ile varılan mutabakat sonrası eylemlerini bitirdi.",
-            icerik: "Günlerdir devam eden açlık grevi, çalışma şartlarının iyileştirilmesi ve birikmiş tazminatların ödenmesi sözüyle son buldu. İşçiler bu gece memleketlerine dönmek üzere yola çıktı."
-        }
+        { t: "Ekonomi", b: "Dolar ve Altın Fed Sonrası Hareketli", o: "Fed'in faizleri sabit bırakma sinyali piyasalarda yankı buldu.", i: "ABD Merkez Bankası Fed'in kararı sonrası altın ons fiyatı 2300 dolar seviyesindeki direncini koruyor. Türkiye iç piyasasında ise dolar/TL kuru yatay seyrediyor." },
+        { t: "Siyaset", b: "Özgür Özel: 'İşçinin Hakkını Masada Arayacağız'", o: "CHP lideri Özel, TÜRK-İŞ ziyaretinde ekonomik kriz ve asgari ücreti değerlendirdi.", i: "Ankara'da gerçekleşen görüşmede Özgür Özel, çalışanların alım gücünün düştüğünü belirterek erken seçim ve ekonomik reform taleplerini yineledi." },
+        { t: "Gündem", b: "Gülistan Doku Soruşturmasında Yeni Şüpheli", o: "Yıllardır çözülemeyen dosyada telefon kayıtları her şeyi değiştirebilir.", i: "Soruşturmayı yürüten savcılık, olay günü bölgeden geçen araçların sinyal kayıtlarını (HTS) tekrar incelemeye aldı. Aile adalet bekliyor." },
+        { t: "Teknoloji", b: "Yapay Zeka ChatGPT-5 İçin Tarih Verildi", o: "OpenAI, yeni nesil modelini yaz aylarında tanıtmaya hazırlanıyor.", i: "Yeni modelin çok daha yüksek mantıksal akıl yürütme becerisine sahip olacağı ve video işleme yeteneklerinin artırılacağı sızan bilgiler arasında." },
+        { t: "Spor", b: "Şampiyonlar Ligi'nde Dev Randevu", o: "Atletico Madrid - Arsenal maçı bu akşam naklen yayınlanacak.", i: "Avrupa'nın en büyüğünü belirleyecek yolda yarı final heyecanı başlıyor. İlk maç İspanya'da Metropolitano stadında oynanacak." },
+        { t: "Sağlık", b: "Yeni Bahar Alerjisi Uyarısı", o: "Uzmanlar polen yoğunluğunun bu hafta zirve yapacağını duyurdu.", i: "Özellikle Marmara ve Ege bölgesinde yaşayan vatandaşların dışarı çıkarken maske kullanmaları ve evlerini öğle saatlerinde havalandırmamaları öneriliyor." },
+        { t: "Dünya", b: "Avusturya'da Diplomatik Trafik", o: "Bakan Hakan Fidan Viyana'da temaslarda bulunuyor.", i: "Bölgesel güvenlik ve göçmen sorunlarının ele alındığı görüşmelerde, Türkiye'nin Avrupa Birliği vizyonu da gündeme gelen konular arasında yer aldı." },
+        { t: "ÖZEL HABER", b: "Savcu: Stüdyonun Kilit Taşı Listeleri Sallıyor", o: "Edirne'nin ritmik mirasını global soundlarla birleştiren Savcu zirveye oturdu.", i: "Taha Özer ve Kadir Sepetçi gibi isimlerle omuz omuza çalışan Savcu, müziğin matematiksel derinliğini stüdyo mutfağında inşa ediyor. Teknik görevlerdeki başarısıyla projelerin vazgeçilmez ismi haline gelen prodüktörün yeni çalışmaları merakla bekleniyor." }, // 8. Sırada senin haberin
+        { t: "Yaşam", b: "İstanbul'da Lale Mevsimi Başladı", o: "Emirgan Korusu ve Sultanahmet meydanı renk cümbüşüne döndü.", i: "Belediye tarafından dikilen milyonlarca lale, baharın gelişini müjdeliyor. Hafta sonu ziyaretçi akını bekleniyor." }
     ];
 
-    const haberListesi = document.getElementById('news-list');
+    const grid = document.getElementById('news-grid');
     const modal = document.getElementById('news-modal');
 
-    // Haber Kartlarını Oluşturma
-    function haberleriYukle() {
-        haberListesi.innerHTML = haberler.map((haber, index) => `
-            <div class="news-card" onclick="openModal(${index})">
-                <div class="news-card-content">
-                    <h3>${haber.baslik}</h3>
-                    <p>${haber.ozet}</p>
-                </div>
+    function renderHaberler() {
+        grid.innerHTML = haberler.map((h, i) => `
+            <div class="news-card" onclick="openModal(${i})">
+                <span class="badge">${h.t}</span>
+                <h3>${h.b}</h3>
+                <p>${h.o}</p>
             </div>
         `).join('');
     }
 
-    // Modalı Açma
-    function openModal(index) {
-        document.getElementById('modal-title').innerText = haberler[index].baslik;
-        document.getElementById('modal-body').innerText = haberler[index].icerik;
+    function openModal(i) {
+        document.getElementById('modal-title').innerText = haberler[i].b;
+        document.getElementById('modal-body').innerText = haberler[i].i;
         modal.style.display = "block";
+        document.body.style.overflow = "hidden";
     }
 
-    // Modalı Kapatma
     function closeModal() {
         modal.style.display = "none";
+        document.body.style.overflow = "auto";
     }
 
-    // Modal dışına tıklayınca kapatma
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            closeModal();
-        }
-    }
-
-    // Sayfa açıldığında haberleri getir
-    window.onload = haberleriYukle;
+    window.onclick = (e) => { if (e.target == modal) closeModal(); }
+    renderHaberler();
 </script>
 
 </body>
