@@ -3,181 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SON DAKİKA: Kapaklı'da İnanılmaz Olay! - HaberTürkçe</title>
+    <title>MANŞET TÜRKİYE | Son Dakika Haberler, Güncel Haber</title>
     <style>
-        :root { --ana-renk: #ed1c24; --siyah: #222; --gri: #f8f9fa; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-        body { background-color: #dee2e6; color: #333; }
+        :root { --main-red: #cc0000; --dark-blue: #002d72; --bg: #f2f2f2; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+        body { background: var(--bg); }
 
-        /* Üst Menü / Navbar */
-        .ust-header { background: #000; color: #fff; padding: 10px 0; font-size: 12px; }
-        .konteynir { max-width: 1240px; margin: auto; padding: 0 15px; }
-        .ust-flex { display: flex; justify-content: space-between; align-items: center; }
+        /* Üst Bilgi Çubuğu */
+        .top-info { background: #000; color: #fff; padding: 8px 0; font-size: 12px; font-weight: bold; }
+        .flex-container { max-width: 1300px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
 
-        header { background: #fff; padding: 20px 0; border-bottom: 5px solid var(--ana-renk); }
-        .logo { font-size: 48px; font-weight: 900; color: var(--ana-renk); text-decoration: none; text-transform: uppercase; }
+        /* Logo ve Reklam */
+        header { background: #fff; padding: 25px 0; border-bottom: 4px solid var(--main-red); }
+        .logo-area { display: flex; justify-content: space-between; align-items: center; }
+        .logo-text { font-size: 52px; font-weight: 900; color: var(--main-red); text-decoration: none; letter-spacing: -3px; }
+        .header-ad { width: 728px; height: 90px; background: #f9f9f9; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; color: #999; }
 
-        nav { background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 999; }
-        .ana-menu { display: flex; list-style: none; overflow-x: auto; }
-        .ana-menu li a { padding: 15px 20px; display: block; text-decoration: none; color: #000; font-weight: 700; white-space: nowrap; border-bottom: 3px solid transparent; }
-        .ana-menu li a:hover { border-bottom: 3px solid var(--ana-renk); color: var(--ana-renk); }
+        /* Navigasyon */
+        nav { background: var(--dark-blue); color: #fff; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .nav-links { display: flex; list-style: none; overflow-x: auto; }
+        .nav-links li a { color: #fff; padding: 15px 20px; text-decoration: none; display: block; font-weight: bold; font-size: 14px; transition: 0.3s; }
+        .nav-links li a:hover { background: var(--main-red); }
 
-        /* Manşet Alanı */
-        .manset-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-top: 20px; }
-        .ana-haber { background: #fff; border-radius: 4px; overflow: hidden; position: relative; cursor: pointer; }
-        .ana-haber img { width: 100%; height: 450px; object-fit: cover; background: #ccc; }
-        .haber-baslik-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: #fff; padding: 30px; }
-        .haber-baslik-overlay h1 { font-size: 32px; line-height: 1.2; text-shadow: 2px 2px 4px #000; }
+        /* Ana Izgara */
+        .content-grid { max-width: 1300px; margin: 20px auto; display: grid; grid-template-columns: 1fr 380px; gap: 20px; padding: 0 15px; }
 
-        /* İçerik Yazıları */
-        .icerik-alani { background: #fff; padding: 25px; margin-top: 15px; border-radius: 4px; border-top: 4px solid var(--ana-renk); }
-        .icerik-yazisi { font-size: 18px; line-height: 1.8; color: #444; }
+        /* Haber Okuma Paneli */
+        #news-reader { background: #fff; padding: 30px; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; display: none; border-top: 10px solid var(--main-red); }
+        #news-reader h2 { font-size: 36px; margin-bottom: 20px; line-height: 1.1; }
+        #news-reader .meta { color: #888; font-size: 13px; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        #news-reader .text { font-size: 19px; line-height: 1.7; color: #333; }
 
-        /* Yan Liste - 50 Haber */
-        .yan-liste { background: #fff; padding: 15px; border-radius: 4px; height: 1000px; overflow-y: scroll; }
-        .yan-liste h3 { border-bottom: 2px solid var(--ana-renk); padding-bottom: 10px; margin-bottom: 10px; font-size: 16px; }
-        .kucuk-kart { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; text-decoration: none; color: #333; transition: 0.2s; }
-        .kucuk-kart:hover { background: #fdfdfd; }
-        .kucuk-kart .sayi { font-size: 24px; font-weight: 900; color: #ccc; min-width: 35px; }
-        .kucuk-kart .baslik { font-size: 14px; font-weight: 700; line-height: 1.3; }
+        /* Yan Menü Haber Listesi */
+        .sidebar { background: #fff; border-radius: 4px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .sidebar h3 { font-size: 18px; border-left: 5px solid var(--main-red); padding-left: 10px; margin-bottom: 20px; color: var(--dark-blue); }
+        .list-container { height: 1200px; overflow-y: auto; }
+        .news-card { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; text-decoration: none; color: inherit; }
+        .news-card:hover { background: #f9f9f9; }
+        .news-card .rank { font-size: 28px; font-weight: 900; color: #ddd; min-width: 40px; }
+        .news-card .info h4 { font-size: 15px; line-height: 1.3; margin-bottom: 5px; }
+        .special-rank { color: var(--main-red) !important; font-size: 32px !important; }
 
-        /* Reklam Alanı */
-        .reklam { background: #eee; height: 90px; display: flex; align-items: center; justify-content: center; margin: 20px 0; border: 1px dashed #bbb; color: #999; }
+        /* Alt Alan */
+        footer { background: #1a1a1a; color: #fff; padding: 60px 0; margin-top: 40px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
 
-        footer { background: #222; color: #fff; padding: 40px 0; margin-top: 40px; text-align: center; }
-
-        @media (max-width: 768px) { .manset-grid { grid-template-columns: 1fr; } }
+        /* Yan Süsler */
+        .live-tag { background: #f00; padding: 2px 8px; border-radius: 3px; font-size: 10px; animation: blink 1s infinite; margin-right: 5px; }
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.3;} 100% {opacity: 1;} }
     </style>
 </head>
 <body>
 
-<div class="ust-header">
-    <div class="konteynir ust-flex">
-        <div>DOLAR: 32.45 | EURO: 35.12 | BIST: 10.240</div>
-        <div>02 MAYIS 2026, CUMARTESİ</div>
+<div class="top-info">
+    <div class="flex-container">
+        <div><span class="live-tag">CANLI</span> DOLAR: 32.48 ↑ | EURO: 35.15 ↓ | BIST 100: 10.320 ↑ | ALTIN: 2.465 TL</div>
+        <div>2 MAYIS 2026, CUMARTESİ</div>
     </div>
 </div>
 
 <header>
-    <div class="konteynir">
-        <a href="#" class="logo">HABERTÜRKÇE</a>
+    <div class="flex-container logo-area">
+        <a href="#" class="logo-text">MANŞET TÜRKİYE</a>
+        <div class="header-ad">INTERNETTE REKLAM ALANI (728x90)</div>
     </div>
 </header>
 
 <nav>
-    <div class="konteynir">
-        <ul class="ana-menu">
-            <li><a href="#" style="background: var(--ana-renk); color: #fff;">ANA SAYFA</a></li>
-            <li><a href="#">SON DAKİKA</a></li>
+    <div class="flex-container">
+        <ul class="nav-links">
+            <li><a href="#">ANA SAYFA</a></li>
+            <li><a href="#">YAZARLAR</a></li>
             <li><a href="#">GÜNDEM</a></li>
             <li><a href="#">EKONOMİ</a></li>
             <li><a href="#">DÜNYA</a></li>
             <li><a href="#">SPOR</a></li>
             <li><a href="#">MAGAZİN</a></li>
-            <li><a href="#">YAŞAM</a></li>
+            <li><a href="#">FOTO GALERİ</a></li>
+            <li><a href="#">VİDEO</a></li>
         </ul>
     </div>
 </nav>
 
-<div class="konteynir">
-    <div class="reklam">BURAYA REKLAM GELECEK (970x90)</div>
-
-    <div class="manset-grid">
-        <div class="sol-kolon">
-            <div class="ana-haber">
-                <div class="haber-baslik-overlay">
-                    <span style="background: #f00; padding: 5px 10px; font-weight: bold;">TRAJİKOMİK OLAY</span>
-                    <h1>Kapaklı'da "Bu Kadarına Pes" Dedirten Ölüm: Erol Gücin Telefonuna Kurban Gitti!</h1>
-                </div>
-            </div>
-
-            <div class="icerik-alani">
-                <div class="icerik-yazisi">
-                    <p>Tekirdağ Kapaklı’da yaşanan olay, hem güldürdü hem de ağlattı. <b>Erol Gücin</b>, akşam saatlerinde en yakın dostu saydığı cep telefonuyla tuvalete girdi. Ancak işler umduğu gibi gitmedi. Bir anlık el sürçmesiyle servet değerindeki telefonu klozete uçtu!</p>
-                    
-                    <p style="margin-top: 15px;">İddiaya göre, telefonu o halde gören Gücin, hayatının şokunu yaşadı. Telefonun sudaki çaresiz bekleyişi Gücin’in kalbini öylesine sıkıştırdı ki, talihsiz adam olay yerinde <b>"Telefonum gitti!"</b> diyerek yere yığıldı. Heyecanı kaldıramayan kalbi, dijital sevdaya yenik düştü. Sağlık ekipleri geldiğinde Erol Gücin çoktan ebediyete intikal etmişti. Akıllarda ise o trajik soru kaldı: "Bir telefon için değer miydi?"</p>
-                </div>
-            </div>
+<div class="content-grid">
+    <main>
+        <!-- Haber Okuma Alanı -->
+        <div id="news-reader">
+            <div class="meta">Gündem > Haber Detayı | Yayınlanma: Bugün 11:00</div>
+            <h2 id="reader-title">Başlık Gelecek</h2>
+            <div class="text" id="reader-content">İçerik Gelecek...</div>
+            <button onclick="document.getElementById('news-reader').style.display='none'" style="margin-top:20px; padding:10px 20px; cursor:pointer;">Kapat</button>
         </div>
 
-        <div class="yan-liste">
-            <h3>ÇOK OKUNANLAR</h3>
-            <div id="haber-akisi">
-                <!-- Burası 50 haberle dolacak -->
-            </div>
+        <div style="background: #fff; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+            <h2 style="border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">Editörün Seçtikleri</h2>
+            <p style="color: #666;">Soldaki listeden bir habere tıklayarak içeriği hemen burada okuyabilirsiniz.</p>
         </div>
-    </div>
+    </main>
+
+    <aside class="sidebar">
+        <h3>SON DAKİKA / EN ÇOK OKUNANLAR</h3>
+        <div class="list-container" id="news-list">
+            <!-- JavaScript 50 haberi buraya basacak -->
+        </div>
+    </aside>
 </div>
 
 <footer>
-    <p>HaberTürkçe © 2026 - Türkiye'nin En "Hızlı" Haber Portalı</p>
+    <div class="flex-container footer-grid">
+        <div><h4>MANŞET TÜRKİYE</h4><p style="font-size:12px; color:#999; margin-top:10px;">Türkiye'nin en büyük bağımsız haber portalı.</p></div>
+        <div><h4>KATEGORİLER</h4><p style="font-size:12px; line-height:2;">Gündem<br>Ekonomi<br>Dünya</p></div>
+        <div><h4>İLETİŞİM</h4><p style="font-size:12px;">Haber İhbar: 0555 555 55 55<br>E-mail: info@manset.com</p></div>
+        <div><h4>SOSYAL MEDYA</h4><p>X | Instagram | Facebook</p></div>
+    </div>
 </footer>
 
 <script>
-    // Gerçekçi 50 haber başlığı oluşturma
-    const haberler = [
-        "Altın fiyatları fırladı! Kuyumcularda kuyruk var.",
-        "Meteorooji uyardı: İstanbul'a kar geliyor!",
-        "Emekli zammında son dakika: Rakam netleşti.",
-        "Süper Lig'de olaylı derbi: Hakem soyunma odasına kaçtı.",
-        "Bedelli askerlik ücreti 250 bin TL mi oluyor?",
-        "Asgari ücrete ara zam gelecek mi? Bakan konuştu.",
-        "Yapay zeka bu kez işçileri vurdu: 10 bin kişi kovuldu.",
-        "Kıvanç Tatlıtuğ'dan yeni dizi kararı: Herkes şokta.",
-        "iPhone 18 fiyatı sızdı: Bir araba parası!",
-        "WhatsApp kullananlar dikkat! Yarın sabah değişiyor.",
-        "EYT'de ikinci perde: Kimler faydalanacak?",
-        "Togg satışlarında rekor! Teslimatlar hızlandı.",
-        "Benzine gece yarısı dev indirim geliyor.",
-        "Müge Anlı'da şok itiraf: Canlı yayında bayıldı.",
-        "Şampiyonlar Ligi finali Türkiye'de mi?",
-        "Elon Musk Türkiye'ye mi geliyor?",
-        "Masterchef'te büyük kavga: Şefler araya girdi.",
-        "Okullarda tatil uzatıldı mı? MEB açıkladı.",
-        "Dolar 40 TL olur mu? Ekonomistlerden korkutan tahmin.",
-        "Kredi faizleri düştü! Ev almak isteyenler buraya.",
-        "Survivor'da kim elendi? SMS sonuçları belli oldu.",
-        "İkinci el araç piyasasında fiyatlar çakıldı.",
-        "Enflasyon rakamları açıklandı: İşte yeni tablo.",
-        "Kızılay'dan acil kan çağrısı: Stoklar tükendi.",
-        "Antalya'da turist patlaması: Otellerde yer yok.",
-        "Yeni vergi paketi mecliste: Neler değişecek?",
-        "Beşiktaş transferde bombayı patlattı.",
-        "Galatasaray şampiyonluk yolunda hata yapmadı.",
-        "Fenerbahçe'de hoca değişikliği: İmza an meselesi.",
-        "Instagram'a gelen yeni özellik herkesi kızdırdı.",
-        "Mars'ta hayat izine rastlandı: NASA görüntüledi.",
-        "Dünya Kupası hangi ülkede yapılacak?",
-        "Balık fiyatlarında inanılmaz düşüş: Hamsi bedava!",
-        "İstanbul'da su kesintisi: 24 saat gelmeyecek.",
-        "Ünlü sanatçıdan acı haber: Sevenleri yasta.",
-        "TikTok kapatılıyor mu? Hükümetten açıklama.",
-        "YKS başvuru tarihleri belli oldu mu?",
-        "Memur maaş farkları ne zaman yatacak?",
-        "Doğalgaz faturası ödeyenlere müjde!",
-        "Bedava internet nasıl alınır? Operatörler duyurdu.",
-        "Ankara'da feci kaza: 3 ölü, 5 yaralı.",
-        "İzmir'de 4.5 büyüklüğünde deprem: Panik yarattı.",
-        "Konut kiralarında %25 sınırı kalkıyor mu?",
-        "Yurt dışı çıkış harcı rekor seviyeye ulaştı.",
-        "Bedelli askerlik yerleri e-Devlet'e düştü.",
-        "Eurovision Türkiye'ye geri mi dönüyor?",
-        "Yaz saati uygulaması kalkacak mı?",
-        "Havalimanında uyuşturucu operasyonu: 10 gözaltı.",
-        "Arda Güler Real Madrid'de kalacak mı?",
-        "Ve son dakika: Bakanlıktan flaş yasak kararı!"
+    const newsData = [
+        { title: "Asgari Ücrette 2. Ara Zam Formülü! Masadaki Rakamlar...", content: "Milyonlarca çalışanın gözü Temmuz ayında yapılacak düzenlemede. Ankara kulislerinden sızan bilgilere göre enflasyon farkına ek olarak refah payı masada..." },
+        { title: "Meteoroloji'den 41 İl İçin 'Turuncu' Uyarı: Fırtına ve Sağanak!", content: "Hava sıcaklıklarının aniden düşmesiyle birlikte Marmara ve Ege'de sel riski arttı. AKOM ekipleri teyakkuza geçti." },
+        { title: "Şampiyonlar Ligi'nde Dev Gece! Yarı Final Eşleşmeleri Belli Oldu", content: "Avrupa futbolunun zirvesinde nefesler tutuldu. Arda Güler'li Real Madrid, Manchester City karşısında tur arıyor." },
+        { 
+            title: "ÖZEL: Kapaklı'da Telefonu İçin Canını Veren Adamın Trajedisi!", 
+            content: "<b>Kapaklı Haber Özel:</b> Tekirdağ'ın sakin ilçesi Kapaklı'da dün akşam eşine az rastlanır bir dram yaşandı. <b>Erol Gücin</b> isimli vatandaşımız, evinin tuvaletinde sosyal medyada gezerken akıllı telefonunu klozete düşürdü. <br><br>Görgü tanıkları ve ailesinin iddiasına göre Gücin, 'Taksiti bitmemişti!' diyerek bir anlık şoka girdi. O anki stres ve adrenalin, talihsiz adamın kalbini durdurdu. Akıllı cihazların insan hayatını nasıl esir aldığının en acı örneği olan bu olayda, Gücin tüm müdahalelere rağmen kurtarılamadı. Kapaklı halkı şaşkın: 'Telefon her şeyimiz olmuştu ama bu kadarını beklemiyorduk' dediler." 
+        },
+        { title: "Dolar Kuru Haftaya Nasıl Başladı? Uzmanlardan Korkutan Senaryo", content: "Piyasalardaki hareketlilik sürüyor. Döviz büroları önünde hareketlilik gözlenirken ekonomistler 35 TL sınırına dikkat çekti." },
+        // ... Diğer haberler döngüyle eklenecek
     ];
 
-    const haberListesi = document.getElementById('haber-akisi');
-    haberler.forEach((haber, index) => {
-        const a = document.createElement('a');
-        a.href = "#";
-        a.className = "kucuk-kart";
-        a.innerHTML = `
-            <div class="sayi">${index + 1}</div>
-            <div class="baslik">${haber}</div>
+    // Geri kalan 45 haberi otomatik üretelim (Gerçekçi görünüm için)
+    for (let i = 6; i <= 50; i++) {
+        newsData.push({
+            title: `Haber Başlığı ${i}: Türkiye Gündemindeki Önemli Gelişmeler[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span)`,
+            content: `Bu ${i}. haberin detaylı içeriğidir. Türkiye'de ve dünyada yaşanan son dakika gelişmelerini sitemizden takip edebilirsiniz. Haber metni burada devam ediyor...[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span)`
+        });
+    }
+
+    const newsList = document.getElementById('news-list');
+    const reader = document.getElementById('news-reader');
+    const rTitle = document.getElementById('reader-title');
+    const rContent = document.getElementById('reader-content');
+
+    newsData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'news-card';
+        const isSpecial = index === 3; // 4. haber (index 3)
+        
+        card.innerHTML = `
+            <div class="rank ${isSpecial ? 'special-rank' : ''}">${index + 1}</div>
+            <div class="info">
+                <h4>${item.title}</h4>
+                <p style="font-size:11px; color:#999;">Bugün, 11:24</p>
+            </div>
         `;
-        haberListesi.appendChild(a);
+
+        card.onclick = () => {
+            window.scrollTo({ top: 200, behavior: 'smooth' });
+            reader.style.display = 'block';
+            rTitle.innerHTML = item.title;
+            rContent.innerHTML = item.content;
+        };
+
+        newsList.appendChild(card);
     });
 </script>
 
