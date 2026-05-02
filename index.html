@@ -3,124 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANŞET TÜRKİYE | Son Dakika</title>
+    <title>MANŞET TÜRKİYE | Son Dakika Haber</title>
     <style>
-        :root { --red: #ed1c24; --black: #1a1a1a; --gray: #f8f9fa; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; }
-        body { background: #e3e4e6; color: #222; }
+        :root { --red: #cc0000; --dark: #1a1a1a; --gray: #f4f4f4; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background-color: #f0f2f5; color: #333; line-height: 1.6; }
 
-        header { background: #fff; border-bottom: 5px solid var(--red); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .header-container { max-width: 1300px; margin: auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 38px; font-weight: 900; color: var(--red); text-decoration: none; letter-spacing: -2px; }
+        /* Üst Haber Bandı */
+        .ticker-band { background: #000; color: #fff; padding: 10px 0; font-weight: bold; font-size: 14px; border-bottom: 3px solid var(--red); }
         
-        nav { background: var(--black); color: white; overflow-x: auto; white-space: nowrap; }
-        .nav-inner { max-width: 1300px; margin: auto; padding: 12px 20px; display: flex; gap: 25px; font-size: 14px; font-weight: 700; }
-        .nav-inner span { cursor: pointer; text-transform: uppercase; }
+        header { background: #fff; padding: 25px 0; border-bottom: 1px solid #ddd; }
+        .header-container { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo { font-size: 45px; font-weight: 900; color: var(--red); text-decoration: none; letter-spacing: -3px; }
+        .date { text-align: right; font-size: 12px; font-weight: 800; }
 
-        .wrapper { max-width: 1300px; margin: 25px auto; padding: 0 15px; display: grid; grid-template-columns: 1fr 350px; gap: 25px; }
+        nav { background: #fff; border-bottom: 3px solid var(--red); position: sticky; top: 0; z-index: 1000; }
+        .nav-inner { max-width: 1200px; margin: auto; display: flex; list-style: none; padding: 0 10px; }
+        .nav-inner li a { padding: 15px; display: block; text-decoration: none; color: #000; font-weight: 800; font-size: 13px; text-transform: uppercase; }
+        .nav-inner li a:hover { color: var(--red); }
 
-        /* ANA HABER */
-        .main-news { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .badge { background: var(--red); color: white; padding: 4px 10px; font-size: 12px; font-weight: 800; border-radius: 3px; display: inline-block; margin-bottom: 15px; }
-        h1 { font-size: 36px; font-weight: 900; margin-bottom: 20px; line-height: 1.2; }
-        .content { font-size: 18px; line-height: 1.8; color: #333; }
-        .content b { color: var(--red); }
+        .main-wrapper { max-width: 1200px; margin: 30px auto; display: grid; grid-template-columns: 1fr 380px; gap: 30px; padding: 0 20px; }
 
-        /* LİSTE HABERLER */
-        .sidebar { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); height: fit-content; }
-        .sidebar h3 { border-bottom: 3px solid var(--red); padding-bottom: 10px; margin-bottom: 15px; font-size: 18px; }
-        .news-list { list-style: none; height: 800px; overflow-y: auto; padding-right: 10px; }
-        .news-item { padding: 12px 0; border-bottom: 1px solid #eee; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; gap: 10px; }
+        /* Ana Haber Alanı */
+        .article-box { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .category-tag { background: var(--red); color: #fff; padding: 5px 15px; font-size: 12px; font-weight: 900; border-radius: 3px; display: inline-block; margin-bottom: 20px; }
+        h1 { font-size: 42px; line-height: 1.1; margin-bottom: 25px; color: #000; font-weight: 900; }
+        .main-text { font-size: 20px; color: #222; text-align: justify; }
+        .main-text b { color: #000; border-bottom: 2px solid var(--red); }
+
+        /* Yan Menü - 50 Haber */
+        .sidebar { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); height: fit-content; }
+        .sidebar h3 { border-bottom: 3px solid var(--red); padding-bottom: 10px; margin-bottom: 20px; font-size: 20px; }
+        .news-list { height: 1000px; overflow-y: auto; padding-right: 15px; }
+        .news-item { padding: 15px 0; border-bottom: 1px solid #eee; display: flex; gap: 15px; text-decoration: none; color: #333; font-weight: 700; font-size: 14px; }
         .news-item:hover { color: var(--red); }
-        .news-item span { color: var(--red); font-weight: 900; }
+        .news-item span { color: var(--red); font-size: 18px; font-weight: 900; min-width: 25px; }
 
-        /* SCROLLBAR STİLİ */
-        .news-list::-webkit-scrollbar { width: 5px; }
-        .news-list::-webkit-scrollbar-thumb { background: var(--red); border-radius: 10px; }
+        footer { background: var(--dark); color: #888; padding: 50px 0; text-align: center; margin-top: 60px; font-size: 14px; }
 
-        @media (max-width: 900px) { .wrapper { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { .main-wrapper { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
+<div class="ticker-band">
+    <marquee scrollamount="8">SON DAKİKA: Kapaklı'da feci olay: Erol Gücin hayatını kaybetti --- Piyasalarda hareketli dakikalar: Dolar yükselişte --- Süper Lig'de şampiyonluk yarışı kızışıyor --- Hava durumu uyarısı: Sağanak yağış geliyor!</marquee>
+</div>
+
 <header>
     <div class="header-container">
         <a href="#" class="logo">MANŞET TÜRKİYE</a>
-        <div style="text-align: right; font-weight: 800; font-size: 12px;">2 MAYIS 2026<br><span style="color:var(--red)">SON DAKİKA</span></div>
+        <div class="date">2 MAYIS 2026<br><span style="color:var(--red)">CANLI YAYIN</span></div>
     </div>
-    <nav><div class="nav-inner"><span>GÜNDEM</span><span>DÜNYA</span><span>EKONOMİ</span><span>MAGAZİN</span><span>SPOR</span><span>TEKNOLOJİ</span></div></nav>
 </header>
 
-<div class="wrapper">
-    <div class="main-news">
-        <span class="badge">TRAJİK OLAY</span>
-        <h1>Kapaklı'da Akılalmaz Ölüm: Telefonunu Kurtarmak İsterken Canından Oldu</h1>
-        <div class="content">
-            <p>Tekirdağ’ın Kapaklı ilçesinde akşam saatlerinde meydana gelen olay, duyanları hayrete düşürdü. Edinilen bilgiye göre, ilçede ikamet eden <b>Erol Gücin</b>, tuvalette bulunduğu sırada elindeki cep telefonunu bir anlık dikkatsizlik sonucu klozete düşürdü.</p>
-            <p>Telefonun suya düşmesiyle birlikte büyük bir panik ve şok yaşayan Gücin, iddiaya göre o anki heyecana dayanamayarak <b>anlık kalp krizi</b> geçirdi. Yakınlarının ihbarı üzerine olay yerine gelen sağlık ekipleri, Gücin’in hayatını kaybettiğini belirledi. Talihsiz adamın cansız bedeni otopsi yapılmak üzere hastaneye kaldırılırken, olayla ilgili soruşturma başlatıldı.</p>
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-            <span class="badge">MÜZİK DÜNYASI</span>
-            <h2 style="margin-bottom:15px;">Blok 3 Kararı Kesinleşti: 'Sevmeyi Denemedim' Sonrası Büyük Temizlik</h2>
-            <p>Öte yandan müzik dünyasında <b>Engin Savcu</b> fırtınası esmeye devam ediyor. Ünlü isim, "Sevmeyi Denemedim" parçasının ardından aldığı radikal kararla tüm dijital platformlardan Blok 3 hamlesiyle verilerini sildirdi...</p>
-        </div>
-    </div>
+<nav>
+    <ul class="nav-inner">
+        <li><a href="#">GÜNDEM</a></li>
+        <li><a href="#">DÜNYA</a></li>
+        <li><a href="#">EKONOMİ</a></li>
+        <li><a href="#">SPOR</a></li>
+        <li><a href="#">MAGAZİN</a></li>
+        <li><a href="#">TEKNOLOJİ</a></li>
+    </ul>
+</nav>
 
-    <div class="sidebar">
-        <h3>GÜNCEL HABERLER (50)</h3>
-        <ul class="news-list">
-            <li class="news-item"><span>1</span> Dolar kuru haftaya rekorla başladı: Piyasalar alarmda!</li>
-            <li class="news-item"><span>2</span> Altın fiyatlarında sert düşüş: Yatırımcı ne yapmalı?</li>
-            <li class="news-item"><span>3</span> İstanbul'da ulaşım zammı kapıda: UKOME toplanıyor.</li>
-            <li class="news-item"><span>4</span> Meteoroloji uyardı: O illerde sağanak yağış bekleniyor.</li>
-            <li class="news-item"><span>5</span> Şampiyonlar Ligi'nde dev eşleşme: Real Madrid - Bayern Münih.</li>
-            <li class="news-item"><span>6</span> Zeynep Bastık'tan yeni dünya turnesi müjdesi.</li>
-            <li class="news-item"><span>7</span> Yerli otomobil Togg için yeni yazılım güncellemesi geldi.</li>
-            <li class="news-item"><span>8</span> Emekli maaşlarına ek zam düzenlemesi mecliste.</li>
-            <li class="news-item"><span>9</span> Elon Musk'tan Mars açıklaması: İlk koloniler 2029'da!</li>
-            <li class="news-item"><span>10</span> Sağlık Bakanlığı 20 bin personel alımı yapacak.</li>
-            <li class="news-item"><span>11</span> Süper Lig'de derbi heyecanı: Biletler dakikalar içinde tükendi.</li>
-            <li class="news-item"><span>12</span> Akaryakıta dev indirim: Tabelalar bu gece değişiyor.</li>
-            <li class="news-item"><span>13</span> Netflix'ten Türk dizilerine dev bütçe ayırıldı.</li>
-            <li class="news-item"><span>14</span> Kripto para piyasasında 'Bitcoin' hareketliliği.</li>
-            <li class="news-item"><span>15</span> Okullarda ara tatil süresi uzatılıyor mu?</li>
-            <li class="news-item"><span>16</span> Ünlü oyuncu dünya evine girdi: İşte o kareler...</li>
-            <li class="news-item"><span>17</span> THY'den yeni hat duyurusu: Avustralya uçuşları başlıyor.</li>
-            <li class="news-item"><span>18</span> Milli Takım aday kadrosu açıklandı.</li>
-            <li class="news-item"><span>19</span> iPhone 18 sızıntıları: Tasarım tamamen değişiyor.</li>
-            <li class="news-item"><span>20</span> Ankara'da su kesintisi yaşanacak mahalleler listesi.</li>
-            <li class="news-item"><span>21</span> E-Devlet üzerinden yeni hizmet: Artık tek tıkla yapılabilecek.</li>
-            <li class="news-item"><span>22</span> Hande Erçel'in yeni projesi belli oldu.</li>
-            <li class="news-item"><span>23</span> Asgari ücret tespit komisyonu tarihi belli oldu.</li>
-            <li class="news-item"><span>24</span> Yapay zeka iş dünyasını nasıl değiştirecek?</li>
-            <li class="news-item"><span>25</span> Marmara Denizi'nde korkutan deprem: Kandilli açıkladı.</li>
-            <li class="news-item"><span>26</span> Tarım Bakanlığı'ndan çiftçiye mazot desteği.</li>
-            <li class="news-item"><span>27</span> Galatasaray transferde bombayı patlatıyor.</li>
-            <li class="news-item"><span>28</span> Fenerbahçe'de teknik direktör değişikliği iddiası.</li>
-            <li class="news-item"><span>29</span> Avrupa Birliği'nden Türkiye açıklaması.</li>
-            <li class="news-item"><span>30</span> Uzaydan gelen gizemli sinyal: Bilim dünyası heyecanlı.</li>
-            <li class="news-item"><span>31</span> Antalya'da turizm rekoru kırıldı.</li>
-            <li class="news-item"><span>32</span> Sosyal medya yasasında yeni düzenlemeler.</li>
-            <li class="news-item"><span>33</span> Konut satışlarında durgunluk sürüyor.</li>
-            <li class="news-item"><span>34</span> Kızılay'dan kan bağışı çağrısı.</li>
-            <li class="news-item"><span>35</span> Beşiktaş'ta sakatlık şoku: Yıldız oyuncu sezonu kapattı.</li>
-            <li class="news-item"><span>36</span> Masterchef'te eleme gecesi: Kim veda etti?</li>
-            <li class="news-item"><span>37</span> Sıfır otomobil piyasasında yeni kampanyalar.</li>
-            <li class="news-item"><span>38</span> Gastronomi dünyası bu festivali konuşuyor.</li>
-            <li class="news-item"><span>39</span> WhatsApp'a gelen yeni gizlilik özelliği.</li>
-            <li class="news-item"><span>40</span> KYK borçları hakkında yeni genelge yayımlandı.</li>
-            <li class="news-item"><span>41</span> İngiltere'de kraliyet ailesinde yeni kriz.</li>
-            <li class="news-item"><span>42</span> Uzmanlardan 'bahar nezlesi' uyarısı.</li>
-            <li class="news-item"><span>43</span> İzmir'de yeni metro hattı açıldı.</li>
-            <li class="news-item"><span>44</span> Tesla Türkiye satış rakamları açıklandı.</li>
-            <li class="news-item"><span>45</span> Oscar adayları belli oldu: Favori film hangisi?</li>
-            <li class="news-item"><span>46</span> Balık sezonu biterken fiyatlar yükseldi.</li>
-            <li class="news-item"><span>47</span> UNESCO listesine Türkiye'den yeni eser girdi.</li>
-            <li class="news-item"><span>48</span> Bedelli askerlik ücreti güncellendi.</li>
-            <li class="news-item"><span>49</span> Kahve fiyatlarına dev zam: Brezilya'da hasat krizi.</li>
-            <li class="news-item"><span>50</span> NASA, Jüpiter'in uydusunda su buldu.</li>
-        </ul>
-    </div>
+<div class="main-wrapper">
+    <main>
+        <div class="article-box">
+            <span class="category-tag">ASAYİŞ / SON DAKİKA</span>
+            <h1>Kapaklı'da Trajik Ölüm: Telefonunu Kurtarmak İsterken Canından Oldu</h1>
+            <div class="main-text">
+                <p>Tekirdağ’ın Kapaklı ilçesinde bu akşam saatlerinde meydana gelen olay, tüm ilçeyi yasa boğdu[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span). Edinilen bilgilere göre, evinde bulunduğu sırada tuvalete giren <b>Erol Gücin</b>, elindeki cep telefonunu klozete düşürdü[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span).</p>
+                <p>Cihazın suya düştüğünü görünce büyük bir panik ve anlık bir şok yaşayan Gücin, iddiaya göre o anki aşırı heyecana dayanamayarak <b>kalp krizi</b> geçirdi[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span). Yakınlarının durumu fark edip ihbar etmesi üzerine olay yerine gelen 112 Acil Sağlık ekiplerinin tüm müdahalelerine rağmen Gücin kurtarılamadı[span_6](start_span)[span_6](end_span)[span_7](start_span)[span_7](end_span). Talihsiz adamın cenazesi otopsi için hastaneye kaldırılırken, olayla ilgili geniş çaplı soruşturma başlatıldı[span_8](start_span)[span_8](end_span)[span_9](start_span)[span_9](end_span).</p>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <h3>GÜNCEL 50 HABER</h3>
+        <div class="news-list">
+            <a href="#" class="news-item"><span>1</span> Altın fiyatları yeni güne nasıl başladı?[span_10](start_span)[span_10](end_span)[span_11](start_span)[span_11](end_span)</a>
+            <a href="#" class="news-item"><span>2</span> İstanbul'da toplu taşımaya dev zam iddiası.[span_12](start_span)[span_12](end_span)[span_13](start_span)[span_13](end_span)</a>
+            <a href="#" class="news-item"><span>3</span> Meteoroloji'den 15 il için sarı kodlu uyarı.[span_14](start_span)[span_14](end_span)[span_15](start_span)[span_15](end_span)</a>
+            <a href="#" class="news-item"><span>4</span> Emekli maaşı düzenlemesinde flaş gelişme.[span_16](start_span)[span_16](end_span)[span_17](start_span)[span_17](end_span)</a>
+            <a href="#" class="news-item"><span>5</span> Şampiyonlar Ligi'nde yarı final heyecanı.[span_18](start_span)[span_18](end_span)[span_19](start_span)[span_19](end_span)</a>
+            <a href="#" class="news-item"><span>6</span> Milli Teknoloji Hamlesi'nde yeni adım: Togg T10F.[span_20](start_span)[span_20](end_span)[span_21](start_span)[span_21](end_span)</a>
+            <a href="#" class="news-item"><span>7</span> Akaryakıt fiyatlarında tabela değişiyor.[span_22](start_span)[span_22](end_span)[span_23](start_span)[span_23](end_span)</a>
+            <a href="#" class="news-item"><span>8</span> Yapay zeka tıp dünyasında devrim yarattı.[span_24](start_span)[span_24](end_span)[span_25](start_span)[span_25](end_span)</a>
+            <a href="#" class="news-item"><span>9</span> Elon Musk: Mars'a ilk insanlı uçuş tarihi belli oldu.[span_26](start_span)[span_26](end_span)[span_27](start_span)[span_27](end_span)</a>
+            <a href="#" class="news-item"><span>10</span> Sağlık Bakanlığı'ndan 'bahar nezlesi' rehberi.[span_28](start_span)[span_28](end_span)[span_29](start_span)[span_29](end_span)</a>
+            <a href="#" class="news-item"><span>11</span> Süper Lig'de haftanın hakemleri açıklandı.[span_30](start_span)[span_30](end_span)[span_31](start_span)[span_31](end_span)</a>
+            <a href="#" class="news-item"><span>12</span> WhatsApp'a 3 yeni gizlilik özelliği geliyor.[span_32](start_span)[span_32](end_span)[span_33](start_span)[span_33](end_span)</a>
+            <a href="#" class="news-item"><span>13</span> Netflix'ten abonelerine kötü haber: Zam yolda.[span_34](start_span)[span_34](end_span)[span_35](start_span)[span_35](end_span)</a>
+            <a href="#" class="news-item"><span>14</span> Bitcoin'de sert düşüş: Yatırımcı panikte.[span_36](start_span)[span_36](end_span)[span_37](start_span)[span_37](end_span)</a>
+            <a href="#" class="news-item"><span>15</span> Okullarda ara tatil kalkıyor mu? Bakanlık yanıtladı.[span_38](start_span)[span_38](end_span)[span_39](start_span)[span_39](end_span)</a>
+            <a href="#" class="news-item"><span>16</span> Ünlü oyuncunun düğünü magazin dünyasını salladı.[span_40](start_span)[span_40](end_span)[span_41](start_span)[span_41](end_span)</a>
+            <a href="#" class="news-item"><span>17</span> THY uçuş ağını genişletiyor: Yeni rota Sidney.[span_42](start_span)[span_42](end_span)[span_43](start_span)[span_43](end_span)</a>
+            <a href="#" class="news-item"><span>18</span> Arda Güler transferinde Real Madrid kararı.[span_44](start_span)[span_44](end_span)[span_45](start_span)[span_45](end_span)</a>
+            <a href="#" class="news-item"><span>19</span> iPhone 18 Pro Max sızıntıları sosyal medyada.[span_46](start_span)[span_46](end_span)[span_47](start_span)[span_47](end_span)</a>
+            <a href="#" class="news-item"><span>20</span> Ankara-Sivas YHT hattında yeni seferler.[span_48](start_span)[span_48](end_span)[span_49](start_span)[span_49](end_span)</a>
+            <a href="#" class="news-item"><span>21</span> E-Devlet'ten askerlik başvurusu dönemi.[span_50](start_span)[span_50](end_span)[span_51](start_span)[span_51](end_span)</a>
+            <a href="#" class="news-item"><span>22</span> Hande Erçel'in yeni dizisi hangi kanalda?[span_52](start_span)[span_52](end_span)[span_53](start_span)[span_53](end_span)</a>
+            <a href="#" class="news-item"><span>23</span> Asgari ücret ek zam beklentisi sürüyor.[span_54](start_span)[span_54](end_span)[span_55](start_span)[span_55](end_span)</a>
+            <a href="#" class="news-item"><span>24</span> Mars'ta su bulundu: NASA fotoğrafları paylaştı.[span_56](start_span)[span_56](end_span)[span_57](start_span)[span_57](end_span)</a>
+            <a href="#" class="news-item"><span>25</span> Marmara'da korkutan sarsıntı: Kandilli açıkladı.[span_58](start_span)[span_58](end_span)[span_59](start_span)[span_59](end_span)</a>
+            <a href="#" class="news-item"><span>26</span> Çiftçiye gübre ve mazot desteği ödemeleri başlıyor.[span_60](start_span)[span_60](end_span)[span_61](start_span)[span_61](end_span)</a>
+            <a href="#" class="news-item"><span>27</span> Galatasaray'ın yeni golcüsü İstanbul'a geldi.[span_62](start_span)[span_62](end_span)[span_63](start_span)[span_63](end_span)</a>
+            <a href="#" class="news-item"><span>28</span> Fenerbahçe'de Jose Mourinho sesleri yükseliyor.[span_64](start_span)[span_64](end_span)[span_65](start_span)[span_65](end_span)</a>
+            <a href="#" class="news-item"><span>29</span> Avrupa Birliği vize serbestisi için tarih verdi.[span_66](start_span)[span_66](end_span)[span_67](start_span)[span_67](end_span)</a>
+            <a href="#" class="news-item"><span>30</span> Gizemli radyo sinyalleri tekrar tespit edildi.[span_68](start_span)[span_68](end_span)[span_69](start_span)[span_69](end_span)</a>
+            <a href="#" class="news-item"><span>31</span> Antalya'da turizm sezonu rekorla açıldı.[span_70](start_span)[span_70](end_span)[span_71](start_span)[span_71](end_span)</a>
+            <a href="#" class="news-item"><span>32</span> Sosyal medya influencer'larına vergi denetimi.[span_72](start_span)[span_72](end_span)[span_73](start_span)[span_73](end_span)</a>
+            <a href="#" class="news-item"><span>33</span> Konut kredisi faizleri düştü: İşte yeni oranlar.[span_74](start_span)[span_74](end_span)[span_75](start_span)[span_75](end_span)</a>
+            <a href="#" class="news-item"><span>34</span> Kızılay kan stoku uyarısı yaptı: Bağış yapın.[span_76](start_span)[span_76](end_span)[span_77](start_span)[span_77](end_span)</a>
+            <a href="#" class="news-item"><span>35</span> Beşiktaş'ta şok sakatlık: Yıldız isim yok.[span_78](start_span)[span_78](end_span)[span_79](start_span)[span_79](end_span)</a>
+            <a href="#" class="news-item"><span>36</span> Masterchef Türkiye'de ilk finalist belli oldu.[span_80](start_span)[span_80](end_span)[span_81](start_span)[span_81](end_span)</a>
+            <a href="#" class="news-item"><span>37</span> Sıfır otomobil fiyat listeleri güncellendi.[span_82](start_span)[span_82](end_span)[span_83](start_span)[span_83](end_span)</a>
+            <a href="#" class="news-item"><span>38</span> İstanbul Modern'de yeni sergi kapılarını açtı.[span_84](start_span)[span_84](end_span)[span_85](start_span)[span_85](end_span)</a>
+            <a href="#" class="news-item"><span>39</span> Telegram'dan güvenlik güncellemesi geldi.[span_86](start_span)[span_86](end_span)[span_87](start_span)[span_87](end_span)</a>
+            <a href="#" class="news-item"><span>40</span> KYK yurt başvuruları için son tarih ne zaman?[span_88](start_span)[span_88](end_span)[span_89](start_span)[span_89](end_span)</a>
+            <a href="#" class="news-item"><span>41</span> İngiltere Kralı'ndan Türkiye ziyareti kararı.[span_90](start_span)[span_90](end_span)[span_91](start_span)[span_91](end_span)</a>
+            <a href="#" class="news-item"><span>42</span> Uzmanlar uyardı: Göz nezlesine dikkat.[span_92](start_span)[span_92](end_span)[span_93](start_span)[span_93](end_span)</a>
+            <a href="#" class="news-item"><span>43</span> İzmir metrosunda teknik arıza: Seferler durdu.[span_94](start_span)[span_94](end_span)[span_95](start_span)[span_95](end_span)</a>
+            <a href="#" class="news-item"><span>44</span> Tesla Model Y Türkiye satışları patladı.[span_96](start_span)[span_96](end_span)[span_97](start_span)[span_97](end_span)</a>
+            <a href="#" class="news-item"><span>45</span> Oscar ödül töreninde tarih değişikliği.[span_98](start_span)[span_98](end_span)[span_99](start_span)[span_99](end_span)</a>
+            <a href="#" class="news-item"><span>46</span> Balık sezonu kapandı: Fiyatlar el yakıyor.[span_100](start_span)[span_100](end_span)[span_101](start_span)[span_101](end_span)</a>
+            <a href="#" class="news-item"><span>47</span> UNESCO Türkiye'den 2 eseri daha listeye aldı.[span_102](start_span)[span_102](end_span)[span_103](start_span)[span_103](end_span)</a>
+            <a href="#" class="news-item"><span>48</span> Bedelli askerlik yerleri ne zaman açıklanacak?[span_104](start_span)[span_104](end_span)[span_105](start_span)[span_105](end_span)</a>
+            <a href="#" class="news-item"><span>49</span> Kahve çekirdeği krizi: Fiyatlara yansıdı.[span_106](start_span)[span_106](end_span)[span_107](start_span)[span_107](end_span)</a>
+            <a href="#" class="news-item"><span>50</span> Jüpiter'in uydusu Europa'da yaşam izi.[span_108](start_span)[span_108](end_span)[span_109](start_span)[span_109](end_span)</a>
+        </div>
+    </aside>
 </div>
+
+<footer>
+    <p>Manşet Türkiye Haber Yayın Grubu | © 2026<br>İletişim: haber@mansetturkiye.com</p>
+</footer>
 
 </body>
 </html>
