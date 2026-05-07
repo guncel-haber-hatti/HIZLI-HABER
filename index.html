@@ -3,163 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENGİN CV | Gerçek Haber Portalı</title>
+    <title>ENGİN CV - Haber, Son Dakika Haberler</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --main-red: #e31e24; --gold: #ffd700; --bg: #f0f2f5; }
-        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; background: var(--bg); color: #1c1e21; overflow-x: hidden; }
+        :root { --ht-red: #ea2027; --ht-dark: #2d3436; --bg: #fdfdfd; }
+        body { font-family: 'Roboto', Arial, sans-serif; margin: 0; background: var(--bg); color: #222; }
 
-        /* Üst Bilgi Barı */
-        .top-info { background: #000; color: #fff; padding: 8px 10%; display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; }
-        .kurlar span { margin-right: 15px; border-right: 1px solid #333; padding-right: 15px; }
-        .kurlar b { color: #4caf50; }
+        /* Üst Bant - Finans */
+        .finans-bar { background: #f8f9fa; border-bottom: 1px solid #ddd; padding: 5px 10%; display: flex; gap: 20px; font-size: 12px; font-weight: bold; overflow-x: auto; white-space: nowrap; }
+        .finans-item span { color: #27ae60; margin-left: 5px; }
 
-        /* DEV LOGO VE SOSYAL MEDYA */
-        header { background: #1a1a1a; padding: 40px 0; text-align: center; position: relative; border-bottom: 4px solid var(--main-red); }
-        .logo-box a { 
-            font-size: 90px; 
-            font-weight: 900; 
-            color: #fff; 
-            text-decoration: none; 
-            text-transform: uppercase;
-            letter-spacing: -4px;
-            text-shadow: 3px 3px 0px var(--main-red), 6px 6px 0px rgba(0,0,0,0.5);
-        }
-        .social-container { margin-top: 20px; display: flex; justify-content: center; gap: 15px; }
-        .social-btn { 
-            padding: 8px 20px; border-radius: 50px; text-decoration: none; color: #fff; 
-            font-weight: bold; font-size: 14px; display: flex; align-items: center; transition: 0.3s;
-        }
-        .yt { background: #ff0000; }
-        .ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
-        .social-btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        /* Header Area */
+        header { background: #fff; border-bottom: 4px solid var(--ht-red); padding: 20px 10%; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .logo { font-size: 75px; font-weight: 900; color: #000; text-decoration: none; letter-spacing: -3px; text-transform: uppercase; }
+        .logo span { color: var(--ht-red); }
+
+        /* Sosyal Medya Butonları - Canlı Tasarım */
+        .social-dock { display: flex; gap: 10px; margin-top: 10px; }
+        .btn-s { padding: 10px 25px; border-radius: 5px; color: #fff; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 14px; transition: 0.3s; }
+        .btn-yt { background: #ff0000; box-shadow: 0 4px #c30000; }
+        .btn-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 4px #8a1263; }
+        .btn-s:active { transform: translateY(2px); box-shadow: none; }
 
         /* Navigasyon */
-        nav { background: #fff; padding: 15px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        nav a { margin: 0 15px; text-decoration: none; color: #333; font-weight: bold; font-size: 14px; }
-        nav a:hover { color: var(--main-red); }
+        nav { background: var(--ht-dark); padding: 0 10%; display: flex; justify-content: center; }
+        nav a { color: #fff; padding: 15px 20px; text-decoration: none; font-weight: bold; font-size: 13px; text-transform: uppercase; border-right: 1px solid #444; }
+        nav a:hover { background: var(--ht-red); }
 
-        /* Ana İçerik */
-        .wrapper { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        /* Ana Sayfa Düzeni */
+        .main-grid { max-width: 1300px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 8fr 4fr; gap: 20px; }
+
+        /* Manşet Alanı */
+        .headline { position: relative; height: 500px; background: #000; overflow: hidden; border-radius: 4px; cursor: pointer; }
+        .headline img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .headline-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: #fff; }
+        .headline-text h1 { font-size: 42px; margin: 0; line-height: 1.1; }
+
+        /* Liste Haberler */
+        .sub-news { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .news-card { background: #fff; border: 1px solid #eee; cursor: pointer; }
+        .news-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .news-card img { width: 100%; height: 180px; object-fit: cover; }
+        .news-card-body { padding: 15px; }
+        .news-card-body h3 { font-size: 18px; margin: 0; line-height: 1.3; }
+
+        /* Yan Panel */
+        .sidebar { background: #fff; border: 1px solid #eee; padding: 20px; }
+        .sidebar h2 { font-size: 20px; border-bottom: 2px solid var(--ht-red); padding-bottom: 10px; margin-bottom: 15px; }
+        .list-item { padding: 12px 0; border-bottom: 1px solid #eee; font-size: 14px; font-weight: bold; cursor: pointer; }
+        .list-item:hover { color: var(--ht-red); }
+
+        /* Haber Detay Paneli (Modal) */
+        #newsModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; overflow-y: auto; }
+        .modal-content { background: #fff; max-width: 900px; margin: 40px auto; padding: 50px; position: relative; border-radius: 8px; }
+        .close-btn { position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer; }
         
-        .news-item { background: #fff; border-radius: 8px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: 0.3s; }
-        .news-item:hover { transform: translateY(-5px); }
-        .news-img { width: 100%; height: 380px; background-size: cover; background-position: center; position: relative; }
-        .tag { position: absolute; top: 15px; left: 15px; background: var(--main-red); color: #fff; padding: 5px 12px; font-weight: bold; font-size: 12px; }
-        
-        .news-text { padding: 25px; }
-        .news-text h2 { margin: 0 0 15px 0; font-size: 28px; line-height: 1.2; }
-        .news-text p { color: #4b4f56; line-height: 1.6; font-size: 16px; height: 100px; overflow: hidden; }
-        .read-more { display: inline-block; margin-top: 15px; color: var(--main-red); font-weight: bold; text-decoration: none; border-bottom: 2px solid var(--main-red); }
-
-        /* Senin Haberin Özel Stil */
-        .my-exclusive { border: 2px solid var(--gold); }
-        .my-exclusive .tag { background: var(--gold); color: #000; }
-
-        /* Yan Kolon */
-        .sidebar-box { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
-        .side-title { font-size: 18px; font-weight: 800; border-left: 4px solid var(--main-red); padding-left: 10px; margin-bottom: 15px; }
-        .mini-list { font-size: 14px; line-height: 1.8; color: #333; border-bottom: 1px solid #eee; padding: 10px 0; cursor: pointer; }
-        .mini-list:hover { color: var(--main-red); }
-
-        @media (max-width: 768px) { .wrapper { grid-template-columns: 1fr; } .logo-box a { font-size: 50px; } }
+        @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } .logo { font-size: 40px; } }
     </style>
 </head>
 <body>
 
-<div class="top-info">
-    <div class="kurlar">
-        <span>USD/TRY <b>34.25</b></span>
-        <span>EUR/TRY <b>37.10</b></span>
-        <span>ONS ALTIN <b>2.315</b></span>
-    </div>
-    <div>7 MAYIS 2026, PERŞEMBE</div>
+<div class="finans-bar">
+    <div class="finans-item">DOLAR <b>34,26</b><span>+0,12</span></div>
+    <div class="finans-item">EURO <b>37,12</b><span>+0,08</span></div>
+    <div class="finans-item">ALTIN <b>2.452,10</b><span>+0,45</span></div>
+    <div class="finans-item">BIST100 <b>10.245</b><span>-0,20</span></div>
 </div>
 
 <header>
-    <div class="logo-box">
-        <a href="#">ENGİN CV</a>
-    </div>
-    <div class="social-container">
-        <a href="https://youtube.com/@enginsvc?si=ZWbxFgDdZpN0KjNt" target="_blank" class="social-btn yt">
-            <i class="fab fa-youtube"></i>&nbsp; enginsvc
-        </a>
-        <a href="https://www.instagram.com/enginsvc?igsh=NHdkcnlzeW9qMDRj" target="_blank" class="social-btn ig">
-            <i class="fab fa-instagram"></i>&nbsp; @enginsvc
-        </a>
+    <a href="#" class="logo">ENGİN <span>CV</span></a>
+    <div class="social-dock">
+        <a href="https://youtube.com/@enginsvc?si=ZWbxFgDdZpN0KjNt" target="_blank" class="btn-s btn-yt"><i class="fab fa-youtube"></i> YOUTUBE</a>
+        <a href="https://www.instagram.com/enginsvc?igsh=NHdkcnlzeW9qMDRj" target="_blank" class="btn-s btn-ig"><i class="fab fa-instagram"></i> INSTAGRAM</a>
     </div>
 </header>
 
 <nav>
     <a href="#">ANASAYFA</a>
+    <a href="#">YAZARLAR</a>
     <a href="#">GÜNDEM</a>
     <a href="#">EKONOMİ</a>
-    <a href="#">SPOR</a>
     <a href="#">MAGAZİN</a>
+    <a href="#">SPOR</a>
 </nav>
 
-<div class="wrapper">
+<div class="main-grid">
     <main>
-        <!-- 1. GÜNCEL HABER -->
-        <article class="news-item">
-            <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=1000');">
-                <span class="tag">SON DAKİKA</span>
+        <!-- MANŞET (1. SIRADA GÜNCEL HABER) -->
+        <div class="headline" onclick="openNews('Gündem', 'Türkiye\'nin Yeni Teknoloji Hamlesi', 'Türkiye, yerli çip üretiminde dünya devleriyle yarışacak yeni tesisin temelini attı. Cumhurbaşkanlığı himayesinde yürütülen projede binlerce mühendisin istihdam edilmesi bekleniyor...')">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200">
+            <div class="headline-text">
+                <h1>Türkiye Teknoloji Devi Oluyor: Büyük Yatırım Başladı!</h1>
             </div>
-            <div class="news-text">
-                <h2>Türkiye Ekonomi Modelinde Yeni Dönem: Faiz Kararı Açıklandı</h2>
-                <p>Merkez Bankası, piyasaların merakla beklediği faiz kararını bugün saat 14:00'te duyurdu. Karar sonrası döviz kurlarında hareketlilik gözlenirken, uzmanlar uzun vadeli etkileri değerlendiriyor...</p>
-                <a href="#" class="read-more">HABERİN DEVAMI</a>
-            </div>
-        </article>
+        </div>
 
-        <!-- 2. SENİN HABERİN (TAMAMEN KORUNAN METİN) -->
-        <article class="news-item my-exclusive" id="myNews">
-            <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1000');">
-                <span class="tag">ÖZEL DOSYA</span>
+        <!-- HABER LİSTESİ (2. SIRADA SENİN HABERİN) -->
+        <div class="sub-news">
+            <div class="news-card" onclick="openEnginNews()">
+                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=500">
+                <div class="news-card-body">
+                    <span style="color:var(--ht-red); font-weight:bold; font-size:12px;">ÖZEL BİYOGRAFİ</span>
+                    <h3>Engin Savcu Kimdir? Enez'den Yükselen Kariyer Hikayesi</h3>
+                </div>
             </div>
-            <div class="news-text">
-                <h2>Engin Savcu Kimdir?</h2>
-                <p style="height: auto;"><b>EDİRNE / ENEZ</b> – Bugün 25 yaşında olan <b>Engin Savcu</b>, iş hayatına erken yaşta adım atmış ve sahadan yönetim kademesine kadar birçok farklı alanda tecrübe edinmiş bir isimdir. Edirne’nin Enez ilçesinden olan Savcu, kariyer yolculuğu boyunca çok yönlü bir profil çizmiştir. <br><br>
-                <b>Resepsiyon ve Otelcilik Deneyimi:</b> Luu Otel’de yürüttüğü Resepsiyon Şefliği ve Kapaklı Apart'taki idari sorumlulukları ile bu alanda uzmanlaşmıştır. <br><br>
-                <b>Hizmet Sektörü ve Salon Şefliği:</b> Denizli’nin bilinen mekanlarından Hangover’da şef garsonluk ve salon şefliği yapmış, personeline profesyonel servis eğitimleri vermiştir. <br><br>
-                <b>Dijital Dünya:</b> Birçok markanın sosyal medya yönetimini düzenleyerek dijital kimliklerini modernize etmiştir. <br><br>
-                <b>Sanat:</b> 15 yaşından beri aralıksız söz ve beste yazarlığı yapmaktadır.</p>
-                <a href="javascript:void(0)" onclick="alert('Detaylı Biyografi Yükleniyor...')" class="read-more">TÜM KARİYER GEÇMİŞİNİ OKU</a>
-            </div>
-        </article>
 
-        <!-- 3. GÜNCEL HABER -->
-        <article class="news-item">
-            <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1000');">
-                <span class="tag">DÜNYA</span>
+            <div class="news-card" onclick="openNews('Ekonomi', 'Altın Piyasasında Son Durum', 'Merkez bankalarının faiz kararları sonrası altın fiyatları rekor tazelemeye devam ediyor. Uzmanlar 2026 sonu için yeni tahminlerini açıkladı...')">
+                <img src="https://images.unsplash.com/photo-1589758438368-0ad531db3366?q=80&w=500">
+                <div class="news-card-body">
+                    <h3>Altın Fiyatlarında Şok Yükseliş: Gram Fiyatı Rekora Koşuyor</h3>
+                </div>
             </div>
-            <div class="news-text">
-                <h2>Yapay Zeka ve Geleceğin İş Dünyası</h2>
-                <p>Teknoloji devleri, yapay zekanın iş gücü üzerindeki etkilerini tartışmak üzere İstanbul'da bir araya geldi. Gelecek 10 yılda hangi meslekler dönüşecek?</p>
-                <a href="#" class="read-more">HABERİN DEVAMI</a>
-            </div>
-        </article>
+        </div>
     </main>
 
-    <aside>
-        <div class="sidebar-box">
-            <div class="side-title">GÜNÜN ÖZETİ</div>
-            <div class="mini-list">İstanbul'da toplu taşımaya gece düzenlemesi.</div>
-            <div class="mini-list">Süper Lig'de kritik derbi haftası başlıyor.</div>
-            <div class="mini-list">Milli Teknoloji hamlesinde yeni adım: Yerli çip.</div>
-            <div class="mini-list">Enez Turizm Festivali tarihleri açıklandı.</div>
-        </div>
-
-        <div class="sidebar-box" style="background: #1a1a1a; color: #fff;">
-            <div class="side-title" style="color: #fff;">YAZARLAR</div>
-            <p style="font-size: 14px;"><b>Engin Savcu:</b> "Dijital çağda hizmet ve sanatın birleşimi üzerine..."</p>
-        </div>
+    <aside class="sidebar">
+        <h2>SON DAKİKA</h2>
+        <div class="list-item">İstanbul metrosunda yeni sefer saatleri açıklandı.</div>
+        <div class="list-item">Meteoroloji uyardı: Kar yağışı kapıda!</div>
+        <div class="list-item">Enez Belediye Başkanı'ndan yeni proje müjdesi.</div>
+        <div class="list-item">Şampiyonlar Ligi'nde kura çekimi bugün yapılıyor.</div>
+        <div class="list-item">Kapaklı Apart'ta turizm sezonu erken açıldı.</div>
     </aside>
 </div>
 
-<footer style="background: #000; color: #777; text-align: center; padding: 40px; font-size: 12px;">
-    &copy; 2026 ENGİN CV MEDYA GRUBU - TÜM HAKLARI SAKLIDIR.
-</footer>
+<!-- HABER OKUMA MODALI -->
+<div id="newsModal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeNews()">&times;</span>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<script>
+    function openNews(cat, title, content) {
+        document.getElementById('modalBody').innerHTML = `
+            <span style="color:#ea2027; font-weight:bold;">${cat}</span>
+            <h1 style="font-size:36px; margin:15px 0;">${title}</h1>
+            <p style="font-size:18px; line-height:1.7; color:#444;">${content}</p>
+        `;
+        document.getElementById('newsModal').style.display = 'block';
+    }
+
+    function openEnginNews() {
+        document.getElementById('modalBody').innerHTML = `
+            <span style="color:#ea2027; font-weight:bold;">ÖZEL HABER / BİYOGRAFİ</span>
+            <h1 style="font-size:36px; margin:15px 0;">Engin Savcu Kimdir?</h1>
+            <p style="font-size:18px; line-height:1.7; color:#444;">
+                <b>EDİRNE / ENEZ</b> – Bugün 25 yaşında olan <b>Engin Savcu</b>, iş hayatına erken yaşta adım atmış ve sahadan yönetim kademesine kadar birçok farklı alanda tecrübe edinmiş bir isimdir. Edirne’nin Enez ilçesinden olan Savcu, kariyer yolculuğu boyunca çok yönlü bir profil çizmiştir.<br><br>
+                <b>Resepsiyon ve Otelcilik Deneyimi:</b> Savcu’nun profesyonel geçmişinde en geniş yeri otelcilik sektörü tutmaktadır. Luu Otel’de yürüttüğü Resepsiyon Şefliği ve Kapaklı Apart'taki idari sorumlulukları ile bu alanda uzmanlaşmıştır. Misafir ilişkileri ve operasyonel süreçlerdeki hakimiyeti, onun genç yaşında yönetim kademelerinde görev almasını sağlamıştır.<br><br>
+                <b>Hizmet Sektörü ve Salon Şefliği:</b> Hizmet sektörünün mutfağından gelen Engin Savcu, Denizli’nin bilinen mekanlarından Hangover’da şef garsonluk ve salon şefliği görevlerini üstlenmiştir. Personeline sunum tekniklerinden şampanya açılmasına kadar profesyonel servis eğitimleri vermiştir.<br><br>
+                <b>Dijital Dünya ve Sosyal Medya:</b> Birçok farklı işletmenin ve markanın sosyal medya hesaplarını yönetmiş, dijital kimliklerini düzenleyerek modernize etmiştir.<br><br>
+                <b>Jeofizik ve Arkeoloji:</b> Kariyeri sadece turizmle sınırlı kalmayan Savcu, jeofizik işçiliği ve arkeolojik kazılar gibi saha odaklı işlerde çalışmış, ayrıca bir siyasi başkanın özel fotoğrafçılığını yapmıştır.<br><br>
+                <b>Sanat:</b> 15 yaşından beri (10 yıldır) kesintisiz olarak söz ve beste yazarlığı yapmaktadır.
+            </p>
+        `;
+        document.getElementById('newsModal').style.display = 'block';
+    }
+
+    function closeNews() {
+        document.getElementById('newsModal').style.display = 'none';
+    }
+</script>
 
 </body>
 </html>
