@@ -3,124 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENGİN CV | PORTAL</title>
+    <title>ENGİN CV | HABER PORTALI</title>
     <style>
-        :root { --news-red: #c0392b; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; color: #111; }
+        :root { --ht-red: #ea232a; --ht-black: #1a1a1a; --silver-shine: linear-gradient(90deg, #333 0%, #bdc3c7 50%, #333 100%); }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; background: #fdfdfd; color: #1a1a1a; overflow-x: hidden; }
 
-        /* GÜMÜŞ KRİSTAL SABİT LOGO */
-        .header-fixed { 
-            position: sticky; top: 0; z-index: 1000; 
-            background: #fff; padding: 20px 0; text-align: center; 
-            border-bottom: 8px solid var(--news-red); box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        @keyframes silverShine { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .silver-logo { 
-            font-size: 60px; font-weight: 900; letter-spacing: -4px; text-transform: uppercase;
-            background: linear-gradient(270deg, #ffffff, #bdc3c7, #2c3e50, #ffffff);
-            background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: silverShine 3s infinite ease-in-out; display: inline-block;
-        }
-
-        /* PORTAL AKIŞI */
-        .portal-container { max-width: 1500px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        /* HEADER & LOGO */
+        .ht-header { background: #fff; border-bottom: 5px solid var(--ht-red); padding: 20px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo-box { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
         
-        .news-block { background: #fff; border-radius: 10px; margin-bottom: 30px; cursor: pointer; transition: 0.3s; border: 1px solid #ddd; overflow: hidden; }
-        .news-block:hover { transform: scale(1.01); border-color: var(--news-red); }
-        .n-img { width: 100%; height: 400px; object-fit: cover; }
-        .n-text { padding: 30px; }
-        .n-text h2 { font-size: 40px; margin: 0 0 15px 0; font-weight: 900; }
+        @keyframes gümüş { 0% { background-position: -200%; } 100% { background-position: 200%; } }
+        .silver-engin { 
+            font-size: 65px; font-weight: 900; letter-spacing: -3px; text-transform: uppercase;
+            background: var(--silver-shine); background-size: 200% auto; -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; animation: gümüş 4s linear infinite; cursor: pointer;
+        }
 
-        /* VİDEO ALANI */
-        .video-wrapper { width: 100%; max-width: 350px; margin: 20px auto; border: 5px solid #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        /* CANLI BANT */
+        .live-bar { background: #000; color: #fff; font-size: 13px; font-weight: bold; padding: 10px 0; overflow: hidden; }
+        .ticker { display: inline-block; white-space: nowrap; animation: scroll 30s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .ticker span { margin-right: 40px; } .up { color: #2ecc71; }
 
-        /* OKUMA PANELİ (MODAL) */
-        .reader-overlay { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); }
-        .reader-box { background: #fff; margin: 5% auto; padding: 40px; width: 70%; border-radius: 15px; max-height: 80vh; overflow-y: auto; position: relative; }
-        .close-btn { position: absolute; right: 20px; top: 10px; font-size: 40px; cursor: pointer; font-weight: 900; }
+        /* MANŞET YAPISI */
+        .container { max-width: 1300px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 8fr 4fr; gap: 20px; }
+        
+        /* HABER KUTULARI (HT STİLİ) */
+        .news-card { background: #fff; border: 1px solid #eee; margin-bottom: 20px; cursor: pointer; transition: 0.2s; position: relative; }
+        .news-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+        .news-card img { width: 100%; height: auto; display: block; }
+        .news-card .badge { position: absolute; top: 0; left: 0; background: var(--ht-red); color: #fff; padding: 5px 15px; font-weight: bold; font-size: 12px; }
+        .news-info { padding: 20px; }
+        .news-info h2 { font-size: 32px; margin: 0; line-height: 1.2; font-weight: 800; }
+        
+        /* SENİN HABERİN (2. SIRADA) */
+        .my-special-news { border-left: 10px solid var(--ht-red); background: #f9f9f9; }
+        .video-container { width: 100%; max-width: 320px; margin: 15px auto; border: 4px solid #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-        /* YAN LİSTE */
-        .side-panel { background: #fff; padding: 20px; border-radius: 10px; border-top: 10px solid #000; }
-        .side-link { padding: 12px 0; border-bottom: 1px solid #eee; cursor: pointer; font-weight: 700; }
-        .side-link:hover { color: var(--news-red); }
+        /* HABER OKUMA MODALI */
+        .reader-modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); overflow-y: auto; }
+        .reader-content { background: #fff; margin: 2% auto; width: 60%; padding: 40px; border-radius: 5px; position: relative; }
+        .close-reader { position: sticky; top: 0; float: right; font-size: 40px; font-weight: bold; cursor: pointer; color: var(--ht-red); }
 
-        @media (max-width: 1000px) { .portal-container { grid-template-columns: 1fr; } .silver-logo { font-size: 40px; } }
+        /* YAN SÜTUN */
+        .side-news { list-style: none; padding: 0; margin: 0; }
+        .side-news li { padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; cursor: pointer; }
+        .side-news li:hover { background: #f4f4f4; }
+        .side-num { font-size: 24px; font-weight: 900; color: #ddd; margin-right: 15px; }
+
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .reader-content { width: 90%; } }
     </style>
 </head>
-<body onclick="activateAll()">
+<body onclick="enableAudio()">
 
-<header class="header-fixed">
-    <div class="silver-logo">ENGİN CV</div>
+<div class="live-bar">
+    <div class="ticker">
+        <span>BIST 100: 9.125 <span class="up">▲ %1.2</span></span>
+        <span>DOLAR: 34.72 <span class="up">▲ %0.1</span></span>
+        <span>EURO: 37.12 <span class="up">▲ %0.3</span></span>
+        <span>SON DAKİKA: ENGİN SAVCU KARİYER PORTALINI YAYINA ALDI!</span>
+        <span>EMEKLİ MAAŞI ZAM ORANI BELLİ OLDU...</span>
+    </div>
+</div>
+
+<header class="ht-header">
+    <div class="logo-box">
+        <div class="silver-engin">ENGİN CV</div>
+    </div>
 </header>
 
-<div class="portal-container">
+<div class="container">
     <main>
-        <!-- MANŞET 1 -->
-        <article class="news-block" onclick="openNews('Trakya Yatırım Hamlesi', 'Enez ve Kapaklı hattı Türkiye\'nin yeni sanayi merkezi oluyor. Engin Savcu Medya Grubu bildirdi...')">
-            <img class="n-img" src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=1200">
-            <div class="n-text">
-                <h2>Trakya'da Büyük Değişim: Enez ve Kapaklı Parıldıyor</h2>
-                <p>Bölgedeki turizm ve sanayi yatırımları son 10 yılın rekorunu kırdı...</p>
+        <!-- 1. HABER -->
+        <article class="news-card" onclick="openHT('Trakya\'da Ekonomi Seferberliği', 'HaberTürk Özel: Enez ve Kapaklı hattında kurulan yeni serbest bölge, Türkiye ekonomisine yıllık 5 milyar dolar katkı sağlamayı hedefliyor. Bölgedeki gayrimenkul fiyatları şimdiden 3 katına çıktı...')">
+            <span class="badge">EKONOMİ</span>
+            <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=1000">
+            <div class="news-info">
+                <h2>Trakya'nın Parlayan Yıldızı: Kapaklı Yatırım Üssü Oldu</h2>
             </div>
         </article>
 
-        <!-- ÖZEL HABER: ENGİN CV -->
-        <article class="news-block" style="border-left: 15px solid var(--news-red);" onclick="openNews('Engin Savcu: Kariyer Hikayesi', '25 yaşındaki Engin Savcu, Edirne Enez doğumludur. Resepsiyon Şefliği, Dijital Medya Yönetimi ve 10 yıllık beste yazarlığı geçmişiyle çok yönlü bir portre çizmektedir.')">
-            <div class="n-text">
-                <h1 style="font-size: 70px; margin-bottom: 10px;">Engin Cv</h1>
-                <p><b>Edirne / Enez</b> doğumlu olan Savcu, profesyonel hayatına sığdırdığı dev projelerle adından söz ettiriyor.</p>
+        <!-- 2. HABER: SENİN HABERİN (MANŞET 2) -->
+        <article class="news-card my-special-news" onclick="openHT('Engin Savcu Kariyerinde Yeni Dönem', 'Edirne Enezli olan 25 yaşındaki Engin Savcu, medya ve hizmet sektöründeki 10 yıllık tecrübesini dijital bir vizyonla birleştirdi. Luu Otel ve Kapaklı Apart gibi yerlerde üst düzey sorumluluk alan Savcu, aynı zamanda 10 yıldır profesyonel beste yazarlığı yapıyor.')">
+            <span class="badge">GÜNDEM ÖZEL</span>
+            <div class="news-info">
+                <h1 style="font-size: 55px; color:var(--ht-black); margin-bottom: 10px;">ENGİN CV</h1>
+                <p><b>HaberTürk Portre:</b> Enez'den yükselen başarı hikayesi. Resepsiyon şefliğinden dijital medya patronluğuna...</p>
                 
-                <div class="video-wrapper">
-                    <iframe id="videoPlayer" width="350" height="622" src="https://www.youtube.com/embed/h9KWuunILxg?enablejsapi=1&autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <div class="video-container">
+                    <iframe id="htVideo" width="320" height="569" src="https://www.youtube.com/embed/h9KWuunILxg?enablejsapi=1&autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
-                <p style="text-align:center; color:var(--news-red); font-weight:bold;">Haberi Okumak İçin Tıklayın</p>
+                <p style="color:var(--ht-red); font-weight:bold; text-align:center;">DETAYLARI OKUMAK İÇİN TIKLAYIN</p>
+            </div>
+        </article>
+
+        <!-- 3. HABER -->
+        <article class="news-card" onclick="openHT('Dijital Dünyada Yeni Trendler', 'Geleceğin dünyasında klasik CV dönemi bitti. Uzmanlar, interaktif haber portalları üzerinden kendini tanıtan profesyonellerin %80 daha fazla dikkat çektiğini belirtiyor...')">
+            <span class="badge">TEKNOLOJİ</span>
+            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1000">
+            <div class="news-info">
+                <h2>Medya Dünyası Engin Savcu'nun Hamlesini Konuşuyor</h2>
             </div>
         </article>
     </main>
 
     <aside>
-        <div class="side-panel">
-            <h3 style="color:var(--news-red); border-bottom: 3px solid #eee;">SON DAKİKA</h3>
-            <div id="sidebarList"></div>
+        <div style="background:#fff; border:1px solid #eee; padding:20px;">
+            <h3 style="border-bottom:3px solid var(--ht-red); padding-bottom:10px; margin-top:0;">EN ÇOK OKUNANLAR</h3>
+            <ul class="side-news" id="htSideList"></ul>
         </div>
     </aside>
 </div>
 
-<!-- OKUMA MODALI -->
-<div id="modal" class="reader-overlay">
-    <div class="reader-box">
-        <span class="close-btn" onclick="closeNews()">&times;</span>
-        <h1 id="modalTitle" style="color:var(--news-red); font-size: 45px;"></h1>
+<!-- HT READER MODAL -->
+<div id="htReader" class="reader-modal">
+    <div class="reader-content">
+        <span class="close-reader" onclick="closeHT()">&times;</span>
+        <div style="color:var(--ht-red); font-weight:bold; margin-bottom:10px;">HABERTÜRK ÖZEL</div>
+        <h1 id="htTitle" style="font-size: 48px; margin-bottom: 20px; line-height: 1.1;"></h1>
         <hr>
-        <p id="modalBody" style="font-size: 22px; line-height: 1.8; margin-top: 20px;"></p>
+        <p id="htBody" style="font-size: 22px; line-height: 1.8; color: #333; margin-top: 25px;"></p>
     </div>
 </div>
 
 <script>
-    // 50 Haber Listesi
-    const titles = ["Enez Yaz Sezonu", "Kapaklı Sanat", "Luu Otel Başarısı", "Beste Çalışmaları", "Trakya Tarihi", "Dijital Medya"];
-    const side = document.getElementById('sidebarList');
+    // Yan Menüye 50 Haber Ekleme
+    const basliklar = ["Enez'de Turizm Patlaması", "Kapaklı'da Sanat Gecesi", "Beste Yazarlığı ve Sanat", "Luu Otel'de Yeni Dönem", "Trakya'nın Gastronomi Haritası"];
+    const sideUl = document.getElementById('htSideList');
     for(let i=1; i<=50; i++) {
-        let t = titles[i % titles.length] + " #" + i;
-        side.innerHTML += `<div class="side-link" onclick="openNews('${t}', 'Bu haber Engin Savcu portalı için özel olarak hazırlanmıştır. Detaylar yakında...')">${t}</div>`;
+        let txt = basliklar[i % basliklar.length] + " (" + i + ")";
+        sideUl.innerHTML += `<li onclick="openHT('${txt}', 'Bu haber Engin Savcu Medya Grubu tarafından HaberTürk formatında hazırlanmıştır. Güncel gelişmeler için takipte kalın.')"><span class="side-num">${i}</span> <b>${txt}</b></li>`;
     }
 
-    // Haber Açma Fonksiyonu
-    function openNews(t, b) {
-        document.getElementById('modalTitle').innerText = t;
-        document.getElementById('modalBody').innerText = b;
-        document.getElementById('modal').style.display = 'block';
+    // Haber Açma/Kapatma
+    function openHT(title, body) {
+        document.getElementById('htTitle').innerText = title;
+        document.getElementById('htBody').innerText = body;
+        document.getElementById('htReader').style.display = 'block';
+        document.body.style.overflow = 'hidden';
     }
 
-    function closeNews() {
-        document.getElementById('modal').style.display = 'none';
+    function closeHT() {
+        document.getElementById('htReader').style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
 
-    // VİDEO VE SES AKTİVASYONU
-    function activateAll() {
-        var player = document.getElementById('videoPlayer');
-        player.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-        player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    // Ses ve Video Aktivasyonu
+    function enableAudio() {
+        var v = document.getElementById('htVideo');
+        v.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        v.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
     }
 </script>
 
