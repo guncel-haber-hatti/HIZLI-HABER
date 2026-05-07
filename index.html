@@ -3,140 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GÜNCEL HABER | Profesyonel Haber Portalı</title>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Oswald:wght@500;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>GÜNCEL HABER | Engin Savcu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Condensed:wght@400;700&family=PT+Serif:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #002D5B; --gold: #C5A028; --white: #FFFFFF; --bg: #F5F7F9; }
-        body { font-family: 'Source Sans Pro', sans-serif; margin: 0; background: var(--bg); color: #333; }
+        :root { --navy: #002244; --gold: #d4af37; --white: #ffffff; --bg: #f2f2f2; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Roboto Condensed', sans-serif; margin: 0; background: var(--bg); color: #333; line-height: 1.4; }
 
-        /* BORSA BARI */
-        .market-bar { background: var(--navy); color: var(--gold); font-size: 12px; padding: 10px 0; font-weight: bold; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .market-bar span { margin: 0 15px; text-transform: uppercase; }
+        /* ÜST DÖVİZ BARI */
+        .ticker-bar { background: #111; color: var(--gold); padding: 8px; font-size: 12px; display: flex; justify-content: center; gap: 20px; font-weight: bold; overflow: hidden; }
+        .ticker-bar span i { color: #00ff00; font-style: normal; margin-left: 4px; }
 
-        /* HEADER */
-        header { background: var(--white); border-bottom: 4px solid var(--navy); padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .header-wrap { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .main-logo { font-family: 'Oswald', sans-serif; font-size: 38px; color: var(--navy); text-decoration: none; font-weight: 700; }
-        .main-logo span { color: var(--gold); }
+        /* HEADER & LOGO */
+        header { background: var(--white); border-bottom: 4px solid var(--navy); padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .h-container { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 32px; font-weight: 700; color: var(--navy); text-decoration: none; text-transform: uppercase; }
+        .logo span { color: var(--gold); }
+        
+        /* ARAMA MOTORU */
+        .search-nav { display: flex; border: 1px solid #ddd; border-radius: 4px; overflow: hidden; }
+        .search-nav input { border: none; padding: 8px; outline: none; width: 150px; font-size: 13px; }
+        .search-nav button { background: var(--navy); color: #fff; border: none; padding: 8px 12px; cursor: pointer; }
 
-        .search-nav { display: flex; align-items: center; gap: 15px; }
-        .search-nav input { padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; outline: none; font-size: 14px; }
-        .search-nav button { background: var(--navy); color: #fff; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; font-weight: 600; }
+        .main-layout { max-width: 1200px; margin: 20px auto; display: grid; grid-template-columns: 8fr 4fr; gap: 20px; padding: 0 15px; }
 
-        /* ANA SAYFA DÜZENİ */
-        .content-grid { max-width: 1100px; margin: 30px auto; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; padding: 0 20px; }
+        /* MANŞET (ENGİN CV) */
+        .hero-news { background: var(--white); border-radius: 4px; overflow: hidden; cursor: pointer; border-bottom: 4px solid var(--gold); position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .hero-news img { width: 100%; height: 320px; object-fit: cover; transition: 0.5s; }
+        .hero-news:hover img { transform: scale(1.02); }
+        .hero-info { padding: 20px; }
+        .hero-info .badge { background: var(--gold); color: #fff; padding: 3px 8px; font-size: 11px; font-weight: bold; position: absolute; top: 15px; left: 15px; }
+        .hero-info h1 { font-family: 'PT Serif', serif; font-size: 30px; margin: 10px 0; color: var(--navy); }
 
-        /* MANŞET HABER (ENGİN CV) */
-        .headline-card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .headline-image { width: 100%; height: 350px; object-fit: cover; border-bottom: 5px solid var(--gold); }
-        .headline-body { padding: 30px; }
-        .headline-body .category { color: var(--gold); font-weight: 700; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 10px; }
-        .headline-body h1 { font-family: 'Merriweather', serif; font-size: 32px; color: var(--navy); margin: 0 0 20px; line-height: 1.3; }
+        /* KÜÇÜK HABER LİSTESİ (ALT) */
+        .sub-news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .small-card { background: #fff; display: flex; gap: 10px; padding: 10px; border-radius: 4px; border: 1px solid #ddd; cursor: pointer; }
+        .small-card img { width: 90px; height: 70px; object-fit: cover; }
+        .small-card h4 { margin: 0; font-size: 14px; color: var(--navy); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-        /* SOSYAL MEDYA BUTONLARI */
-        .social-links { display: flex; gap: 12px; margin-bottom: 25px; }
-        .social-links a { padding: 10px 20px; border-radius: 4px; color: #fff; text-decoration: none; font-weight: 700; font-size: 13px; transition: 0.3s; }
-        .insta-btn { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-        .yt-btn { background: #FF0000; }
-        .social-links a:hover { opacity: 0.85; transform: translateY(-2px); }
+        /* YAN PANEL */
+        .sidebar { background: #fff; border-radius: 4px; border-top: 4px solid var(--navy); padding: 15px; height: fit-content; }
+        .sidebar h3 { font-family: 'Oswald', sans-serif; font-size: 18px; border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-top: 0; color: var(--navy); }
+        .side-item { display: block; padding: 10px 0; border-bottom: 1px solid #eee; text-decoration: none; color: #444; font-size: 13px; font-weight: bold; }
+        .side-item:hover { color: var(--gold); }
 
-        /* HABER METNİ */
-        .article-text { font-size: 17px; line-height: 1.7; color: #444; }
-        .article-text p { margin-bottom: 15px; }
+        /* MODAL (HABER İÇERİĞİ) */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 2000; overflow-y: auto; }
+        .modal-body { max-width: 800px; margin: 50px auto; padding: 20px; position: relative; }
+        .close-btn { position: fixed; right: 20px; top: 20px; font-size: 40px; cursor: pointer; color: var(--navy); font-weight: bold; }
 
-        /* VİDEO */
-        .video-container { margin-top: 30px; background: #000; border-radius: 8px; overflow: hidden; }
+        /* BUTONLAR (TAM RENKLİ) */
+        .btn-wrap { display: flex; gap: 10px; margin: 20px 0; }
+        .btn-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); color: #fff; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 13px; }
+        .btn-yt { background: #FF0000; color: #fff; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 13px; }
 
-        /* YAN PANEL (SON DAKİKA) */
-        .sidebar { background: var(--white); padding: 25px; border-radius: 8px; border-top: 4px solid var(--gold); }
-        .sidebar h3 { font-family: 'Oswald', sans-serif; font-size: 22px; color: var(--navy); margin: 0 0 15px; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; }
-        .sidebar-list { list-style: none; padding: 0; margin: 0; }
-        .sidebar-list li { border-bottom: 1px solid #f0f0f0; padding: 12px 0; }
-        .sidebar-list li a { text-decoration: none; color: #333; font-size: 14px; font-weight: 600; transition: 0.2s; }
-        .sidebar-list li a:hover { color: var(--gold); }
-        .sidebar-list li span { color: var(--gold); font-weight: 700; margin-right: 8px; font-size: 12px; }
-
-        @media (max-width: 850px) {
-            .content-grid { grid-template-columns: 1fr; }
-            .headline-image { height: 250px; }
-            .headline-body h1 { font-size: 24px; }
+        /* MOBİL UYUMLULUK */
+        @media (max-width: 768px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sub-news-grid { grid-template-columns: 1fr; }
+            .ticker-bar { font-size: 10px; gap: 10px; }
+            .hero-news img { height: 200px; }
+            .logo { font-size: 24px; }
+            .search-nav input { width: 100px; }
         }
     </style>
 </head>
 <body>
 
-<div class="market-bar">
-    <span>Dolar: 34.22 ▲</span>
-    <span>Euro: 37.15 ▼</span>
-    <span>Altın: 2.945 ▲</span>
-    <span>Bist: 9.250 ▲</span>
-    <span>Bitcoin: $64.120 ▼</span>
+<div class="ticker-bar">
+    <span>USD: 34.22<i>▲</i></span>
+    <span>EUR: 37.15<i>▼</i></span>
+    <span>ALTIN: 2.945<i>▲</i></span>
+    <span>BIST: 9.250<i>▲</i></span>
 </div>
 
 <header>
-    <div class="header-wrap">
-        <a href="#" class="main-logo">GÜNCEL<span>HABER</span></a>
+    <div class="h-container">
+        <a href="#" class="logo">GÜNCEL<span>HABER</span></a>
         <div class="search-nav">
-            <input type="text" placeholder="Gündem Ara...">
+            <input type="text" placeholder="Haber ara...">
             <button>ARA</button>
         </div>
     </div>
 </header>
 
-<div class="content-grid">
-    <!-- ANA HABER ALANI -->
-    <main>
-        <article class="headline-card">
-            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1100" class="headline-image" alt="Haber">
-            <div class="headline-body">
-                <span class="category">ÖZEL MANŞET</span>
-                <h1>Engin Savcu CV</h1>
-                
-                <div class="social-links">
-                    <a href="https://instagram.com/enginsvc" target="_blank" class="insta-btn">INSTAGRAM</a>
-                    <a href="https://youtube.com/@enginsvc" target="_blank" class="yt-btn">YOUTUBE</a>
-                </div>
-
-                <div class="article-text">
-                    <p><b>EDİRNE / ENEZ</b> – Bugün 25 yaşında olan <b>Engin Savcu</b>, iş hayatına erken yaşta adım atmış ve sahadan yönetim kademesine kadar birçok farklı alanda tecrübe edinmiş bir isimdir. Edirne’nin Enez ilçesinden olan Savcu, kariyer yolculuğu boyunca çok yönlü bir profil çizmiştir.</p>
-                    <p><b>Resepsiyon ve Otelcilik Deneyimi:</b> Savcu’nun profesyonel geçmişinde en geniş yeri otelcilik sektörü tutmaktadır. <b>Luu Otel</b>’de yürüttüğü <b>Resepsiyon Şefliği</b> ve <b>Kapaklı Apart</b>'taki idari sorumlulukları ile bu alanda uzmanlaşmıştır.</p>
-                    <p><b>Hizmet Sektörü ve Salon Şefliği:</b> Denizli’nin bilinen mekanlarından <b>Hangover</b>’da şef garsonluk ve salon şefliği görevlerini üstlenmiştir. <b>Tüm ekibe profesyonel servis eğitimleri vermiş, hatta şampanya açmasından servis inceliklerine kadar her detayı bizzat öğretmiştir.</b></p>
-                    <p><b>Dijital Dünya ve Sosyal Medya Yönetimi:</b> Teknolojiyi ve dijital trendleri yakından takip eden Savcu, bu alanda da aktif bir rol üstlenmiştir. <b>Trend Aqua Park</b> bünyesindeki çalışmalarıyla dijital kimliği modernize etmiştir.</p>
-                    <p><b>Jeofizik, Arkeoloji ve Fotoğrafçılık:</b> Kariyeri sadece turizmle sınırlı kalmayan Savcu, jeofizik işçiliği ve arkeolojik kazılarda görev almıştır. Siyasi fotoğrafçılık tecrübesi bulunmaktadır.</p>
-                    <p><b>15 Yaşından Bugüne: Sanat ve Kapaklı:</b> 10 yıldır aktif olarak <b>söz ve beste yazarlığı</b> yapmaktadır. Kapaklı'da sürdürdüğü bu çalışmalar sanat dünyasında ilgi görmektedir.</p>
-                </div>
-
-                <div class="video-container">
-                    <iframe width="100%" height="450" src="https://www.youtube.com/embed/h9KWuunILxg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                </div>
+<div class="main-layout">
+    <!-- SOL TARAF: MANŞET VE KÜÇÜK HABERLER -->
+    <section>
+        <div class="hero-news" onclick="openModal()">
+            <div class="badge">MANŞET</div>
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000">
+            <div class="hero-info">
+                <h1>Engin Cv</h1>
+                <p style="color:#666;">Enez'den yükselen kariyer basamakları ve 10 yıllık sanat hayatının detayları bu haberimizde.</p>
             </div>
-        </article>
-    </main>
-
-    <!-- YAN PANEL SON DAKİKA -->
-    <aside>
-        <div class="sidebar">
-            <h3>SON DAKİKA</h3>
-            <ul class="sidebar-list">
-                <li><a href="#"><span>01</span> İstanbul metrosunda yeni dönem başlıyor.</a></li>
-                <li><a href="#"><span>02</span> Milli takımdan tarihi galibiyet!</a></li>
-                <li><a href="#"><span>03</span> Altın fiyatlarında yeni rekor kırıldı.</a></li>
-                <li><a href="#"><span>04</span> Marmara için fırtına uyarısı yapıldı.</a></li>
-                <li><a href="#"><span>05</span> Emekli maaşları ödeme takvimi açıklandı.</a></li>
-                <li><a href="#"><span>06</span> Teknoloji festivaline yoğun ilgi sürüyor.</a></li>
-                <li><a href="#"><span>07</span> Yerli otomobilde yeni model yolda.</a></li>
-                <li><a href="#"><span>08</span> İhracat rakamları beklentileri aştı.</a></li>
-                <li><a href="#"><span>09</span> Turizmde Eylül ayı hedefleri tuttu.</a></li>
-                <li><a href="#"><span>10</span> Karadeniz'de yeni enerji keşfi iddiası.</a></li>
-                <li><a href="#"><span>11</span> Eğitimde dijital kitap dönemine geçildi.</a></li>
-                <li><a href="#"><span>12</span> Konut satışlarında hareketlilik başladı.</a></li>
-                <li><a href="#"><span>13</span> Sağlık Bakanlığı personel alım ilanı.</a></li>
-                <li><a href="#"><span>14</span> Uzay yolculuğu için geri sayım başladı.</a></li>
-                <li><a href="#"><span>15</span> Yeni anayasa çalışmaları hız kazandı.</a></li>
-            </ul>
         </div>
+
+        <div class="sub-news-grid">
+            <div class="small-card">
+                <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=200">
+                <h4>Ekonomi paketinde yeni düzenlemeler Meclis'te.</h4>
+            </div>
+            <div class="small-card">
+                <img src="https://images.unsplash.com/photo-1504462385559-c4e5304e227a?w=200">
+                <h4>Yerli teknoloji devinden dünya çapında hamle.</h4>
+            </div>
+            <div class="small-card">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=200">
+                <h4>Uzay araştırmalarında tarihi dönemeç: Yeni bulgular.</h4>
+            </div>
+            <div class="small-card">
+                <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=200">
+                <h4>Sağlık dünyasında devrim: Yeni nesil tedavi yöntemleri.</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAĞ TARAF: SON DAKİKA 15 LİSTE -->
+    <aside class="sidebar">
+        <h3>SON DAKİKA</h3>
+        <a href="#" class="side-item">1. İstanbul'da trafik için yeni çözüm planı.</a>
+        <a href="#" class="side-item">2. Milli takımdan muhteşem geri dönüş.</a>
+        <a href="#" class="side-item">3. Altın piyasasında hareketli dakikalar.</a>
+        <a href="#" class="side-item">4. Meteoroloji'den 5 il için sarı kodlu uyarı.</a>
+        <a href="#" class="side-item">5. Emekli maaş promosyonları güncellendi.</a>
+        <a href="#" class="side-item">6. Turizmde Eylül ayı hedefleri aşıldı.</a>
+        <a href="#" class="side-item">7. Togg'dan yeni SUV modeli için tarih verildi.</a>
+        <a href="#" class="side-item">8. İhracat rakamlarında rekor kırıldı.</a>
+        <a href="#" class="side-item">9. Yeni anayasa çalışmaları için ilk toplantı.</a>
+        <a href="#" class="side-item">10. Karadeniz gazında kapasite artışı.</a>
+        <a href="#" class="side-item">11. Havalimanlarında kış tarifesine geçildi.</a>
+        <a href="#" class="side-item">12. Siber güvenlikte milli hamle başladı.</a>
+        <a href="#" class="side-item">13. Konut satışlarında Eylül hareketliliği.</a>
+        <a href="#" class="side-item">14. Yeni nesil kimlik kartlarında başvuru kolaylığı.</a>
+        <a href="#" class="side-item">15. Tarım destek ödemeleri bugün hesaplarda.</a>
     </aside>
 </div>
+
+<!-- HABER DETAY MODALI -->
+<div id="modalHaber" class="modal">
+    <div class="modal-body">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        
+        <div class="btn-wrap">
+            <a href="https://instagram.com/enginsvc" target="_blank" class="btn-insta">INSTAGRAM</a>
+            <a href="https://youtube.com/@enginsvc" target="_blank" class="btn-yt">YOUTUBE</a>
+        </div>
+
+        <h1 style="font-family: 'PT Serif', serif; font-size: 36px; color: var(--navy); margin-bottom: 20px;">Engin Cv</h1>
+        <hr style="border: 1px solid var(--gold);">
+
+        <div style="font-size: 18px; line-height: 1.8; color: #333;">
+            <p><b>EDİRNE / ENEZ</b> – Bugün 25 yaşında olan <b>Engin Savcu</b>, iş hayatına erken yaşta adım atmış ve sahadan yönetim kademesine kadar birçok farklı alanda tecrübe edinmiş bir isimdir. Edirne’nin Enez ilçesinden olan Savcu, kariyer yolculuğu boyunca çok yönlü bir profil çizmiştir.</p>
+            <p><b>Resepsiyon ve Otelcilik Deneyimi:</b> Savcu’nun profesyonel geçmişinde en geniş yeri otelcilik sektörü tutmaktadır. <b>Luu Otel</b>’de yürüttüğü <b>Resepsiyon Şefliği</b> ve <b>Kapaklı Apart</b>'taki idari sorumlulukları ile bu alanda uzmanlaşmıştır.</p>
+            <p><b>Hizmet Sektörü ve Salon Şefliği:</b> Denizli’nin bilinen mekanlarından <b>Hangover</b>’da şef garsonluk ve salon şefliği görevlerini üstlenmiştir. <b>Tüm ekibe profesyonel servis eğitimleri vermiş, hatta şampanya açmasından servis inceliklerine kadar her detayı bizzat öğretmiştir.</b></p>
+            <p><b>Dijital Dünya ve Sosyal Medya Yönetimi:</b> Teknolojiyi ve dijital trendleri yakından takip eden Savcu, bu alanda da aktif bir rol üstlenmiştir. <b>Trend Aqua Park</b> bünyesindeki çalışmalarıyla dijital kimliği modernize etmiştir.</p>
+            <p><b>Jeofizik, Arkeoloji ve Fotoğrafçılık:</b> Kariyeri sadece turizmle sınırlı kalmayan Savcu, jeofizik işçiliği ve arkeolojik kazılarda görev almıştır. Siyasi fotoğrafçılık tecrübesi bulunmaktadır.</p>
+            <p><b>15 Yaşından Bugüne: Sanat ve Kapaklı:</b> 10 yıldır aktif olarak <b>söz ve beste yazarlığı</b> yapmaktadır. Kapaklı'da sürdürdüğü bu çalışmalar sanat dünyasında ilgi görmektedir.</p>
+        </div>
+
+        <div style="margin-top: 30px; border-top: 3px solid var(--gold); padding-top: 20px;">
+            <h3 style="color: var(--navy);">Tanıtım Videosu</h3>
+            <iframe width="100%" height="450" src="https://www.youtube.com/embed/h9KWuunILxg" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('modalHaber').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        document.getElementById('modalHaber').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+</script>
 
 </body>
 </html>
