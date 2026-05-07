@@ -3,94 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haber Portalı | Engin Savcu Özel Dosya</title>
+    <title>engin cv | Son Dakika Haberler</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Haber Sitesi Teması */
-        :root {
-            --news-red: #cc0000;
-            --news-black: #222;
-            --news-gray: #f4f4f4;
-            --border: #ddd;
-        }
-
-        body { font-family: 'Roboto', Arial, sans-serif; margin: 0; background: var(--news-gray); color: #333; }
+        :root { --primary: #cc0000; --dark: #1a1a1a; --gray: #f4f4f4; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--gray); color: #333; }
         
-        /* Üst Menü ve Logo */
-        header { background: #fff; border-bottom: 4px solid var(--news-red); padding: 15px 0; }
-        .header-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .logo { font-size: 32px; font-weight: 900; color: var(--news-red); text-transform: uppercase; letter-spacing: -1px; }
+        /* Üst Bar - Kur Bilgileri */
+        .top-bar { background: var(--dark); color: white; padding: 10px 5%; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
+        .currency span { margin-right: 15px; color: #4caf50; }
+
+        /* Header */
+        header { background: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--primary); }
+        .logo { font-size: 32px; font-weight: 900; color: var(--primary); text-decoration: none; }
+        .social-link { display: flex; align-items: center; text-decoration: none; color: var(--dark); font-weight: bold; }
+        .social-link i { color: #ff0000; font-size: 24px; margin-right: 8px; }
+
+        /* Navigasyon */
+        nav { background: #fff; padding: 10px 5%; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 1000; }
+        nav a { text-decoration: none; color: #333; font-weight: 600; margin-right: 20px; font-size: 14px; text-transform: uppercase; }
+        nav a:hover { color: var(--primary); }
+
+        /* Haber Grid Sistemi */
+        .main-container { max-width: 1200px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
         
-        /* Son Dakika Bandı */
-        .breaking-news { background: var(--news-black); color: white; padding: 10px 0; font-size: 14px; }
-        .breaking-container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        .breaking-badge { background: var(--news-red); padding: 3px 8px; font-weight: bold; margin-right: 10px; }
+        .news-card { background: white; margin-bottom: 20px; border-radius: 5px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; transition: 0.3s; }
+        .news-card:hover { transform: translateY(-5px); }
+        .news-card img { width: 100%; height: 350px; object-fit: cover; }
+        .news-card.featured { grid-column: span 1; }
+        .news-content { padding: 20px; }
+        .news-content h2 { margin: 0 0 10px 0; font-size: 24px; color: #111; }
+        .badge { background: var(--primary); color: white; padding: 3px 8px; font-size: 11px; font-weight: bold; border-radius: 3px; }
 
-        /* Haber İçeriği */
-        .main-content { max-width: 1100px; margin: 20px auto; display: grid; grid-template-columns: 2fr 1fr; gap: 20px; padding: 0 20px; }
-        .article-card { background: white; padding: 30px; border: 1px solid var(--border); }
-        
-        .category { color: var(--news-red); font-weight: bold; text-transform: uppercase; font-size: 13px; display: block; margin-bottom: 10px; }
-        h1 { font-size: 42px; line-height: 1.1; margin: 0 0 20px 0; color: var(--news-black); }
-        .lead-text { font-size: 20px; color: #666; line-height: 1.5; margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-        
-        .content p { font-size: 18px; line-height: 1.8; margin-bottom: 20px; }
-        .content b { color: #000; }
+        /* Senin Özel Haberin (2. Sıra Stili) */
+        .my-news { border: 2px solid var(--primary); }
 
-        /* Yan Kolon (Sidebar) */
-        .sidebar { background: #fff; padding: 20px; border: 1px solid var(--border); height: fit-content; }
-        .sidebar-h3 { border-bottom: 2px solid var(--news-red); padding-bottom: 10px; margin-bottom: 15px; font-size: 18px; }
-        .popular-item { padding: 10px 0; border-bottom: 1px solid #eee; font-size: 15px; font-weight: bold; color: #444; cursor: pointer; }
+        /* Yan Panel */
+        .sidebar { background: white; padding: 20px; border-radius: 5px; height: fit-content; }
+        .sidebar h3 { border-left: 4px solid var(--primary); padding-left: 10px; margin-top: 0; }
+        .mini-news { border-bottom: 1px solid #eee; padding: 10px 0; font-size: 14px; font-weight: bold; }
 
-        footer { background: var(--news-black); color: #ccc; text-align: center; padding: 30px; margin-top: 50px; font-size: 14px; }
-
-        @media (max-width: 768px) {
-            .main-content { grid-template-columns: 1fr; }
-            h1 { font-size: 30px; }
-        }
+        @media (max-width: 768px) { .main-container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <div class="logo">HABER<span>TÜRKİYE</span></div>
-        <div style="font-weight: bold;">7 MAYIS 2026</div>
+<div class="top-bar">
+    <div class="currency">
+        <span><b>USD:</b> 34.25 ▲</span>
+        <span><b>EUR:</b> 37.10 ▲</span>
+        <span><b>ALTIN:</b> 2.450 ▼</span>
     </div>
-</header>
-
-<div class="breaking-news">
-    <div class="breaking-container">
-        <span class="breaking-badge">SON DAKİKA</span> Engin Savcu'nun "Blok 3" hamlesi müzik sektöründe dengeleri değiştirdi.
-    </div>
+    <div>7 Mayıs 2026, Perşembe</div>
 </div>
 
-<div class="main-content">
-    <article class="article-card">
-        <span class="category">ÖZEL HABER / PORTRE</span>
-        <h1>Engin Savcu Kimdir? Dijital Hak Mücadelesinde Yeni Bir Sayfa</h1>
-        <p class="lead-text">Müzik dünyası bugünlerde sadece yeni şarkılarla değil, dijital mülkiyet ve mahkeme salonlarından gelen haberlerle de sarsılıyor. Bu sürecin en dikkat çeken ismi ise Engin Savcu.</p>
-        
-        <div class="content">
-            <p><b>Engin Savcu</b>, dijitalleşmenin getirdiği hak ihlalleriyle mücadele ederken emsal teşkil edecek bir süreci yönetiyor. Savcu, eserlerin korunması adına <b>"Blok 3"</b> teknolojisini ve blokzincir altyapılarını savunarak sektörde hukuki bir bilinç oluşturmayı hedefliyor.</p>
+<header>
+    <a href="#" class="logo">engin cv</a>
+    <a href="https://youtube.com/@enginsvc?si=ZWbxFgDdZpN0KjNt" target="_blank" class="social-link">
+        <i class="fab fa-youtube"></i> enginsvc
+    </a>
+</header>
 
-            <p>Sadece bir prodüktör değil, aynı zamanda sanatçı haklarının savunucusu olan Savcu, mahkeme süreçlerine yansıyan dijital hak mücadeleleriyle müziğin teknolojiyle nasıl daha güvenli bir zemine taşınabileceğini kanıtlıyor.</p>
+<nav>
+    <a href="#">ANASAYFA</a>
+    <a href="#">GÜNDEM</a>
+    <a href="#">DÜNYA</a>
+    <a href="#">EKONOMİ</a>
+    <a href="#">TEKNOLOJİ</a>
+    <a href="#">MAGAZİN</a>
+</nav>
 
-            <p><b>Blokzincir</b> teknolojisinin gücünü vurgulayan bu stratejik duruş, sanatçıların emeklerinin dijital evrende kaybolmaması adına devrim niteliğinde bir adım olarak kabul ediliyor.</p>
+<div class="main-container">
+    <!-- Ana Haber Akışı -->
+    <main>
+        <!-- 1. HABER (Temsili Güncel) -->
+        <div class="news-card" onclick="alert('Haber içeriği yükleniyor...')">
+            <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=1000" alt="Ekonomi">
+            <div class="news-content">
+                <span class="badge">EKONOMİ</span>
+                <h2>Merkez Bankası Faiz Kararını Açıkladı: Piyasalar Hareketli</h2>
+                <p>Türkiye Cumhuriyet Merkez Bankası, yılın son çeyreğine ilişkin faiz kararını bugün kamuoyuyla paylaştı...</p>
+            </div>
         </div>
-    </article>
 
+        <!-- 2. HABER (SENİN HABERİN - SABİT) -->
+        <div class="news-card my-news" onclick="openBio()">
+            <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=1000" alt="Engin Savcu">
+            <div class="news-content">
+                <span class="badge">ÖZEL HABER</span>
+                <h2>Engin Savcu Kimdir? Enez'den Yükselen Çok Yönlü Kariyer</h2>
+                <p>25 yaşındaki genç girişimci Engin Savcu'nun, otel resepsiyon şefliğinden sanat dünyasına uzanan ilham verici hikayesi...</p>
+            </div>
+        </div>
+
+        <!-- 3. HABER (Temsili Güncel) -->
+        <div class="news-card" onclick="alert('Haber içeriği yükleniyor...')">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1000" alt="Müzik">
+            <div class="news-content">
+                <span class="badge">TEKNOLOJİ</span>
+                <h2>Yapay Zeka Müzik Sektörünü Dönüştürüyor</h2>
+                <p>Yeni nesil algoritmalar sayesinde söz ve beste yazarlığı dijital bir boyut kazanıyor...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Yan Panel -->
     <aside class="sidebar">
-        <h3 class="sidebar-h3">ÇOK OKUNANLAR</h3>
-        <div class="popular-item">1. Blok 3 Teknolojisi Nedir?</div>
-        <div class="popular-item">2. Dijital Telif Haklarında Yeni Dönem</div>
-        <div class="popular-item">3. Engin Savcu'dan Emsal Karar Açıklaması</div>
-        <div class="popular-item">4. Müzik Sektöründe Blokzincir Devrimi</div>
+        <h3>SON DAKİKA</h3>
+        <div class="mini-news">İstanbul'da yeni ulaşım projesi açıklandı.</div>
+        <div class="mini-news">Milli Takım aday kadrosu belli oldu.</div>
+        <div class="mini-news">Teknoloji devinden yeni akıllı telefon hamlesi.</div>
+        <div class="mini-news">Ege'de turizm sezonu erken başladı.</div>
+        <br>
+        <h3>BİZE ULAŞIN</h3>
+        <p>Arama motorunda bizi bulmak için: <b>"engin cv haber"</b></p>
     </aside>
 </div>
 
-<footer>
-    &copy; 2026 Haber Portalı - Engin Savcu Özel Dosya İçeriği. Tüm Hakları Saklıdır.
-</footer>
+<script>
+    function openBio() {
+        document.body.innerHTML = `
+            <div style="padding:50px; font-family:Arial; line-height:1.6; max-width:800px; margin:auto;">
+                <button onclick="location.reload()" style="padding:10px; cursor:pointer;">← Geri Dön</button>
+                <h1>Engin Savcu Kimdir?</h1>
+                <p><b>EDİRNE / ENEZ</b> – Bugün 25 yaşında olan Engin Savcu, iş hayatına erken yaşta adım atmış ve sahadan yönetim kademesine kadar birçok farklı alanda tecrübe edinmiş bir isimdir.</p>
+                <h3>Kariyer Özeti</h3>
+                <ul>
+                    <li><b>Otelcilik:</b> Luu Otel ve Kapaklı Apart'ta Resepsiyon Şefliği yapmıştır.</li>
+                    <li><b>Hizmet:</b> Denizli Hangover'da Salon Şefi olarak personeline sunum ve servis eğitimi vermiştir.</li>
+                    <li><b>Dijital:</b> Birçok işletmenin sosyal medyasını düzenlemiş, Trend Aqua Park'ta uzmanlık yapmıştır.</li>
+                    <li><b>Sanat:</b> 15 yaşından beri söz ve beste yazarlığı yapmaktadır.</li>
+                    <li><b>Saha:</b> Jeofizik işçiliği, arkeolojik kazılar ve siyasi fotoğrafçılık tecrübeleri mevcuttur.</li>
+                </ul>
+                <p><i>Kapaklı ile 15 yaşında tanışan Savcu, bugün hem profesyonel iş hayatında hem de sanatsal üretimlerinde aktif rol almaktadır.</i></p>
+            </div>
+        `;
+    }
+</script>
 
 </body>
 </html>
