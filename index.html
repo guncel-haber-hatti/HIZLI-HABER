@@ -3,184 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENGİN CV | MEDYA PORTALI</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>ENGİN CV | ANA HABER PORTALI</title>
     <style>
-        :root { --main-red: #c0392b; --silver-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
-        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background: #eef1f4; color: #111; overflow-x: hidden; }
+        :root { --news-red: #c0392b; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f4f7f6; color: #111; }
 
-        /* 1. GÜMÜŞ PARLAYAN SABİT LOGO */
-        .top-banner { background: #fff; padding: 70px 0; text-align: center; border-bottom: 12px solid var(--main-red); position: relative; z-index: 10; }
-        @keyframes silverFluid {
-            0% { background-position: 0% 50%; filter: contrast(1.2) brightness(1.2); }
-            50% { background-position: 100% 50%; filter: contrast(1.5) brightness(1.5); }
-            100% { background-position: 0% 50%; filter: contrast(1.2) brightness(1.2); }
-        }
-        .main-logo { 
-            font-size: 120px; font-weight: 950; letter-spacing: -9px; text-transform: uppercase;
-            background: linear-gradient(270deg, #ffffff, #adb5bd, #6c757d, #ffffff);
+        /* GÜMÜŞ PARLAYAN SABİT LOGO */
+        .header-main { background: #fff; padding: 60px 0; text-align: center; border-bottom: 12px solid var(--news-red); }
+        @keyframes shine { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .silver-logo { 
+            font-size: 110px; font-weight: 900; letter-spacing: -8px; text-transform: uppercase;
+            background: linear-gradient(270deg, #ffffff, #bdc3c7, #495057, #ffffff);
             background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: silverFluid 3s infinite ease-in-out; display: inline-block;
+            animation: shine 3s infinite ease-in-out; display: inline-block;
         }
 
-        /* 2. CANLI HABER & PİYASA BANDI */
-        .ticker-bar { background: #000; color: #fff; padding: 15px 0; overflow: hidden; white-space: nowrap; font-weight: 800; }
-        .ticker-content { display: inline-block; animation: tickerScroll 50s linear infinite; }
-        @keyframes tickerScroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-        .t-unit { margin-right: 60px; font-size: 16px; } .up { color: #2ecc71; }
+        /* CANLI HABER BANDI */
+        .ticker { background: #000; color: #fff; padding: 12px 0; overflow: hidden; white-space: nowrap; font-weight: bold; }
+        .ticker-move { display: inline-block; animation: ticker 45s linear infinite; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .t-item { margin-right: 50px; }
 
-        /* 3. DEV PORTAL DÜZENİ (50 HABER) */
-        .portal-main { max-width: 1650px; margin: 40px auto; padding: 0 25px; display: grid; grid-template-columns: 8.5fr 3.5fr; gap: 45px; }
-        
-        .card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 45px rgba(0,0,0,0.1); margin-bottom: 50px; cursor: pointer; transition: 0.4s; border: 1px solid #ddd; }
-        .card:hover { transform: translateY(-12px); box-shadow: 0 25px 60px rgba(0,0,0,0.15); }
-        .card-img { width: 100%; height: 550px; object-fit: cover; }
-        .card-body { padding: 55px; }
-        .card-body h2 { font-size: 55px; font-weight: 900; line-height: 1.1; margin: 0 0 25px 0; color: #000; }
-        .card-body p { font-size: 22px; line-height: 1.9; color: #333; }
+        /* PORTAL DÜZENİ */
+        .main-wrapper { max-width: 1600px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 8fr 4fr; gap: 40px; }
 
-        /* 4. SENİN HABERİN: MANŞET & SESLİ VİDEO */
-        .headline-engin { border-left: 20px solid var(--main-red); }
-        .video-box { position: relative; width: 100%; max-width: 440px; margin: 45px auto; border-radius: 35px; overflow: hidden; box-shadow: 0 45px 90px rgba(0,0,0,0.5); border: 8px solid #fff; }
-        .social-tags { position: absolute; top: 25px; width: 100%; display: flex; justify-content: center; gap: 15px; z-index: 20; }
-        .s-link { background: rgba(255,255,255,0.2); backdrop-filter: blur(15px); padding: 15px 25px; border-radius: 50px; color: #fff; text-decoration: none; font-weight: 900; border: 1px solid rgba(255,255,255,0.3); font-size: 14px; }
-        .s-link:hover { background: var(--main-red); }
+        /* HABER BLOKLARI */
+        .news-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 40px; cursor: pointer; transition: 0.3s; border: 1px solid #eee; }
+        .news-card:hover { transform: translateY(-10px); border-color: var(--news-red); }
+        .news-img { width: 100%; height: 500px; object-fit: cover; }
+        .news-txt { padding: 40px; }
+        .news-txt h2 { font-size: 50px; font-weight: 950; line-height: 1.1; margin: 0 0 20px 0; }
+        .news-txt p { font-size: 20px; line-height: 1.7; color: #444; }
 
-        /* 5. YAN PANEL (50+ LİSTE) */
-        .sidebar-portal { background: #fff; padding: 40px; border-radius: 15px; border-top: 15px solid #111; height: fit-content; position: sticky; top: 30px; }
-        .side-h { font-size: 32px; font-weight: 950; color: var(--main-red); border-bottom: 6px solid #f0f0f0; padding-bottom: 20px; margin-bottom: 30px; }
-        .side-news { list-style: none; padding: 0; }
-        .side-news li { padding: 22px 0; border-bottom: 1px solid #eee; font-weight: 800; font-size: 19px; cursor: pointer; transition: 0.3s; }
-        .side-news li:hover { color: var(--main-red); padding-left: 20px; }
+        /* VİDEO ALANI */
+        .video-box { position: relative; width: 100%; max-width: 400px; margin: 30px auto; border-radius: 30px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border: 6px solid #fff; }
 
-        /* MODAL HABER OKUMA */
-        .news-modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); }
-        .news-modal-content { background: #fff; margin: 4% auto; padding: 65px; width: 70%; border-radius: 25px; max-height: 85vh; overflow-y: auto; }
-        .close-modal { float: right; font-size: 60px; font-weight: 900; cursor: pointer; color: #000; }
+        /* YAN LİSTE */
+        .sidebar { background: #fff; padding: 30px; border-radius: 12px; border-top: 12px solid #000; height: fit-content; }
+        .side-item { padding: 18px 0; border-bottom: 1px solid #eee; font-weight: 800; cursor: pointer; font-size: 18px; }
+        .side-item:hover { color: var(--news-red); padding-left: 10px; transition: 0.2s; }
 
-        @media (max-width: 1300px) { .portal-main { grid-template-columns: 1fr; } .main-logo { font-size: 65px; } .sidebar-portal { position: relative; top: 0; } }
+        /* OKUMA PANELİ */
+        .reader { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
+        .reader-content { background: #fff; margin: 4% auto; padding: 60px; width: 65%; border-radius: 20px; max-height: 80vh; overflow-y: auto; position: relative; }
+        .close { position: absolute; right: 30px; top: 20px; font-size: 60px; font-weight: 900; cursor: pointer; }
+
+        @media (max-width: 1200px) { .main-wrapper { grid-template-columns: 1fr; } .silver-logo { font-size: 60px; } }
     </style>
 </head>
-<body onclick="unmuteVideo()">
+<body onclick="startPortal()">
 
-<!-- CANLI BANT -->
-<div class="ticker-bar">
-    <div class="ticker-content">
-        <span class="t-unit">DOLAR: 34.68 <span class="up">▲</span></span>
-        <span class="t-unit">EURO: 37.15 <span class="up">▲</span></span>
-        <span class="t-unit">ENEZ: TURİZM REKORU <span class="up">▲</span></span>
-        <span class="t-unit">KAPAKLI: YATIRIM BÜYÜME %15 <span class="up">▲</span></span>
-        <span class="t-unit">FLAŞ: ENGİN SAVCU KARİYER PORTALINI AÇTI!</span>
+<div class="ticker">
+    <div class="ticker-move">
+        <span class="t-item">DOLAR: 34.68 ▲</span>
+        <span class="t-item">SON DAKİKA: ENGİN SAVCU MEDYA SEKTÖRÜNDE TAŞLARI YERİNDEN OYNATIYOR!</span>
+        <span class="t-item">KAPAKLI: YILIN EN HIZLI BÜYÜYEN ŞEHRİ SEÇİLDİ ▲</span>
     </div>
 </div>
 
-<!-- SABİT LOGO -->
-<div class="top-banner">
-    <div class="main-logo">ENGİN CV</div>
-</div>
+<header class="header-main">
+    <div class="silver-logo">ENGİN CV</div>
+</header>
 
-<div class="portal-main">
-    <!-- ANA HABER AKIŞI -->
+<div class="main-wrapper">
     <main>
-        <!-- 1. BLOK -->
-        <article class="card" onclick="openH('Trakya Ekonomi Devrimi', 'Enez ve Kapaklı hattı Türkiye\'nin yeni sanayi ve turizm merkezi oluyor. Uzmanlar bölgeyi parlayan yıldız olarak tanımlıyor...')">
-            <img class="card-img" src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=1600">
-            <div class="card-body">
-                <h2>Trakya'da Büyük Değişim: Enez ve Kapaklı Yatırım Üssü Oldu</h2>
-                <p>Türkiye'nin lojistik ve stratejik merkezi Trakya'ya kayıyor. Enez sahillerinden Kapaklı sanayisine kadar dev bir kalkınma hamlesi başladı...</p>
+        <!-- 1. HABER -->
+        <article class="news-card" onclick="read('Trakya\'da Yatırım Hamlesi', 'Enez sahilleri ve Kapaklı hattı Türkiye\'nin yeni Dubai\'si olma yolunda. Dev sanayi kuruluşları Kapaklı\'ya taşınırken, Enez turizm rekorları kırıyor...')">
+            <img class="news-img" src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=1600">
+            <div class="news-txt">
+                <h2>Enez ve Kapaklı Hattında Dev Yatırım Hamlesi</h2>
+                <p>Türkiye'nin lojistik merkezi Trakya'ya kayıyor. Sanayi ve turizm devleri bu hattı mesken tuttu...</p>
             </div>
         </article>
 
-        <!-- 2. BLOK: ENGİN CV (SESLİ VİDEO + TAM METİN) -->
-        <article class="card headline-engin">
-            <div class="card-body">
-                <h1 style="font-size: 85px; font-weight: 950; border-bottom: 14px solid var(--main-red); display: inline-block; margin-bottom: 35px;">Engin Cv</h1>
-                
-                <p><b>EDİRNE / ENEZ</b> – Bugün 25 yaşında olan <b>Engin Savcu</b>, iş hayatına erken yaşta adım atmış ve sahadan yönetim kademesine kadar birçok farklı alanda tecrübe edinmiş bir isimdir. Edirne’nin Enez ilçesinden olan Savcu, kariyer yolculuğu boyunca çok yönlü bir profil çizmiştir.</p>
+        <!-- 2. HABER: ENGİN SAVCU (TIKLANABİLİR) -->
+        <article class="news-card" onclick="read('Engin Savcu: Bir Başarı Hikayesi', '25 yaşındaki Engin Savcu, Edirne Enez doğumludur. 15 yaşından beri sanatla iç içe olan Savcu, profesyonel kariyerinde Resepsiyon Şefliği, Salon Şefliği ve Dijital Medya Uzmanlığı gibi kritik roller üstlenmiştir. 10 yıldır beste yazarlığı yapmaktadır.')">
+            <div class="news-txt">
+                <h1 style="font-size: 80px; font-weight: 950; border-bottom: 12px solid var(--news-red); display: inline-block;">Engin Cv</h1>
+                <p><b>EDİRNE / ENEZ</b> – Kariyerinde çok yönlülüğü ile tanınan Engin Savcu, medya ve hizmet sektörünün parlayan ismi oldu...</p>
                 
                 <div class="video-box">
-                    <div class="social-tags">
-                        <a href="https://instagram.com/enginsvc" target="_blank" class="s-link">INSTAGRAM</a>
-                        <a href="https://youtube.com/@enginsvc" target="_blank" class="s-link">YOUTUBE</a>
-                    </div>
-                    <iframe id="mainPlayer" width="440" height="782" src="https://www.youtube.com/embed/h9KWuunILxg?autoplay=1&mute=0&enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe id="vid" width="400" height="711" src="https://www.youtube.com/embed/h9KWuunILxg?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
-
-                <p><b>Resepsiyon ve Otelcilik Deneyimi:</b> Savcu’nun profesyonel geçmişinde en geniş yeri otelcilik sektörü tutmaktadır. <b>Luu Otel</b>’de yürüttüğü <b>Resepsiyon Şefliği</b> ve <b>Kapaklı Apart</b>'taki idari sorumlulukları ile bu alanda uzmanlaşmıştır.</p>
-                
-                <p><b>Hizmet Sektörü ve Salon Şefliği:</b> Denizli’nin bilinen mekanlarından <b>Hangover</b>’da şef garsonluk ve salon şefliği görevlerini üstlenmiştir. Tüm ekibe profesyonel servis eğitimleri vermiştir.</p>
-                
-                <p><b>Dijital Dünya ve Sosyal Medya Yönetimi:</b> Teknolojiyi ve dijital trendleri yakından takip eden Savcu, bu alanda da aktif bir rol üstlenmiştir. <b>Trend Aqua Park</b> bünyesindeki çalışmalarıyla dijital kimliği modernize etmiştir.</p>
-                
-                <p><b>Jeofizik, Arkeoloji ve Fotoğrafçılık:</b> Kariyeri sadece turizmle sınırlı kalmayan Savcu, jeofizik işçiliği ve arkeolojik kazılarda görev almıştır. Siyasi fotoğrafçılık tecrübesi bulunmaktadır.</p>
-                
-                <p><b>15 Yaşından Bugüne: Sanat ve Kapaklı:</b> 10 yıldır kesintisiz olarak <b>söz ve beste yazarlığı</b> yapmaktadır. Kapaklı'da sürdürdüğü bu çalışmalar sanat dünyasında ilgi görmektedir.</p>
-                
-                <p>Bugün 25 yaşında olan Engin Savcu, profesyonel tecrübeleriyle sanatsal üretkenliğini birleştirerek çalışmalarına devam etmektedir.</p>
+                <p style="text-align:center; color:var(--news-red); font-weight:bold;">Detaylar İçin Tıklayın</p>
             </div>
         </article>
 
-        <!-- 3. BLOK -->
-        <article class="card" onclick="openH('Dijital Gelecek', 'Geleceğin kariyer yönetimi artık kişisel haber portalları üzerinden yürüyor...')">
-            <img class="card-img" src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1600">
-            <div class="card-body">
-                <h2>Medya Dünyasında Yeni Trend: Kişisel Portallar</h2>
-                <p>Klasik CV formatı tarihe karıştı. Profesyoneller artık kendilerini dünyaya devasa medya portalları üzerinden tanıtıyor...</p>
+        <!-- 3. HABER -->
+        <article class="news-card" onclick="read('Dijitalleşen CV Kültürü', 'Artık kağıtlar bitti. İş dünyası kendini interaktif portallarla tanıtan vizyoner liderleri arıyor. Engin Savcu bu konuda öncü bir adım attı...')">
+            <img class="news-img" src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1600">
+            <div class="news-txt">
+                <h2>Geleceğin Medya Standartları Kapaklı'da Yazılıyor</h2>
+                <p>Dijital dönüşüm sadece teknoloji değil, bir vizyon meselesidir. İşte yeni nesil kariyer yönetimi...</p>
             </div>
         </article>
     </main>
 
-    <!-- YAN PANEL (50 HABER) -->
     <aside>
-        <div class="sidebar-portal">
-            <div class="side-h">SON DAKİKA HABERLERİ</div>
-            <ul class="side-news">
-                <li onclick="openH('Enez Sahili', 'Enez sahilleri mavi bayrak ödülünü bu yıl da korudu...')">Enez Sahili Yaz Sezonuna Rekorla Girdi</li>
-                <li onclick="openH('Kapaklı Sanat', 'Kapaklı Belediyesi yeni bir sanat kampüsü kuruyor...')">Kapaklı'da Sanat Akademisi Hamlesi</li>
-                <li onclick="openH('Luu Otel', 'Luu Otel hizmet kalitesiyle bölgenin birincisi seçildi...')">Luu Otel'den Yeni Hizmet Deklarasyonu</li>
-                <li>Beste Yazarlığında 10. Yıl Gururu</li>
-                <li>Trakya Arkeoloji Kazılarında Yeni Keşif</li>
-                <li>Jeofizik Çalışmalarında Yerli Teknoloji</li>
-                <li>Siyasi Fotoğrafçılıkta Yeni Teknikler</li>
-                <li>Denizli Hangover Yaz Menüsü Hazır</li>
-                <li>Dijital Ajanslar Kapaklı'da Buluştu</li>
-                <li>Müzik Endüstrisinde Sözün Gücü</li>
-                <!-- Diğer 40 haber başlığı buraya eklenebilir -->
-            </ul>
+        <div class="sidebar">
+            <div style="font-size: 28px; font-weight: 900; color: var(--news-red); margin-bottom: 20px;">SON DAKİKA (50+)</div>
+            <div id="sideList"></div>
         </div>
     </aside>
 </div>
 
-<!-- MODAL -->
-<div id="mPortal" class="news-modal">
-    <div class="news-modal-content">
-        <span class="close-modal" onclick="closeH()">&times;</span>
-        <h1 id="mt" style="color:var(--main-red); font-size: 55px; margin-bottom: 25px;"></h1>
+<div id="readModal" class="reader">
+    <div class="reader-content">
+        <span class="close" onclick="closeRead()">&times;</span>
+        <h1 id="rTitle" style="color:var(--news-red); font-size: 55px;"></h1>
         <hr>
-        <p id="mb" style="font-size: 26px; line-height: 1.8; margin-top: 35px;"></p>
+        <p id="rBody" style="font-size: 26px; line-height: 1.8; margin-top: 35px;"></p>
     </div>
 </div>
 
 <script>
-    function openH(t, b) {
-        document.getElementById('mt').innerText = t;
-        document.getElementById('mb').innerText = b;
-        document.getElementById('mPortal').style.display = 'block';
-    }
-    function closeH() {
-        document.getElementById('mPortal').style.display = 'none';
-    }
-    
-    // SESİ VE VİDEOYU BAŞLATMA
-    function unmuteVideo() {
-        var p = document.getElementById('mainPlayer');
-        p.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-        p.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+    const haberBasliklari = [
+        "Enez Sahili Yaz Sezonuna Rekorla Girdi",
+        "Kapaklı'da Sanat Akademisi Hamlesi",
+        "Luu Otel Bölgenin En İyisi Seçildi",
+        "Beste Yazarlığında 10. Altın Yıl",
+        "Trakya Arkeoloji Kazılarında Şok Bulgu",
+        "Dijital Ajanslar Kapaklı'da Toplanıyor",
+        "Müzik Endüstrisinde Yeni Trendler",
+        "Resepsiyon Yönetiminde Devrim",
+        "Jeofizik Çalışmalarında Yeni Dönem",
+        "Siyasi Fotoğrafçılığın Püf Noktaları"
+    ];
+
+    const list = document.getElementById('sideList');
+    for(let i=0; i<50; i++){
+        let h = haberBasliklari[i % haberBasliklari.length];
+        list.innerHTML += `<div class="side-item" onclick="read('${h}', '${h} ile ilgili sıcak gelişmeler yaşanıyor. Detaylar Engin Savcu Medya Grubunda.')">${h}</div>`;
     }
 
-    // Scroll olduğunda sesi zorla aç
-    window.addEventListener('scroll', unmuteVideo, {once: true});
+    function read(t, b) {
+        document.getElementById('rTitle').innerText = t;
+        document.getElementById('rBody').innerText = b;
+        document.getElementById('readModal').style.display = 'block';
+    }
+
+    function closeRead() { document.getElementById('readModal').style.display = 'none'; }
+
+    function startPortal() {
+        var v = document.getElementById('vid');
+        v.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        v.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+    }
 </script>
-
 </body>
 </html>
