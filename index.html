@@ -3,60 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Müzik Haber | Engin Savcu</title>
+    <title>Engin Savcu | Müzik ve Teknoloji Haberleri</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f4f4f4; color: #333; }
-        header { background: #1a1a1a; color: white; padding: 20px; text-align: center; border-bottom: 5px solid #e60000; }
-        nav { background: #fff; padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        nav a { margin: 0 15px; text-decoration: none; color: #333; font-weight: bold; }
-        
-        .container { max-width: 1000px; margin: 20px auto; padding: 20px; background: white; border-radius: 8px; }
-        .main-news { border-bottom: 2px solid #eee; padding-bottom: 30px; margin-bottom: 30px; }
-        .main-news h1 { color: #1a1a1a; font-size: 32px; }
-        .badge { background: #e60000; color: white; padding: 5px 10px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
-        
-        .content { line-height: 1.8; font-size: 18px; color: #444; }
-        .sidebar-title { border-left: 4px solid #e60000; padding-left: 10px; margin: 20px 0; font-size: 22px; }
-        
-        footer { text-align: center; padding: 40px; background: #1a1a1a; color: white; margin-top: 50px; }
-        .highlight { font-weight: bold; color: #1a1a1a; }
+        :root {
+            --accent: #c41e3a; /* Haber sitesi kırmızısı */
+            --dark: #1a1a1a;
+            --text: #333;
+            --bg: #f4f4f4;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Navigasyon */
+        nav {
+            background: #fff;
+            padding: 15px 0;
+            border-bottom: 3px solid var(--accent);
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: bold;
+            margin: 0 20px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        /* Header */
+        header {
+            background: var(--dark);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 50px;
+            margin: 0;
+            letter-spacing: -1px;
+        }
+
+        /* Ana İçerik */
+        .main-container {
+            max-width: 900px;
+            margin: -40px auto 40px;
+            background: white;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+
+        .category-tag {
+            background: var(--accent);
+            color: white;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 38px;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: var(--dark);
+        }
+
+        .meta-data {
+            color: #888;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Haber Metni */
+        .article-content p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: #444;
+        }
+
+        .highlight-box {
+            background: #fff5f6;
+            border-left: 5px solid var(--accent);
+            padding: 25px;
+            margin: 40px 0;
+            font-style: italic;
+            font-size: 20px;
+        }
+
+        .sub-title {
+            font-size: 24px;
+            color: var(--dark);
+            margin-top: 40px;
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+        }
+
+        footer {
+            background: var(--dark);
+            color: #888;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 14px;
+        }
+
+        /* Mobil Ayarlar */
+        @media (max-width: 768px) {
+            .main-container { padding: 25px; margin-top: 0; }
+            h2 { font-size: 28px; }
+            header h1 { font-size: 35px; }
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>MÜZİK DÜNYASI HABER</h1>
-</header>
-
 <nav>
-    <a href="#">ANASAYFA</a>
-    <a href="#">PRODÜKSİYON</a>
-    <a href="#">TEKNOLOJİ</a>
-    <a href="#">HUKUK</a>
+    <a href="#">Ana Sayfa</a>
+    <a href="#">Müzik</a>
+    <a href="#">Teknoloji</a>
+    <a href="#">Analiz</a>
 </nav>
 
-<div class="container">
-    <article class="main-news">
-        <span class="badge">ÖZEL HABER</span>
-        <h1>Engin Savcu Kimdir? Müzik ve Hukukun Kesişim Noktasındaki İsim</h1>
-        <p><em>Yayınlanma: 7 Mayıs 2026 - Güncelleme: Bugün</em></p>
-        
-        <div class="content">
-            <p>Müzik dünyası bugünlerde sadece notalarla değil, dijital haklar ve teknolojik devrimlerle de çalkalanıyor. Bu değişimin merkezindeki en dikkat çekici isimlerden biri ise prodüktör <span class="highlight">Engin Savcu</span>.</p>
+<header>
+    <h1>MÜZİK GÜNDEM</h1>
+</header>
 
-            <h2 class="sidebar-title">Prodüksiyondan Blokzincire</h2>
-            <p>Engin Savcu, kariyerine müziğin mutfağında, seslerin ve aranjelerin dünyasında başladı. Ancak onu meslektaşlarından ayıran en büyük özellik, müziğin sadece sanatsal değil, dijital mülkiyet boyutuna olan hakimiyeti oldu. <span class="highlight">Blok 3</span> teknolojisi ve dijital telif hakları konusundaki ısrarlı duruşu, onu bir prodüktörden öte, bir "hak savunucusu" konumuna taşıdı.</p>
+<div class="main-container">
+    <span class="category-tag">ÖZEL HABER</span>
+    <h2>Engin Savcu: Müzik Prodüksiyonunda Teknolojik Hak Arama Dönemi</h2>
+    
+    <div class="meta-data">
+        7 Mayıs 2026 | Haber Merkezi | 4 Dakika Okuma
+    </div>
 
-            <h2 class="sidebar-title">Mahkeme Süreçleri ve Emsal Kararlar</h2>
-            <p>Özellikle dijital platformlardaki hak ihlallerine karşı başlattığı mahkeme süreçleriyle tanınan Savcu, sanatçıların emeklerinin teknolojik yöntemlerle nasıl korunabileceğini kanıtladı. Blokzincir altyapısını savunarak, müzik sektöründe "şeffaflık" dönemini başlatan isimler arasında yer alıyor.</p>
+    <div class="article-content">
+        <p>Müzik endüstrisi, dijitalleşmenin getirdiği hak ihlalleriyle mücadele ederken, prodüktör <b>Engin Savcu</b> bu alanda emsal teşkil edecek bir süreci yönetiyor[span_0](start_span)[span_0](end_span).</p>
 
-            <p>Bugün Engin Savcu denildiğinde akla gelen ilk şeyler; yenilikçi prodüksiyonlar, dijital hukuk mücadelesi ve müziğin geleceğini şekillendiren teknolojik vizyondur.</p>
+        <p>Savcu, müzik eserlerinin korunması ve telif haklarının şeffaf bir şekilde yönetilmesi adına <b>"Blok 3"</b> ve benzeri teknolojik altyapıların kullanımını savunuyor[span_1](start_span)[span_1](end_span). Sadece bir prodüktör değil, aynı zamanda sanatçı haklarının savunucusu olarak ön plana çıkıyor[span_2](start_span)[span_2](end_span).</p>
+
+        <div class="highlight-box">
+            "Müziğin sadece sanatsal değil, dijital mülkiyet boyutuna olan hakimiyeti, Savcu'yu meslektaşlarından ayıran en büyük özellik."
         </div>
-    </article>
+
+        <h3 class="sub-title">Engin Savcu Kimdir?</h3>
+        <p>Kariyerine müziğin mutfağında başlayan Savcu, modern ses teknolojilerini kendine has estetik anlayışıyla birleştiriyor[span_3](start_span)[span_3](end_span). Mahkeme süreçlerine yansıyan dijital hak mücadeleleriyle, müziğin teknolojiyle nasıl daha güvenli bir zemine taşınabileceğini kanıtlıyor[span_4](start_span)[span_4](end_span).</p>
+
+        <h3 class="sub-title">Blokzincir ve Gelecek</h3>
+        <p><b>Blokzincir</b> teknolojisinin müzik sektöründeki gücünü vurgulayan bu stratejik duruş, sanatçıların emeklerinin dijital evrende kaybolmaması adına devrim niteliğinde bir adım olarak görülüyor[span_5](start_span)[span_5](end_span).</p>
+    </div>
 </div>
 
 <footer>
-    <p>&copy; 2026 Engin Savcu Kişisel Portfolyo & Haber Portalı</p>
+    &copy; 2026 Engin Savcu Haber Portalı. Tüm Hakları Saklıdır.
 </footer>
 
 </body>
