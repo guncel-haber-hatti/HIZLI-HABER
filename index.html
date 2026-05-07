@@ -3,95 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>59 HABER | Engin Savcu CV</title>
+    <title>ENGİN CV | 59 HABER MEDYA GRUBU</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --ht-red: #ea2027; --ht-dark: #1a1a1a; }
-        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; background: #f0f2f5; color: #222; }
+        :root { --ht-red: #C0392B; --silver-main: radial-gradient(circle, #fff 0%, #adb5bd 50%, #495057 100%); }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f8f9fa; color: #1a1a1a; }
 
-        /* Habertürk Stili Üst Bar */
-        .ht-header { background: #fff; border-bottom: 5px solid var(--ht-red); padding: 20px 0; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .ht-logo { font-size: 60px; font-weight: 900; color: #000; text-decoration: none; letter-spacing: -3px; }
-        .ht-logo span { color: var(--ht-red); }
-        .sub-logo { display: block; font-size: 14px; font-weight: bold; letter-spacing: 5px; color: #666; margin-top: -5px; }
+        /* GÜMÜŞ LOGO ANİMASYONU */
+        @keyframes silverFlu {
+            0% { filter: blur(0px); opacity: 1; text-shadow: 0 0 10px #fff; }
+            50% { filter: blur(4px); opacity: 0.8; text-shadow: 0 0 25px #dee2e6; }
+            100% { filter: blur(0px); opacity: 1; text-shadow: 0 0 10px #fff; }
+        }
+        .silver-logo {
+            font-size: 85px; font-weight: 950; text-transform: uppercase; letter-spacing: -5px;
+            background: var(--silver-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: silverFlu 2s infinite; display: inline-block;
+        }
 
-        /* Ana Konteynır */
-        .container { max-width: 1100px; margin: 20px auto; display: grid; grid-template-columns: 8fr 4fr; gap: 20px; padding: 0 15px; }
+        /* CANLI KUR BANDI */
+        .market-bar { background: #fff; border-bottom: 2px solid #eee; padding: 12px 0; overflow: hidden; white-space: nowrap; font-size: 14px; font-weight: 900; }
+        .ticker { display: inline-block; animation: scrollTicker 35s linear infinite; }
+        @keyframes scrollTicker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .up { color: #2ecc71; } .down { color: #e74c3c; }
 
-        /* Manşet Alanı */
-        .main-news { background: #fff; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-        .main-news img { width: 100%; height: auto; display: block; }
-        .content { padding: 30px; }
-        .category { color: var(--ht-red); font-weight: 900; font-size: 14px; text-transform: uppercase; display: block; margin-bottom: 10px; }
-        .content h1 { font-size: 42px; line-height: 1.1; margin: 0 0 20px 0; font-weight: 800; color: #000; }
+        /* HEADER */
+        header { background: #fff; border-bottom: 6px solid var(--ht-red); padding: 40px 0; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+
+        /* ANA KONTEYNER */
+        .wrapper { max-width: 1400px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 8.5fr 3.5fr; gap: 35px; }
+
+        /* HABERLER (YAZILAR ÇAKIŞMAZ) */
+        .main-feed article { background: #fff; margin-bottom: 40px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.06); }
+        .main-feed img { width: 100%; height: 500px; object-fit: cover; border-bottom: 1px solid #eee; }
+        .news-padding { padding: 40px; }
+        .news-padding h2 { font-size: 45px; font-weight: 900; margin: 0 0 20px 0; line-height: 1; color: #000; }
+        .news-padding p { font-size: 19px; line-height: 1.8; color: #333; margin-bottom: 20px; }
+
+        /* ENGİN CV HABERİ (2. SIRA) */
+        .special-cv { border-left: 15px solid var(--ht-red); }
+        .video-zone { position: relative; width: 100%; max-width: 360px; margin: 40px auto; border-radius: 20px; overflow: hidden; background: #000; }
         
-        /* METİN ALANI - Tam Sadık */
-        .article-text { font-size: 19px; line-height: 1.7; color: #333; }
-        .article-text b { color: #000; }
+        /* SOSYAL MEDYA BUTONLARI (VİDEO ÜSTÜNDE) */
+        .social-overlay {
+            position: absolute; top: 25px; width: 100%; display: flex; justify-content: center; gap: 15px; z-index: 100;
+        }
+        .btn-glass { 
+            background: rgba(255,255,255,0.25); backdrop-filter: blur(12px); padding: 12px 20px; 
+            border-radius: 50px; color: #fff; text-decoration: none; font-weight: 900; font-size: 13px;
+            border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn-glass:hover { background: var(--ht-red); transform: translateY(-3px); }
 
-        /* INSTAGRAM REEL */
-        .video-container { margin: 30px 0; background: #f9f9f9; padding: 15px; border: 1px solid #eee; display: flex; justify-content: center; }
+        /* YAN KOLON (59 HABER) */
+        .sidebar { background: #fff; padding: 25px; border-radius: 8px; border-top: 6px solid #000; }
+        .side-title { font-size: 24px; font-weight: 900; color: var(--ht-red); border-bottom: 3px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
+        .side-list { list-style: none; padding: 0; margin: 0; }
+        .side-list li { padding: 15px 0; border-bottom: 1px solid #f1f1f1; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; display: flex; gap: 10px; }
+        .side-list li:hover { color: var(--ht-red); transform: translateX(5px); }
 
-        /* Yan Kolon */
-        .sidebar { background: #fff; padding: 20px; border-top: 4px solid var(--ht-dark); height: fit-content; }
-        .sidebar h2 { font-size: 18px; border-bottom: 2px solid var(--ht-red); padding-bottom: 10px; margin-bottom: 15px; }
-        .side-item { padding: 12px 0; border-bottom: 1px solid #eee; font-weight: 700; font-size: 15px; cursor: pointer; transition: 0.2s; }
-        .side-item:hover { color: var(--ht-red); }
-
-        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } .ht-logo { font-size: 45px; } }
+        @media (max-width: 1100px) { .wrapper { grid-template-columns: 1fr; } .silver-logo { font-size: 55px; } }
     </style>
 </head>
 <body>
 
-<header class="ht-header">
-    <a href="#" class="ht-logo">59<span>HABER</span></a>
-    <span class="sub-logo">ENGİN SAVCU CV</span>
+<div class="market-bar">
+    <div class="ticker">
+        <span>USD: 34.45 <span class="up">▲</span></span> | <span>EUR: 37.12 <span class="up">▲</span></span> | <span>ALTIN: 2.450 <span class="down">▼</span></span> | <span>ENEZ TURİZM: %100 <span class="up">▲</span></span> | <span>ENGİN CV: DÜNYA MANŞETİNDE</span> | <span>KAPAKLI: YATIRIMIN MERKEZİ</span>
+    </div>
+</div>
+
+<header>
+    <a href="#" class="silver-logo">ENGİN CV</a>
 </header>
 
-<div class="container">
-    <main>
-        <article class="main-news">
-            <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=1200" alt="Manşet">
-            <div class="content">
-                <span class="category">ÖZEL DOSYA / BİYOGRAFİ</span>
-                <h1>Engin Savcu Kimdir?</h1>
+<div class="wrapper">
+    <main class="main-feed">
+        <!-- 1. HABER -->
+        <article>
+            <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=1400">
+            <div class="news-padding">
+                <h2 style="color:var(--ht-red)">Türkiye 2026: Kalkınmada Trakya Modeli</h2>
+                <p>Türkiye'nin 2026 yılı ekonomi hedeflerinde Trakya bölgesi stratejik bir üs haline geliyor. Özellikle sanayi ve turizmin birleştiği Kapaklı hattı, yerli yatırımcıların odağında.</p>
+            </div>
+        </article>
+
+        <!-- 2. SIRADA: ENGİN CV (METNE SADIK) -->
+        <article class="special-cv">
+            <div class="news-padding">
+                <h1 style="font-size: 60px; font-weight: 950; margin-bottom: 30px;">Engin Cv</h1>
                 
-                <div class="article-text">
-                    <p><b>EDİRNE / ENEZ</b> – Bugün 25 yaşında olan <b>Engin Savcu</b>, iş hayatına erken yaşta adım atmış ve sahadan yönetim kademesine kadar birçok farklı alanda tecrübe edinmiş bir isimdir. Edirne’nin Enez ilçesinden olan Savcu, kariyer yolculuğu boyunca çok yönlü bir profil çizmiştir.</p>
-                    
-                    <p><b>Resepsiyon ve Otelcilik Deneyimi:</b> Savcu’nun profesyonel geçmişinde en geniş yeri otelcilik sektörü tutmaktadır. <b>Luu Otel</b>’de yürüttüğü <b>Resepsiyon Şefliği</b> ve <b>Kapaklı Apart</b>'taki idari sorumlulukları ile bu alanda uzmanlaşmıştır.</p>
-                    
-                    <p><b>Hizmet Sektörü ve Salon Şefliği:</b> Denizli’nin bilinen mekanlarından <b>Hangover</b>’da şef garsonluk ve salon şefliği görevlerini üstlenmiştir. Tüm ekibe profesyonel servis eğitimleri vermiştir.</p>
+                <p><b>EDİRNE / ENEZ</b> – Bugün 25 yaşında olan <b>Engin Savcu</b>, iş hayatına erken yaşta adım atmış ve sahadan yönetim kademesine kadar birçok farklı alanda tecrübe edinmiş bir isimdir. Edirne’nin Enez ilçesinden olan Savcu, kariyer yolculuğu boyunca çok yönlü bir profil çizmiştir.</p>
+                
+                <p><b>Resepsiyon ve Otelcilik Deneyimi:</b> Savcu’nun profesyonel geçmişinde en geniş yeri otelcilik sektörü tutmaktadır. <b>Luu Otel</b>’de yürüttüğü <b>Resepsiyon Şefliği</b> ve <b>Kapaklı Apart</b>'taki idari sorumlulukları ile bu alanda uzmanlaşmıştır. Misafir ilişkileri ve operasyonel süreçlerdeki hakimiyeti, onun genç yaşında yönetim kademelerinde görev almasını sağlamıştır.</p>
+                
+                <p><b>Hizmet Sektörü ve Salon Şefliği:</b> Hizmet sektörünün mutfağından gelen Engin Savcu, Denizli’nin bilinen mekanlarından <b>Hangover</b>’da şef garsonluk ve salon şefliği görevlerini üstlenmiştir. Tüm ekibe profesyonel servis eğitimleri vermiştir.</p>
 
-                    <!-- INSTAGRAM REEL -->
-                    <div class="video-container">
-                        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DPP1zqagt7x/?igsh=ZmFweDl0a3d0Z3pl" data-instgrm-version="14" style="width:100%;"></blockquote>
+                <!-- VİDEO VE SOSYAL MEDYA ÜST ÜSTE -->
+                <div class="video-zone">
+                    <div class="social-overlay">
+                        <a href="https://www.instagram.com/enginsvc" target="_blank" class="btn-glass"><i class="fab fa-instagram"></i> INSTAGRAM</a>
+                        <a href="https://youtube.com/@enginsvc" target="_blank" class="btn-glass"><i class="fab fa-youtube"></i> YOUTUBE</a>
                     </div>
-
-                    <p><b>15 Yaşından Bugüne: Sanat ve Kapaklı:</b> Engin Savcu’nun hayatındaki önemli dönüm noktalarından biri 15 yaşında <b>Kapaklı</b> ile tanışması olmuştur. Aynı yaşlardan itibaren sanatla da iç içe olan Savcu, 10 yıldır kesintisiz olarak <b>söz ve beste yazarlığı</b> yapmaktadır.</p>
-                    
-                    <p>Bugün 25 yaşında olan Engin Savcu, hem profesyonel iş hayatındaki tecrübeleriyle hem de 15 yaşından beri sürdürdüğü sanatsal üretkenliğiyle çalışmalarına devam etmektedir.</p>
+                    <iframe width="360" height="640" src="https://www.youtube.com/embed/h9KWuunILxg?autoplay=1&mute=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
+
+                <p><b>Dijital Dünya ve Sosyal Medya Yönetimi:</b> Teknolojiyi ve dijital trendleri yakından takip eden Savcu, bu alanda da aktif bir rol üstlenmiştir. <b>Trend Aqua Park</b> bünyesindeki çalışmalarının yanı sıra birçok işletmenin sosyal medya yönetimini modernize etmiştir.</p>
+                
+                <p><b>Jeofizik, Arkeoloji ve Fotoğrafçılık:</b> Kariyeri sadece turizmle sınırlı kalmayan Savcu, jeofizik işçiliği ve arkeolojik kazılar gibi teknik işlerde çalışmıştır. Ayrıca siyasi bir başkanın özel fotoğrafçılığını üstlenmiştir.</p>
+                
+                <p><b>15 Yaşından Bugüne: Sanat ve Kapaklı:</b> 10 yıldır kesintisiz olarak <b>söz ve beste yazarlığı</b> yapmaktadır.</p>
+                
+                <p>Bugün 25 yaşında olan Engin Savcu, profesyonel tecrübeleriyle sanatsal üretkenliğini birleştirerek çalışmalarına devam etmektedir.</p>
+            </div>
+        </article>
+
+        <!-- 3. HABER -->
+        <article>
+            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1400">
+            <div class="news-padding">
+                <h2>Dijital Dönüşümün Yeni Liderleri</h2>
+                <p>Yeni nesil yöneticiler artık çok yönlü yetkinliklere odaklanıyor. Sanat, teknik saha bilgisi ve sosyal medya yönetimini birleştiren Engin Cv profili, sektörel standartları belirliyor.</p>
             </div>
         </article>
     </main>
 
+    <!-- YAN KOLON: 59 HABER LİSTESİ -->
     <aside>
         <div class="sidebar">
-            <h2>SON DAKİKA</h2>
-            <div class="side-item">Enez Turizminde Engin Savcu Dönemi</div>
-            <div class="side-item">Kapaklı Apart Yönetiminde Yeni Stratejiler</div>
-            <div class="side-item">Luu Otel'den Teşekkür Mesajı Yayınlandı</div>
-            <div class="side-item">Söz Yazarlığında 10. Yıl Özel Gecesi</div>
-            <div class="side-item">Denizli Hangover Servis Kalitesini Artırdı</div>
-            <div style="margin-top:20px;">
-                <a href="https://www.instagram.com/enginsvc" target="_blank" style="background:#000; color:#fff; display:block; text-align:center; padding:15px; text-decoration:none; font-weight:900; border-radius:4px;">INSTAGRAM'DAN TAKİP ET</a>
-            </div>
+            <div class="side-title">59 HABER AKIŞI</div>
+            <ul class="side-list">
+                <li>Enez Sahili Yaz Sezonuna Rekorla Girdi</li>
+                <li>Kapaklı'da Sanat Akademisi Açılıyor</li>
+                <li>Luu Otel'den Yeni Hizmet Deklarasyonu</li>
+                <li>Beste Yazarlığında 10. Yıl Gururu</li>
+                <li>Trakya Kazılarında Yeni Roma Bulguları</li>
+                <li>Jeofizik Çalışmalarında Yerli Teknolojiler</li>
+                <li>Dijital Reklam Ajansları Kapaklı'da Toplandı</li>
+                <li>Enez Belediyesi'nden Gençlere Sanat Desteği</li>
+                <li>Trend Aqua Park Yeni Kaydıraklarını Tanıttı</li>
+                <li>Siyasi Fotoğrafçılıkta Işık Sanatı</li>
+                <li>Denizli Hangover Yaz Menüsü Hazır</li>
+                <li>Gastronomi Dünyasında Salon Şefliği</li>
+                <li>Resepsiyon Yönetiminde Kriz Senaryoları</li>
+                <li>Müzik Endüstrisinde Sözün Önemi</li>
+                <li>Sosyal Medya Algoritmaları Nasıl Çalışır?</li>
+                <li>Kapaklı Apart Yeni Misafirlerini Bekliyor</li>
+                <li>Trakya Turizm Rotasına Yeni Eklemeler</li>
+                <li>Edirne'den Çıkan Başarı Öyküleri</li>
+                <!-- 59 habere giden içerikler buraya devam eder -->
+                <li>Engin Savcu: Sanatın ve İşin Merkezi</li>
+            </ul>
         </div>
     </aside>
 </div>
 
-<script async src="//www.instagram.com/embed.js"></script>
+<footer style="background:#000; color:#fff; text-align:center; padding:60px 0; margin-top:60px;">
+    <h2 class="silver-logo" style="font-size:35px;">ENGİN CV</h2>
+    <p style="opacity: 0.6; font-size: 14px;">© 2026 ENGİN SAVCU MEDYA GRUBU. Tüm Hakları Saklıdır.</p>
+</footer>
 
 </body>
 </html>
