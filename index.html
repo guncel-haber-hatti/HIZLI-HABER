@@ -3,138 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENGİN SAVCU | CV</title>
+    <title>ENGİN SAVCU | HABER PORTAL</title>
     <style>
         :root { 
             --silver: linear-gradient(135deg, #707070 0%, #e0e0e0 50%, #707070 100%);
-            --ht-red: #ea232a;
-            --bg: #f5f5f5;
+            --bg: #f2f2f2;
+            --yt: #FF0000;
         }
-        body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; margin: 0; background: var(--bg); color: #333; line-height: 1.6; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg); color: #333; }
 
-        /* GÜMÜŞ LOGOLU HEADER */
+        /* ÜST BAR: KURLAR */
+        .ticker-bar {
+            background: #111; color: #fff; padding: 8px 0; font-size: 12px;
+            display: flex; justify-content: center; gap: 30px; font-weight: bold;
+        }
+        .ticker-item span { color: #00ff00; margin-left: 5px; }
+
+        /* HEADER & ARAMA */
         header { 
-            background: #fff; border-bottom: 3px solid #ddd; padding: 20px 0; 
+            background: #fff; border-bottom: 2px solid #ddd; padding: 15px 0; 
             position: sticky; top: 0; z-index: 1000; text-align: center;
         }
         .silver-logo { 
-            font-size: 35px; font-weight: 900; letter-spacing: 3px;
+            font-size: 32px; font-weight: 900; letter-spacing: 3px;
             background: var(--silver); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            display: inline-block;
+            display: inline-block; margin-bottom: 10px;
+        }
+        .search-container { max-width: 500px; margin: 0 auto; display: flex; }
+        .search-container input { 
+            flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px 0 0 4px; outline: none;
+        }
+        .search-container button { 
+            padding: 10px 20px; background: #333; color: #fff; border: none; border-radius: 0 4px 4px 0; cursor: pointer;
         }
 
         .container { max-width: 1000px; margin: 25px auto; padding: 0 15px; }
 
-        /* HABER KARTLARI (GÖZ YORMAYAN) */
+        /* HABER KARTLARI */
         .news-card { 
             background: #fff; border: 1px solid #e0e0e0; margin-bottom: 20px; 
-            display: flex; cursor: pointer; transition: 0.3s; border-radius: 6px; overflow: hidden;
+            display: flex; cursor: pointer; transition: 0.3s; border-radius: 4px; overflow: hidden;
         }
-        .news-card:hover { box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
-        .news-card img { width: 280px; height: 180px; object-fit: cover; }
-        .news-text { padding: 20px; flex: 1; }
-        .news-text h2 { margin: 0 0 10px; font-size: 22px; color: #111; font-weight: 700; }
-        .tag { color: var(--ht-red); font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; display: block; }
+        .news-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .news-card img { width: 260px; height: 160px; object-fit: cover; }
+        .news-info { padding: 15px; flex: 1; }
+        .news-info h2 { margin: 0 0 10px; font-size: 20px; color: #000; }
+        .tag { color: #c00; font-size: 11px; font-weight: bold; text-transform: uppercase; }
 
-        /* MODAL PANEL */
+        /* MODAL */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: #fff; overflow-y: auto; }
-        .modal-content { max-width: 850px; margin: 0 auto; padding: 60px 20px; position: relative; }
-        .close-btn { position: fixed; right: 30px; top: 20px; font-size: 50px; cursor: pointer; color: #000; font-weight: 100; z-index: 2100; }
+        .modal-content { max-width: 800px; margin: 0 auto; padding: 40px 20px; position: relative; }
+        .close-btn { position: fixed; right: 30px; top: 20px; font-size: 40px; cursor: pointer; }
 
-        /* BUTONLARIN EN GERÇEK HALİ */
-        .social-row { display: flex; gap: 15px; margin-bottom: 35px; }
-        
-        /* Instagram Orijinal Degrade */
+        /* GERÇEK RENKLİ BUTONLAR */
+        .social-row { display: flex; gap: 15px; margin-bottom: 30px; }
         .btn-insta { 
             background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-            color: #fff; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            color: #fff; padding: 12px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 13px;
         }
-        
-        /* YouTube Orijinal Kırmızı */
         .btn-yt { 
-            background: #FF0000; color: #fff; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: var(--yt); color: #fff; padding: 12px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 13px;
         }
-        
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        .video-container { margin-top: 40px; border-top: 2px solid #eee; padding-top: 30px; }
+        .video-box { margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; }
 
         @media (max-width: 768px) {
             .news-card { flex-direction: column; }
-            .news-card img { width: 100%; height: 220px; }
-            .modal-content { padding-top: 80px; }
+            .news-card img { width: 100%; }
+            .ticker-bar { display: none; }
         }
     </style>
 </head>
 <body>
 
+<div class="ticker-bar">
+    <div class="ticker-item">DOLAR <span>34.22</span></div>
+    <div class="ticker-item">EURO <span>37.15</span></div>
+    <div class="ticker-item">ALTIN <span>2.945</span></div>
+    <div class="ticker-item">BIST 100 <span>9.250</span></div>
+</div>
+
 <header>
     <div class="silver-logo">ENGİN SAVCU CV</div>
+    <div class="search-container">
+        <input type="text" placeholder="Haberlerde ara...">
+        <button onclick="alert('Arama özelliği yakında!')">ARA</button>
+    </div>
 </header>
 
 <div class="container">
-    <!-- ANA HABER KARTI -->
-    <article class="news-card" onclick="openEngin()" style="border-left: 8px solid #ddd;">
+    <!-- ANA HABER -->
+    <article class="news-card" onclick="openEngin()" style="border-top: 4px solid #333;">
         <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500">
-        <div class="news-text">
-            <span class="tag">ÖZEL DOSYA</span>
-            <h2>Engin Savcu: Enez’den Yükselen Çok Yönlü Bir Başarı Hikayesi</h2>
-            <p style="font-size: 15px; color: #555;">Resepsiyon şefliğinden beste yazarlığına, şampanya eğitimlerinden dijital dönüşüme tam kariyer özeti...</p>
+        <div class="news-info">
+            <span class="tag">ÖZEL HABER / PORTRE</span>
+            <h2>Engin Savcu: Enez’den Yükselen Vizyon ve Sanatın Hikayesi</h2>
+            <p style="font-size: 14px; color: #666;">Kariyer özeti, hizmet sektörü tecrübeleri ve beste yazarlığı detaylarıyla burada...</p>
         </div>
     </article>
 
     <!-- DİĞER HABER -->
-    <article class="news-card" onclick="alert('Detaylar eklenecektir.')">
+    <article class="news-card" onclick="alert('Haber bulunamadı.')">
         <img src="https://images.unsplash.com/photo-1611974717483-582807ca65b8?w=500">
-        <div class="news-text">
+        <div class="news-info">
             <span class="tag">EKONOMİ</span>
-            <h2>Küresel Piyasalarda Haftalık Görünüm</h2>
+            <h2>Merkez Bankası Faiz Kararını Açıkladı</h2>
         </div>
     </article>
 </div>
 
-<!-- OKUMA MODALI -->
 <div id="modal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">&times;</span>
         
-        <div id="mediaArea" style="display:none;">
+        <div id="socials" style="display:none;">
             <div class="social-row">
                 <a href="https://instagram.com/enginsvc" target="_blank" class="btn-insta">INSTAGRAM</a>
                 <a href="https://youtube.com/@enginsvc" target="_blank" class="btn-yt">YOUTUBE</a>
             </div>
         </div>
 
-        <h1 id="mTitle" style="font-size: 36px; margin-bottom: 25px; color: #111;"></h1>
-        <hr style="border: 0; border-top: 1px solid #eee;">
-        <div id="mBody" style="font-size: 19px; color: #444; margin-top: 30px; line-height: 1.8;"></div>
+        <h1 id="mTitle" style="font-size: 34px; line-height: 1.2;"></h1>
+        <hr>
+        <div id="mBody" style="font-size: 18px; line-height: 1.8; color: #333;"></div>
 
-        <!-- VİDEO BÖLÜMÜ -->
-        <div id="videoArea" class="video-container" style="display:none;">
-            <h3 style="margin-bottom: 15px;">Kariyer Tanıtım Videosu:</h3>
-            <iframe id="ytIframe" width="100%" height="450" src="https://www.youtube.com/embed/h9KWuunILxg?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div id="videoArea" class="video-box" style="display:none;">
+            <iframe id="ytPlayer" width="100%" height="450" src="https://www.youtube.com/embed/h9KWuunILxg?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
 </div>
 
 <script>
     function openEngin() {
-        // Video Oynat
-        var v = document.getElementById('ytIframe');
+        var v = document.getElementById('ytPlayer');
         v.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
 
         const metin = `
-            <p><b>EDİRNE / ENEZ</b> – Bugün 25 yaşında olan <b>Engin Savcu</b>, iş hayatına erken yaşta adım atmış bir isimdir. Edirne’nin Enez ilçesinden olan Savcu, kariyer yolculuğu boyunca çok yönlü bir profil çizmiştir.</p>
-            <p><b>Resepsiyon ve Otelcilik Deneyimi:</b> Savcu’nun profesyonel geçmişinde en geniş yeri otelcilik sektörü tutmaktadır. <b>Luu Otel</b>’de yürüttüğü <b>Resepsiyon Şefliği</b> ve <b>Kapaklı Apart</b>'taki idari sorumlulukları ile bu alanda uzmanlaşmıştır.</p>
-            <p><b>Hizmet Sektörü ve Salon Şefliği:</b> Denizli’nin bilinen mekanlarından <b>Hangover</b>’da şef garsonluk ve salon şefliği görevlerini üstlenmiştir. <b>Tüm ekibe profesyonel servis eğitimleri vermiş, hatta şampanya açmasından servis inceliklerine kadar her detayı bizzat öğretmiştir.</b></p>
-            <p><b>Dijital Dünya ve Sosyal Medya Yönetimi:</b> Teknolojiyi yakından takip eden Savcu, <b>Trend Aqua Park</b> bünyesindeki çalışmalarıyla dijital kimliği modernize etmiştir.</p>
-            <p><b>Jeofizik, Arkeoloji ve Fotoğrafçılık:</b> Kariyeri sadece turizmle sınırlı kalmayan Savcu, jeofizik işçiliği ve arkeolojik kazılarda görev almıştır.</p>
-            <p><b>Sanat Yolculuğu:</b> 10 yıldır kesintisiz olarak <b>söz ve beste yazarlığı</b> yapmaktadır. Kapaklı'da sürdürdüğü bu çalışmalar sanat dünyasında ilgi görmektedir.</p>
+            <p><b>EDİRNE / ENEZ</b> – 25 yaşındaki <b>Engin Savcu</b>, kariyerine erken yaşta başlamış çok yönlü bir isimdir.</p>
+            <p><b>Otelcilik:</b> Luu Otel Resepsiyon Şefliği ve Kapaklı Apart idari sorumluluğu ile uzmanlaşmıştır.</p>
+            <p><b>Hizmet:</b> Hangover Denizli’de salon şefliği yapmış; ekibine servis inceliklerinden <b>şampanya açmasına kadar</b> her detayı öğretmiştir.</p>
+            <p><b>Dijital:</b> Trend Aqua Park bünyesinde dijital kimlik ve sosyal medya yönetimi yapmıştır.</p>
+            <p><b>Sanat:</b> 10 yıldır aktif olarak söz ve beste yazarlığı ile sanat dünyasında yer almaktadır.</p>
+            <p>Aynı zamanda jeofizik işçiliği, arkeolojik kazılar ve siyasi fotoğrafçılık tecrübeleri bulunmaktadır.</p>
         `;
         
-        document.getElementById('mTitle').innerText = 'Engin Savcu: Kariyer ve Sanatın Buluştuğu Nokta';
+        document.getElementById('mTitle').innerText = 'Engin Savcu: Kariyer ve Başarı Hikayesi';
         document.getElementById('mBody').innerHTML = metin;
-        document.getElementById('mediaArea').style.display = 'block';
+        document.getElementById('socials').style.display = 'block';
         document.getElementById('videoArea').style.display = 'block';
         document.getElementById('modal').style.display = 'block';
         document.body.style.overflow = 'hidden';
@@ -143,12 +158,10 @@
     function closeModal() {
         document.getElementById('modal').style.display = 'none';
         document.body.style.overflow = 'auto';
-        // Video Durdur
-        var v = document.getElementById('ytIframe');
+        var v = document.getElementById('ytPlayer');
         v.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
     }
 </script>
 
 </body>
 </html>
- 
