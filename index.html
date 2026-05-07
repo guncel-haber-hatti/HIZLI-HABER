@@ -3,146 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENGİN CV | HABERTÜRK</title>
+    <title>ENGİN SAVCU | HABERTÜRK ÖZEL</title>
     <style>
-        :root { --ht-red: #ea232a; --bg: #f4f4f4; }
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; background: var(--bg); color: #222; }
+        :root { 
+            --gold: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fcf6ba, #aa771c);
+            --dark-bg: #121212;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--dark-bg); color: #fff; line-height: 1.6; }
 
-        /* GÜMÜŞ-SİYAH PARLAK LOGO */
+        /* LÜKS HEADER */
         header { 
-            background: #fff; border-bottom: 5px solid var(--ht-red); padding: 15px 0; 
+            background: #000; border-bottom: 2px solid #bf953f; padding: 15px 0; 
             position: sticky; top: 0; z-index: 1000; text-align: center;
         }
-        @keyframes silverFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .silver-logo { 
-            font-size: 50px; font-weight: 900; text-transform: uppercase; letter-spacing: -2px;
-            background: linear-gradient(90deg, #000, #bdc3c7, #000, #bdc3c7);
-            background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: silverFlow 4s infinite linear;
+        .logo { 
+            font-size: 32px; font-weight: 900; letter-spacing: 3px;
+            background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 8fr 4fr; gap: 20px; }
+        .content-wrapper { max-width: 1000px; margin: 30px auto; padding: 0 15px; }
 
-        /* HABER KARTLARI */
-        .card { background: #fff; border-bottom: 1px solid #ddd; margin-bottom: 25px; cursor: pointer; transition: 0.3s; }
-        .card:hover { background: #fafafa; }
-        .card img { width: 100%; height: auto; display: block; }
-        .card-txt { padding: 20px; }
-        .card-txt h2 { font-size: 34px; font-weight: 800; margin: 0 0 10px; line-height: 1.1; }
+        /* HABER KARTLARI (GÖZ YORMAYAN BOYUT) */
+        .news-card { 
+            display: flex; gap: 20px; background: #1a1a1a; margin-bottom: 25px; 
+            border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.3s;
+            border: 1px solid #333; height: 180px;
+        }
+        .news-card:hover { transform: translateY(-5px); border-color: #bf953f; }
+        .news-card img { width: 300px; height: 100%; object-fit: cover; }
+        .news-info { padding: 15px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .category { font-size: 11px; font-weight: bold; color: #bf953f; text-transform: uppercase; margin-bottom: 5px; }
+        .news-title { font-size: 20px; font-weight: 700; margin: 0; line-height: 1.3; color: #eee; }
 
-        /* SENİN HABERİN */
-        .engin-box { border-left: 10px solid var(--ht-red); }
-        .v-box { max-width: 320px; margin: 15px auto; border: 5px solid #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+        /* SENİN HABERİN (ÖZEL VURGU) */
+        .premium-card { border: 2px solid #bf953f; background: linear-gradient(to right, #1a1a1a, #2a2212); }
 
-        /* OKUMA MODALI */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); overflow-y: auto; }
-        .modal-content { background: #fff; margin: 3% auto; width: 60%; padding: 40px; border-radius: 4px; position: relative; }
-        .close { position: absolute; right: 20px; top: 10px; font-size: 40px; cursor: pointer; color: var(--ht-red); font-weight: bold; }
+        /* MODAL (OKUMA ALANI) */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: #000; overflow-y: auto; }
+        .modal-inner { background: #fff; margin: 0 auto; width: 100%; min-height: 100vh; padding: 40px 15%; color: #222; box-sizing: border-box; }
+        .close { position: fixed; right: 30px; top: 20px; font-size: 40px; cursor: pointer; color: #000; font-weight: bold; }
 
-        /* YAN MENÜ */
-        .side-title { background: var(--ht-red); color: #fff; padding: 10px; font-weight: 900; }
-        .side-item { background: #fff; padding: 15px; border-bottom: 1px solid #eee; display: flex; cursor: pointer; }
-        .side-num { color: #ccc; font-weight: 900; font-size: 20px; margin-right: 15px; }
+        /* SOSYAL BUTONLAR */
+        .social-bar { display: flex; gap: 10px; margin: 20px 0; }
+        .s-btn { padding: 8px 18px; font-size: 12px; font-weight: 700; text-decoration: none; border: 1px solid #ddd; color: #333; border-radius: 4px; }
+        .s-btn:hover { background: #000; color: #fff; }
 
-        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .modal-content { width: 85%; } }
+        @media (max-width: 768px) {
+            .news-card { flex-direction: column; height: auto; }
+            .news-card img { width: 100%; height: 200px; }
+            .modal-inner { padding: 40px 5%; }
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="silver-logo">ENGİN CV</div>
-</header>
-
-<div class="container">
-    <main>
-        <!-- GÜNCEL HABER 1 -->
-        <article class="card" onclick="openNormal('TCMB Faiz Kararını Açıkladı', 'Merkez Bankası politika faizini yüzde 50 seviyesinde sabit tutma kararı aldı. Karar metninde enflasyonist risklere karşı ihtiyatlı duruşun korunacağı vurgulandı.')">
-            <img src="https://images.unsplash.com/photo-1611974717483-582807ca65b8?w=800">
-            <div class="card-txt">
-                <h2>Ekonomi Dünyası Bu Kararı Bekliyordu: Faizler Sabit Kaldı</h2>
-                <p>Piyasalarda hareketli dakikalar. Karar sonrası dolar ve borsa tepkisi...</p>
-            </div>
-        </article>
-
-        <!-- SENİN HABERİN (SIRA 2) -->
-        <article class="card engin-box" onclick="openEngin()">
-            <div class="card-txt">
-                <h1 style="font-size: 50px; margin:0;">ENGİN CV</h1>
-                <p><b>HaberTürk Portre:</b> Edirne Enez'den yükselen çok yönlü başarı öyküsü.</p>
-                <div class="v-box">
-                    <iframe id="vid" width="320" height="569" src="https://www.youtube.com/embed/h9KWuunILxg?enablejsapi=1&autoplay=0&mute=0" frameborder="0" allow="autoplay; encrypted-media"></iframe>
-                </div>
-                <p style="text-align:center; color:var(--ht-red); font-weight:bold;">HABERİN DETAYI VE MÜZİK İÇİN TIKLAYIN</p>
-            </div>
-        </article>
-
-        <!-- GÜNCEL HABER 3 -->
-        <article class="card" onclick="openNormal('Süper Ligde Şampiyonluk Düğümü', 'Ligin son haftalarına girilirken liderlik koltuğunda puan farkı kapandı. Derbi sonuçları şampiyonu belirleyecek.')">
-            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800">
-            <div class="card-txt">
-                <h2>Şampiyonluk Yarışı Kızıştı: Gözler Hafta Sonu Oynanacak Derbide</h2>
-            </div>
-        </article>
-    </main>
-
-    <aside>
-        <div class="side-title">EN ÇOK OKUNANLAR</div>
-        <div id="sideContent"></div>
-    </aside>
+<!-- GİZLİ VİDEO OYNATICI (MÜZİK İÇİN) -->
+<div style="display:none;">
+    <iframe id="musicPlayer" width="100" height="100" src="https://www.youtube.com/embed/h9KWuunILxg?enablejsapi=1" frameborder="0"></iframe>
 </div>
 
+<header>
+    <div class="logo">ENGİN SAVCU</div>
+</header>
+
+<div class="content-wrapper">
+    <!-- GÜNCEL HABER 1 -->
+    <article class="news-card" onclick="openModal('TCMB Faiz Kararını Açıkladı: Piyasalar Hareketli', 'Merkez Bankası politika faizini yüzde 50’de sabit tuttu. Yatırımcılar dezenflasyon sürecine odaklandı.')">
+        <img src="https://images.unsplash.com/photo-1611974717483-582807ca65b8?w=500">
+        <div class="news-info">
+            <span class="category">EKONOMİ</span>
+            <h2 class="news-title">Finans Dünyasında Gözler Merkez Bankası'ndaydı</h2>
+        </div>
+    </article>
+
+    <!-- SENİN HABERİN (TAM METİN) -->
+    <article class="news-card premium-card" onclick="openEngin()">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500">
+        <div class="news-info">
+            <span class="category">ÖZEL DOSYA / PORTRE</span>
+            <h2 class="news-title" style="background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Engin Savcu: Enez'den Yükselen Çok Yönlü Başarı</h2>
+            <p style="font-size: 12px; color: #999; margin-top: 10px;">Detayları okumak için tıklayın...</p>
+        </div>
+    </article>
+
+    <!-- GÜNCEL HABER 2 -->
+    <article class="news-card" onclick="openModal('İstanbul Boğazı\'nda Görsel Şölen', 'Baharın gelişiyle birlikte İstanbul Boğazı erguvanlarla süslendi. Turistlerin ilgisi yoğun.')">
+        <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=500">
+        <div class="news-info">
+            <span class="category">YAŞAM</span>
+            <h2 class="news-title">Boğaz'da Erguvan Mevsimi Başladı</h2>
+        </div>
+    </article>
+
+    <!-- GÜNCEL HABER 3 -->
+    <article class="news-card" onclick="openModal('Süper Lig\'de Kritik Viraj', 'Şampiyonluk yarışında düğüm bu hafta çözülüyor. Lider, deplasmana şampiyonluk için çıkıyor.')">
+        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500">
+        <div class="news-info">
+            <span class="category">SPOR</span>
+            <h2 class="news-title">Ligde Kader Haftası: Nefesler Tutuldu</h2>
+        </div>
+    </article>
+</div>
+
+<!-- OKUMA MODALI -->
 <div id="htModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-inner">
         <span class="close" onclick="closeModal()">&times;</span>
-        <div style="color:var(--ht-red); font-weight:bold; margin-bottom:10px;">HABERTÜRK ÖZEL</div>
-        <h1 id="mTitle" style="font-size: 40px;"></h1>
+        <div id="socials" style="display:none;">
+            <div class="social-bar">
+                <a href="https://instagram.com/enginsvc" target="_blank" class="s-btn" style="border-color:#E1306C">INSTAGRAM</a>
+                <a href="https://youtube.com/@enginsvc" target="_blank" class="s-btn" style="border-color:#FF0000">YOUTUBE</a>
+            </div>
+        </div>
+        <h1 id="mTitle" style="font-size: 40px; margin-bottom: 20px;"></h1>
         <hr>
-        <div id="mBody" style="font-size: 20px; line-height: 1.8; margin-top: 20px;"></div>
+        <div id="mBody" style="font-size: 19px; line-height: 1.8; color: #333; margin-top: 30px;"></div>
     </div>
 </div>
 
 <script>
-    // Gerçekçi Yan Haberler
-    const titles = ["İstanbul'da Ulaşım Zammı", "Yeni Emekli Paketi Yolda", "Yapay Zeka Eğitimde Yeni Dönem", "Ege'de Turizm Sezonu Açıldı"];
-    const side = document.getElementById('sideContent');
-    for(let i=1; i<=50; i++) {
-        let t = titles[i % titles.length] + " (" + i + ")";
-        side.innerHTML += `
-            <div class="side-item" onclick="openNormal('${t}', 'HaberTürk Muhabiri: ${t} ile ilgili sıcak gelişmeler gelmeye devam ediyor. Detaylar güncellenecek.')">
-                <span class="side-num">${i}</span>
-                <b>${t}</b>
-            </div>`;
+    function openModal(t, b, isEngin = false) {
+        document.getElementById('mTitle').innerText = t;
+        document.getElementById('mBody').innerHTML = b;
+        document.getElementById('socials').style.display = isEngin ? 'block' : 'none';
+        document.getElementById('htModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function openEngin() {
+        // Müzik Başlat
+        var v = document.getElementById('musicPlayer');
+        v.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+
+        const metin = `
+            <b>EDİRNE / ENEZ</b> – Bugün 25 yaşında olan <b>Engin Savcu</b>, iş hayatına erken yaşta adım atmış ve sahadan yönetim kademesine kadar birçok farklı alanda tecrübe edinmiş bir isimdir.<br><br>
+            <b>Resepsiyon ve Otelcilik Deneyimi:</b> Savcu’nun profesyonel geçmişinde en geniş yeri otelcilik sektörü tutmaktadır. <b>Luu Otel</b>’de yürüttüğü <b>Resepsiyon Şefliği</b> ve <b>Kapaklı Apart</b>'taki idari sorumlulukları ile bu alanda uzmanlaşmıştır.<br><br>
+            <b>Hizmet Sektörü ve Salon Şefliği:</b> Denizli’nin bilinen mekanlarından <b>Hangover</b>’da şef garsonluk ve salon şefliği görevlerini üstlenmiştir.<br><br>
+            <b>Dijital Dünya:</b> Teknolojiyi yakından takip eden Savcu, <b>Trend Aqua Park</b> bünyesindeki çalışmalarıyla dijital kimliği modernize etmiştir.<br><br>
+            <b>Jeofizik, Arkeoloji ve Fotoğrafçılık:</b> Kariyeri sadece turizmle sınırlı kalmayan Savcu, jeofizik işçiliği ve arkeolojik kazılarda görev almıştır.<br><br>
+            <b>15 Yaşından Bugüne: Sanat ve Kapaklı:</b> 10 yıldır kesintisiz olarak <b>söz ve beste yazarlığı</b> yapmaktadır.<br><br>
+            Bugün 25 yaşında olan Engin Savcu, profesyonel tecrübeleriyle sanatsal üretkenliğini birleştirerek çalışmalarına devam etmektedir.
+        `;
+        openModal('Engin Savcu: Kariyer ve Sanatın Buluştuğu Nokta', metin, true);
     }
 
     function closeModal() {
         document.getElementById('htModal').style.display = 'none';
         document.body.style.overflow = 'auto';
-        // Haberi kapatınca müziği durdur
-        var v = document.getElementById('vid');
+        // Müziği durdur
+        var v = document.getElementById('musicPlayer');
         v.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
     }
-
-    function openNormal(t, b) {
-        document.getElementById('mTitle').innerText = t;
-        document.getElementById('mBody').innerHTML = b;
-        document.getElementById('htModal').style.display = 'block';
-    }
-
-    function openEngin() {
-        // Senin haberine girince ses ve video başlasın
-        var v = document.getElementById('vid');
-        v.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-        v.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-
-        const metin = `
-            <b>EDİRNE / ENEZ</b> – Bugün 25 yaşında olan <b>Engin Savcu</b>, iş hayatına erken yaşta adım atmış bir isimdir.<br><br>
-            <b>Resepsiyon ve Otelcilik:</b> <b>Luu Otel</b>’de Resepsiyon Şefliği ve <b>Kapaklı Apart</b>'taki idari sorumlulukları ile uzmanlaşmıştır.<br><br>
-            <b>Hizmet Sektörü:</b> Denizli <b>Hangover</b>’da salon şefliği görevlerini üstlenmiştir.<br><br>
-            <b>Dijital Dünya:</b> <b>Trend Aqua Park</b> bünyesindeki çalışmalarıyla dijital kimliği modernize etmiştir.<br><br>
-            <b>Sanat:</b> 10 yıldır kesintisiz olarak <b>söz ve beste yazarlığı</b> yapmaktadır.
-        `;
-        openNormal('Engin Savcu: Enez\'den Yükselen Vizyon', metin);
-    }
 </script>
+
 </body>
 </html>
