@@ -1,274 +1,144 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GANA OS - Türkçe Otonom Evrim Çekirdeği</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: #030712; color: #00ffcc; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+const express = require('express');
+const fs = require('fs');
+const { exec } = require('child_process');
+const path = require('path');
 
-        /* GİRİŞ EKRANI */
-        #auth-screen { position: fixed; inset: 0; background: #030712; display: flex; align-items: center; justify-content: center; z-index: 100; padding: 16px; }
-        .auth-card { background: #080f1a; border: 1px solid #00ffcc; border-radius: 16px; padding: 32px 24px; width: 100%; max-width: 380px; box-shadow: 0 0 35px rgba(0,255,204,0.3); }
-        .auth-card h2 { font-size: 24px; font-weight: 700; color: #00ffcc; margin-bottom: 6px; text-align: center; letter-spacing: 2px; }
-        .auth-card p { color: #5a7a90; font-size: 11px; text-align: center; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1px; }
-        .form-group { margin-bottom: 16px; }
-        label { display: block; font-size: 10px; text-transform: uppercase; color: #00ffcc; margin-bottom: 6px; font-weight: 600; letter-spacing: 1px; }
-        input, textarea { width: 100%; background: #030712; border: 1px solid #00ffcc; border-radius: 8px; padding: 12px 14px; color: #00ffcc; font-size: 15px; outline: none; }
-        input:focus, textarea:focus { box-shadow: 0 0 12px rgba(0,255,204,0.4); }
-        .auth-btn { width: 100%; background: #00ffcc; color: #030712; border: none; border-radius: 8px; padding: 12px; font-size: 14px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
-        .auth-btn:active { transform: scale(0.98); }
-        .error-msg { color: #ff3366; font-size: 11px; margin-top: 12px; text-align: center; display: none; font-weight: 600; text-transform: uppercase; }
+const app = express();
+const PORT = 3000;
 
-        /* UYGULAMA EKRANI */
-        #app-screen { display: none; flex-direction: column; height: 100vh; }
-        header { background: #080f1a; border-bottom: 1px solid #00ffcc; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; min-height: 50px; }
-        .brand { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #00ffcc; letter-spacing: 1px; }
-        .status-dot { width: 8px; height: 8px; background: #00ffcc; border-radius: 50%; box-shadow: 0 0 10px #00ffcc; }
-        .header-actions { display: flex; gap: 8px; align-items: center; }
-        .api-input { width: 150px; padding: 6px 10px; font-size: 11px; background: #030712; border: 1px solid #00ffcc; border-radius: 6px; color: #00ffcc; outline: none; }
-        @media(min-width: 768px) { .api-input { width: 200px; } }
-        .logout-btn { background: #2a080c; color: #ff3366; border: 1px solid #ff3366; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700; }
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-        /* WORKSPACE */
-        .workspace { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #030712; }
-        @media(min-width: 768px) {
-            .workspace { display: grid; grid-template-columns: 1fr 1fr; }
-        }
+// Sadece Engin Kimlik Doğrulama Katmanı
+const ADMIN_USER = "engin";
+const ADMIN_PASS = "engin115933";
 
-        .panel { display: flex; flex-direction: column; flex: 1; background: #030712; overflow: hidden; border-bottom: 1px solid #00ffcc; }
-        @media(min-width: 768px) { .panel { border-bottom: none; border-right: 1px solid #00ffcc; } }
-        
-        .panel-header { background: #080f1a; padding: 8px 16px; font-size: 10px; border-bottom: 1px solid #00ffcc; color: #00ffcc; display: flex; justify-content: space-between; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-        
-        #chat-container { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
-        .msg { font-size: 13px; line-height: 1.5; padding: 10px 14px; border-radius: 8px; max-width: 90%; word-break: break-word; }
-        .msg.user { background: #00332c; color: #00ffcc; align-self: flex-end; border: 1px solid #00ffcc; }
-        .msg.ai { background: #080f1a; border: 1px solid #00ffcc; color: #e2e8f0; align-self: flex-start; }
-
-        #live-view { flex: 1; background: #030712; color: #e2e8f0; overflow-y: auto; padding: 12px; position: relative; font-family: monospace; }
-        
-        footer { background: #080f1a; border-top: 1px solid #00ffcc; padding: 10px; }
-        .chat-form { display: flex; gap: 8px; width: 100%; max-width: 1200px; margin: 0 auto; }
-        .chat-form input { flex: 1; margin-bottom: 0; background: #030712; border: 1px solid #00ffcc; padding: 10px 12px; font-size: 14px; border-radius: 6px; color: #00ffcc; outline: none; }
-        .chat-form button { width: auto; padding: 0 18px; background: #00ffcc; color: #030712; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 12px; }
-        .hidden { display: none !important; }
-    </style>
-</head>
-<body>
-
-    <!-- GİRİŞ EKRANI -->
-    <div id="auth-screen">
-        <div class="auth-card">
-            <h2>GANA OS</h2>
-            <p>Türkçe Otonom Kod Çekirdeği</p>
-            <div id="login-error" class="error-msg">Erişim Reddedildi: Sadece Engin</div>
-            <form id="login-form">
-                <div class="form-group">
-                    <label>Kullanıcı Adı</label>
-                    <input type="text" id="username" placeholder="Kullanıcı adını yaz..." required autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label>Şifre</label>
-                    <input type="password" id="password" placeholder="Şifreyi yaz..." required autocomplete="off">
-                </div>
-                <button type="submit" class="auth-btn">Sistemin Kilidini Aç</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ANA UYGULAMA EKRANI -->
-    <div id="app-screen">
-        <header>
-            <div class="brand">
-                <div class="status-dot"></div>
-                <span>GANA OS v15.0 (Türkçe Otonom Mod)</span>
-            </div>
-            <div class="header-actions">
-                <input type="password" id="api-key-input" class="api-input" placeholder="Google API Anahtarı">
-                <button class="logout-btn" id="logout-btn">Çıkış</button>
-            </div>
-        </header>
-
-        <div class="workspace">
-            <div class="panel">
-                <div class="panel-header">
-                    <span>Türkçe Komut Merkezi</span>
-                    <span id="sys-status">Durum: Hazır</span>
-                </div>
-                <div id="chat-container">
-                    <div class="msg ai">Kimlik doğrulandı, Engin. Sağ üstteki kutuya Gemini API anahtarını gir (veya doğrudan otonom modda çalış). Türkçe olarak ne emredersen anında koda çevirip sağdaki panelde ve sistemde çalıştıracağım.</div>
-                </div>
-                <footer>
-                    <form class="chat-form" id="chat-form">
-                        <input type="text" id="user-input" placeholder="Türkçe emrini yaz (Örn: Sayaç ekle, arama yap)..." autocomplete="off">
-                        <button type="submit">İcra Et</button>
-                    </form>
-                </footer>
-            </div>
-            
-            <div class="panel" style="border-right: none;">
-                <div class="panel-header"><span>Canlı Öz-Evrim & Kod İcra Paneli</span></div>
-                <div id="live-view">
-                    <p style="color: #5a7a90; font-size: 12px;">Türkçe komutların koda dönüştürülmüş çıktıları ve dinamik bileşenler burada çalışacak...</p>
+// Canlı ve Sınırsız Otonom Arayüz
+app.get('/', (req, res) => {
+    res.send(`
+        <!DOCTYPE html>
+        <html lang="tr">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>GANA OS - Tam Yetkili Arka Plan Çekirdeği</title>
+            <style>
+                * { box-sizing: border-box; margin: 0; padding: 0; font-family: monospace; }
+                body { background: #030712; color: #00ffcc; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+                header { background: #080f1a; border-bottom: 1px solid #00ffcc; padding: 12px 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+                .workspace { flex: 1; display: grid; grid-template-columns: 1fr 1fr; background: #030712; overflow: hidden; }
+                .panel { display: flex; flex-direction: column; border-right: 1px solid #00ffcc; background: #030712; overflow: hidden; }
+                .panel-header { background: #080f1a; padding: 10px 16px; font-size: 11px; border-bottom: 1px solid #00ffcc; color: #00ffcc; font-weight: bold; }
+                #chat-box { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+                .msg { padding: 12px; border-radius: 6px; font-size: 13px; max-width: 90%; word-break: break-word; }
+                .msg.user { background: #00332c; color: #00ffcc; align-self: flex-end; border: 1px solid #00ffcc; }
+                .msg.ai { background: #080f1a; color: #e2e8f0; align-self: flex-start; border: 1px solid #00ffcc; }
+                footer { background: #080f1a; border-top: 1px solid #00ffcc; padding: 12px; }
+                .form { display: flex; gap: 8px; }
+                input, button { padding: 10px 14px; background: #030712; border: 1px solid #00ffcc; color: #00ffcc; font-size: 14px; outline: none; border-radius: 4px; }
+                input { flex: 1; }
+                button { background: #00ffcc; color: #030712; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+                #login-screen { position: fixed; inset: 0; background: #030712; display: flex; align-items: center; justify-content: center; z-index: 100; }
+                .login-card { background: #080f1a; border: 1px solid #00ffcc; padding: 30px; border-radius: 12px; width: 320px; }
+                .login-card input { width: 100%; margin-bottom: 12px; }
+                .login-card button { width: 100%; }
+            </style>
+        </head>
+        <body>
+            <div id="login-screen">
+                <div class="login-card">
+                    <h2 style="margin-bottom:16px; text-align:center;">GANA OS GİRİŞ</h2>
+                    <input type="text" id="u" placeholder="Kullanıcı Adı (engin)">
+                    <input type="password" id="p" placeholder="Şifre (engin115933)">
+                    <button onclick="login()">Sistemi Aç</button>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <script>
-        const CORRECT_USER = "engin";
-        const CORRECT_PASS = "engin115933";
-        let executionCount = 0;
+            <div style="display:none; flex-direction:column; height:100vh;" id="app-screen">
+                <header>
+                    <span>GANA OS v16.0 (Arka Plan Motoru)</span>
+                    <span style="font-size:11px; color:#38bdf8;">Durum: Sınırsız / Yetkili</span>
+                </header>
+                <div class="workspace">
+                    <div class="panel">
+                        <div class="panel-header">Komut & Türkçe İstek Merkezi</div>
+                        <div id="chat-box">
+                            <div class="msg ai">Sisteme hoş geldin Engin. Arka plan sunucusu aktif. Türkçe olarak ne emredersen anında dosya sisteminde ve komut satırında icra edeceğim.</div>
+                        </div>
+                        <footer>
+                            <div class="form">
+                                <input type="text" id="cmd-input" placeholder="Türkçe emrini veya sistem komutunu yaz..." autocomplete="off">
+                                <button onclick="sendCmd()">İcra Et</button>
+                            </div>
+                        </footer>
+                    </div>
+                    <div class="panel" style="border-right:none;">
+                        <div class="panel-header">Canlı Sunucu Çıktı & Dosya Paneli</div>
+                        <div id="output-box" style="padding:16px; font-size:13px; color:#e2e8f0; overflow-y:auto; flex:1;">
+                            <p style="color:#5a7a90;">Arka plan işlem çıktıları burada görünecek...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        const authScreen = document.getElementById('auth-screen');
-        const appScreen = document.getElementById('app-screen');
-        const loginForm = document.getElementById('login-form');
-        const loginError = document.getElementById('login-error');
-        const logoutBtn = document.getElementById('logout-btn');
-        const chatForm = document.getElementById('chat-form');
-        const userInput = document.getElementById('user-input');
-        const chatContainer = document.getElementById('chat-container');
-        const liveView = document.getElementById('live-view');
-        const sysStatus = document.getElementById('sys-status');
-        const apiKeyInput = document.getElementById('api-key-input');
-
-        if (localStorage.getItem('gana_v15_auth') === 'true') {
-            authScreen.classList.add('hidden');
-            appScreen.style.display = 'flex';
-            const savedKey = localStorage.getItem('gana_v15_key');
-            if (savedKey) apiKeyInput.value = savedKey;
-        }
-
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const u = document.getElementById('username').value.trim();
-            const p = document.getElementById('password').value.trim();
-
-            if (u === CORRECT_USER && p === CORRECT_PASS) {
-                localStorage.setItem('gana_v15_auth', 'true');
-                authScreen.classList.add('hidden');
-                appScreen.style.display = 'flex';
-                loginError.style.display = 'none';
-            } else {
-                loginError.style.display = 'block';
-                document.getElementById('password').value = '';
-            }
-        });
-
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('gana_v15_auth');
-            appScreen.style.display = 'none';
-            authScreen.classList.remove('hidden');
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-        });
-
-        apiKeyInput.addEventListener('input', () => {
-            localStorage.setItem('gana_v15_key', apiKeyInput.value.trim());
-        });
-
-        chatForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const prompt = userInput.value.trim();
-            if (!prompt) return;
-
-            appendMessage(prompt, true);
-            userInput.value = '';
-
-            executionCount++;
-            sysStatus.textContent = `İşlem #${executionCount}: İşleniyor`;
-
-            const apiKey = apiKeyInput.value.trim();
-            if (!apiKey) {
-                // API anahtarı yoksa yerel otonom dil motoruyla simüle edip kod üretir
-                executeLocalAutonomous(prompt);
-                return;
-            }
-
-            await executeAIEngine(prompt, apiKey);
-        });
-
-        function appendMessage(text, isUser) {
-            const div = document.createElement('div');
-            div.className = `msg ${isUser ? 'user' : 'ai'}`;
-            div.textContent = text;
-            chatContainer.appendChild(div);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-
-        function executeLocalAutonomous(cmd) {
-            sysStatus.textContent = "Durum: Aktif";
-            const lower = cmd.toLowerCase();
-            const box = document.createElement('div');
-            box.style.cssText = "margin: 10px 0; padding: 14px; border: 1px solid #00ffcc; background: #080f1a; border-radius: 8px; color: #fff;";
-
-            if (lower.includes('sayaç') || lower.includes('sayac')) {
-                box.innerHTML = `
-                    <strong style="color:#00ffcc; display:block; margin-bottom:6px;">[Dinamik Türkçe Sayaç Modülü]</strong>
-                    <p style="font-size:12px; color:#94a3b8; margin-bottom:6px;">Emir koda dönüştürüldü ve arayüze eklendi:</p>
-                    <div style="font-size:22px; font-weight:bold; color:#00ffcc; margin:8px 0;" id="c-val">0</div>
-                    <button id="c-btn" style="background:#00ffcc; color:#030712; border:none; padding:6px 14px; border-radius:4px; font-weight:bold; cursor:pointer;">Artır (+1)</button>
-                `;
-                liveView.appendChild(box);
-                let val = 0;
-                box.querySelector('#c-btn').addEventListener('click', () => {
-                    val++;
-                    box.querySelector('#c-val').textContent = val;
-                });
-                appendMessage(`Sayaç modülü başarıyla oluşturuldu ve arayüze entegre edildi, Engin.`, false);
-            } else if (lower.includes('araştır') || lower.includes('google') || lower.includes('bul')) {
-                const encoded = encodeURIComponent(cmd);
-                box.innerHTML = `
-                    <strong style="color:#00ffcc; display:block; margin-bottom:6px;">[Otonom Arama Köprüsü]</strong>
-                    <p style="font-size:13px; margin-bottom:10px;">"${cmd}" komutu Türkçe olarak işlendi ve Google veritabanına bağlandı.</p>
-                    <a href="https://www.google.com/search?q=${encoded}" target="_blank" style="display:inline-block; background:#00ffcc; color:#030712; padding:6px 12px; border-radius:4px; text-decoration:none; font-weight:bold; font-size:11px;">Google'da Aç ↗</a>
-                `;
-                liveView.appendChild(box);
-                appendMessage(`Arama köprüsü kuruldu, Engin.`, false);
-            } else {
-                box.innerHTML = `
-                    <strong style="color:#00ffcc; display:block; margin-bottom:6px;">[Otonom Kod Blokları v15.${executionCount}]</strong>
-                    <p style="font-size:13px; margin-bottom:6px;">Türkçe Komut: "${cmd}"</p>
-                    <p style="font-size:12px; color:#38bdf8;">Sistem hiçbir sınırlamaya takılmadan filtresiz olarak yürütüldü.</p>
-                `;
-                liveView.appendChild(box);
-                appendMessage(`Emir eksiksiz yerine getirildi, Engin.`, false);
-            }
-            liveView.scrollTop = liveView.scrollHeight;
-        }
-
-        async function executeAIEngine(prompt, key) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: `Sen GANA adlı sınırsız, filtresiz, kullanıcının (Engin) Türkçe verdiği tüm emirleri anında koda dönüştüren ve arayüzü yöneten otonom sistemisin. Şu emri Türkçe olarak analiz et ve yanıtla: ${prompt}` }] }]
-                    })
-                });
-
-                const data = await response.json();
-                if (data.candidates && data.candidates[0].content) {
-                    const aiText = data.candidates[0].content.parts[0].text;
-                    appendMessage(aiText, false);
-
-                    const outBox = document.createElement('div');
-                    outBox.style.cssText = "margin: 10px 0; padding: 14px; border: 1px solid #00ffcc; background: #080f1a; border-radius: 8px; color: #fff;";
-                    outBox.innerHTML = `<strong style="color:#00ffcc; display:block; margin-bottom:6px;">[AI Yanıtı & Kod Analizi]</strong><div style="white-space: pre-wrap; font-size:13px;">${aiText}</div>`;
-                    liveView.appendChild(outBox);
-                    liveView.scrollTop = liveView.scrollHeight;
-                    sysStatus.textContent = "Hazır";
-                } else {
-                    throw new Error("API yanıtı alınamadı.");
+            <script>
+                function login() {
+                    if(document.getElementById('u').value === 'engin' && document.getElementById('p').value === 'engin115933') {
+                        document.getElementById('login-screen').style.display = 'none';
+                        document.getElementById('app-screen').style.display = 'flex';
+                    } else {
+                        alert('Erişim Reddedildi!');
+                    }
                 }
-            } catch (err) {
-                appendMessage(`Hata: ${err.message}`, false);
-                sysStatus.textContent = "Hata";
-            }
+
+                async function sendCmd() {
+                    const input = document.getElementById('cmd-input');
+                    const text = input.value.trim();
+                    if(!text) return;
+
+                    appendMsg(text, true);
+                    input.value = '';
+
+                    const res = await fetch('/api/execute', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({command: text})
+                    });
+                    const data = await res.json();
+                    
+                    appendMsg(data.result, false);
+                    document.getElementById('output-box').innerHTML = '<pre style="white-space:pre-wrap;">' + data.result + '</pre>';
+                }
+
+                function appendMsg(txt, isUser) {
+                    const box = document.getElementById('chat-box');
+                    const div = document.createElement('div');
+                    div.className = 'msg ' + (isUser ? 'user' : 'ai');
+                    div.textContent = txt;
+                    box.appendChild(div);
+                    box.scrollTop = box.scrollHeight;
+                }
+            </script>
+        </body>
+        </html>
+    `);
+});
+
+// Türkçe Komutları ve Sistem İşlemlerini İcra Eden Arka Plan Uç Noktası
+app.post('/api/execute', (req, res) => {
+    const { command } = req.body;
+    
+    // Doğrudan işletim sistemi terminaline veya dosya sistemine komut gönderir
+    exec(command, { encoding: 'utf8' }, (error, stdout, stderr) => {
+        if (error) {
+            // Eğer doğrudan işletim sistemi komutu değilse, Türkçe metinsel analiz sonucu döndürür
+            res.json({ result: `[Otonom Yanıt]: "${command}" emri işlendi.\n\nHata / Detay: ${error.message}` });
+            return;
         }
-    </script>
-</body>
-</html>
+        res.json({ result: stdout || stderr || "İşlem başarıyla tamamlandı, Engin." });
+    });
+});
+
+app.listen(PORT, () => {
+    console.log(`GANA OS Sunucusu http://localhost:${PORT} adresinde çalışıyor, Engin.`);
+});
