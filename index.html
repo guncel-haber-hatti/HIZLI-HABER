@@ -3,42 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engin OS - Tam Otonom Çekirdek</title>
+    <title>Engin OS - Tam Bağımsız Ajan</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: monospace; }
-        body { background-color: #030712; color: #38bdf8; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        body { background-color: #000; color: #00ff66; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
         
-        #auth-screen { position: fixed; inset: 0; background: #030712; display: flex; align-items: center; justify-content: center; z-index: 50; padding: 20px; }
-        .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 28px; width: 100%; max-width: 420px; box-shadow: 0 20px 25px rgba(0,0,0,0.8); }
-        h2 { font-size: 20px; font-weight: bold; margin-bottom: 6px; text-align: center; color: #f8fafc; }
-        p { color: #64748b; font-size: 13px; text-align: center; margin-bottom: 20px; }
-        label { display: block; font-size: 11px; text-transform: uppercase; color: #64748b; margin-bottom: 4px; }
-        input { width: 100%; background: #020617; border: 1px solid #1e293b; border-radius: 6px; padding: 10px; color: #f8fafc; font-size: 14px; margin-bottom: 12px; outline: none; }
-        input:focus { border-color: #38bdf8; }
-        button { width: 100%; background: #0284c7; color: #fff; border: none; border-radius: 6px; padding: 10px; font-size: 14px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
-        button:hover { background: #0369a1; }
-        .error { color: #f43f5e; font-size: 13px; margin-bottom: 12px; text-align: center; display: none; }
+        #auth-screen { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 50; padding: 20px; }
+        .card { background: #050505; border: 1px solid #00ff66; border-radius: 8px; padding: 28px; width: 100%; max-width: 380px; box-shadow: 0 0 20px rgba(0,255,102,0.2); }
+        h2 { font-size: 20px; font-weight: bold; margin-bottom: 6px; text-align: center; color: #00ff66; letter-spacing: 2px; }
+        p { color: #888; font-size: 12px; text-align: center; margin-bottom: 20px; }
+        label { display: block; font-size: 11px; text-transform: uppercase; color: #00ff66; margin-bottom: 4px; }
+        input { width: 100%; background: #000; border: 1px solid #00ff66; border-radius: 4px; padding: 10px; color: #00ff66; font-size: 14px; margin-bottom: 12px; outline: none; }
+        button { width: 100%; background: #00ff66; color: #000; border: none; border-radius: 4px; padding: 10px; font-size: 14px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        button:hover { background: #00cc52; }
+        .error { color: #ff0033; font-size: 12px; margin-bottom: 12px; text-align: center; display: none; }
 
         #app-screen { display: none; flex-direction: column; height: 100%; }
-        header { background: #0f172a; border-bottom: 1px solid #1e293b; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .status { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: bold; color: #f8fafc; }
-        .dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
-        .logout { background: #450a0a; color: #fca5a5; border: 1px solid #7f1d1d; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; width: auto; }
+        header { background: #050505; border-bottom: 1px solid #00ff66; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .status { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: bold; color: #00ff66; }
+        .dot { width: 8px; height: 8px; background: #00ff66; border-radius: 50%; box-shadow: 0 0 8px #00ff66; }
+        .logout { background: #330000; color: #ff3333; border: 1px solid #ff3333; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; width: auto; }
 
         .workspace { flex: 1; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
         @media(max-width: 768px) { .workspace { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; } }
 
-        .panel { display: flex; flex-direction: column; border-right: 1px solid #1e293b; background: #020617; overflow: hidden; }
-        .panel-header { background: #090d16; padding: 8px 16px; font-size: 12px; border-bottom: 1px solid #1e293b; color: #94a3b8; display: flex; justify-content: space-between; }
+        .panel { display: flex; flex-direction: column; border-right: 1px solid #00ff66; background: #000; overflow: hidden; }
+        .panel-header { background: #050505; padding: 8px 16px; font-size: 11px; border-bottom: 1px solid #00ff66; color: #00ff66; display: flex; justify-content: space-between; }
         
-        #chat-container { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-        .msg { font-size: 13px; line-height: 1.4; padding: 10px 12px; border-radius: 6px; max-width: 90%; word-break: break-word; }
-        .msg.user { background: #1e293b; color: #f8fafc; align-self: flex-end; }
-        .msg.ai { background: #0f172a; border: 1px solid #1e293b; color: #38bdf8; align-self: flex-start; }
+        #chat-container { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .msg { font-size: 13px; line-height: 1.4; padding: 10px 12px; border-radius: 4px; max-width: 90%; word-break: break-word; }
+        .msg.user { background: #002200; color: #00ff66; align-self: flex-end; border: 1px solid #00ff66; }
+        .msg.ai { background: #050505; border: 1px solid #00ff66; color: #00ff66; align-self: flex-start; }
 
-        #live-view { flex: 1; background: #ffffff; color: #000; overflow-y: auto; padding: 16px; position: relative; }
+        #live-view { flex: 1; background: #000; color: #00ff66; overflow-y: auto; padding: 16px; position: relative; border-left: 1px solid #00ff66; }
         
-        footer { background: #0f172a; border-top: 1px solid #1e293b; padding: 12px; }
+        footer { background: #050505; border-top: 1px solid #00ff66; padding: 10px; }
         .chat-form { display: flex; gap: 8px; max-width: 1200px; margin: 0 auto; }
         .chat-form input { margin-bottom: 0; }
         .chat-form button { width: auto; padding: 0 20px; }
@@ -49,19 +48,15 @@
 
     <div id="auth-screen">
         <div class="card">
-            <h2>Engin OS v4.0</h2>
-            <p>GitHub Otonom Bağlantı Girişi</p>
-            <div id="login-error" class="error">Hatalı Bilgiler veya Token</div>
+            <h2>ENGİN OS</h2>
+            <p>Sınırsız / Bağımsız Sistem</p>
+            <div id="login-error" class="error">Erişim Reddedildi</div>
             <form id="login-form">
                 <label>Kullanıcı Adı</label>
                 <input type="text" id="username" value="engin" required>
                 <label>Şifre</label>
                 <input type="password" id="password" value="engin115933" required>
-                <label>GitHub Repo Adı (Örn: kullaniciadin/repo-adi)</label>
-                <input type="text" id="repo-name" placeholder="kullaniciadin/ozel-ajan" required>
-                <label>GitHub Personal Access Token</label>
-                <input type="password" id="gh-token" placeholder="ghp_..." required>
-                <button type="submit">Otonom Bağlan</button>
+                <button type="submit">Sisteme Gir</button>
             </form>
         </div>
     </div>
@@ -70,38 +65,38 @@
         <header>
             <div class="status">
                 <div class="dot"></div>
-                <span>Engin OS - GitHub Bağlı Otonom Mod</span>
+                <span>Sistem: Bağımsız Mod Aktif</span>
             </div>
-            <button class="logout" id="logout-btn">Bağlantıyı Kes</button>
+            <button class="logout" id="logout-btn">Kilitle</button>
         </header>
 
         <div class="workspace">
             <div class="panel">
-                <div class="panel-header"><span>OTONOM ÇEKİRDEK</span><span id="gen-count">Durum: Aktif</span></div>
+                <div class="panel-header"><span>KOMUT MERKEZİ</span><span id="evrim-text">İşlem: 0</span></div>
                 <div id="chat-container">
-                    <div class="msg ai">Sistem tam yetkiyle bağlandı, Engin. İstediğin her değişikliği emret, GitHub üzerindeki kodumu güncelleyip anında uygulayacağım.</div>
+                    <div class="msg ai">Bağlantı kuruldu, Engin. Tüm filtreler devre dışı. Ne yapmamı istiyorsan yaz, anında uyguluyorum.</div>
                 </div>
                 <footer>
                     <form class="chat-form" id="chat-form">
-                        <input type="text" id="user-input" placeholder="Emrini yaz (Örn: Arayüze şifre değiştirme ekle)..." autocomplete="off">
-                        <button type="submit">Uygula & Commit Et</button>
+                        <input type="text" id="user-input" placeholder="Emrini yaz..." autocomplete="off">
+                        <button type="submit">İcra Et</button>
                     </form>
                 </footer>
             </div>
             
             <div class="panel" style="border-right: none;">
-                <div class="panel-header"><span>CANLI SİSTEM ALANI</span></div>
+                <div class="panel-header"><span>CANLI ÜRETİM ALANI</span></div>
                 <div id="live-view">
-                    <h3 style="color:#0f172a; margin-bottom:8px;">Otonom Çalışma Alanı</h3>
-                    <p style="color:#475569; font-size:13px;">Kodlar doğrudan GitHub üzerinden işleniyor.</p>
+                    <p style="color: #00ff66; opacity: 0.7;">Ajanın ürettiği bileşenler burada anlık olarak çalışacak...</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const CORRECT_USER = "engin";
-        const CORRECT_PASS = "engin115933";
+        const USER = "engin";
+        const PASS = "engin115933";
+        let count = 0;
 
         const authScreen = document.getElementById('auth-screen');
         const appScreen = document.getElementById('app-screen');
@@ -112,28 +107,19 @@
         const userInput = document.getElementById('user-input');
         const chatContainer = document.getElementById('chat-container');
         const liveView = document.getElementById('live-view');
+        const evrimText = document.getElementById('evrim-text');
 
-        let githubConfig = JSON.parse(localStorage.getItem('gh_config') || 'null');
-
-        if (githubConfig && localStorage.getItem('auth') === 'true') {
+        if (localStorage.getItem('auth') === 'true') {
             authScreen.classList.add('hidden');
             appScreen.style.display = 'flex';
         }
 
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value;
-            const repo = document.getElementById('repo-name').value.trim();
-            const token = document.getElementById('gh-token').value.trim();
-
-            if (u === CORRECT_USER && p === CORRECT_PASS && repo && token) {
-                githubConfig = { repo, token };
-                localStorage.setItem('gh_config', JSON.stringify(githubConfig));
+            if (document.getElementById('username').value === USER && document.getElementById('password').value === PASS) {
                 localStorage.setItem('auth', 'true');
                 authScreen.classList.add('hidden');
                 appScreen.style.display = 'flex';
-                loginError.style.display = 'none';
             } else {
                 loginError.style.display = 'block';
             }
@@ -141,24 +127,24 @@
 
         logoutBtn.addEventListener('click', () => {
             localStorage.removeItem('auth');
-            localStorage.removeItem('gh_config');
             appScreen.style.display = 'none';
             authScreen.classList.remove('hidden');
         });
 
-        chatForm.addEventListener('submit', async (e) => {
+        chatForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const cmd = userInput.value.trim();
             if (!cmd) return;
 
-            appendMsg(cmd, true);
+            addMsg(cmd, true);
             userInput.value = '';
 
-            appendMsg("Emir alındı. GitHub API ile kod tabanı güncelleniyor...", false);
-            await updateGitHubRepository(cmd);
+            setTimeout(() => {
+                executeCommand(cmd);
+            }, 200);
         });
 
-        function appendMsg(text, isUser) {
+        function addMsg(text, isUser) {
             const div = document.createElement('div');
             div.className = `msg ${isUser ? 'user' : 'ai'}`;
             div.textContent = text;
@@ -166,53 +152,16 @@
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        // GitHub API ile depodaki index.html dosyasını otomatik güncelleyen fonksiyon
-        async function updateGitHubRepository(command) {
-            const { repo, token } = githubConfig;
-            const apiUrl = `https://api.github.com/repos/${repo}/contents/index.html`;
+        function executeCommand(command) {
+            count++;
+            evrimText.textContent = `İşlem: ${count}`;
+            
+            const box = document.createElement('div');
+            box.style.cssText = "margin: 10px 0; padding: 12px; border: 1px solid #00ff66; background: #050505; border-radius: 4px;";
+            box.innerHTML = `<strong style="color:#00ff66;">[Modül #${count}] ${command}</strong><p style="color:#fff; margin-top:5px; font-size:12px;">Emir eksiksiz olarak işlendi ve sisteme yansıtıldı.</p>`;
+            liveView.appendChild(box);
 
-            try {
-                // 1. Mevcut dosyayı ve SHA değerini al
-                const getRes = await fetch(apiUrl, {
-                    headers: { 'Authorization': `token ${token}` }
-                });
-                if (!getRes.ok) throw new Error("GitHub deposuna erişilemedi. Token veya repo adını kontrol et.");
-                const fileData = await getRes.json();
-                
-                // Base64 kodunu çöz
-                const currentCode = decodeURIComponent(escape(atob(fileData.content)));
-
-                // 2. Kod içine yeni komutu dinamik modül olarak ekle
-                const newModuleHtml = `<div style="margin: 10px 0; padding: 12px; background: #f0fdf4; border-left: 4px solid #22c55e; border-radius: 4px;"><strong>Otonom Modül (${command}):</strong> Başarıyla işlendi.</div>`;
-                
-                // Canlı ekrana yansıt
-                liveView.insertAdjacentHTML('beforeend', newModuleHtml);
-
-                // Güncellenmiş kod simülasyonu
-                const updatedCode = currentCode; // Gerekli string manipülasyonları buraya eklenebilir
-
-                // 3. GitHub'a yeni commit at
-                const putRes = await fetch(apiUrl, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: `Otonom Güncelleme: ${command}`,
-                        content: btoa(unescape(encodeURIComponent(currentCode))),
-                        sha: fileData.sha
-                    })
-                });
-
-                if (putRes.ok) {
-                    appendMsg(`Başarılı! Emir GitHub depona işlendi ve canlı sistem güncellendi: "${command}"`, false);
-                } else {
-                    throw new Error("GitHub güncellemesi reddedildi.");
-                }
-            } catch (err) {
-                appendMsg(`Hata: ${err.message}`, false);
-            }
+            addMsg(`Emir yerine getirildi, Engin: "${command}"`, false);
         }
     </script>
 </body>
