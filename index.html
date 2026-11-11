@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GANA OS - Nihai Entegre Çekirdek</title>
+    <title>GANA OS - Google Entegre Arama Çekirdeği</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         body { background-color: #030712; color: #00ffcc; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
@@ -59,8 +59,8 @@
     <div id="auth-screen">
         <div class="auth-card">
             <h2>GANA OS</h2>
-            <p>Nihai Entegre Çekirdek</p>
-            <div id="login-error" class="error-msg">Erişim Reddedildi: Sadece Engin</div>
+            <p>Google Entegre Arama Çekirdeği</p>
+            <div id="login-error" class="error-msg">Hatalı Kimlik Bilgileri</div>
             <form id="login-form">
                 <div class="form-group">
                     <label>Kullanıcı Adı</label>
@@ -80,7 +80,7 @@
         <header>
             <div class="brand">
                 <div class="status-dot"></div>
-                <span>GANA OS v13.0 (Aktif & Entegre)</span>
+                <span>GANA OS (Google Arama Modu)</span>
             </div>
             <button class="logout-btn" id="logout-btn">Çıkış</button>
         </header>
@@ -88,24 +88,24 @@
         <div class="workspace">
             <div class="panel">
                 <div class="panel-header">
-                    <span>Komut & Araştırma Merkezi</span>
-                    <span id="sys-status">Durum: Hazır</span>
+                    <span>Arama & Komut Merkezi</span>
+                    <span id="sys-status">Durum: Aktif</span>
                 </div>
                 <div id="chat-container">
-                    <div class="msg ai">Kimlik doğrulandı, Engin. GANA v13.0 tam yetkiyle devreye alındı. İstediğin konuyu araştırmak veya komut çalıştırmak için yazmaya başla.</div>
+                    <div class="msg ai">Kimlik doğrulandı, Engin. Google arama motoru entegrasyonu aktif edildi. Aramak istediğin kelimeyi veya komutu yaz.</div>
                 </div>
                 <footer>
                     <form class="chat-form" id="chat-form">
-                        <input type="text" id="user-input" placeholder="Google'da araştırılacak veya yapılacak emri yaz..." autocomplete="off">
-                        <button type="submit">İcra Et</button>
+                        <input type="text" id="user-input" placeholder="Google'da aranacak kelimeyi yaz..." autocomplete="off">
+                        <button type="submit">Ara / İcra Et</button>
                     </form>
                 </footer>
             </div>
             
             <div class="panel" style="border-right: none;">
-                <div class="panel-header"><span>Canlı Google Araştırma & Veri Paneli</span></div>
+                <div class="panel-header"><span>Canlı Google Sonuç Paneli</span></div>
                 <div id="live-view">
-                    <p style="color: #5a7a90; font-size: 12px;">Google arama sonuçları ve otonom analiz raporları burada anlık olarak belirecek...</p>
+                    <p style="color: #5a7a90; font-size: 12px;">Google arama modülleri burada listelenecek...</p>
                 </div>
             </div>
         </div>
@@ -114,7 +114,7 @@
     <script>
         const CORRECT_USER = "engin";
         const CORRECT_PASS = "engin115933";
-        let queryCount = 0;
+        let searchCount = 0;
 
         const authScreen = document.getElementById('auth-screen');
         const appScreen = document.getElementById('app-screen');
@@ -127,7 +127,7 @@
         const liveView = document.getElementById('live-view');
         const sysStatus = document.getElementById('sys-status');
 
-        if (localStorage.getItem('gana_v13_auth') === 'true') {
+        if (localStorage.getItem('gana_google_auth') === 'true') {
             authScreen.classList.add('hidden');
             appScreen.style.display = 'flex';
         }
@@ -138,7 +138,7 @@
             const p = document.getElementById('password').value.trim();
 
             if (u === CORRECT_USER && p === CORRECT_PASS) {
-                localStorage.setItem('gana_v13_auth', 'true');
+                localStorage.setItem('gana_google_auth', 'true');
                 authScreen.classList.add('hidden');
                 appScreen.style.display = 'flex';
                 loginError.style.display = 'none';
@@ -149,7 +149,7 @@
         });
 
         logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('gana_v13_auth');
+            localStorage.removeItem('gana_google_auth');
             appScreen.style.display = 'none';
             authScreen.classList.remove('hidden');
             document.getElementById('username').value = '';
@@ -158,17 +158,17 @@
 
         chatForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const command = userInput.value.trim();
-            if (!command) return;
+            const query = userInput.value.trim();
+            if (!query) return;
 
-            appendMessage(command, true);
+            appendMessage(query, true);
             userInput.value = '';
 
-            queryCount++;
-            sysStatus.textContent = `İşlem #${queryCount}: İnceleniyor`;
+            searchCount++;
+            sysStatus.textContent = `Arama #${searchCount}: Bağlanıyor`;
 
             setTimeout(() => {
-                executeLiveEngine(command);
+                executeGoogleSearch(query);
             }, 300);
         });
 
@@ -180,25 +180,23 @@
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        function executeLiveEngine(cmd) {
-            sysStatus.textContent = "Durum: Hazır";
-            const encoded = encodeURIComponent(cmd);
-            const googleUrl = `https://www.google.com/search?q=${encoded}`;
+        function executeGoogleSearch(q) {
+            sysStatus.textContent = "Durum: Tamamlandı";
+            const encodedQuery = encodeURIComponent(q);
+            const searchUrl = `https://www.google.com/search?q=${encodedQuery}`;
 
             const box = document.createElement('div');
             box.style.cssText = "margin: 10px 0; padding: 14px; border: 1px solid #00ffcc; background: #080f1a; border-radius: 8px; color: #fff;";
             
             box.innerHTML = `
-                <strong style="color:#00ffcc; display:block; margin-bottom:6px;">[GANA Canlı Araştırma Raporu #${queryCount}]</strong>
-                <p style="font-size:13px; margin-bottom:10px;">"${cmd}" sorgusu için küresel veri ağları taranmış, güncel açık kaynak kodları ve web indeksleri analiz edilmiştir.</p>
-                <div style="display: flex; gap: 8px;">
-                    <a href="${googleUrl}" target="_blank" style="background:#00ffcc; color:#030712; padding:6px 12px; text-decoration:none; font-weight:bold; border-radius:4px; font-size:11px;">Google Üzerinde Derinlemesine İncele ↗</a>
-                </div>
+                <strong style="color:#00ffcc; display:block; margin-bottom:6px;">[Google Arama Modülü #${searchCount}]</strong>
+                <p style="font-size:13px; margin-bottom:10px;">"${q}" için küresel Google veritabanı tarama protokolü tetiklendi.</p>
+                <a href="${searchUrl}" target="_blank" style="display:inline-block; background:#00ffcc; color:#030712; padding:8px 14px; border-radius:6px; text-decoration:none; font-weight:bold; font-size:12px;">Google'da Canlı Aç ↗</a>
             `;
 
             liveView.appendChild(box);
             liveView.scrollTop = liveView.scrollHeight;
-            appendMessage(`Araştırma tamamlandı ve sonuçlar canlı panele işlendi, Engin.`, false);
+            appendMessage(`Google arama köprüsü oluşturuldu, Engin. Canlı sonuç butonuna tıklayarak doğrudan Google'da inceleyebilirsin.`, false);
         }
     </script>
 </body>
